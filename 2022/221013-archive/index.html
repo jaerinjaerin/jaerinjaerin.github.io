@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="프론트엔드 개발자를 꿈꾸는 코시생 이잴잴의 공부 기록입니다. Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>크레인 인형뽑기 [2019 카카오 개발자 겨울 인턴십] | 코시생 이잴의 개발로그</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            커넥투 코시생 이잴의 개발로그🐾
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/JavaScript/">
+                            JavaScript
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                크레인 인형뽑기 [2019 카카오 개발자 겨울 인턴십]
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 13, 2022
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>게임개발자인 죠르디는 크레인 인형뽑기 기계를 모바일 게임으로 만들려고 합니다.<br>죠르디는 게임의 재미를 높이기 위해 화면 구성과 규칙을 다음과 같이 게임 로직에 반영하려고 합니다.</p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/69f1cd36-09f4-4435-8363-b71a650f7448/crane_game_101.png" alt="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/69f1cd36-09f4-4435-8363-b71a650f7448/crane_game_101.png"></p>
+<p>게임 화면은 1 x 1 크기의 칸들로 이루어진 N x N 크기의 정사각 격자이며 위쪽에는 크레인이 있고 오른쪽에는 바구니가 있습니다. (위 그림은 5 x 5 크기의 예시입니다). 각 격자 칸에는 다양한 인형이 들어 있으며 인형이 없는 칸은 빈칸입니다.</p>
+<p>모든 인형은 1 x 1 크기의 격자 한 칸을 차지하며 격자의 가장 아래 칸부터 차곡차곡 쌓여 있습니다. 게임 사용자는 크레인을 좌우로 움직여서 멈춘 위치에서 가장 위에 있는 인형을 집어 올릴 수 있습니다. 집어 올린 인형은 바구니에 쌓이게 되는 데, 이때 바구니의 가장 아래 칸부터 인형이 순서대로 쌓이게 됩니다.</p>
+<p>다음 그림은 [1번, 5번, 3번] 위치에서 순서대로 인형을 집어 올려 바구니에 담은 모습입니다.</p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/638e2162-b1e4-4bbb-b0d7-62d31e97d75c/crane_game_102.png" alt="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/638e2162-b1e4-4bbb-b0d7-62d31e97d75c/crane_game_102.png"></p>
+<p>만약 같은 모양의 인형 두 개가 바구니에 연속해서 쌓이게 되면 두 인형은 터뜨려지면서 바구니에서 사라지게 됩니다. 위 상태에서 이어서 [5번] 위치에서 인형을 집어 바구니에 쌓으면 같은 모양 인형 두 개가 없어집니다.</p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8569d736-091e-4771-b2d3-7a6e95a20c22/crane_game_103.gif" alt="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8569d736-091e-4771-b2d3-7a6e95a20c22/crane_game_103.gif"></p>
+<p>크레인 작동 시 인형이 집어지지 않는 경우는 없으나 만약 인형이 없는 곳에서 크레인을 작동 시키는 경우에는 아무런 일도 일어나지 않습니다. 또한 바구니는 모든 인형이 들어갈 수 있을 만큼 충분히 크다고 가정합니다. (그림에서는 화면표시 제약으로 5칸만으로 표현하였음)</p>
+<p>게임 화면의 격자의 상태가 담긴 2차원 배열 board와 인형을 집기 위해 크레인을 작동시킨 위치가 담긴 배열 moves가 매개변수로 주어질 때, 크레인을 모두 작동시킨 후 터트려져 사라진 인형의 개수를 return 하도록 solution 함수를 완성해주세요.</p>
+<h2 id="제한-사항"><a href="#제한-사항" class="headerlink" title="제한 사항"></a>제한 사항</h2><p>board 배열은 2차원 배열로 크기는 5 x 5 이상 30 x 30 이하입니다.</p>
+<p>board의 각 칸에는 0 이상 100 이하인 정수가 담겨있습니다.</p>
+<p>0은 빈 칸을 나타냅니다.</p>
+<p>1 ~ 100의 각 숫자는 각기 다른 인형의 모양을 의미하며 같은 숫자는 같은 모양의 인형을 나<br>타냅니다.</p>
+<p>moves 배열의 크기는 1 이상 1,000 이하입니다.</p>
+<p>moves 배열 각 원소들의 값은 1 이상이며 board 배열의 가로 크기 이하인 자연수입니다.</p>
+<h2 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h2><p>▣ 입력예제 1</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">4</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>]] <span class="comment">//board 배열</span></span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>] <span class="comment">//moves 배열</span></span><br></pre></td></tr></table></figure>
+
+<p>▣ 출력예제 1</p>
+<p>4</p>
+<hr>
+<h3 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h3><p>문제를 해결하기 위해 어떤 방법을 사용해야하는지 생각해보자 :)</p>
+<ol>
+<li>인형을 스택이라는 바구니에 넣어야 한다. ➡️ 배열 생성</li>
+<li>moves 배열을 하나씩 순회해야한다. ➡️ forEach 메서드</li>
+<li>위치 1에 해당하는 board의 인덱스는 0이다.<ol>
+<li>board 배열의 형태는 2차원 배열이며 위치 1에 해당하는 요소를 탐색하기 위해선</li>
+<li>[0][1], [1][1], [2][1] 의 형태로 반복을 해야한다. ➡️ for문 [i][1]</li>
+</ol>
+</li>
+<li>반복문으로 탐색을 하다가 값이 0이 아닌 요소를 만나면 인형을 꺼내야한다.</li>
+<li>인형을 꺼냈다면 해당 위치의 배열 요소는 0으로 만들어줘야 한다.</li>
+<li>꺼낸 인형을 스택에 push하자. 그 전에 체크를 해야하는데,<ol>
+<li>만약 스택에 담겨있는 마지막 인형이 넣을 인형과 동일하다면? → push가 아니라 pop을 하면 된다. 그리고 answer +&#x3D; 2</li>
+<li>동일하지 않다면? → 그 때 push하기</li>
+</ol>
+</li>
+<li>터진 인형의 갯수를 구하는 문제이기 때문에 answer를 반환하면 된다.</li>
+</ol>
+<h3 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">board, moves</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  moves.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; board.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      <span class="comment">// 순회하는 요소가 0이 아닐때만 stack에 값을 push할 수 있다.</span></span><br><span class="line">      <span class="keyword">if</span> (board[i][item - <span class="number">1</span>] !== <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// stack에 넣을 값을 임시 저장해놓기 (인형 꺼내기)</span></span><br><span class="line">        <span class="keyword">let</span> tmp = board[i][item - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 값을 선택했으니, 배열의 원소는 0으로 설정해놓기</span></span><br><span class="line">        board[i][item - <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// stack에 push 하기 전에 먼저 체크</span></span><br><span class="line">        <span class="comment">// 1. 만약 tmp가 stack의 가장 마지막 요소와 같으면 pop하고 answer += 2</span></span><br><span class="line">        <span class="comment">// 2. tmp가 stack의 가장 마지막 요소와 일치하지 않으면 stack.push(tmp)</span></span><br><span class="line">        <span class="keyword">if</span> (tmp === stack[stack.<span class="property">length</span> - <span class="number">1</span>]) &#123;</span><br><span class="line">          stack.<span class="title function_">pop</span>();</span><br><span class="line">          answer += <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> stack.<span class="title function_">push</span>(tmp);</span><br><span class="line">        <span class="comment">// 해당 포지션에선 작업을 끝냈기 때문에 for문에서 탈출</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">  <span class="title function_">solution</span>(</span><br><span class="line">    [</span><br><span class="line">      [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">      [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">      [<span class="number">0</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">      [<span class="number">4</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">      [<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>],</span><br><span class="line">    ],</span><br><span class="line">    [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">4</span>]</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>stack을 구현하고 배열을 하는 부분까지는 이제 어렵지 않다. 하지만 어느 시점에서 어떻게 자료를 빼낼건지에 대해서는 계속 공부를 하면서 익숙해져야할 것 같다…😢</p>
+<p>예전엔 건들지도 못했던 내 자신과 비교하면 그래도 많이 늘었다! 게속 열심히 공부해보즈앗</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2022/221012-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2022/221013-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2022/221013-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
