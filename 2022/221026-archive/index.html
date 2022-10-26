@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="프론트엔드 개발자를 꿈꾸는 코시생 이잴잴의 공부 기록입니다. Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>연산자 | 코시생 이잴의 개발로그</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            커넥투 코시생 이잴의 개발로그🐾
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/JavaScript/">
+                            JavaScript
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/DeepDive/">
+                            DeepDive
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                연산자
+            
+            
+        </div>
+        <span class="post-date">
+            Oct 26, 2022
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbyRhHO%2FbtrfuKPgIe2%2FJxtKfFi1LjfsW0meKbckvK%2Fimg.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h3 id="✅-연산자"><a href="#✅-연산자" class="headerlink" title="✅ 연산자"></a>✅ 연산자</h3><p>: <strong>하나 이상의 표현식</strong>을 대상으로 산술, 할당, 비교, 논리, 차입, 지수 연산 등을 수행해 하나의 값을 만든다.</p>
+<ul>
+<li>이때 연산의 대상을 <strong>피연산자</strong>라 한다.</li>
+<li>피연산자는 값으로 평가될 수 있는 표현식이어야 한다.</li>
+</ul>
+<p>➡️ 그리고 피연산자와 연산자의 조합으로 이뤄진 연산자 표현식도 값으로 평가될 수 있는 표현식이다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 산술 연산자</span></span><br><span class="line"><span class="number">5</span> * <span class="number">4</span>; <span class="comment">// -&gt; 20</span></span><br><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">&#x27;My name is &#x27;</span> + <span class="string">&#x27;Lee&#x27;</span>; <span class="comment">// -&gt; &#x27;My name is Lee&#x27;</span></span><br><span class="line"><span class="comment">// 할당 연산자</span></span><br><span class="line">color = <span class="string">&#x27;red&#x27;</span>; <span class="comment">// -&gt; &#x27;red&#x27;</span></span><br><span class="line"><span class="comment">// 비교 연산자</span></span><br><span class="line"><span class="number">3</span> &gt; <span class="number">5</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="comment">// 논리 연산자</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="comment">// 타입 연산자</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;Hi&#x27;</span>; <span class="comment">// -&gt; string</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>피연산자 👉🏻 ”값”이라는 명사의 역할</li>
+<li>연산자 👉🏻 ”피연산자를 연산하여 새로운 값을 만든다”라는 동사의 역할</li>
+</ul>
+<p>➡️ 다시 말해, 피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 한다.</p>
+<h2 id="산술-연산자"><a href="#산술-연산자" class="headerlink" title="산술 연산자"></a>산술 연산자</h2><h3 id="✅-산술-연산자"><a href="#✅-산술-연산자" class="headerlink" title="✅ 산술 연산자"></a>✅ 산술 연산자</h3><p>: 피연산자를 대항으로 <strong>수학적 계산</strong>을 수행해 새로운 숫자 값을 만든다.</p>
+<ul>
+<li>산술 연산이 불가능한 경우 👉🏻 NaN를 반환한다.</li>
+</ul>
+<h3 id="1-이항-산술-연산자"><a href="#1-이항-산술-연산자" class="headerlink" title="1. 이항 산술 연산자"></a>1. <strong>이항 산술 연산자</strong></h3><p>: <strong>2개의 피연산자</strong>를 산술 연산하여 숫자 값을 만든다.</p>
+<ul>
+<li>부수효과 👉🏻 모든 이항 산술 연산자는 피연산자의 값을 변경하는 부수 효과(Side effect)가 <strong>없다.</strong></li>
+</ul>
+<p>➡️ 다시 말해, 어떤 산술 연산을 해도 피연산자의 값이 바뀌는 경우는 없고 단지 <strong>새로운 값을 만들 뿐이다.</strong></p>
+<table>
+<thead>
+<tr>
+<th>이항 산술 연산자</th>
+<th>의미</th>
+<th>부수효과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>덧셈</td>
+<td>X</td>
+</tr>
+<tr>
+<td>-</td>
+<td>뺄셈</td>
+<td>X</td>
+</tr>
+<tr>
+<td>*</td>
+<td>곱셈</td>
+<td>X</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>나눗셈</td>
+<td>X</td>
+</tr>
+<tr>
+<td>%</td>
+<td>나머지</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> + <span class="number">2</span>; <span class="comment">// -&gt; 7</span></span><br><span class="line"><span class="number">5</span> - <span class="number">2</span>; <span class="comment">// -&gt; 3</span></span><br><span class="line"><span class="number">5</span> * <span class="number">2</span>; <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="number">5</span> / <span class="number">2</span>; <span class="comment">// -&gt; 2.5</span></span><br><span class="line"><span class="number">5</span> % <span class="number">2</span>; <span class="comment">// -&gt; 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-단항-산술-연산자"><a href="#2-단항-산술-연산자" class="headerlink" title="2. 단항 산술 연산자"></a>2. <strong>단항 산술 연산자</strong></h3><p>: <strong>1개의 피연산자</strong>를 산술 연산하여 숫자 값을 만든다.</p>
+<table>
+<thead>
+<tr>
+<th>단항 산술 연산자</th>
+<th>의미</th>
+<th>부수 효과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>++</td>
+<td>증가</td>
+<td>O</td>
+</tr>
+<tr>
+<td>–</td>
+<td>감소</td>
+<td>O</td>
+</tr>
+<tr>
+<td>+</td>
+<td>어떠한 효과도 없다. 음수를 양수로 반전하지도 않는다.</td>
+<td>X</td>
+</tr>
+<tr>
+<td>-</td>
+<td>양수를 음수로, 음수를 양수로 반전한 값을 반환한다.</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<ul>
+<li>부수효과 👉🏻 주의할 점은 이항 산술 연산자와는 달리 증가&#x2F;감소 연산자는 피연산자의 <strong>값을 변경하는 부수효과가 있다</strong>는 것이다.</li>
+</ul>
+<p>➡️ 다시 말해, 증가&#x2F;감소 연산을 하면 피연산자의 값을 변경하는 <strong>암묵적 할당</strong>이 이뤄진다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ++ 연산자는 피연산자의 값을 변경하는 암묵적 할당이 이뤄진다.</span></span><br><span class="line">x++; <span class="comment">// x = x + 1;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// -- 연산자는 피연산자의 값을 변경하는 암묵적 할당이 이뤄진다.</span></span><br><span class="line">x--; <span class="comment">// x = x - 1;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>증가·감소 연산자는 변수에만 쓸 수 있다. <code>5++</code>와 같이 값에 사용하려고 하면 에러가 발생한다.<ul>
+<li><strong>증가 연산자</strong>: <code>++</code>는 변수를 1 증가시킴</li>
+<li><strong>감소 연산자:</strong> <code>--</code>는 변수를 1 감소시킴</li>
+</ul>
+</li>
+</ul>
+<p>🔥 <strong>증가·감소 연산자는 위치에 의미가 있다.</strong></p>
+<ul>
+<li><code>counter++</code>와 같이 피연산자 뒤에 올 때는, **’후위형(postfix form)’**이라고 부른다.</li>
+<li><code>++counter</code>와 같이 피연산자 앞에 올 때는, **’전위형(prefix form)’**이라고 부른다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">5</span>,</span><br><span class="line">  result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선할당 후증가(postfix increment operator)</span></span><br><span class="line">result = x++;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result, x); <span class="comment">// 5 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선증가 후할당(prefix increment operator)</span></span><br><span class="line">result = ++x;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result, x); <span class="comment">// 7 7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선할당 후감소(postfix decrement operator)</span></span><br><span class="line">result = x--;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result, x); <span class="comment">// 7 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선감소 후할당 (prefix decrement operator)</span></span><br><span class="line">result = --x;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result, x); <span class="comment">// 5 5</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>후위형과 전위형은 피연산자인 <code>**counter</code>를 <code>1</code>만큼 증가시켜 준다는 점**에서 동일한 역할을 한다.</li>
+<li>두 형의 차이는 <code>++/--</code>의 반환 값을 사용할 때 드러난다.<ul>
+<li>전위형은 증가·감소 후의 새로운 값을 반환하는 반면,</li>
+<li>후위형은 증가·감소 전의 기존 값을 반환한다.</li>
+</ul>
+</li>
+</ul>
+<p>🖥 <strong>+단항 연산자는 피연산자에 어떠한 효과도 없다.</strong></p>
+<ul>
+<li>양수를 음수로 반전하지도 않는다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 아무런 효과가 없다.</span></span><br><span class="line">+<span class="number">10</span>; <span class="comment">// -&gt; 10</span></span><br><span class="line">+-<span class="number">10</span>; <span class="comment">// -&gt; -10</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>숫자 타입이 아닌 +단항 연산자를 사용하면 👉🏻 피연산자를 <strong>숫자타입으로 변환</strong>하여 반환</li>
+</ul>
+<p>➡️ 따라서 피연산자를 변경하는 것이 아니라 숫자 타입으로 변환한 값을 생성해서 반환한다. <strong>(부수효과 X)</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열을 숫자로 타입 변환한다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(+x); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 부수 효과는 없다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// &quot;1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 불리언 값을 숫자로 타입 변환한다.</span></span><br><span class="line">x = <span class="literal">true</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(+x); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 부수 효과는 없다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 불리언 값을 숫자로 타입 변환한다.</span></span><br><span class="line">x = <span class="literal">false</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(+x); <span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 부수 효과는 없다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열을 숫자로 타입 변환할 수 없으므로 NaN을 반환한다.</span></span><br><span class="line">x = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(+x); <span class="comment">// NaN</span></span><br><span class="line"><span class="comment">// 부수 효과는 없다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// &quot;Hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>🖥 -<strong>단항 연산자는 피연산자의 부호를 반전한 값을 반환한다.</strong></p>
+<ul>
+<li>+단항 연산자와 마찬가지로 <strong>숫자 타입이 아닌 피연산자</strong>에 사용하면? 👉🏻 피연산자를 숫자 타입으로 변환하여 반환한다.</li>
+<li>이때 피연산자를 변경하는것이 아니고 부호를 생성해 반전한 값을 생성한다. ➡️ 부수효과X</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 부호를 반전한다.</span></span><br><span class="line">-(-<span class="number">10</span>); <span class="comment">// -&gt; 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열을 숫자로 타입 변환한다.</span></span><br><span class="line">-<span class="string">&#x27;10&#x27;</span>; <span class="comment">// -&gt; -10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 불리언 값을 숫자로 타입 변환한다.</span></span><br><span class="line">-<span class="literal">true</span>; <span class="comment">// -&gt; -1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열은 숫자로 타입 변환할 수 없으므로 NaN을 반환한다.</span></span><br><span class="line">-<span class="string">&#x27;Hello&#x27;</span>; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-문자열-연결-연산자"><a href="#3-문자열-연결-연산자" class="headerlink" title="3. 문자열 연결 연산자"></a>3. 문자열 연결 연산자</h3><p>: +연산자는 피연산자 중 <strong>하나 이상이 문자열인 경우</strong> 문자열 연결 연산자로 동작한다.</p>
+<p>그 외의 경우는 산술 연산자로 동작한다.</p>
+<p>🙌🏻 다음 예제를 살펴보자</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">&#x27;1&#x27;</span> + <span class="number">2</span>; <span class="comment">// -&gt; &#x27;12&#x27;</span></span><br><span class="line"><span class="number">1</span> + <span class="string">&#x27;2&#x27;</span>; <span class="comment">// -&gt; &#x27;12&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 산술 연산자</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span>; <span class="comment">// -&gt; 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true는 1로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// -&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// false는 0으로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">false</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// null은 0으로 타입 변환된다.</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">null</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined는 숫자로 타입 변환되지 않는다.</span></span><br><span class="line">+<span class="literal">undefined</span>; <span class="comment">// -&gt; NaN</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">undefined</span>; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>💡 <strong>주목할 것은 개발자의 의도와는 상관없이 자바스크립트 엔진에 의해 암묵적으로 타입이 자동변환 되기도 한다는 것이다.</strong></p>
+<ul>
+<li>위 예제에서 1 + true를 연산하면 👉🏻 자바스크립트 엔진은 암묵적으로 불리언 타입의 값이 true를 숫자 타입인 1로 변환 후 연산을 수행한다.</li>
+</ul>
+<p>➡️ <strong>암묵적 타입 변환(implicit coercion) &#x2F; 타입 강제 변환(type coercion)</strong></p>
+<h2 id="할당-연산자"><a href="#할당-연산자" class="headerlink" title="할당 연산자"></a>할당 연산자</h2><h3 id="할당-연산자-1"><a href="#할당-연산자-1" class="headerlink" title="할당 연산자"></a>할당 연산자</h3><p>: 우항에 있는 피연산자의 평가 결과를 <strong>좌항의 변수</strong>에 할당한다.</p>
+<ul>
+<li>할당 연산자는 좌항의 변수 값을 할당하므로 변수 값이 변하는 <strong>부수 효과가 있다.</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>할당 연산자</th>
+<th>사례</th>
+<th>동일 표현</th>
+<th>부수 효과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>x &#x3D; y</td>
+<td>x &#x3D; y</td>
+<td>O</td>
+</tr>
+<tr>
+<td>+&#x3D;</td>
+<td>x +&#x3D; y</td>
+<td>x &#x3D; x + y</td>
+<td>O</td>
+</tr>
+<tr>
+<td>-&#x3D;</td>
+<td>x -&#x3D; y</td>
+<td>x &#x3D; x - y</td>
+<td>O</td>
+</tr>
+<tr>
+<td>*&#x3D;</td>
+<td>x *&#x3D; y</td>
+<td>x &#x3D; x * y</td>
+<td>O</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td>x &#x2F;&#x3D; y</td>
+<td>x &#x3D; x &#x2F; y</td>
+<td>O</td>
+</tr>
+<tr>
+<td>%&#x3D;</td>
+<td>x %&#x3D; y</td>
+<td>x &#x3D; x % y</td>
+<td>O</td>
+</tr>
+</tbody></table>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">x += <span class="number">5</span>; <span class="comment">// x = x + 5;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 15</span></span><br><span class="line"></span><br><span class="line">x -= <span class="number">5</span>; <span class="comment">// x = x - 5;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">x *= <span class="number">5</span>; <span class="comment">// x = x * 5;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 50</span></span><br><span class="line"></span><br><span class="line">x /= <span class="number">5</span>; <span class="comment">// x = x / 5;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">x %= <span class="number">5</span>; <span class="comment">// x = x % 5;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;My name is &#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line">str += <span class="string">&#x27;Lee&#x27;</span>; <span class="comment">// str = str + &#x27;Lee&#x27;;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str); <span class="comment">// &#x27;My name is Lee&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>✅ 표현식</strong></p>
+<p>: 값으로 평가될 수 있는 문</p>
+<p><strong>✅ 문</strong></p>
+<p>: 표현식이 문과 표현식이 아닌문</p>
+<p><strong>🤔 그렇다면 할당문은 표현식인 문일까? 표현식이 아닌 문일까?</strong></p>
+<p>🙌🏻 다음 예제를 살펴보자</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 할당문은 표현식인 문이다.</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>((x = <span class="number">10</span>)); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>할당문 👉🏻 변수에 값을 할당하는 부수 효과만 있을 뿐 값으로 평가되지 않을 것처럼 보인다.</li>
+<li><strong>하지만 할당문은 값으로 평가되는 표현식인 문으로서 할당된 값으로 평가된다.</strong></li>
+<li>위 예제의 x&#x3D;10은 x에 할당된 숫자 값 10으로 평가된다.</li>
+</ul>
+<p>🔥 <strong>할당문을 다른 변수에 할당할 수도 있다. ➡️ 연쇄 할당</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b, c;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 연쇄 할당. 오른쪽에서 왼쪽으로 진행.</span></span><br><span class="line"><span class="comment">// ① c = 0 : 0으로 평가된다</span></span><br><span class="line"><span class="comment">// ② b = 0 : 0으로 평가된다</span></span><br><span class="line"><span class="comment">// ③ a = 0 : 0으로 평가된다</span></span><br><span class="line">a = b = c = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c); <span class="comment">// 0 0 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="비교-연산자"><a href="#비교-연산자" class="headerlink" title="비교 연산자"></a>비교 연산자</h2><h3 id="✅-비교-연산자"><a href="#✅-비교-연산자" class="headerlink" title="✅ 비교 연산자"></a>✅ 비교 연산자</h3><p>: 좌항과 우항의 피연산자를 비교한 다음 그 결과를 <strong>불리언 값</strong>으로 반환</p>
+<ul>
+<li>비교 연산자는 if문이나 for문과 같은 <strong>제어문의 조건식</strong>에서 주로 사용된다.</li>
+</ul>
+<h3 id="1-동등-x2F-일치-비교-연산자"><a href="#1-동등-x2F-일치-비교-연산자" class="headerlink" title="1. 동등&#x2F;일치 비교 연산자"></a>1. 동등&#x2F;일치 비교 연산자</h3><ul>
+<li>동등 비교 연산자와 일치 비교 연산자 <strong>공통점</strong> 👉🏻 같은 값으로 평가되는지 비교하여 불리언 값을 반환한다.</li>
+<li>동등 비교 연산자와 일치 비교 연산자 <strong>차이점</strong> 👉🏻 비교하는 엄격성의 정도가 다르다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>비교 연산자</th>
+<th>의미</th>
+<th>사례</th>
+<th>설명</th>
+<th>부수 효과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;&#x3D;</td>
+<td>동등 비교</td>
+<td>x &#x3D;&#x3D; y</td>
+<td>x와 y의 값이 같음</td>
+<td>X</td>
+</tr>
+<tr>
+<td>&#x3D;&#x3D;&#x3D;</td>
+<td>일치 비교</td>
+<td>x &#x3D;&#x3D;&#x3D; y</td>
+<td>x와 y의 값과 타입이 같음</td>
+<td>X</td>
+</tr>
+<tr>
+<td>!&#x3D;</td>
+<td>부동등 비교</td>
+<td>x !&#x3D; y</td>
+<td>x와 y의 값이 다름</td>
+<td>X</td>
+</tr>
+<tr>
+<td>!&#x3D;&#x3D;</td>
+<td>불일치 비교</td>
+<td>x !&#x3D;&#x3D; y</td>
+<td>x와 y의 값과 타입이 다름</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<p>🖥 <strong>동등 비교 연산자</strong></p>
+<p>: 좌항과 우항의 피연산자를 비교할 때 <strong>암묵적 타입 변환을 통해 타입을 일치시킨 후</strong> 같은 값인지 비교한다.</p>
+<ul>
+<li>동등 비교 연산자는 좌항과 우항의 피연산자가 타입은 다르더라도 암묵적 타입 변환 후에 같은 값일 수 있다면 true를 반환한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 동등 비교</span></span><br><span class="line"><span class="number">5</span> == <span class="number">5</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 타입은 다르지만 암묵적 타입 변환을 통해 타입을 일치시키면 동등하다.</span></span><br><span class="line"><span class="number">5</span> == <span class="string">&#x27;5&#x27;</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>동등 비교 연산자는 편리한 경우도 있지만 결과를 예측하기 어렵고 실수하기 쉽다.</li>
+</ul>
+<p>➡️ 동등 비교 연산자는 예측하기 어려운 결과를 만들어 낸다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 동등 비교. 결과를 예측하기 어렵다.</span></span><br><span class="line"><span class="string">&#x27;0&#x27;</span> == <span class="string">&#x27;&#x27;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="number">0</span> == <span class="string">&#x27;&#x27;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">0</span> == <span class="string">&#x27;0&#x27;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> == <span class="string">&#x27;false&#x27;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> == <span class="string">&#x27;0&#x27;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> == <span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> == <span class="literal">undefined</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<p>🖥 <strong>일치 비교 연산자</strong></p>
+<p>: 좌항과 우항의 피연산자가 <strong>타입도 같고 값도 같은 경우</strong> true를 반환한다.</p>
+<ul>
+<li>암묵적 타입을 변환하지 않고 값을 비교한다. 👉🏻 일치 비교 연산자는 예측하기 쉽다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 일치 비교</span></span><br><span class="line"><span class="number">5</span> === <span class="number">5</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 암묵적 타입 변환을 하지 않고 값을 비교한다.</span></span><br><span class="line"><span class="comment">// 즉, 값과 타입이 모두 같은 경우만 true를 반환한다.</span></span><br><span class="line"><span class="number">5</span> === <span class="string">&#x27;5&#x27;</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<p>🔥 <strong>일치 비교 연산자에서 주의해야 할 것은 NaN이다.</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// NaN은 자신과 일치하지 않는 유일한 값이다.</span></span><br><span class="line"><span class="title class_">NaN</span> === <span class="title class_">NaN</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NaN은 자신과 일치하지 않는 유일한 값이다.</li>
+<li>따라서 숫자가 NaN인지 확인하려면? 👉🏻 isNaN 빌트인 함수 사용</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Number.isNaN 함수는 지정한 값이 NaN인지 확인하고 그 결과를 불리언 값으로 반환한다.</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">NaN</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="number">10</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="number">1</span> + <span class="literal">undefined</span>); <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p>🔥 <strong>숫자 0도 주의하자</strong></p>
+<ul>
+<li>자바스크립트에는 양의 0과 음의 0이 있는데 비교하면 true를 반환한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 양의 0과 음의 0의 비교. 일치 비교/동등 비교 모두 결과는 true이다.</span></span><br><span class="line"><span class="number">0</span> === -<span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">0</span> == -<span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>✨ Object.is 메서드</strong></p>
+<p>동등 비교 연산자와 일치 비교 연산자는 +0과 -0을 동일한 값, NaN과 NaN를 다른 값이라고 평가한다.</p>
+<p>예측 가능한 정확한 비교를 반환한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="number">0</span> === +<span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">is</span>(-<span class="number">0</span>, +<span class="number">0</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">NaN</span> === <span class="title class_">NaN</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">is</span>(<span class="title class_">NaN</span>, <span class="title class_">NaN</span>); <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>부동등 비교 연산자(!&#x3D;)와 불일치 비교 연산자(!&#x3D;&#x3D;)는 각각 동등 비교 연산자와 일치 비교 연산자의 반대 개념이다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 부동등 비교</span></span><br><span class="line"><span class="number">5</span> != <span class="number">8</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">5</span> != <span class="number">5</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="number">5</span> != <span class="string">&#x27;5&#x27;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 불일치 비교</span></span><br><span class="line"><span class="number">5</span> !== <span class="number">8</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">5</span> !== <span class="number">5</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="number">5</span> !== <span class="string">&#x27;5&#x27;</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-대소-관계-비교-연산자"><a href="#2-대소-관계-비교-연산자" class="headerlink" title="2. 대소 관계 비교 연산자"></a>2. 대소 관계 비교 연산자</h3><p>: 대소 관계 비교 연산자는 피연산자의 크기를 비교하여 불리언 값을 반환한다.</p>
+<p><img src="https://velog.velcdn.com/images/indongcha/post/6d0537c5-ee15-4359-9e31-4a4b746d599e/image.png" alt="https://velog.velcdn.com/images/indongcha/post/6d0537c5-ee15-4359-9e31-4a4b746d599e/image.png"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 대소 관계 비교</span></span><br><span class="line"><span class="number">5</span> &gt; <span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">5</span> &gt; <span class="number">5</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="number">5</span> &gt;= <span class="number">5</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="number">5</span> &lt;= <span class="number">5</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="삼항-조건-연산자"><a href="#삼항-조건-연산자" class="headerlink" title="삼항 조건 연산자"></a>삼항 조건 연산자</h2><h3 id="✅-삼항-조건-연산자"><a href="#✅-삼항-조건-연산자" class="headerlink" title="✅ 삼항 조건 연산자"></a>✅ 삼항 조건 연산자</h3><p>: 조건 식의 평가 결과에 따라 반환할 값을 결정한다.</p>
+<ul>
+<li>자바스크립트의 유일한 삼항 연산자</li>
+<li>부수 효과는 없다.</li>
+</ul>
+<p>🙌🏻 삼항 조건 연산자의 표현식은 다음과 같이 사용한다.</p>
+<p><img src="https://velog.velcdn.com/images/indongcha/post/493e2d87-0390-4140-ac45-8108c34ebbc3/image.png" alt="https://velog.velcdn.com/images/indongcha/post/493e2d87-0390-4140-ac45-8108c34ebbc3/image.png"></p>
+<ul>
+<li>첫 번째 피연산자가 true로 반환되면? 👉🏻 두 번째 피연산자를 반환</li>
+<li>첫 번째 피연산자가 false로 반환되면? 👉🏻 세 번째 피연산자를 반환<br>➡️ 즉, 삼항 조건 연산자는 두 번째 피연산자 또는 세 번째 피연산자로 평가되는 표현식이다.</li>
+<li>물음표 앞의 첫 번째 피연산자는? 👉🏻 조건식<ul>
+<li>즉, 불리언 타입의 값으로 평가될 표현식</li>
+<li>평가결과가 불리언 타입의 값이 아니면? ➡️ 불리언 값으로 암묵적 타입 변환된다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 % 2는 0이고 0은 false로 암묵적 타입 변환된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">&#x27;홀수&#x27;</span> : <span class="string">&#x27;짝수&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
+
+<p>🤔 <strong>삼항 조건 연산자는 조건식인가?</strong></p>
+<p>삼항 조건 연산자의 첫 번째 피연산자는 조건식이므로 조건문이다.</p>
+<p>따라서 if…else문을 사용해도 삼항 조건 연산자 표현식과 유사하게 처리할 수 있다.</p>
+<p><strong>🔥 삼항 조건 연산자와 if…else문의 차이점</strong></p>
+<p>: 삼항 조건 연산자 표현식은 값처럼 사용할 수 있지만 if…else문은 값처럼 사용할 수 없다.</p>
+<p>➡️ if…else은 표현식이 아닌 문이다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if...else 문은 표현식이 아닌 문이다. 따라서 값처럼 사용할 수 없다.</span></span><br><span class="line"><span class="keyword">var</span> result = <span class="keyword">if</span> (x % <span class="number">2</span>) &#123; result = <span class="string">&#x27;홀수&#x27;</span>; &#125; <span class="keyword">else</span> &#123; result = <span class="string">&#x27;짝수&#x27;</span>; &#125;;</span><br><span class="line"><span class="comment">// SyntaxError: Unexpected token if</span></span><br></pre></td></tr></table></figure>
+
+<p>💡 <strong>삼항 조건 연산자는 표현식은 값으로 평가할 수 있는 표현식인 문이다.</strong></p>
+<p>➡️ 따라서 값처럼 다른 표현식의 일부가 될 수 있어 매우 유용하다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 삼항 조건 연산자 표현식은 표현식인 문이다. 따라서 값처럼 사용할 수 있다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">&#x27;홀수&#x27;</span> : <span class="string">&#x27;짝수&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>조건에 따라 어떤 값을 결정해야 한다면? 👉🏻 삼항 조건 연산자 표현식을 사용하는 것이 유리하다.</li>
+<li>조건에 따라 수행해야 할 문이 여러개라면? 👉🏻 if…else문을 사용</li>
+</ul>
+<h2 id="논리-연산자"><a href="#논리-연산자" class="headerlink" title="논리 연산자"></a>논리 연산자</h2><h3 id="논리-연산자-1"><a href="#논리-연산자-1" class="headerlink" title="논리 연산자"></a>논리 연산자</h3><p>: 우항과 좌항의 피연산자를 논리 연산한다. (부정 논리 연산자의 경우 우항의 피연산자)</p>
+<p><img src="https://velog.velcdn.com/images/indongcha/post/e2cf5c14-c666-4aad-a598-aa8af2121c8b/image.png" alt="https://velog.velcdn.com/images/indongcha/post/e2cf5c14-c666-4aad-a598-aa8af2121c8b/image.png"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 논리합(||) 연산자</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> || <span class="literal">false</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">false</span> || <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 논리곱(&amp;&amp;) 연산자</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">true</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; <span class="literal">false</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 논리 부정(!) 연산자</span></span><br><span class="line">!<span class="literal">true</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!<span class="literal">false</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p>🖥 <strong>논리 부정 연산자는 언제나 불리언 값을 반환한다.</strong></p>
+<ul>
+<li>단, 피연산자가 반드시 불리언 값일 필요는 없다.</li>
+<li>만약 피연산자가 불리언 값이 아니라면? 👉🏻 불리언 타입으로 암묵적 타입 변환된다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 암묵적 타입 변환</span></span><br><span class="line">!<span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br><span class="line">!<span class="string">&#x27;Hello&#x27;</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<p>🖥 <strong>논리합 또는 논리곱 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다.</strong></p>
+<p>논리합 또는 논리곱 연산자는 언제나 2개의 피연산자 중 어느 한 쪽으로 평가된다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 단축 평가</span></span><br><span class="line"><span class="string">&#x27;Cat&#x27;</span> &amp;&amp; <span class="string">&#x27;Dog&#x27;</span>; <span class="comment">// -&gt; &#x27;Dog&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="쉼표-연산자"><a href="#쉼표-연산자" class="headerlink" title="쉼표 연산자"></a>쉼표 연산자</h2><h3 id="✅-쉼표-연산자"><a href="#✅-쉼표-연산자" class="headerlink" title="✅ 쉼표 연산자"></a>✅ 쉼표 연산자</h3><p>: 왼쪽 피연산자부터 차례대로 연산자를 평가하고 마지막 피연산자의 평가가 끝나면 <strong>마지막 피연산자의 평가 결과를 반환</strong>한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x, y, z;</span><br><span class="line"></span><br><span class="line">(x = <span class="number">1</span>), (y = <span class="number">2</span>), (z = <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="그룹-연산자"><a href="#그룹-연산자" class="headerlink" title="그룹 연산자"></a>그룹 연산자</h2><h3 id="✅-그룹-연산자"><a href="#✅-그룹-연산자" class="headerlink" title="✅ 그룹 연산자"></a>✅ 그룹 연산자</h3><p>: 소괄호로 피연산자를 감싸는 그룹 연산자는 <strong>자신의 피연산자인 표현식</strong>을 가장 먼저 평가한다.</p>
+<p>그룹 연산자를 사용하면 <strong>연산자의 우선순위</strong>를 조절할 수 있다. 그룹 연산자는 우선순위가 가장 높다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> * <span class="number">2</span> + <span class="number">3</span>; <span class="comment">// -&gt; 23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 그룹 연산자를 사용하여 우선순위를 조절</span></span><br><span class="line"><span class="number">10</span> * (<span class="number">2</span> + <span class="number">3</span>); <span class="comment">// -&gt; 50</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>첫 번째 문에서는 10 * 2를 먼저 연산 ➡️ 그 다음 20 + 3을 연산<ul>
+<li>곱셈 연산자가 덧셈 연산자보다 우선순위가 높기 때문에</li>
+</ul>
+</li>
+<li>두번째 문에서는 그룹 연산자로 감싼 표현식을 먼저 연산 ➡️ 2 + 3 연산 ➡️ 그 다음 10 * 5 연산</li>
+</ul>
+<h2 id="typeof-연산자"><a href="#typeof-연산자" class="headerlink" title="typeof 연산자"></a>typeof 연산자</h2><h3 id="✅-typeof-연산자"><a href="#✅-typeof-연산자" class="headerlink" title="✅ typeof 연산자"></a>✅ typeof 연산자</h3><p>: 피연산자의 <strong>데이터 타입</strong>을 문자열로 변환</p>
+<p>7가지 문자열(string, number, boolean, undefined, symbol, object, function) 중 하나를 반환</p>
+<ul>
+<li>null을 반환하는 경우는 없다.</li>
+<li>함수의 경우 undefined를 반환한다.</li>
+</ul>
+<p>➡️ 이처럼 typeof 연산자가 반환하는 문자열은 7개의 데이터 타입과 정확히 일치하지 않는다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;&#x27;</span>; <span class="comment">// -&gt; &quot;string&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span>; <span class="comment">// -&gt; &quot;number&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="title class_">NaN</span>; <span class="comment">// -&gt; &quot;number&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span>; <span class="comment">// -&gt; &quot;boolean&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span>; <span class="comment">// -&gt; &quot;undefined&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="title class_">Symbol</span>(); <span class="comment">// -&gt; &quot;symbol&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span>; <span class="comment">// -&gt; &quot;object&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> []; <span class="comment">// -&gt; &quot;object&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125;; <span class="comment">// -&gt; &quot;object&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="title class_">Date</span>(); <span class="comment">// -&gt; &quot;object&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> /test/gi; <span class="comment">// -&gt; &quot;object&quot;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;; <span class="comment">// -&gt; &quot;function&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>🔥 <strong>null을 “null”이 아닌 “object”로 반환한다는데 주의하자</strong></p>
+<p>이것은 자바스크립트의 첫 번째 버그다. 하지만 기존 코드에 영향을 줄 수 있기 때문에 아직까지 수정되지 못하고 있다.</p>
+<p>➡️ 따라서 <strong>null타입인지 확인할 때</strong>는 <strong>일치 연산자</strong>를 사용하자</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> foo === <span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">foo === <span class="literal">null</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>🔥 선언하지 않은 식별자를 typeof연산자로 연산해보면 ReferenceError가 아닌 undefined를 반환한다.</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// undeclared 식별자를 선언한 적이 없다.</span></span><br><span class="line"><span class="keyword">typeof</span> undeclared; <span class="comment">// -&gt; undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="지수-연산자"><a href="#지수-연산자" class="headerlink" title="지수 연산자"></a>지수 연산자</h2><h3 id="✅-지수-연산자"><a href="#✅-지수-연산자" class="headerlink" title="✅ 지수 연산자"></a>✅ 지수 연산자</h3><p>: ES7에서 도입된 지수 연산자는 좌항의 피연산자를 밑(base)으로, 우항의 피연산자를 지수(exponent)로 거듭제곱하여 숫자 값을 반환한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span>; <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">2.5</span>; <span class="comment">// -&gt; 5.65685424949238</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">0</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="number">2</span> ** -<span class="number">2</span>; <span class="comment">// -&gt; 0.25</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>지수 연산자가 도입되기 이전에는? 👉🏻 Math.pow 메서드를 사용</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">2</span>); <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">2.5</span>); <span class="comment">// -&gt; 5.65685424949238</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">0</span>); <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, -<span class="number">2</span>); <span class="comment">// -&gt; 0.25</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>지수 연산자는 다음과 같은 경우 Math.pow 메서드보다 가독성이 좋다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 지수 연산자의 결합 순서는 우항에서 좌항이다. 즉, 우결합성을 갖는다.</span></span><br><span class="line"><span class="number">2</span> ** (<span class="number">3</span> ** <span class="number">2</span>); <span class="comment">// -&gt; 512</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">3</span>, <span class="number">2</span>)); <span class="comment">// -&gt; 512</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>음수를 거듭제곱의 밑으로 사용해 계산하려면 다음과 같이 괄호로 묶어야 한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="number">5</span> ** <span class="number">2</span>;</span><br><span class="line"><span class="comment">// SyntaxError: Unary operator used immediately before exponentiation expression.</span></span><br><span class="line"><span class="comment">// Parenthesis must be used to disambiguate operator precedence</span></span><br><span class="line"></span><br><span class="line">(-<span class="number">5</span>) ** <span class="number">2</span>; <span class="comment">// -&gt; 25</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>지수 연산자는 다른 산술 연산자와 마찬가지로 할당 연산자와 함께 사용할 수 있다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>;</span><br><span class="line">num **= <span class="number">2</span>; <span class="comment">// -&gt; 25</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>지수 연산자는 이항 연산자 중에서 우선순위가 가장 높다.</li>
+</ul>
+<h2 id="그-외의-연산자"><a href="#그-외의-연산자" class="headerlink" title="그 외의 연산자"></a>그 외의 연산자</h2><p><img src="https://velog.velcdn.com/images/indongcha/post/87952395-013e-4fe9-892b-33e6d8226cb8/image.png" alt="옵셔널 체이닝 연산자, null 병합 연산자, 프로퍼티 삭제 연산자 등 "></p>
+<p>옵셔널 체이닝 연산자, null 병합 연산자, 프로퍼티 삭제 연산자 등</p>
+<h2 id="연산자의-부수-효과"><a href="#연산자의-부수-효과" class="headerlink" title="연산자의 부수 효과"></a>연산자의 부수 효과</h2><p>대부분의 연산자는 다른 코드에 영향을 주지 않는다. 하지만 일부 연산자는 다른 코드에 영향을 주는 부수 효과가 있다.</p>
+<p>💡 <strong>부수 효과가 있는 연산자</strong></p>
+<ul>
+<li>할당 연산자(&#x3D;)</li>
+<li>증가&#x2F;감소 연산자 (++&#x2F;–)</li>
+<li>delete 연산자</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 할당 연산자는 변수 값이 변하는 부수 효과가 있다.</span></span><br><span class="line"><span class="comment">// 이는 x 변수를 사용하는 다른 코드에 영향을 준다.</span></span><br><span class="line">x = <span class="number">1</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 증가/감소 연산자(++/--)는 피연산자의 값을 변경하는 부수 효과가 있다.</span></span><br><span class="line"><span class="comment">// 피연산자 x의 값이 재할당되어 변경된다. 이는 x 변수를 사용하는 다른 코드에 영향을 준다.</span></span><br><span class="line">x++;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// delete 연산자는 객체의 프로퍼티를 삭제하는 부수 효과가 있다.</span></span><br><span class="line"><span class="comment">// 이는 o 객체를 사용하는 다른 코드에 영향을 준다.</span></span><br><span class="line"><span class="keyword">delete</span> o.<span class="property">a</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o); <span class="comment">// &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="연산자-우선순위"><a href="#연산자-우선순위" class="headerlink" title="연산자 우선순위"></a>연산자 우선순위</h2><h3 id="✅-연산자-우선순위"><a href="#✅-연산자-우선순위" class="headerlink" title="✅ 연산자 우선순위"></a>✅ 연산자 우선순위</h3><p>: 여러 개의 연산자로 이뤄진 문이 실행될 때 <strong>연산자가 실행되는 순서</strong>를 의미한다.</p>
+<p>우선 순위가 높을수록 먼저 실행된다.</p>
+<p><img src="https://velog.velcdn.com/images%2Fapril_5%2Fpost%2F369f38d6-96d5-4aaa-9b44-58a8f0a68f43%2Fimage.png" alt="https://velog.velcdn.com/images%2Fapril_5%2Fpost%2F369f38d6-96d5-4aaa-9b44-58a8f0a68f43%2Fimage.png"></p>
+<p>➡️ 우선순위가 가장 높은 <strong>그룹 연산자</strong>를 사용하여 우선 순위를 명시적으로 조절하는 것을 권장한다.</p>
+<h2 id="연산자-결합-순서"><a href="#연산자-결합-순서" class="headerlink" title="연산자 결합 순서"></a>연산자 결합 순서</h2><h3 id="✅-연산자-결합-순서"><a href="#✅-연산자-결합-순서" class="headerlink" title="✅ 연산자 결합 순서"></a>✅ 연산자 결합 순서</h3><p>: 연산자의 어느쪽부터 평가를 수행할 것인지를 나타내는 순서</p>
+<p><img src="https://velog.velcdn.com/images%2Fapril_5%2Fpost%2F84fa2eee-da12-43ca-81d1-5ba01a5683e5%2Fimage.png" alt="https://velog.velcdn.com/images%2Fapril_5%2Fpost%2F84fa2eee-da12-43ca-81d1-5ba01a5683e5%2Fimage.png"></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2022/221023-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2022/221026-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2022/221026-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
