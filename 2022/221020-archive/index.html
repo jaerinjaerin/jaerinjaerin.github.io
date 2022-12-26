@@ -18,7 +18,7 @@
 
 
 
-<title>표현식과 문 | 코시생 이잴의 개발로그</title>
+<title>[JavaScript] 표현식과 문 | 코시생 이잴의 개발로그</title>
 
 
 
@@ -134,7 +134,7 @@
         <div class="post-title">
             
             
-                표현식과 문
+                [JavaScript] 표현식과 문
             
             
         </div>
@@ -166,21 +166,21 @@
 </ul>
 </li>
 <li><p>변수는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 메모리 공간을 식별하기 위해 붙인 이름</p>
-<p>  ➡️ 따라서 변수에 할당되는 것은 값이다.</p>
+<p>➡️ 따라서 변수에 할당되는 것은 값이다.</p>
 </li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 변수에는 10 + 20이 평가되어 생성된 숫자 값 30이 할당된다.</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="number">10</span> + <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>위 예제의 sum 변수에 할당되는 것 👉🏻 10 + 20이 아니라 <strong>10 + 20이 평가된 결과인 숫자 값 30</strong></p>
-<p>  ➡️즉, 변수 이름 sum이 기억하는 메모리 공간에 저장된 것은 값 30이다.</p>
+<p>➡️즉, 변수 이름 sum이 기억하는 메모리 공간에 저장된 것은 값 30이다.</p>
 </li>
 </ul>
 <p>🔥 <strong>값은 다양한 방법으로 생성할 수 있다.</strong></p>
 <p>➡️ 식으로 생성할 수도 있지만, 가장 기본적인 방법은 <strong>리터럴</strong>을 사용하는 것이다.</p>
 <h2 id="리터럴"><a href="#리터럴" class="headerlink" title="리터럴"></a>리터럴</h2><h3 id="✅-리터럴"><a href="#✅-리터럴" class="headerlink" title="✅ 리터럴"></a>✅ 리터럴</h3><p>: 사람이 이해할 수 있는 <strong>문자 또는 약속된 기호</strong>를 사용해 <strong>값을 생성</strong>하는 표기법</p>
 <p>🙌🏻 다음 예제를 살펴보자</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 숫자 리터럴 3</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 숫자 리터럴 3</span></span><br><span class="line"><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>3은 단순한 아라비아 숫자가 아니라 <strong>숫자 리터럴</strong>이다.</li>
@@ -276,7 +276,7 @@
 <li>다양한 표현식이 있지만 값으로 평가된다는 점에서 모두 동일하다.</li>
 <li><strong>값으로 평가되는 문</strong>은 모두 표현식이다.</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 리터럴 표현식</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="string">&#x27;Hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 식별자 표현식(선언이 이미 존재한다고 가정)</span></span><br><span class="line">sum</span><br><span class="line">person.<span class="property">name</span></span><br><span class="line">arr[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 연산자 표현식</span></span><br><span class="line"><span class="number">10</span> + <span class="number">20</span></span><br><span class="line">sum = <span class="number">10</span></span><br><span class="line">sum !== <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수/메서드 호출 표현식(선언이 이미 존재한다고 가정)</span></span><br><span class="line"><span class="title function_">square</span>()</span><br><span class="line">person.<span class="title function_">getName</span>()</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 리터럴 표현식</span></span><br><span class="line"><span class="number">10</span>;</span><br><span class="line">(<span class="string">&#x27;Hello&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 식별자 표현식(선언이 이미 존재한다고 가정)</span></span><br><span class="line">sum;</span><br><span class="line">person.<span class="property">name</span>;</span><br><span class="line">arr[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 연산자 표현식</span></span><br><span class="line"><span class="number">10</span> + <span class="number">20</span>;</span><br><span class="line">sum = <span class="number">10</span>;</span><br><span class="line">sum !== <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수/메서드 호출 표현식(선언이 이미 존재한다고 가정)</span></span><br><span class="line"><span class="title function_">square</span>();</span><br><span class="line">person.<span class="title function_">getName</span>();</span><br></pre></td></tr></table></figure>
 
 <p><strong>💡 표현식은 값으로 평가된다.</strong></p>
 <ul>
@@ -287,7 +287,7 @@
 </ul>
 </li>
 <li><p>자바스크립트의 표현식 1 + 2는 평가되어 값 3을 생성하므로 표현식 1 + 2와 3은 동치다.</p>
-<p>  <strong>➡️ 따라서 표현식은 값처럼 사용할 수 있다.</strong></p>
+<p><strong>➡️ 따라서 표현식은 값처럼 사용할 수 있다.</strong></p>
 </li>
 </ul>
 <p><strong>📚 문법적으로 값이 위치할 수 있는 자리에는 표현식도 위치할 수 있다.</strong></p>
@@ -332,7 +332,7 @@
 <li>조건문을 실행하면 👉🏻 지정한 조건에 따라 실행할 코드블록({…})이 결정되어 실행</li>
 <li>반복문을 실행하면 👉🏻 특정 코드 블록이 반복 실행</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 변수 선언문</span></span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 표현식 문(할당문)</span></span><br><span class="line">x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 선언문</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span> () &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조건문</span></span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">1</span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(x); &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 반복문</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 변수 선언문</span></span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 표현식 문(할당문)</span></span><br><span class="line">x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 선언문</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조건문</span></span><br><span class="line"><span class="keyword">if</span> (x &gt; <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 반복문</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="세미콜론과-세미콜론-자동-삽입-기능"><a href="#세미콜론과-세미콜론-자동-삽입-기능" class="headerlink" title="세미콜론과 세미콜론 자동 삽입 기능"></a>세미콜론과 세미콜론 자동 삽입 기능</h2><p>💡 <strong>세미콜론(;)은 문의 종료를 나타낸다.</strong></p>
 <ul>
@@ -362,23 +362,23 @@
 
 <ul>
 <li><p>변수 선언문 👉🏻 표현식이 아닌 문</p>
-<p>  ➡️ 값으로 평가될 수 없다. 따라서 변수 선언문은 값처럼 사용할 수 없다.</p>
+<p>➡️ 값으로 평가될 수 없다. 따라서 변수 선언문은 값처럼 사용할 수 없다.</p>
 </li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 변수 선언문은 표현식이 아닌 문이다.</span></span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 할당문은 그 자체가 표현식이지만 완전한 문이기도 하다. 즉, 할당문은 표현식인 문이다.</span></span><br><span class="line">x = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>할당문 x &#x3D; 100 👉🏻 그 자체가 표현식</p>
-<p>  ➡️ 즉, 할당문은 표현식인 문이기 때문에 값처럼 사용할 수 있다.</p>
+<p>➡️ 즉, 할당문은 표현식인 문이기 때문에 값처럼 사용할 수 있다.</p>
 </li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 표현식인 문은 값처럼 사용할 수 있다</span></span><br><span class="line"><span class="keyword">var</span> foo = x = <span class="number">100</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 표현식인 문은 값처럼 사용할 수 있다</span></span><br><span class="line"><span class="keyword">var</span> foo = (x = <span class="number">100</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>할당문을 값처럼 변수에 할당했다.</p>
 </li>
 <li><p>표현식인 문인 할당문 👉🏻 할당 값으로 평가된다.</p>
-<p>  ➡️ 즉, x &#x3D; 100은 x 변수에 할당한 값 100으로 평가된다. 따라서 foo 변수에는 100이 할당된다.</p>
+<p>➡️ 즉, x &#x3D; 100은 x 변수에 할당한 값 100으로 평가된다. 따라서 foo 변수에는 100이 할당된다.</p>
 </li>
 </ul>
 <p><strong>✨ 완료 값(completion value)</strong></p>

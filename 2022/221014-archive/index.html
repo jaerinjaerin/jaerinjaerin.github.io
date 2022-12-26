@@ -18,7 +18,7 @@
 
 
 
-<title>후위연산식(postfix) | 코시생 이잴의 개발로그</title>
+<title>[JavaScript] 후위연산식(postfix) | 코시생 이잴의 개발로그</title>
 
 
 
@@ -134,7 +134,7 @@
         <div class="post-title">
             
             
-                후위연산식(postfix)
+                [JavaScript] 후위연산식(postfix)
             
             
         </div>
@@ -151,25 +151,25 @@
     <div class="post-content">
     <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.</p>
 <p>만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 12입니다.</p>
-<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다. </p>
+<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다.</p>
 <p>식은 1~9의 숫자와 +, -, *, &#x2F; 연산자로만 이루어진다.</p>
 <h3 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h3><p>연산한 결과를 출력합니다.</p>
-<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1 </p>
+<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1</p>
 <p>352+*9-</p>
-<p>▣ 출력예제 1 </p>
+<p>▣ 출력예제 1</p>
 <p>12</p>
 <hr>
 <h2 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h2><p>문제를 해결하기 위해 어떤 방법을 사용해야하는지 생각해보자 :)</p>
 <ol>
 <li>문자열로 받은 argument를 하나씩 확인해야한다. ➡️ split 메서드 사용하여 배열로 만들기</li>
-<li>반복문으로 순회를 하면서 숫자를 만나면 stack에 넣는다. </li>
-<li>연산자를 만나면 stack에서 2개의 값을 꺼내 계산한다. </li>
-<li>계산한 값을 다시 stack에 넣는다. </li>
+<li>반복문으로 순회를 하면서 숫자를 만나면 stack에 넣는다.</li>
+<li>연산자를 만나면 stack에서 2개의 값을 꺼내 계산한다.</li>
+<li>계산한 값을 다시 stack에 넣는다.</li>
 <li>반복문이 종료되었을 때 계산된 값을 반환한다.</li>
 </ol>
-<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">let</span> array = s.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">  array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(item)) stack.<span class="title function_">push</span>(<span class="title class_">Number</span>(item));</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> right = stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">let</span> left = stack.<span class="title function_">pop</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (item) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left * right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left + right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;-&quot;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left - right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;/&quot;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left / right);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Number</span>(stack);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&quot;352+*9-&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">let</span> array = s.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(item)) stack.<span class="title function_">push</span>(<span class="title class_">Number</span>(item));</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> right = stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">let</span> left = stack.<span class="title function_">pop</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (item) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left * right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left + right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left - right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left / right);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Number</span>(stack);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;352+*9-&#x27;</span>));</span><br></pre></td></tr></table></figure>
 
-<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>이번 문제는 어떻게 풀지만 알고 있으면 쉽게 구현할 수 있는 문제인 것 같았다. </p>
+<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>이번 문제는 어떻게 풀지만 알고 있으면 쉽게 구현할 수 있는 문제인 것 같았다.</p>
 <p>풀면서 오류를 범했던 것이 있다면 stack에 넣을 값을 숫자로 변환하지 않고 그대로 넣어서 결과값이 147이 나와 깜짝 놀랬다는 것… (앗차차 나의 실수😃)</p>
 
 </div> 

@@ -18,7 +18,7 @@
 
 
 
-<title>실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까? | 코시생 이잴의 개발로그</title>
+<title>[JavaScript] 실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까? | 코시생 이잴의 개발로그</title>
 
 
 
@@ -134,7 +134,7 @@
         <div class="post-title">
             
             
-                실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까?
+                [JavaScript] 실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까?
             
             
         </div>
@@ -213,7 +213,7 @@
 <li><p><strong>실행 컨텍스트</strong>를 생성</p>
 </li>
 <li><p>변수, 함수 등의 선언문만 먼저 실행</p>
-<p>  👉 생성된 변수나 함수 식별자를 키로 실행 컨텍스트가 관리하는 스코프에 등록한다.</p>
+<p>👉 생성된 변수나 함수 식별자를 키로 실행 컨텍스트가 관리하는 스코프에 등록한다.</p>
 </li>
 </ul>
 <p><img src="https://velog.velcdn.com/images%2Fhangem422%2Fpost%2Ffbef7e69-646e-444f-86c6-86c6fe64c8df%2Fjavascript-context01.png" alt="https://velog.velcdn.com/images%2Fhangem422%2Fpost%2Ffbef7e69-646e-444f-86c6-86c6fe64c8df%2Fjavascript-context01.png"></p>
@@ -243,7 +243,7 @@
 </li>
 </ol>
 <h2 id="실행-컨텍스트의-역할"><a href="#실행-컨텍스트의-역할" class="headerlink" title="실행 컨텍스트의 역할"></a>실행 컨텍스트의 역할</h2><p>🙌🏻 전역 코드와 함수 코드로 구성되어 있는 예제를 살펴보면서 자바스크립트 엔진이 이 예제를 어떻게 평가하고 실행할지 생각해보자.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 전역 변수 선언</span></span><br><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 정의</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">a</span>) &#123;</span><br><span class="line">  <span class="comment">// 지역 변수 선언</span></span><br><span class="line">  <span class="keyword">const</span> x = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 메서드 호출</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a + x + y); <span class="comment">// 130</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 호출</span></span><br><span class="line"><span class="title function_">foo</span>(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 메서드 호출</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x + y); <span class="comment">// 3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 전역 변수 선언</span></span><br><span class="line"><span class="keyword">const</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 정의</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">a</span>) &#123;</span><br><span class="line">  <span class="comment">// 지역 변수 선언</span></span><br><span class="line">  <span class="keyword">const</span> x = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 메서드 호출</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a + x + y); <span class="comment">// 130</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 호출</span></span><br><span class="line"><span class="title function_">foo</span>(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 메서드 호출</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x + y); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="1-전역-코드-평가"><a href="#1-전역-코드-평가" class="headerlink" title="1. 전역 코드 평가"></a>1. 전역 코드 평가</h3><ul>
 <li><p>전역 코드를 실행하기 앞서 평가 과정을 거치며 “전역 코드를 실행할 준비”를 한다.</p>
@@ -251,10 +251,10 @@
 <li><p>소스코드 평가 과정에서는 선언문만 먼저 실행한다.</p>
 </li>
 <li><p>따라서 전역 코드의 변수 선언문과 함수 선언문이 먼저 실행</p>
-<p>  👉 <strong>생성된 전역 변수와 전역 함수가 실행 컨텍스트가 관리하는 전역 스코프</strong>에 등록된다.</p>
+<p>👉 <strong>생성된 전역 변수와 전역 함수가 실행 컨텍스트가 관리하는 전역 스코프</strong>에 등록된다.</p>
 </li>
 <li><p>이때 var 키워드로 선언된 전역 변수와 함수 선언문으로 정의된 전역 함수</p>
-<p>  👉 전역 객체의 프로퍼티와 메서드가 된다.</p>
+<p>👉 전역 객체의 프로퍼티와 메서드가 된다.</p>
 </li>
 </ul>
 <h3 id="2-전역-코드-실행"><a href="#2-전역-코드-실행" class="headerlink" title="2. 전역 코드 실행"></a>2. 전역 코드 실행</h3><ul>
@@ -264,13 +264,13 @@
 </ul>
 <h3 id="3-함수-코드-평가"><a href="#3-함수-코드-평가" class="headerlink" title="3. 함수 코드 평가"></a>3. 함수 코드 평가</h3><ul>
 <li><p>함수 내부로 진입하면 함수 내부의 문들을 실행하기 앞서 함수 코드 평가 과정을 거친다.</p>
-<p>  👉 함수 코드를 실행하기 위한 준비</p>
+<p>👉 함수 코드를 실행하기 위한 준비</p>
 </li>
 <li><p>이때 매개변수와 지역 변수 선언문이 먼저 실행</p>
-<p>  👉 <strong>생성된 매개변수와 지역 변수가 실행 컨텍스트가 관리하는 지역 스코프</strong>에 등록된다.</p>
+<p>👉 <strong>생성된 매개변수와 지역 변수가 실행 컨텍스트가 관리하는 지역 스코프</strong>에 등록된다.</p>
 </li>
 <li><p>또한 함수 내부에서 지역 변수처럼 사용할 수 있는 arguments 객체가 생성</p>
-<p>  👉 지역 스코프에 등록되고 this 바인딩도 결정된다.</p>
+<p>👉 지역 스코프에 등록되고 this 바인딩도 결정된다.</p>
 </li>
 </ul>
 <h3 id="4-함수-코드-실행"><a href="#4-함수-코드-실행" class="headerlink" title="4. 함수 코드 실행"></a>4. 함수 코드 실행</h3><ul>
@@ -280,10 +280,9 @@
 </li>
 <li><p>console.log 메서드를 호출하기 위해서</p>
 <ol>
-<li><p>식별자인 console을 스코프 체인을 통해 검색<br>  : 이를 위해 함수 코드의 지역 스코프는 상위 스코프인 전역 스코프와 연결되어야 하지만 console 식별자는 스코프 체인에 등록되어 있지 않고 <strong>전역 객체 프로퍼티</strong>로 존재한다.<br>  👉 전역 객체 프로퍼티가 마치 전역 변수처럼 전역 스코프를 통해 검색 가능하다는 것을 의미한다.</p>
-</li>
+<li><dl><dt>식별자인 console을 스코프 체인을 통해 검색</dt><dd>이를 위해 함수 코드의 지역 스코프는 상위 스코프인 전역 스코프와 연결되어야 하지만 console 식별자는 스코프 체인에 등록되어 있지 않고 <strong>전역 객체 프로퍼티</strong>로 존재한다.<br>👉 전역 객체 프로퍼티가 마치 전역 변수처럼 전역 스코프를 통해 검색 가능하다는 것을 의미한다.</dd></dl></li>
 <li><p>log 프로퍼티를 console 객체의 프로토타입 체인을 통해 검색</p>
-<p> : 그 후 console.log 메서드에 인수로 전달된 표현식 a + x + y가 평가된다.</p>
+<p>: 그 후 console.log 메서드에 인수로 전달된 표현식 a + x + y가 평가된다.</p>
 </li>
 </ol>
 </li>

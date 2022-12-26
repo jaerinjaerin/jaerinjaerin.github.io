@@ -18,7 +18,7 @@
 
 
 
-<title>변수 - 우리는 왜 변수를 사용할까? | 코시생 이잴의 개발로그</title>
+<title>[JavaScript] 변수 - 우리는 왜 변수를 사용할까? | 코시생 이잴의 개발로그</title>
 
 
 
@@ -134,7 +134,7 @@
         <div class="post-title">
             
             
-                변수 - 우리는 왜 변수를 사용할까?
+                [JavaScript] 변수 - 우리는 왜 변수를 사용할까?
             
             
         </div>
@@ -232,7 +232,7 @@
 <p>: 변수가 선언된 이후 최초로 값을 할당하는 것</p>
 <ul>
 <li><p>var 키워드로 선언한 변수는 undefined로, <strong>암묵적인 초기화</strong>가 자동 수행된다.</p>
-<p>  👉🏻 따라서 var 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 undefined라는 값을 갖는다.</p>
+<p>👉🏻 따라서 var 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 undefined라는 값을 갖는다.</p>
 </li>
 <li><p>만약 초기화 단게를 거치지 않으면 어떻게 될까?</p>
 <ul>
@@ -246,7 +246,7 @@
 <p>변수 뿐만 아니라 모든 식별자는 선언이 필요하다.</p>
 <p>만약 선언하지 않은 식별자에 접근하면? 👉🏻 ReferenceError 발생</p>
 <p><strong>✅ ReferenceError</strong></p>
-<p>: 식별자를 통해 값을 참조하려 했지만, 자바스크립트 엔진이 등록된 식별자를 찾을 수 없을 때  발생하는 에러</p>
+<p>: 식별자를 통해 값을 참조하려 했지만, 자바스크립트 엔진이 등록된 식별자를 찾을 수 없을 때 발생하는 에러</p>
 <p>✨ <strong>var 키워드로 선언한 변수의 문제점이 무엇일까?</strong></p>
 <p>가장 대표적인 것은 블록 레벨 스코프를 지원하지 않고 함수 레벨 스코프를 지원한다는 것이다. 이로 인해 의도치 않게 전역 변수가 선언되는 경우가 발생한다. <code>👉 var 키워드로 선언한 변수의 문제점</code></p>
 <h2 id="변수-선언의-실행-시점과-변수-호이스팅"><a href="#변수-선언의-실행-시점과-변수-호이스팅" class="headerlink" title="변수 선언의 실행 시점과 변수 호이스팅"></a>변수 선언의 실행 시점과 변수 호이스팅</h2><p>🙌🏻 다음 예제를 살펴보자</p>
@@ -271,10 +271,10 @@
 <p><strong>👉🏻 즉, 변수 선언이 소스코드의 어디에 있는 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 소스코드의 어디에 위치하는지와 상관없이 어디서든지 변수를 참조할 수 있다.</strong></p>
 <p>🙌🏻 위 예제를 다시 살펴보자.</p>
 <ul>
-<li><p>변수 선언문인  <code>var score;</code>보다 변수를 참조하는 코드인 <code>console.log(score);</code>가 앞에 있다.</p>
+<li><p>변수 선언문인 <code>var score;</code>보다 변수를 참조하는 코드인 <code>console.log(score);</code>가 앞에 있다.</p>
 </li>
 <li><p>만약 코드가 순차적으로실행되는 런타임에 변수 선언이 실행된다면 <code>console.log(score);</code> 가 실행되는 시점에는 아직 변수가 선언되기 이전이므로 참조 에러가 발생해야 한다. 하지만 undefined가 출력된다.</p>
-<p>  👉🏻 변수 선언이 소스코드가 한 줄씩 순차적으로 실행되는 시점 즉, 런타임이 아니라 그 이전 단계에서 먼저 실행된다는 증거</p>
+<p>👉🏻 변수 선언이 소스코드가 한 줄씩 순차적으로 실행되는 시점 즉, 런타임이 아니라 그 이전 단계에서 먼저 실행된다는 증거</p>
 </li>
 </ul>
 <h3 id="✅-변수-호이스팅"><a href="#✅-변수-호이스팅" class="headerlink" title="✅ 변수 호이스팅"></a>✅ 변수 호이스팅</h3><p>: 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징</p>
@@ -296,12 +296,12 @@
 <p>변수 선언 👉🏻 소스코드가 실행되는 시점인 런타임 이전에 먼저 실행</p>
 <p>값의 할당 👉🏻 소스코드가 순차적으로 실행되는 시점인 런타임에 실행</p>
 <p>🙌🏻 다음 예제를 살펴보자</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score;  <span class="comment">// ① 변수 선언</span></span><br><span class="line">score = <span class="number">80</span>; <span class="comment">// ② 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// 80</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score; <span class="comment">// ① 변수 선언</span></span><br><span class="line">score = <span class="number">80</span>; <span class="comment">// ② 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// 80</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>① 변수 선언 👉🏻 런타임 이전에 먼저 실행</li>
 <li>② 값의 할당 👉🏻 런타임에 실행</li>
-<li>따라서  score 변수에 값을 할당하는 시점(②)에는 이미 변수 선언이 완료된 상태이며, 이미 undefined로 초기화되어 있다.</li>
+<li>따라서 score 변수에 값을 할당하는 시점(②)에는 이미 변수 선언이 완료된 상태이며, 이미 undefined로 초기화되어 있다.</li>
 <li>따라서 변수에 undefined가 할당되어 초기화되는 것은 변함이 없다.</li>
 </ul>
 <p><img src="https://velog.velcdn.com/images/arthur/post/2e649c6b-9851-4940-a03f-b7bcdb52a1fc/image.png" alt="https://velog.velcdn.com/images/arthur/post/2e649c6b-9851-4940-a03f-b7bcdb52a1fc/image.png"></p>
@@ -330,7 +330,7 @@
 <h2 id="값의-재할당"><a href="#값의-재할당" class="headerlink" title="값의 재할당"></a>값의 재할당</h2><p><strong>✅ 재할당</strong></p>
 <p>: 이미 값이 할당되어 있는 변수에 새로운 값을 다시 할당하는 것</p>
 <p>🙌🏻 score 변수에 새로운 값을 할당해보자.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">score = <span class="number">80</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"><span class="keyword">var</span> score;  <span class="comment">// 변수 선언</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// ??</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">score = <span class="number">80</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"><span class="keyword">var</span> score; <span class="comment">// 변수 선언</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(score); <span class="comment">// ??</span></span><br></pre></td></tr></table></figure>
 
 <p>🔥 <strong>var 키워드로 선언한 변수는 값을 재할당할 수 있다.</strong></p>
 <ul>
@@ -408,12 +408,12 @@
 <ul>
 <li>변수 이름은 변수의 존재 목적을 쉽게 이해할 수 있도록 의미를 명확히 표현해야 한다.</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">3</span>;       <span class="comment">// NG. x 변수가 의미하는 바를 알 수 없다.</span></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">100</span>; <span class="comment">// OK. score 변수는 점수를 의미한다.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">3</span>; <span class="comment">// NG. x 변수가 의미하는 바를 알 수 없다.</span></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">100</span>; <span class="comment">// OK. score 변수는 점수를 의미한다.</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>변수 선언에 별도의 주석이 필요하다면 변수의 존재 목적을 명확히 드러내지 못하는 것이다.</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 경과 시간. 단위는 날짜다</span></span><br><span class="line"><span class="keyword">var</span> d;                 <span class="comment">// NG</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> elapsedTimeInDays; <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 경과 시간. 단위는 날짜다</span></span><br><span class="line"><span class="keyword">var</span> d; <span class="comment">// NG</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> elapsedTimeInDays; <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>✅ 네이밍 컨벤션</strong></p>
 <p>: 하나 이상의 영어 단어로 구성된 식별자를 만들 때 가독성 좋게 단어를 한 눈에 구문하기 위해 규정한 명명 규칙</p>
