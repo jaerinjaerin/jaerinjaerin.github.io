@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="프론트엔드 개발자를 꿈꾸는 코시생 이잴잴의 공부 기록입니다. Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>[HTML] HTML의 기초 | 코시생 이잴의 개발로그</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            커넥투 코시생 이잴의 개발로그🐾
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/HTML/">
+                            HTML
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                [HTML] HTML의 기초
+            
+            
+        </div>
+        <span class="post-date">
+            Feb 14, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="HTML-기초"><a href="#HTML-기초" class="headerlink" title="HTML 기초"></a>HTML 기초</h2><h3 id="학습-목표"><a href="#학습-목표" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
+<li>HTML이 무엇일까?</li>
+<li>HTML의 구조와 문법</li>
+<li>자주 사용되는 HTML 요소가 무엇일까?</li>
+<li>id와 class를 목적에 맞게 사용하여 사람과 컴퓨터가 읽기 쉬운 semantic HTML 문서를 작성하자.</li>
+<li>시맨틱 요소엔 무엇이 있을까?</li>
+<li>시맨틱 요소를 사용하는 이유는 무엇일까?</li>
+</ul>
+<p>🙋🏻‍♀️ HTML이 뭐야?</p>
+<p>: Hyper Text Markup Language의 약자. 웹페이지의 틀을 만드는 마크업 언어이다.</p>
+<p>🙋🏻‍♂️ HTML은 어떻게 쓰는거지?</p>
+<p>: HTML은 tag들의 집합이다. &lt;&gt;로 묶인 HTML의 기본 구성 요소로 사용한다. 예를 들어 <code>&lt;span&gt;&lt;/span&gt;</code> 과 같이 태그를 열고 닫는 방식으로 사용한다.</p>
+<p>🙋🏻‍♂️ 무조건 여는태그와 닫는태그가 쌍으로 있어야 하는건가?</p>
+<p>: 무조건은 아니다. img 태그와 같은 경우엔 self-closing tag로 <code>&lt;img /&gt;</code> 처럼 사용할 수 있다.</p>
+<p>🙋🏻 자주 사용하는 element로는 어떤 것들이 있을까?</p>
+<p>: 자주 사용하는 태그로는 <code>div</code>, <code>span</code>, <code>img</code>, <code>a</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>input</code>, <code>textarea</code>, <code>button</code> 태그가 있다.</p>
+<p>textarea 태그는 줄바꿈이 되는 입력폼이다.</p>
+<p>🙋🏻‍♂️ 시맨틱 요소란 무엇일까?</p>
+<p>: HTML5에서는 시멘틱 웹이 중요시되면서 여러 시맨틱 요소가 새롭게 만들어졌다. semantic이란 ‘의미가 있는’ 이라고 해석할 수 있는데 즉, 의미를 가진 요소를 사용하는 방식을 추구한 것이다.</p>
+<p>예를 들어서 문단의 제목을 div 태그를 사용하여 폰트사이즈를 키워서 제목처럼 보이게 만들 수 있지만, h1 태그를 사용하여 heading level 1의 의미를 주는 것과는 다르다.</p>
+<p>🙋🏻 시맨틱 요소를 사용해야 하는 이유는 무엇일까?</p>
+<p>: 첫 번째로 검색 엔진이 시맨틱 요소를 좋아하기 때문이다. 두 번째로는 개발자가 협업을 할 때 의미가 없는 div 태그를 탐색하는 것보다 의미있는 코드 블록을 찾는 것이 편리하기 때문이다.</p>
+<p>🙋🏻 시맨틱 요소의 종류로는 뭐가 있을까?</p>
+<p><code>&lt;article&gt;</code></p>
+<p>: 독립적이고 자체 포함된 콘텐츠를 지정한다.</p>
+<p><code>&lt;aside&gt;</code></p>
+<p>: 본문의 주요 부분을 표시하고 남은 부분을 설명하는 요소. 사이드바나 광고창 등 중요하지 않은 부분에 사용된다.</p>
+<p><code>&lt;footer&gt;</code></p>
+<p>: 일반적으로 페이지나 해당 파트의 <strong>가장 아랫부분</strong>에 위치하며, 사이트의 라이선스, 주소, 연락처 등을 넣을 때 사용한다.</p>
+<p><code>&lt;header&gt;</code></p>
+<p>: 일반적으로 페이지나 해당 섹션의 <strong>가장 윗부분</strong>에 위치하며, 사이트의 제목이 보통 들어간다.</p>
+<p><code>&lt;nav&gt;</code></p>
+<p>: 내비게이션(<strong>nav</strong>igation)의 약자로, 일반적으로 상단바 등 사이트를 안내하는 요소에 사용한다.</p>
+<p><code>&lt;main&gt;</code></p>
+<p>: 문서의 주된 콘텐츠를 표시</p>
+<h2 id="HTML-심화"><a href="#HTML-심화" class="headerlink" title="HTML 심화"></a>HTML 심화</h2><h3 id="학습-목표-1"><a href="#학습-목표-1" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
+<li>웹 앱의 구조 잡기</li>
+<li><code>&lt;div&gt;</code> 요소 또는 <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code> 등의 시맨틱 요소로 영역을 구분하는 이유를 이해할 수 있다.</li>
+<li>HTML 문서에서 언제 id 혹은 class를 사용해야 하는지 이해할 수 있다.</li>
+</ul>
+<p>🙋🏻‍♀️ 웹 앱의 구조는 어떻게 잡아야할까?</p>
+<p>: 댓글창을 생각해보자. 크게 작성하는 영역과 읽기 영역으로 나눠져있다.</p>
+<p>🙋🏻‍♂️ 댓글창엔 어떤 태그로 구조를 만들어야할까?</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-01.png"></p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-02.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;댓글을 입력해주세요&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>🙋🏻‍♀️ 읽기 영역은 어떤 구조로 잡아야할까?</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-03.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>ouo***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>cake***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>💬 id 및 class를 목적에 맞게 사용하자</strong></p>
+<p>🙋🏻‍♀️ id는 언제 쓰고 class는 언제 써야할까?</p>
+<ul>
+<li>id: 고유한 이름을 붙일 때 사용한다.</li>
+<li>class: 반복되는 영역을 유형별로 분류할 때 사용한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HTML 태그</th>
+<th>Selector</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;div id=”writing-seciton”&gt;</code></td>
+<td>div#writing-section</td>
+</tr>
+<tr>
+<td><code>&lt;li class=”comment”&gt;</code></td>
+<td>li.comment</td>
+</tr>
+</tbody></table>
+<p>반복되는 영역은? 👉🏻 <strong>class</strong>를 사용하자.</p>
+<p>🙋🏻‍♀️ id를 사용하지 않은 이유는?</p>
+<p>: id는 고유한 이름을 붙일 때 사용한다. id를 사용하게 되면 모든 영역이 고유해야한다.</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-04.png"></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230213-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230214-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230214-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
