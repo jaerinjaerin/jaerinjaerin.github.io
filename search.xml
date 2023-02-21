@@ -2285,22 +2285,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[Retrospective] TIL에 대한 나의 생각</title>
-    <url>/2022/221117-archive/</url>
-    <content><![CDATA[<h2 id="TIL-꼭-써야하는건가-🙋🏻‍♀️"><a href="#TIL-꼭-써야하는건가-🙋🏻‍♀️" class="headerlink" title="[ TIL, 꼭 써야하는건가? 🙋🏻‍♀️ ]"></a>[ TIL, 꼭 써야하는건가? 🙋🏻‍♀️ ]</h2><p>비전공자로서 개발공부를 처음 시작할 때, 모든 용어들이 낯설었지만 그 중에서도 TIL이라는 용어를 처음 들어봤었다. Today I Learned의 약자로 하루동안 배웠던 것들을 정리한다는 의미이다.<br>주변에서 TIL을 쓰면 도움이 될거라는 말은 많이 들었었지만, 왜 써야하는지 알지 못한채로 쓰기 시작했던 것 같다. 왜 써야하는건지 모른채로 쓰는건 스스로에겐 아무런 도움이 되지 않을 텐데 말이다.</p>
-<p><em>(어리석은 내 자신 반성하자…)</em><br><img src="https://2runzzal.com/media/L09nRFBaWXJCWnV1Q1BEYWNrVmQ3dz09/zzal.jpg"></p>
-<p>그래서 TIL은 꼭 써야하는걸까?<br>공부를 하다보니 공부해야 할 양은 끝이 없고, 오늘 배운다고 내일 기억이 나는게 아니라는 것을 뼈저리게 느꼈다. 나의 기억 저장 공간은 턱없이 부족하며, 무조건 글로 남겨야 한다는 것을 잊지 말자.</p>
-<p>TIL은 오늘의 기억을 잊지 않기 위해 작성하는 것이다. 공부를 하다보면 다시 정리해서 기록하는 것이 귀찮을 때도 있다. 하지만 바로 기록해놓지 않으면 결국 제자리이기 때문에 매일 TIL은 꼭 쓰는 것이 좋다고 생각한다.</p>
-<h2 id="✏️-TIL-작성-방법"><a href="#✏️-TIL-작성-방법" class="headerlink" title="[ ✏️ TIL 작성 방법 ]"></a>[ ✏️ TIL 작성 방법 ]</h2><p>그렇다면 TIL은 어떻게 쓰는게 좋을까? 🤔</p>
-<p>내가 여태 써온 TIL은 오늘은 무엇을 공부했는지, 공부한 내용이 무엇인지에 대해서 작성했었다. 오늘 배운 것, 내일 해야 할 것들에 대해서 리스트로 정리하는 형식을 사용했었는데, 오늘 수업을 듣고 나서 내가 여태 써온 TIL이 안티패턴이라는 것을 알게되었다.</p>
-<p>TIL은 무엇을 배웠는지 적는 것이 아니라 오늘 배웠던 것을 토대로 내가 무엇을 몰랐는지, 이전엔 어떻게 공부했었는데 이제 무엇을 새롭게 알게되었는지에 대해 정리하는 것이라는걸 배웠다.</p>
-<p>이제부터는 이전에 써왔던 TIL과 다르게 어떤 내용이 나에게 새롭게 다가왔는지, 회고하는 식으로 정리를 해야겠다. 어떤 점이 문제가 있었고, 왜 문제가 있었는지 파악을 하고, 그 이후로 어떻게 개선해 나갈 건지에 대해서 정리하자 .</p>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[JavaScript] Express 실습해보기 [ Express 환경 세팅하기 ]</title>
     <url>/2022/221112-archive/</url>
     <content><![CDATA[<h3 id="📚-데이터가-변경되면-변경된-내용을-다시-렌더링하자"><a href="#📚-데이터가-변경되면-변경된-내용을-다시-렌더링하자" class="headerlink" title="📚 데이터가 변경되면 변경된 내용을 다시 렌더링하자"></a>📚 <strong>데이터가 변경되면 변경된 내용을 다시 렌더링하자</strong></h3><p>수업시간에 Mock data를 만들어 데이터가 변경되면 setState 함수를 실행시켜 데이터의 변경사항을 렌더링했었다.<br>이 내용들을 공부하면서 state와 setState의 개념에 대해서 확실하게 알고갈 수 있었다.</p>
@@ -2367,6 +2351,22 @@
       <tags>
         <tag>JavaScript</tag>
         <tag>Express</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Retrospective] TIL에 대한 나의 생각</title>
+    <url>/2022/221117-archive/</url>
+    <content><![CDATA[<h2 id="TIL-꼭-써야하는건가-🙋🏻‍♀️"><a href="#TIL-꼭-써야하는건가-🙋🏻‍♀️" class="headerlink" title="[ TIL, 꼭 써야하는건가? 🙋🏻‍♀️ ]"></a>[ TIL, 꼭 써야하는건가? 🙋🏻‍♀️ ]</h2><p>비전공자로서 개발공부를 처음 시작할 때, 모든 용어들이 낯설었지만 그 중에서도 TIL이라는 용어를 처음 들어봤었다. Today I Learned의 약자로 하루동안 배웠던 것들을 정리한다는 의미이다.<br>주변에서 TIL을 쓰면 도움이 될거라는 말은 많이 들었었지만, 왜 써야하는지 알지 못한채로 쓰기 시작했던 것 같다. 왜 써야하는건지 모른채로 쓰는건 스스로에겐 아무런 도움이 되지 않을 텐데 말이다.</p>
+<p><em>(어리석은 내 자신 반성하자…)</em><br><img src="https://2runzzal.com/media/L09nRFBaWXJCWnV1Q1BEYWNrVmQ3dz09/zzal.jpg"></p>
+<p>그래서 TIL은 꼭 써야하는걸까?<br>공부를 하다보니 공부해야 할 양은 끝이 없고, 오늘 배운다고 내일 기억이 나는게 아니라는 것을 뼈저리게 느꼈다. 나의 기억 저장 공간은 턱없이 부족하며, 무조건 글로 남겨야 한다는 것을 잊지 말자.</p>
+<p>TIL은 오늘의 기억을 잊지 않기 위해 작성하는 것이다. 공부를 하다보면 다시 정리해서 기록하는 것이 귀찮을 때도 있다. 하지만 바로 기록해놓지 않으면 결국 제자리이기 때문에 매일 TIL은 꼭 쓰는 것이 좋다고 생각한다.</p>
+<h2 id="✏️-TIL-작성-방법"><a href="#✏️-TIL-작성-방법" class="headerlink" title="[ ✏️ TIL 작성 방법 ]"></a>[ ✏️ TIL 작성 방법 ]</h2><p>그렇다면 TIL은 어떻게 쓰는게 좋을까? 🤔</p>
+<p>내가 여태 써온 TIL은 오늘은 무엇을 공부했는지, 공부한 내용이 무엇인지에 대해서 작성했었다. 오늘 배운 것, 내일 해야 할 것들에 대해서 리스트로 정리하는 형식을 사용했었는데, 오늘 수업을 듣고 나서 내가 여태 써온 TIL이 안티패턴이라는 것을 알게되었다.</p>
+<p>TIL은 무엇을 배웠는지 적는 것이 아니라 오늘 배웠던 것을 토대로 내가 무엇을 몰랐는지, 이전엔 어떻게 공부했었는데 이제 무엇을 새롭게 알게되었는지에 대해 정리하는 것이라는걸 배웠다.</p>
+<p>이제부터는 이전에 써왔던 TIL과 다르게 어떤 내용이 나에게 새롭게 다가왔는지, 회고하는 식으로 정리를 해야겠다. 어떤 점이 문제가 있었고, 왜 문제가 있었는지 파악을 하고, 그 이후로 어떻게 개선해 나갈 건지에 대해서 정리하자 .</p>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
       </tags>
   </entry>
   <entry>
@@ -2692,6 +2692,29 @@
       </tags>
   </entry>
   <entry>
+    <title>[Retrospective] 코드스테이츠 프론트엔드 1주차 주간회고</title>
+    <url>/2023/230217-archive/</url>
+    <content><![CDATA[<p>벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하려 한다.</p>
+<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="1주차엔-뭘-배웠지"><a href="#1주차엔-뭘-배웠지" class="headerlink" title="1주차엔 뭘 배웠지?"></a>1주차엔 뭘 배웠지?</h3><p>1주차에는 HTML과 CSS에 대해서 학습했다. 이미 알던 내용이라고 해서 대충 넘어가는 것이 아니라 내가 확실하게 알고 있는 것인가에 대해서 한 번씩 더 체크하고 넘어가는 과정이었다.</p>
+<p>Section1 파트의 강사님이신 운도님께서 이후 과정에선 CSS를 자세히 살펴볼 기회가 많지 않으니 이때 많이 학습해놓는 것이 좋다고 말씀해주셨는데 정말 공감이 가는 말이었다. 왜냐하면 자바스크립트를 배우게 되는 순간, 헤어 나올 수 없는 늪에 빠지는 느낌이 들기 때문이다.</p>
+<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><ol>
+<li>수업이 있는 9시부터 6시까지는 딴 짓하지 않고 집중해서 공부했다.</li>
+<li>자바스크립트로 계산기로 만들기 위해 로직을 먼저 구상해보았다. 이후에 진행되는 과정이지만, 스스로 먼저 어떻게 구현할 수 있을지 생각해보는 것이 내 성장에 도움이 된다고 생각했다.</li>
+</ol>
+<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>코드스테이츠 수업에서 조금 아쉬운 부분이라면 실시간 세션이 너무 짧다는 것이다. 오전에 수업자료로 우선 각자 공부하고 1-2시간 정도 라이브 강의에서 배운 내용을 복습하는데 처음 마크업을 배우는 사람 입장에서는 조금 어렵지 않을까라는 생각이 들었다.</p>
+<p>스스로에게 아쉬운 점은 수업이 있는 시간 외에 따로 공부한 시간이 거의 없다는 것이다. 6시 이후로 공부하는 게 쉽지 않지만 누구보다 열정적으로 공부해야하는 걸 알기에 다음주엔 더 열심히 해야겠다 다짐했다.</p>
+<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
+<li><input disabled="" type="checkbox"> 코드스테이츠 과정에 맞춰 자바스크립트 Deep Dive 개념 다시 복습하기. (잊지말자, 다른 사람에 설명할 수 있어야 내 것이 된 것이다✍🏻)</li>
+<li><input disabled="" type="checkbox"> 계산기 기능 코드로 작성해보기</li>
+<li><input disabled="" type="checkbox"> 리액트 공식문서 공부하기</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[CSS] Layout - Flexbox 이해하기</title>
     <url>/2023/230216-archive/</url>
     <content><![CDATA[<p>부모 요소엔 Flexbox 속성을 잘 적용하지만 자식 요소에 적용할 수 있는 Flexbox 속성은 익숙치 않아서 정리해보았다.</p>
@@ -2774,29 +2797,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[Retrospective] 코드스테이츠 프론트엔드 1주차 주간회고</title>
-    <url>/2023/230217-archive/</url>
-    <content><![CDATA[<p>벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하려 한다.</p>
-<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="1주차엔-뭘-배웠지"><a href="#1주차엔-뭘-배웠지" class="headerlink" title="1주차엔 뭘 배웠지?"></a>1주차엔 뭘 배웠지?</h3><p>1주차에는 HTML과 CSS에 대해서 학습했다. 이미 알던 내용이라고 해서 대충 넘어가는 것이 아니라 내가 확실하게 알고 있는 것인가에 대해서 한 번씩 더 체크하고 넘어가는 과정이었다.</p>
-<p>Section1 파트의 강사님이신 운도님께서 이후 과정에선 CSS를 자세히 살펴볼 기회가 많지 않으니 이때 많이 학습해놓는 것이 좋다고 말씀해주셨는데 정말 공감이 가는 말이었다. 왜냐하면 자바스크립트를 배우게 되는 순간, 헤어 나올 수 없는 늪에 빠지는 느낌이 들기 때문이다.</p>
-<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><ol>
-<li>수업이 있는 9시부터 6시까지는 딴 짓하지 않고 집중해서 공부했다.</li>
-<li>자바스크립트로 계산기로 만들기 위해 로직을 먼저 구상해보았다. 이후에 진행되는 과정이지만, 스스로 먼저 어떻게 구현할 수 있을지 생각해보는 것이 내 성장에 도움이 된다고 생각했다.</li>
-</ol>
-<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>코드스테이츠 수업에서 조금 아쉬운 부분이라면 실시간 세션이 너무 짧다는 것이다. 오전에 수업자료로 우선 각자 공부하고 1-2시간 정도 라이브 강의에서 배운 내용을 복습하는데 처음 마크업을 배우는 사람 입장에서는 조금 어렵지 않을까라는 생각이 들었다.</p>
-<p>스스로에게 아쉬운 점은 수업이 있는 시간 외에 따로 공부한 시간이 거의 없다는 것이다. 6시 이후로 공부하는 게 쉽지 않지만 누구보다 열정적으로 공부해야하는 걸 알기에 다음주엔 더 열심히 해야겠다 다짐했다.</p>
-<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
-<li><input disabled="" type="checkbox"> 코드스테이츠 과정에 맞춰 자바스크립트 Deep Dive 개념 다시 복습하기. (잊지말자, 다른 사람에 설명할 수 있어야 내 것이 된 것이다✍🏻)</li>
-<li><input disabled="" type="checkbox"> 계산기 기능 코드로 작성해보기</li>
-<li><input disabled="" type="checkbox"> 리액트 공식문서 공부하기</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-        <tag>CodeStates</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[JavaScript] 변수(Variable)란?</title>
     <url>/2023/230220-archive/</url>
     <content><![CDATA[<p>변수와 데이터 타입에 대해서 배우는 시간이었는데, 변수에 대해서 조금 더 자세히 정리해보는 시간을 가졌다.</p>
@@ -2827,6 +2827,28 @@
 <p>만약 호이스팅이 되지 않는다면 <code>console.log(foo)</code>는 1을 출력해야한다. 하지만 호이스팅이 발생하기 떄문에 참조에러가 발생한다.</p>
 <h2 id="🙋🏻-우리는-변수를-어떻게-사용해야할까"><a href="#🙋🏻-우리는-변수를-어떻게-사용해야할까" class="headerlink" title="🙋🏻 우리는 변수를 어떻게 사용해야할까?"></a>🙋🏻 우리는 변수를 어떻게 사용해야할까?</h2><p>: 네이밍 규칙을 준수해서 사용해야한다. 변수의 이름을 지을 땐, 자식의 이름을 짓는 것만큼 신중하게 지어야 한다는 말을 들은 적이 있다. 그만큼 변수 네이밍 하나가 프로그래밍에 영향을 미친다는 의미가 아닐까 싶다.</p>
 <p>개발을 혼자하면 문제가 없겠지만, 여러 사람이 함께 개발을 하기 때문에 모두가 이해하기 쉬운 변수명을 사용해야 한다. 그렇게 되면 코드 리뷰 시 다른 사람의 소스 코드를 읽고 이해하는데 필요한 비용을 절약할 수 있다.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] 계산기 구현 로직 생각해보기 🔨</title>
+    <url>/2023/230221-archive/</url>
+    <content><![CDATA[<p>코드스테이츠 2주차 일정을 보니 이틀 뒤에 계산기 기능을 구현하는 시간이 있어 혼자서 미리 생각해보는 시간을 가져보았다.</p>
+<h2 id="💬-계산기-기능-분석하기"><a href="#💬-계산기-기능-분석하기" class="headerlink" title="💬 계산기 기능 분석하기"></a>💬 계산기 기능 분석하기</h2><p>계산기에는 어떤 기능들이 있어야 할까?</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 숫자는 <span class="number">0</span>부터 시작한다.</span><br><span class="line"><span class="number">2.</span> +/- 버튼을 누르면 숫자가 양수인 경우 -로 변환하고, 음수인 경우 +로 변환한다.</span><br><span class="line"><span class="number">3.</span> % 버튼을 누르면? 👉🏻 숫자를 퍼센트로 변환한다. (<span class="number">0</span>인 경우 무시한다.)</span><br><span class="line"><span class="number">4.</span> 숫자를 입력하면 숫자가 표시되어야 하는 부분이 나타난다.</span><br><span class="line">    a. 숫자를 입력하면 <span class="variable constant_">AC</span> 버튼이 C로 바뀌어야 한다.</span><br><span class="line">    b. C 버튼을 누르면 <span class="number">0</span>으로 초기화한다.</span><br><span class="line">    c. 숫자는 <span class="number">3</span>자리마다 ‘,’ 표시를 해줘야 한다.</span><br><span class="line">    d. 이 들어오면 그 이후부터는 ‘,’ 표시하지 않는다.</span><br><span class="line">    e. 연산 기호를 누르기 전까지는 하나의 숫자로 계속해서 연결해야 한다.</span><br><span class="line"><span class="number">5.</span> 연산 기호를 누르면? 👉🏻 <span class="variable constant_">CSS</span>를 변경시킨다. (배경색, 글자 색 반전) <span class="keyword">class</span> 동적 추가</span><br><span class="line"><span class="number">6.</span> 숫자 → 연산 기호 → 숫자 → = 기호순으로 클릭하면 👉🏻 값을 계산 후 결과를 보여준다.</span><br><span class="line"><span class="number">7.</span> 숫자 → 연산 기호 → = 기호순으로 클릭하면 👉🏻 동일한 숫자를 연산하여 결과를 보여준다.</span><br></pre></td></tr></table></figure>
+
+<p>🙋🏻‍♂️ 저장해놔야 하는 값들이 있을까?</p>
+<p>: 현재 값, 이전값, 연산자 그리고 화면에 출력되는 값을 변수로 선언해놓고 계속해서 변경해야 한다.</p>
+<h2 id="고민을-하고-있는-부분-🤔"><a href="#고민을-하고-있는-부분-🤔" class="headerlink" title="고민을 하고 있는 부분 🤔"></a>고민을 하고 있는 부분 🤔</h2><p><code>상태가 변경되면 re-rendering을 한다</code> 라는 생각을 가지고 프로그래밍하고 싶은데 어떤 것을 상태로 관리해야 할 지 고민이 되었다. 저장해놔야 하는 값들이 모두 상태라면 너무 많은 리렌더링을 하는 것은 아닌가 싶고, 리렌더링을 해야 하는 시점이 결과를 연산한 값이라면 상태는 화면에 출력될 값밖에 없다는 뜻인데 그렇다면 이것을 상태로 관리해야 할까? 라는 생각이 들었다.</p>
+<p>또 하나 고민을 해야 할 부분은 <code>함수는 하나의 역할만 해야 한다</code> 라는 것이다. 함수를 어떻게 분리할 것인지도 고민을 해야할 것 같다. 현재로서는</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 화면에 출력되는 값을 업데이트하는 함수</span></span><br><span class="line"><span class="comment">// AC 버튼을 눌렀을 때 모든 것을 초기화하는 함수</span></span><br><span class="line"><span class="comment">// operation을 설정하는 함수</span></span><br><span class="line"><span class="comment">// operation을 해제하는 함수</span></span><br><span class="line"><span class="comment">// 연산자와 피연산자를 받아서 결과를 계산하는 함수</span></span><br></pre></td></tr></table></figure>
+
+<p>이렇게 만들어야하지 않을까 미리 생각해보았다. <em>(물론 코드를 짜기 시작하면 많은 것들이 변할테지만..🥲)</em></p>
+<h2 id="🧮-생각해보면서-느꼈던-점"><a href="#🧮-생각해보면서-느꼈던-점" class="headerlink" title="🧮 생각해보면서 느꼈던 점"></a>🧮 생각해보면서 느꼈던 점</h2><p>알고리즘에서 의사코드를 작성하듯이 프로그래밍을 하기 전에 미리 큰 틀을 생각해보는 것도 좋은 것 같다. 당장 생각나는 것들부터 작성하기 시작하면 이후에 수정해야 할 부분들이 한 두가지가 아니라는 것을 경험했기 때문이다.</p>
+<p>내일은 반복문과 조건문 연습문제를 페어와 함께 풀어야 하는 날이니까 계산기는 잠시 제쳐두고 페어에 집중해야지.</p>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
