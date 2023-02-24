@@ -887,59 +887,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[JavaScript] 레이저로 쇠막대기 자르기 </title>
-    <url>/2022/221017-archive/</url>
-    <content><![CDATA[<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>여러 개의 쇠막대기를 레이저로 절단하려고 한다. 효율적인 작업을 위해서 쇠막대기를 아래에서 위로 겹쳐 놓고, 레이저를 위에서 수직으로 발사하여 쇠막대기들을 자른다. 쇠막대기와 레이저의 배치는 다음 조건을 만족한다.</p>
-<ul>
-<li>쇠막대기는 자신보다 긴 쇠막대기 위에만 놓일 수 있다. - 쇠막대기를 다른 쇠막대기 위에 놓는 경우 완전히 포함되도록 놓되, 끝점은 겹치지 않도록 놓는다.<ul>
-<li>각 쇠막대기를 자르는 레이저는 적어도 하나 존재한다.</li>
-<li>레이저는 어떤 쇠막대기의 양 끝점과도 겹치지 않는다.</li>
-</ul>
-</li>
-</ul>
-<p>아래 그림은 위 조건을 만족하는 예를 보여준다. 수평으로 그려진 굵은 실선은 쇠막대기이고, 점은 레이저의 위치, 수직으로 그려진 점선 화살표는 레이저의 발사 방향이다.</p>
-<p><img src="https://s1.md5.ltd/image/949e163bd665c6f711dbab3329b755a2.png" alt="https://s1.md5.ltd/image/949e163bd665c6f711dbab3329b755a2.png"></p>
-<p>이러한 레이저와 쇠막대기의 배치는 다음과 같이 괄호를 이용하여 왼쪽부터 순서대로 표현할 수 있다.</p>
-<ol>
-<li>레이저는 여는 괄호와 닫는 괄호의 인접한 쌍 ‘( ) ’ 으로 표현된다. 또한, 모든 ‘( ) ’는 반 드시 레이저를 표현한다.</li>
-<li>쇠막대기의 왼쪽 끝은 여는 괄호 ‘ ( ’ 로, 오른쪽 끝은 닫힌 괄호 ‘) ’ 로 표현된다.</li>
-</ol>
-<p>위 예의 괄호 표현은 그림 위에 주어져 있다.</p>
-<p>쇠막대기는 레이저에 의해 몇 개의 조각으로 잘려지는데, 위 예에서 가장 위에 있는 두 개의 쇠막대기는 각각 3개와 2개의 조각으로 잘려지고, 이와 같은 방식으로 주어진 쇠막대기들은 총 17개의 조각으로 잘려진다.</p>
-<p>쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 주어졌을 때, 잘려진 쇠막대기 조각의 총 개수를 구하는 프로그램을 작성하시오.</p>
-<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>한 줄에 쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 공백없이 주어진다. 괄호 문자의 개수는 최대 100,000이다.</p>
-<h3 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h3><p>잘려진 조각의 총 개수를 나타내는 정수를 한 줄에 출력한다.</p>
-<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1</p>
-<p>()(((()())(())()))(())</p>
-<p>▣ 출력예제 1<br>17</p>
-<p>▣ 입력예제 2<br>(((()(()()))(())()))(()())</p>
-<p>▣ 출력예제 2<br>24</p>
-<hr>
-<h2 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h2><ul>
-<li>문제는? 👉🏻쇠막대기와 레이저의 배치를 나타내는 괄호가 주어졌을 때, 레이져로 잘린 쇠막대기 조각의 총 개수를 출력해라</li>
-<li><strong>괄호 문제가 나오면 stack으로 접근하기</strong></li>
-<li>주어진 문자열을 하나씩 순회</li>
-<li>여는 괄호를 만날 경우 👉🏻 모두 stack에 push</li>
-<li>닫는 괄호를 만날 경우<ul>
-<li>레이저인가? 👉🏻 바로 전 인덱스 요소가 여는 괄호였다면 레이저</li>
-<li>막대기의 끝인가? 👉🏻 바로 전 인덱스 요소가 여는 괄호가 아니라면 막대기의 끝</li>
-</ul>
-</li>
-<li>레이저라면 stack.pop (여는 괄호 빼기) ➡️ stack.length를 더해주기<ul>
-<li>stack.length는 막대기의 잘려진 갯수</li>
-</ul>
-</li>
-<li>막대기의 끝이면 answer +&#x3D; 1 (쇠 막대 한개가 완성되면, 레이져로 잘리고 남은 쇠조각 1개만 남기 때문에 +1을 해주는 것)</li>
-<li>for문이 종료되면 answer 반환하기</li>
-</ul>
-<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i] === <span class="string">&#x27;(&#x27;</span>) stack.<span class="title function_">push</span>(s[i]);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">if</span> (s[i - <span class="number">1</span>] === <span class="string">&#x27;(&#x27;</span>) answer += stack.<span class="property">length</span>;</span><br><span class="line">      <span class="keyword">else</span> answer += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;()(((()())(())()))(())&#x27;</span>));</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[JavaScript] 변수 - 우리는 왜 변수를 사용할까?</title>
     <url>/2022/221018-archive/</url>
     <content><![CDATA[<h1 id="변수"><a href="#변수" class="headerlink" title="변수"></a>변수</h1><h2 id="변수란-무엇인가-왜-필요한가"><a href="#변수란-무엇인가-왜-필요한가" class="headerlink" title="변수란 무엇인가? 왜 필요한가?"></a>변수란 무엇인가? 왜 필요한가?</h2><p>10 + 20 이라는 코드를 실행하려면 10, 20, + 라는 기호의 의미를 알고 있어야 하며, 10 + 20이라는 식의 의미도 해석할 수 있어야 한다.</p>
@@ -2176,6 +2123,115 @@
       </tags>
   </entry>
   <entry>
+    <title>[VSCode] VSCode Snippets 설정하기 - 우리의 손목은 소중하니까:)</title>
+    <url>/2022/221027-archive/</url>
+    <content><![CDATA[<h1 id="VSCode-스니펫-설정하기"><a href="#VSCode-스니펫-설정하기" class="headerlink" title="VSCode 스니펫 설정하기"></a>VSCode 스니펫 설정하기</h1><p>console.log를 매일 쓰고 있는데 이걸 계속 치다간 손목이 곧 망가질 것 같다라는 생각이 들었다.</p>
+<p>cl만 검색해서 console.log를 완성하고 싶다..!</p>
+<p>이전에 sass에 스니펫을 설정했었던 것 같은데 기억을 되돌려보자🤔</p>
+<h3 id="Cmd-SHIFT-P-→-Configure-User-Snippets-클릭"><a href="#Cmd-SHIFT-P-→-Configure-User-Snippets-클릭" class="headerlink" title="Cmd + SHIFT + P → [Configure User Snippets] 클릭"></a><code>Cmd + SHIFT + P</code> → [Configure User Snippets] 클릭</h3><p>자신이 사용하는 언어를 클릭하자. 자바스크립트를 사용하니까 javascript.json 클릭!</p>
+<h3 id="우리의-VSCode는-생각보다-친절하다"><a href="#우리의-VSCode는-생각보다-친절하다" class="headerlink" title="우리의 VSCode는 생각보다 친절하다"></a>우리의 VSCode는 생각보다 친절하다</h3><p>예시를 보고 만들고 싶은 스니펫을 만들어보자.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line"><span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line"><span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line"><span class="comment">// same ids are connected.</span></span><br><span class="line"><span class="comment">// Example:</span></span><br><span class="line"><span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line"><span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line"><span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line"><span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line"><span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line"><span class="comment">// 	],</span></span><br><span class="line"><span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>prefix</code>는 호출할 <strong>예약어</strong>이고</li>
+<li><code>body</code>에 설정하는 내용은 예약어 호출 시 <strong>출력할 코드</strong></li>
+<li>출력 코드 내부의 <code>$1</code>, <code>$2</code>로 설정된 부분은 포커스가 이동될 순서</li>
+<li><code>$1</code>로 설정된 부분이 예약어 호출 시 처음으로 포커싱 될 위치이고 <strong>tab</strong> 키를 누르게 되면 <code>$2</code>로 포커싱이 이동한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;console.log print&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;cl&quot;</span>,</span><br><span class="line">    <span class="string">&quot;body&quot;</span>: [<span class="string">&quot;console.log($1) &quot;</span>],</span><br><span class="line">    <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Log output to console&quot;</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>해당 내용을 추가하고 저장하면 끝!</p>
+<p><img src="https://2runzzal.com/media/RTV1aHQ2ZGt3RUcybExYeHBieVZaUT09/zzal.jpg"></p>
+<p>이제 cl 하나로 console.log를 완성할 수 있게 되었다.😃</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] Frontend 관점에서 바라본 MVC 패턴</title>
+    <url>/2022/221102-archive/</url>
+    <content><![CDATA[<h2 id="MVC-패턴이란"><a href="#MVC-패턴이란" class="headerlink" title="MVC 패턴이란?"></a>MVC 패턴이란?</h2><p>사용자 인터페이스, 데이터 및 논리 제어를 구현하는데 널리 사용되는 디자인 패턴</p>
+<p><strong>M</strong>odel-<strong>V</strong>iew-<strong>C</strong>ontroller의 약자로 애플리케이션을 세 가지 역할로 구분한 개발 방법론</p>
+<p><a href="https://developer.mozilla.org/ko/docs/Glossary/MVC">MVC - 용어 사전 | MDN</a></p>
+<h2 id="MVC란-패턴은-왜-생겨난-걸까-🤔"><a href="#MVC란-패턴은-왜-생겨난-걸까-🤔" class="headerlink" title="MVC란 패턴은 왜 생겨난 걸까? 🤔"></a>MVC란 패턴은 왜 생겨난 걸까? 🤔</h2><h3 id="역사-1979년-GUI-데스크톱-애플리케이션이-등장하면서-생긴-패턴"><a href="#역사-1979년-GUI-데스크톱-애플리케이션이-등장하면서-생긴-패턴" class="headerlink" title="역사 [ 1979년 GUI 데스크톱 애플리케이션이 등장하면서 생긴 패턴 ]"></a>역사 [ 1979년 GUI 데스크톱 애플리케이션이 등장하면서 생긴 패턴 ]</h3><ul>
+<li>사람-컴퓨터 간의 간극을 해결하기 위함.</li>
+<li>도메인의 재사용을 목적으로 둔다.</li>
+<li>입력 &amp; 이벤트 &amp; 출력 메커니즘을 자연스럽게 처리하기 위함이다.</li>
+</ul>
+<h3 id="현대식-MVC-패턴의-등장-애플-Applie-에서-발표한-Cocoa-MVC-패턴"><a href="#현대식-MVC-패턴의-등장-애플-Applie-에서-발표한-Cocoa-MVC-패턴" class="headerlink" title="현대식 MVC 패턴의 등장 [ 애플(Applie)에서 발표한 Cocoa MVC 패턴 ]"></a><strong>현대식 MVC 패턴의 등장 [ 애플(Applie)에서 발표한 Cocoa MVC 패턴 ]</strong></h3><p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://k.kakaocdn.net/dn/dlf6g4/btrj0LcpNei/uJKMEIQ8tlN8LvOqMBJiw0/img.png" alt="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fdlf6g4%2Fbtrj0LcpNei%2FuJKMEIQ8tlN8LvOqMBJiw0%2Fimg.png"></p>
+<p>👉🏻 사용자가 Controller를 조작하면 Controller는 Model을 통해 데이터를 가져오고 그 데이터를 바탕으로 View를 통해 시각적 표현을 제어하여 사용자에게 전달하게 된다.</p>
+<p><strong>사용자가 구글에 “코딩”이라고 검색했을 때,</strong></p>
+<ol>
+<li>Controller는 코딩에 대한 검색 결과 데이터를 Model에게 요청한다.</li>
+<li>그럼 이 Model은 검색 결과 데이터를 찾아서 Controller에게 전달하고</li>
+<li>Controller는 다시 View에 전달한다.</li>
+</ol>
+<h2 id="🖥-Model-View-Controller가-뭔데"><a href="#🖥-Model-View-Controller가-뭔데" class="headerlink" title="🖥 Model, View, Controller가 뭔데?"></a>🖥 Model, View, Controller가 뭔데?</h2><ul>
+<li>Model: 데이터와 비즈니스 로직을 관리 (데이터와 관련된 일을 하는 곳)</li>
+<li>Controller: 명령을 모델과 뷰 부분으로 라우팅 (Model과 View를 이어주는 역할)</li>
+<li>View: 레이아웃과 화면을 처리 (사용자에게 보여자는 것을 담당)</li>
+</ul>
+<h2 id="모델-뷰-컨트롤러-예시"><a href="#모델-뷰-컨트롤러-예시" class="headerlink" title="모델 뷰 컨트롤러 예시"></a>모델 뷰 컨트롤러 예시</h2><p>간단한 쇼핑 리스트 앱이 있다고 상상해보자.</p>
+<p>우리가 원하는 것은 <strong>이번 주에 사야할 각 항목의 이름, 개수, 가격의 목록</strong></p>
+<h3 id="MVC를-사용해-이-기능의-일부를-구현하는-방법"><a href="#MVC를-사용해-이-기능의-일부를-구현하는-방법" class="headerlink" title="[ MVC를 사용해 이 기능의 일부를 구현하는 방법 ]"></a>[ MVC를 사용해 이 기능의 일부를 구현하는 방법 ]</h3><p><img src="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png" alt="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png"></p>
+<ul>
+<li>모델<ul>
+<li>앱이 포함해야할 <strong>데이터</strong>가 무엇인지를 정의</li>
+<li><strong>데이터의 상태가 변경</strong>되면 모델을 일반적으로 뷰에게 알리며(따라서 필요한대로 화면을 변경할 수 있습니다) 가끔 컨트롤러에게 알리기도 한다. (업데이트된 뷰를 제거하기 위해 다른 로직이 필요한 경우).</li>
+<li>리스트 항목이 포함해야 하는 데이터(품목, 가격 등)와 이미 존재하는 리스트 항목이 무엇인지를 지정한다.</li>
+</ul>
+</li>
+<li>뷰<ul>
+<li>앱의 데이터를 보여주는 방식을 정의</li>
+<li>뷰는 항목이 사용자에게 보여지는 방식을 정의하며, 표시할 데이터를 모델로부터 받는다.</li>
+</ul>
+</li>
+<li>컨트롤러<ul>
+<li>앱의 사용자로부터의 입력에 대한 응답으로 모델 및&#x2F;또는 뷰를 업데이트하는 로직을 포함한다.</li>
+<li>쇼핑 리스트는 항목을 추가하거나 제거할 수 있게 해주는 입력 폼과 버튼을 갖는다.</li>
+<li>이러한 액션들은 모델이 업데이트되는 것이므로 입력이 컨트롤러에게 전송되고, 모델을 적당하게 처리한다음, 업데이트된 데이터를 뷰로 전송한다.</li>
+<li>단순히 데이터를 다른 형태로 나타내기 위해 뷰를 업데이트하고 싶은 경우<ul>
+<li>(예를 들면, 항목을 알파벳순서로 정렬한다거나, 가격이 낮은 순서 또는 높은 순서로 정렬).</li>
+<li>이런 경우에 컨트롤러는 모델을 업데이트할 필요 없이 바로 처리할 수 있다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="웹에서의-MVC"><a href="#웹에서의-MVC" class="headerlink" title="웹에서의 MVC"></a>웹에서의 MVC</h2><p>프론트엔드단에선 MVC 패턴을 어떻게 바라볼 수 있을까? 백엔드처럼 확실하게 MVC 패턴으로 프로그래밍할 수는 없다. 우리에게 View는 사용자가 보여지는 렌더링된 화면 즉, DOM이고 Model은 데이터베이스에 요청했을 때 받아오는 JSON 파일이다.</p>
+<p>데이터의 흐름은 한 방향으로 흘러야한다. 양방향으로 연결되는 순간 내가 보낸 데이터가 어느 방향으로 흘러갔는지, 또한 이 데이터는 어느 방향에서 흘러왔는지 파악하기가 힘들어진다. 단순한 구조가 이해하기 더 빠르기 때문에 one-way data flow를 지켜야한다.</p>
+<p><strong>그렇다면 어떻게 흘러가야하는게 맞을까?</strong></p>
+<p>사용자가 애플리케이션을 동작하는 경우를 생각해보면 이해하기 쉽다. 사용자는 화면에 보이는 버튼, 또는 입력창에 클릭을 하거나 글씨를 입력한다. 👉🏻 이것을 사용자의 액션이라고 부른다.</p>
+<p>사용자의 액션을 감지하는 이벤트 핸들러는 상태를 변화시킬 수 있는 기능을 가지는 함수에게 상태를 변경해달라고 부탁한다. 즉, 특정한 setState를 할 수 있는 기능을 가진 함수를 호출한다. 예를 들어, 할 일 리스트가 하나 더 추가되어야하는 경우 이벤트 핸들러는 사용자가 입력한 값을 addTodo에 전달한다.</p>
+<p>인자로 추가되어야하는 내용을 전달받은 addTodo 함수는 setState를 호출하여 어떤 내용을 변경시켜야하는지에 내용을 전달해준다. 👉🏻 이렇게 state를 변경시키는 역할을 하는 함수들을 state mutator라고 부른다.</p>
+<p>state가 변경되었으면 render 함수를 호출해서 다시 리렌더링을 시키는 일을 해야하고 사용자는 변경된 내용을 화면에서 다시 볼 수 있다. 이렇게 한 방향으로 계속해서 흘러가야한다.</p>
+<p>그림으로 정리하면 다음과 같다.<br><img src="/../img/mvc.jpeg"></p>
+<h3 id="MVC-패턴으로-파일을-모듈화하자"><a href="#MVC-패턴으로-파일을-모듈화하자" class="headerlink" title="[ MVC 패턴으로 파일을 모듈화하자 ]"></a>[ MVC 패턴으로 파일을 모듈화하자 ]</h3><p>한 파일에 모든 내용을 집어넣는 것은 코드 가독성을 떨어뜨릴 뿐만 아니라, 유지 보수성도 떨어진다. 파일을 분리시키고 싶은 생각이 들 때 한 가지 의문점이 들기 시작한다. 어떤 기준을 가지고 파일을 모듈화해야하지?</p>
+<p>MVC 관점에서 모듈화를 해보자. 일반적으로 알려져있는 MVC 패턴이 아닌, 앞서 말한 프론트엔드에서의 MVC 패턴을 말한다.</p>
+<ul>
+<li>eventHandler<ul>
+<li>사용자의 액션을 감지할 수 있는 이벤트 핸들러 함수만을 모듈화한다.</li>
+</ul>
+</li>
+<li>state<ul>
+<li>상태로 관리하는 정보들과, 그 상태를 변경시킬 수 있는 함수들을 모듈화한다.</li>
+</ul>
+</li>
+<li>render<ul>
+<li>변경된 내용으로 render 함수 호출을 통해 DOM을 다시 생성한다.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>+) MVC 패턴에 대한 내용 자료 참고<br><a href="https://cocoon1787.tistory.com/733">https://cocoon1787.tistory.com/733</a></p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[JavaScript] Express 실습해보기 [ Express 환경 세팅하기 ]</title>
     <url>/2022/221112-archive/</url>
     <content><![CDATA[<h3 id="📚-데이터가-변경되면-변경된-내용을-다시-렌더링하자"><a href="#📚-데이터가-변경되면-변경된-내용을-다시-렌더링하자" class="headerlink" title="📚 데이터가 변경되면 변경된 내용을 다시 렌더링하자"></a>📚 <strong>데이터가 변경되면 변경된 내용을 다시 렌더링하자</strong></h3><p>수업시간에 Mock data를 만들어 데이터가 변경되면 setState 함수를 실행시켜 데이터의 변경사항을 렌더링했었다.<br>이 내용들을 공부하면서 state와 setState의 개념에 대해서 확실하게 알고갈 수 있었다.</p>
@@ -2282,28 +2338,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[Retrospective] 제로베이스 커넥to 2기를 마치며</title>
-    <url>/2022/221226-archive/</url>
-    <content><![CDATA[<p>8월 29일을 시작으로 12월 23일까지 총 4개월의 기간동안의 제로베이스 오프라인 교육이 드디어 끝났다. 뜻 깊었던 4개월을 회고해보려고한다.</p>
-<p>커넥to는 온라인 수강생 중 우수 수강생에게 제공하는 무료 오프라인 교육이다. 내가 제로베이스라는 부트캠프를 선택한 이유도 바로 이 오프라인 교육 때문이었다. (열심히 공부하면 우수 수강생이 될 수 있지 않을까라는 막연한 생각이긴 했지만..😐)</p>
-<h2 id="메일-한-통으로-시작된-커넥to의-시작"><a href="#메일-한-통으로-시작된-커넥to의-시작" class="headerlink" title="메일 한 통으로 시작된 커넥to의 시작"></a>메일 한 통으로 시작된 커넥to의 시작</h2><p>생각지도 못한 우수 수강생 메일을 받았다. 와 나 진짜 된거야?<br><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/221226-01.png"></p>
-<p>메일을 읽어보니 월요일부터 금요일 10to10으로 진행되며, 교육과정만 무료고 그외 교통비&#x2F;숙식비 등은 본인이 부담해야한다했다. 메일을 읽고 나서 바로 든 생각은 고등학생 때도 안해본 텐투텐을 견딜 수 있을까? 내가 정말 우수 수강생인가? 다른 사람들 사이에서 너무 뒤쳐지면 어떡하지 :( 였다. <em>(지금 생각해보면 조금 한심한 생각이라고 느껴지지만 그 땐 그랬었지…ㅠ )</em></p>
-<h2 id="HTML-이렇게-어려운-거였어"><a href="#HTML-이렇게-어려운-거였어" class="headerlink" title="HTML 이렇게 어려운 거였어?"></a>HTML 이렇게 어려운 거였어?</h2><p>처음 한 달간은 HTML 수업이 진행되었다. 수업은 김데레사 강사님께서 진행해주셨는데 웹 접근성 분야에서 유명하신 강사님이셨다.🥺</p>
-<p><a href="https://blog.naver.com/fastcampus_nklcb/222405159434">제로베이스 스쿨 교육 과정 블로그 : 네이버 블로그</a></p>
-<p>내가 생각한 HTML&#x2F;CSS는 화면에 내가 원하는대로 그려지면 되는거 아닐까? 라고 생각했었는데 이게 왠걸?</p>
-<p>모든 태그에는 목적이 있다는 걸 처음 알게되었고 CSS는 속성마다 어떤 특징을 가지고 있는지 하나하나 가르쳐주시면서 정말 어렵다라는걸 느끼게 되었다. 가장 크게 배운 건 어떠한 환경에서도 모든 사람이 사용할 수 있도록 만들어야 한다는 것이었다.</p>
-<p>웹 접근성 그리고 최적화(Google Vitals)를 공부하면서 정말 깊이있게 공부했다라는 생각이 들었다. ‘아! 프론트엔드 개발자를 지망한다면서 이것도 모르면 안되지!’라는 생각이 들 정도로 왜 공부해야하는가에 대해서 스스로 느낄 수 있도록 강의해주셨다. 내가 봐왔던 교육자 중에 가장 책임의식을 가지고 교육을 해주신 분이 아닐까 싶을 정도로.</p>
-<p>강의할 때는 카리스마 넘치시는 호랑이 선생님인데 강의 이외의 모습은 너무 친절하신 분이었다.</p>
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>정신없이 HTML&#x2F;CSS 프로젝트를 끝내니 자바스크립트 수업이 다가왔다. 처음 프론트엔드 개발자가 되고싶다고 생각하고 처음 산 책이 ‘자바스크립트 Deep Dive’인데 그 책을 쓰신 분이 강의를 해주신다니…!</p>
-<p>이건 무조건 어떻게든 수업을 따라가야겠다라는 마음을 먹고 수업을 듣기 시작했다. 처음에는 모르는 내용이 있으면 괜히 나만 모른다는 생각에 강의 시간에 질문하지 않고 조용히 지나가려고 했었는데 이 부분에 대해서 많이 혼났던 것 같다. 혼나는 건 참 슬픈 일이다. 돌이켜보니 강사님한테 무식하다는 얘기를 듣는 것보다 반 애들한테 무식하게 보이고 싶지 않았던 게 아닐까 싶다. 웅모님 덕분에 더 악바리로 공부하기로 마음먹고 정신차린 이후로는 뭐든지 물어보려고 노력했던 것 같다.</p>
-<p>자바스크립트를 공부하면서 느꼈던 건 돌아가기만 하는 코드가 다가 아니라는 것, 돌아가게 만들었다면 그 때부터가 시작이라는 것이다. 강사님은 항상 돌아간다고 거기서 넘어갈게 아니라, 항상 가독성이 좋은 코드를 작성하기 위해 고민해야한다고 말씀해주셨다. 가독성이 좋은 코드를 만들기 위해선 자바스크립트의 기본 지식을 잘 알고 있어야 가능하다고 생각한다. 커넥to가 끝나고 나서 혼자 공부할 때에도 DeepDive 책은 반복해서 읽어야지!🙌🏻</p>
-<p>커넥to 과정을 들을 때에는 실력이 제자리인 것 같다라는 생각을 많이 했다. 같이 공부하는 사람들을 계속해서 성장하는데.. 왜 나만 늘지않지?라는 고민이 계속해서 들었었는데 끝나고나니 나 스스로도 많이 성장했다고 느껴진다. 이전엔 혼자 어떻게 공부해야할지 항상 막막했는데 스스로 공부하는 방법을 터득한 것 같다. 이것만으로도 큰 수확이 아닐까. 힘들기도 했지만 너무 보람찬 4개월이었다!</p>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[Retrospective] 코드스테이츠 새로운 시작🐥</title>
     <url>/2023/230213-archive/</url>
     <content><![CDATA[<h2 id="부트캠프-했는데-왜-또-해"><a href="#부트캠프-했는데-왜-또-해" class="headerlink" title="부트캠프, 했는데 왜 또 해?"></a>부트캠프, 했는데 왜 또 해?</h2><p><img src="https://codestates-photo.s3.ap-northeast-2.amazonaws.com/codestates_logo_thumbnail.jpg"></p>
@@ -2400,6 +2434,28 @@
 ]]></content>
       <tags>
         <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Retrospective] 제로베이스 커넥to 2기를 마치며</title>
+    <url>/2022/221226-archive/</url>
+    <content><![CDATA[<p>8월 29일을 시작으로 12월 23일까지 총 4개월의 기간동안의 제로베이스 오프라인 교육이 드디어 끝났다. 뜻 깊었던 4개월을 회고해보려고한다.</p>
+<p>커넥to는 온라인 수강생 중 우수 수강생에게 제공하는 무료 오프라인 교육이다. 내가 제로베이스라는 부트캠프를 선택한 이유도 바로 이 오프라인 교육 때문이었다. (열심히 공부하면 우수 수강생이 될 수 있지 않을까라는 막연한 생각이긴 했지만..😐)</p>
+<h2 id="메일-한-통으로-시작된-커넥to의-시작"><a href="#메일-한-통으로-시작된-커넥to의-시작" class="headerlink" title="메일 한 통으로 시작된 커넥to의 시작"></a>메일 한 통으로 시작된 커넥to의 시작</h2><p>생각지도 못한 우수 수강생 메일을 받았다. 와 나 진짜 된거야?<br><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/221226-01.png"></p>
+<p>메일을 읽어보니 월요일부터 금요일 10to10으로 진행되며, 교육과정만 무료고 그외 교통비&#x2F;숙식비 등은 본인이 부담해야한다했다. 메일을 읽고 나서 바로 든 생각은 고등학생 때도 안해본 텐투텐을 견딜 수 있을까? 내가 정말 우수 수강생인가? 다른 사람들 사이에서 너무 뒤쳐지면 어떡하지 :( 였다. <em>(지금 생각해보면 조금 한심한 생각이라고 느껴지지만 그 땐 그랬었지…ㅠ )</em></p>
+<h2 id="HTML-이렇게-어려운-거였어"><a href="#HTML-이렇게-어려운-거였어" class="headerlink" title="HTML 이렇게 어려운 거였어?"></a>HTML 이렇게 어려운 거였어?</h2><p>처음 한 달간은 HTML 수업이 진행되었다. 수업은 김데레사 강사님께서 진행해주셨는데 웹 접근성 분야에서 유명하신 강사님이셨다.🥺</p>
+<p><a href="https://blog.naver.com/fastcampus_nklcb/222405159434">제로베이스 스쿨 교육 과정 블로그 : 네이버 블로그</a></p>
+<p>내가 생각한 HTML&#x2F;CSS는 화면에 내가 원하는대로 그려지면 되는거 아닐까? 라고 생각했었는데 이게 왠걸?</p>
+<p>모든 태그에는 목적이 있다는 걸 처음 알게되었고 CSS는 속성마다 어떤 특징을 가지고 있는지 하나하나 가르쳐주시면서 정말 어렵다라는걸 느끼게 되었다. 가장 크게 배운 건 어떠한 환경에서도 모든 사람이 사용할 수 있도록 만들어야 한다는 것이었다.</p>
+<p>웹 접근성 그리고 최적화(Google Vitals)를 공부하면서 정말 깊이있게 공부했다라는 생각이 들었다. ‘아! 프론트엔드 개발자를 지망한다면서 이것도 모르면 안되지!’라는 생각이 들 정도로 왜 공부해야하는가에 대해서 스스로 느낄 수 있도록 강의해주셨다. 내가 봐왔던 교육자 중에 가장 책임의식을 가지고 교육을 해주신 분이 아닐까 싶을 정도로.</p>
+<p>강의할 때는 카리스마 넘치시는 호랑이 선생님인데 강의 이외의 모습은 너무 친절하신 분이었다.</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>정신없이 HTML&#x2F;CSS 프로젝트를 끝내니 자바스크립트 수업이 다가왔다. 처음 프론트엔드 개발자가 되고싶다고 생각하고 처음 산 책이 ‘자바스크립트 Deep Dive’인데 그 책을 쓰신 분이 강의를 해주신다니…!</p>
+<p>이건 무조건 어떻게든 수업을 따라가야겠다라는 마음을 먹고 수업을 듣기 시작했다. 처음에는 모르는 내용이 있으면 괜히 나만 모른다는 생각에 강의 시간에 질문하지 않고 조용히 지나가려고 했었는데 이 부분에 대해서 많이 혼났던 것 같다. 혼나는 건 참 슬픈 일이다. 돌이켜보니 강사님한테 무식하다는 얘기를 듣는 것보다 반 애들한테 무식하게 보이고 싶지 않았던 게 아닐까 싶다. 웅모님 덕분에 더 악바리로 공부하기로 마음먹고 정신차린 이후로는 뭐든지 물어보려고 노력했던 것 같다.</p>
+<p>자바스크립트를 공부하면서 느꼈던 건 돌아가기만 하는 코드가 다가 아니라는 것, 돌아가게 만들었다면 그 때부터가 시작이라는 것이다. 강사님은 항상 돌아간다고 거기서 넘어갈게 아니라, 항상 가독성이 좋은 코드를 작성하기 위해 고민해야한다고 말씀해주셨다. 가독성이 좋은 코드를 만들기 위해선 자바스크립트의 기본 지식을 잘 알고 있어야 가능하다고 생각한다. 커넥to가 끝나고 나서 혼자 공부할 때에도 DeepDive 책은 반복해서 읽어야지!🙌🏻</p>
+<p>커넥to 과정을 들을 때에는 실력이 제자리인 것 같다라는 생각을 많이 했다. 같이 공부하는 사람들을 계속해서 성장하는데.. 왜 나만 늘지않지?라는 고민이 계속해서 들었었는데 끝나고나니 나 스스로도 많이 성장했다고 느껴진다. 이전엔 혼자 어떻게 공부해야할지 항상 막막했는데 스스로 공부하는 방법을 터득한 것 같다. 이것만으로도 큰 수확이 아닐까. 힘들기도 했지만 너무 보람찬 4개월이었다!</p>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
       </tags>
   </entry>
   <entry>
@@ -2665,6 +2721,59 @@
       </tags>
   </entry>
   <entry>
+    <title>[JavaScript] 레이저로 쇠막대기 자르기 </title>
+    <url>/2022/221017-archive/</url>
+    <content><![CDATA[<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>여러 개의 쇠막대기를 레이저로 절단하려고 한다. 효율적인 작업을 위해서 쇠막대기를 아래에서 위로 겹쳐 놓고, 레이저를 위에서 수직으로 발사하여 쇠막대기들을 자른다. 쇠막대기와 레이저의 배치는 다음 조건을 만족한다.</p>
+<ul>
+<li>쇠막대기는 자신보다 긴 쇠막대기 위에만 놓일 수 있다. - 쇠막대기를 다른 쇠막대기 위에 놓는 경우 완전히 포함되도록 놓되, 끝점은 겹치지 않도록 놓는다.<ul>
+<li>각 쇠막대기를 자르는 레이저는 적어도 하나 존재한다.</li>
+<li>레이저는 어떤 쇠막대기의 양 끝점과도 겹치지 않는다.</li>
+</ul>
+</li>
+</ul>
+<p>아래 그림은 위 조건을 만족하는 예를 보여준다. 수평으로 그려진 굵은 실선은 쇠막대기이고, 점은 레이저의 위치, 수직으로 그려진 점선 화살표는 레이저의 발사 방향이다.</p>
+<p><img src="https://s1.md5.ltd/image/949e163bd665c6f711dbab3329b755a2.png" alt="https://s1.md5.ltd/image/949e163bd665c6f711dbab3329b755a2.png"></p>
+<p>이러한 레이저와 쇠막대기의 배치는 다음과 같이 괄호를 이용하여 왼쪽부터 순서대로 표현할 수 있다.</p>
+<ol>
+<li>레이저는 여는 괄호와 닫는 괄호의 인접한 쌍 ‘( ) ’ 으로 표현된다. 또한, 모든 ‘( ) ’는 반 드시 레이저를 표현한다.</li>
+<li>쇠막대기의 왼쪽 끝은 여는 괄호 ‘ ( ’ 로, 오른쪽 끝은 닫힌 괄호 ‘) ’ 로 표현된다.</li>
+</ol>
+<p>위 예의 괄호 표현은 그림 위에 주어져 있다.</p>
+<p>쇠막대기는 레이저에 의해 몇 개의 조각으로 잘려지는데, 위 예에서 가장 위에 있는 두 개의 쇠막대기는 각각 3개와 2개의 조각으로 잘려지고, 이와 같은 방식으로 주어진 쇠막대기들은 총 17개의 조각으로 잘려진다.</p>
+<p>쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 주어졌을 때, 잘려진 쇠막대기 조각의 총 개수를 구하는 프로그램을 작성하시오.</p>
+<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>한 줄에 쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 공백없이 주어진다. 괄호 문자의 개수는 최대 100,000이다.</p>
+<h3 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h3><p>잘려진 조각의 총 개수를 나타내는 정수를 한 줄에 출력한다.</p>
+<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1</p>
+<p>()(((()())(())()))(())</p>
+<p>▣ 출력예제 1<br>17</p>
+<p>▣ 입력예제 2<br>(((()(()()))(())()))(()())</p>
+<p>▣ 출력예제 2<br>24</p>
+<hr>
+<h2 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h2><ul>
+<li>문제는? 👉🏻쇠막대기와 레이저의 배치를 나타내는 괄호가 주어졌을 때, 레이져로 잘린 쇠막대기 조각의 총 개수를 출력해라</li>
+<li><strong>괄호 문제가 나오면 stack으로 접근하기</strong></li>
+<li>주어진 문자열을 하나씩 순회</li>
+<li>여는 괄호를 만날 경우 👉🏻 모두 stack에 push</li>
+<li>닫는 괄호를 만날 경우<ul>
+<li>레이저인가? 👉🏻 바로 전 인덱스 요소가 여는 괄호였다면 레이저</li>
+<li>막대기의 끝인가? 👉🏻 바로 전 인덱스 요소가 여는 괄호가 아니라면 막대기의 끝</li>
+</ul>
+</li>
+<li>레이저라면 stack.pop (여는 괄호 빼기) ➡️ stack.length를 더해주기<ul>
+<li>stack.length는 막대기의 잘려진 갯수</li>
+</ul>
+</li>
+<li>막대기의 끝이면 answer +&#x3D; 1 (쇠 막대 한개가 완성되면, 레이져로 잘리고 남은 쇠조각 1개만 남기 때문에 +1을 해주는 것)</li>
+<li>for문이 종료되면 answer 반환하기</li>
+</ul>
+<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i] === <span class="string">&#x27;(&#x27;</span>) stack.<span class="title function_">push</span>(s[i]);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">if</span> (s[i - <span class="number">1</span>] === <span class="string">&#x27;(&#x27;</span>) answer += stack.<span class="property">length</span>;</span><br><span class="line">      <span class="keyword">else</span> answer += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;()(((()())(())()))(())&#x27;</span>));</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Retrospective] 코드스테이츠 프론트엔드 1주차 주간회고</title>
     <url>/2023/230217-archive/</url>
     <content><![CDATA[<p>벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하려 한다.</p>
@@ -2718,6 +2827,28 @@
 <p>만약 호이스팅이 되지 않는다면 <code>console.log(foo)</code>는 1을 출력해야한다. 하지만 호이스팅이 발생하기 떄문에 참조에러가 발생한다.</p>
 <h2 id="🙋🏻-우리는-변수를-어떻게-사용해야할까"><a href="#🙋🏻-우리는-변수를-어떻게-사용해야할까" class="headerlink" title="🙋🏻 우리는 변수를 어떻게 사용해야할까?"></a>🙋🏻 우리는 변수를 어떻게 사용해야할까?</h2><p>: 네이밍 규칙을 준수해서 사용해야한다. 변수의 이름을 지을 땐, 자식의 이름을 짓는 것만큼 신중하게 지어야 한다는 말을 들은 적이 있다. 그만큼 변수 네이밍 하나가 프로그래밍에 영향을 미친다는 의미가 아닐까 싶다.</p>
 <p>개발을 혼자하면 문제가 없겠지만, 여러 사람이 함께 개발을 하기 때문에 모두가 이해하기 쉬운 변수명을 사용해야 한다. 그렇게 되면 코드 리뷰 시 다른 사람의 소스 코드를 읽고 이해하는데 필요한 비용을 절약할 수 있다.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] 계산기 구현 로직 생각해보기 🔨</title>
+    <url>/2023/230221-archive/</url>
+    <content><![CDATA[<p>코드스테이츠 2주차 일정을 보니 이틀 뒤에 계산기 기능을 구현하는 시간이 있어 혼자서 미리 생각해보는 시간을 가져보았다.</p>
+<h2 id="💬-계산기-기능-분석하기"><a href="#💬-계산기-기능-분석하기" class="headerlink" title="💬 계산기 기능 분석하기"></a>💬 계산기 기능 분석하기</h2><p>계산기에는 어떤 기능들이 있어야 할까?</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 숫자는 <span class="number">0</span>부터 시작한다.</span><br><span class="line"><span class="number">2.</span> +/- 버튼을 누르면 숫자가 양수인 경우 -로 변환하고, 음수인 경우 +로 변환한다.</span><br><span class="line"><span class="number">3.</span> % 버튼을 누르면? 👉🏻 숫자를 퍼센트로 변환한다. (<span class="number">0</span>인 경우 무시한다.)</span><br><span class="line"><span class="number">4.</span> 숫자를 입력하면 숫자가 표시되어야 하는 부분이 나타난다.</span><br><span class="line">    a. 숫자를 입력하면 <span class="variable constant_">AC</span> 버튼이 C로 바뀌어야 한다.</span><br><span class="line">    b. C 버튼을 누르면 <span class="number">0</span>으로 초기화한다.</span><br><span class="line">    c. 숫자는 <span class="number">3</span>자리마다 ‘,’ 표시를 해줘야 한다.</span><br><span class="line">    d. 이 들어오면 그 이후부터는 ‘,’ 표시하지 않는다.</span><br><span class="line">    e. 연산 기호를 누르기 전까지는 하나의 숫자로 계속해서 연결해야 한다.</span><br><span class="line"><span class="number">5.</span> 연산 기호를 누르면? 👉🏻 <span class="variable constant_">CSS</span>를 변경시킨다. (배경색, 글자 색 반전) <span class="keyword">class</span> 동적 추가</span><br><span class="line"><span class="number">6.</span> 숫자 → 연산 기호 → 숫자 → = 기호순으로 클릭하면 👉🏻 값을 계산 후 결과를 보여준다.</span><br><span class="line"><span class="number">7.</span> 숫자 → 연산 기호 → = 기호순으로 클릭하면 👉🏻 동일한 숫자를 연산하여 결과를 보여준다.</span><br></pre></td></tr></table></figure>
+
+<p>🙋🏻‍♂️ 저장해놔야 하는 값들이 있을까?</p>
+<p>: 현재 값, 이전값, 연산자 그리고 화면에 출력되는 값을 변수로 선언해놓고 계속해서 변경해야 한다.</p>
+<h2 id="고민을-하고-있는-부분-🤔"><a href="#고민을-하고-있는-부분-🤔" class="headerlink" title="고민을 하고 있는 부분 🤔"></a>고민을 하고 있는 부분 🤔</h2><p><code>상태가 변경되면 re-rendering을 한다</code> 라는 생각을 가지고 프로그래밍하고 싶은데 어떤 것을 상태로 관리해야 할 지 고민이 되었다. 저장해놔야 하는 값들이 모두 상태라면 너무 많은 리렌더링을 하는 것은 아닌가 싶고, 리렌더링을 해야 하는 시점이 결과를 연산한 값이라면 상태는 화면에 출력될 값밖에 없다는 뜻인데 그렇다면 이것을 상태로 관리해야 할까? 라는 생각이 들었다.</p>
+<p>또 하나 고민을 해야 할 부분은 <code>함수는 하나의 역할만 해야 한다</code> 라는 것이다. 함수를 어떻게 분리할 것인지도 고민을 해야할 것 같다. 현재로서는</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 화면에 출력되는 값을 업데이트하는 함수</span></span><br><span class="line"><span class="comment">// AC 버튼을 눌렀을 때 모든 것을 초기화하는 함수</span></span><br><span class="line"><span class="comment">// operation을 설정하는 함수</span></span><br><span class="line"><span class="comment">// operation을 해제하는 함수</span></span><br><span class="line"><span class="comment">// 연산자와 피연산자를 받아서 결과를 계산하는 함수</span></span><br></pre></td></tr></table></figure>
+
+<p>이렇게 만들어야하지 않을까 미리 생각해보았다. <em>(물론 코드를 짜기 시작하면 많은 것들이 변할테지만..🥲)</em></p>
+<h2 id="🧮-생각해보면서-느꼈던-점"><a href="#🧮-생각해보면서-느꼈던-점" class="headerlink" title="🧮 생각해보면서 느꼈던 점"></a>🧮 생각해보면서 느꼈던 점</h2><p>알고리즘에서 의사코드를 작성하듯이 프로그래밍을 하기 전에 미리 큰 틀을 생각해보는 것도 좋은 것 같다. 당장 생각나는 것들부터 작성하기 시작하면 이후에 수정해야 할 부분들이 한 두가지가 아니라는 것을 경험했기 때문이다.</p>
+<p>내일은 반복문과 조건문 연습문제를 페어와 함께 풀어야 하는 날이니까 계산기는 잠시 제쳐두고 페어에 집중해야지.</p>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
@@ -3020,6 +3151,26 @@
       </tags>
   </entry>
   <entry>
+    <title>[Retrospective] 코드스테이츠 프론트엔드 2주차 주간회고</title>
+    <url>/2023/230224-archive/</url>
+    <content><![CDATA[<p>1주차엔 붕 뜬 마음이 가라앉지 않아 정신없이 공부했다면, 2주차는 어느정도 적응이 되었던 것 같다. 열심히 공부한 2주차 회고! 🏃🏻</p>
+<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="2주차엔-뭘-배웠지"><a href="#2주차엔-뭘-배웠지" class="headerlink" title="2주차엔 뭘 배웠지?"></a>2주차엔 뭘 배웠지?</h3><p>지난 주엔 HTML과 CSS 기초에 대해서 배웠다면 2주차에는 자바스크립트를 시작했다. 변수와 데이터 타입, 제어문, 함수에 대해서 공부했다. 페어 시간에는 자바스크립트로 계산기를 구현하는 시간을 가졌다.</p>
+<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><p>뭔가 풀리지 않을 때에도 검색하지 않고 끝까지 내가 생각해보고 코드를 작성했다. 예전의 나는 기능 구현을 하려고 할 때 막히는 부분이 생기면 다른 사람의 코드를 보고 비슷하게 썼었다.</p>
+<p>하지만 이렇게 구현하면 동작은 하겠지만, 내 지식이 아니게 된다. 내 성장을 위해선 안되더라도 끝까지 부딪혀봐야한다고 생각해서 나의 코드로 먼저 동작을 하도록 만들고 그 이후에 모범 코드를 확인했다.</p>
+<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>집중을 잘 하지 못했다.</p>
+<p>분명 오늘 해야할 일들이 여러 개 있다는 것을 알면서도 쉽게 집중하지 못하는 시간이 많았던 것 같다. 이럴 때 어떻게 극복해야 하는지 해결방법을 찾지 못했다. 다음주에는 배열, 객체 코플릿 문제도 풀어야하고 클로저 개념도 배우니 자연스럽게 집중하지 않을까싶다.</p>
+<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
+<li>계산기 구현 코드 정리해놓기(이번 주말까지)</li>
+<li>DOM 내용 정리하기</li>
+<li>클로저 개념 공부하기</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello, World!</title>
     <url>/2022/hello-world-0/</url>
     <content><![CDATA[<h2 id="🙌-안녕-GitHub-블로그"><a href="#🙌-안녕-GitHub-블로그" class="headerlink" title="🙌 안녕, GitHub 블로그!"></a>🙌 안녕, GitHub 블로그!</h2><p>여태 Notion으로 공부한 내용을 정리하다가 github 블로그로 넘어오게되었다.<br>그 이유는.. 모두에게 공개되는 github에 글을 작성했을 때, 더 신중하게 작성할 수 &gt;있을 것이라는 생각에 바로 github으로 변경했다.</p>
@@ -3030,137 +3181,6 @@
         <tag>IT</tag>
         <tag>Web</tag>
         <tag>Frontend</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[VSCode] VSCode Snippets 설정하기 - 우리의 손목은 소중하니까:)</title>
-    <url>/2022/221027-archive/</url>
-    <content><![CDATA[<h1 id="VSCode-스니펫-설정하기"><a href="#VSCode-스니펫-설정하기" class="headerlink" title="VSCode 스니펫 설정하기"></a>VSCode 스니펫 설정하기</h1><p>console.log를 매일 쓰고 있는데 이걸 계속 치다간 손목이 곧 망가질 것 같다라는 생각이 들었다.</p>
-<p>cl만 검색해서 console.log를 완성하고 싶다..!</p>
-<p>이전에 sass에 스니펫을 설정했었던 것 같은데 기억을 되돌려보자🤔</p>
-<h3 id="Cmd-SHIFT-P-→-Configure-User-Snippets-클릭"><a href="#Cmd-SHIFT-P-→-Configure-User-Snippets-클릭" class="headerlink" title="Cmd + SHIFT + P → [Configure User Snippets] 클릭"></a><code>Cmd + SHIFT + P</code> → [Configure User Snippets] 클릭</h3><p>자신이 사용하는 언어를 클릭하자. 자바스크립트를 사용하니까 javascript.json 클릭!</p>
-<h3 id="우리의-VSCode는-생각보다-친절하다"><a href="#우리의-VSCode는-생각보다-친절하다" class="headerlink" title="우리의 VSCode는 생각보다 친절하다"></a>우리의 VSCode는 생각보다 친절하다</h3><p>예시를 보고 만들고 싶은 스니펫을 만들어보자.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line"><span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line"><span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line"><span class="comment">// same ids are connected.</span></span><br><span class="line"><span class="comment">// Example:</span></span><br><span class="line"><span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line"><span class="comment">// 	&quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line"><span class="comment">// 	&quot;body&quot;: [</span></span><br><span class="line"><span class="comment">// 		&quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line"><span class="comment">// 		&quot;$2&quot;</span></span><br><span class="line"><span class="comment">// 	],</span></span><br><span class="line"><span class="comment">// 	&quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>prefix</code>는 호출할 <strong>예약어</strong>이고</li>
-<li><code>body</code>에 설정하는 내용은 예약어 호출 시 <strong>출력할 코드</strong></li>
-<li>출력 코드 내부의 <code>$1</code>, <code>$2</code>로 설정된 부분은 포커스가 이동될 순서</li>
-<li><code>$1</code>로 설정된 부분이 예약어 호출 시 처음으로 포커싱 될 위치이고 <strong>tab</strong> 키를 누르게 되면 <code>$2</code>로 포커싱이 이동한다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;console.log print&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;cl&quot;</span>,</span><br><span class="line">    <span class="string">&quot;body&quot;</span>: [<span class="string">&quot;console.log($1) &quot;</span>],</span><br><span class="line">    <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Log output to console&quot;</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>해당 내용을 추가하고 저장하면 끝!</p>
-<p><img src="https://2runzzal.com/media/RTV1aHQ2ZGt3RUcybExYeHBieVZaUT09/zzal.jpg"></p>
-<p>이제 cl 하나로 console.log를 완성할 수 있게 되었다.😃</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[JavaScript] 계산기 구현 로직 생각해보기 🔨</title>
-    <url>/2023/230221-archive/</url>
-    <content><![CDATA[<p>코드스테이츠 2주차 일정을 보니 이틀 뒤에 계산기 기능을 구현하는 시간이 있어 혼자서 미리 생각해보는 시간을 가져보았다.</p>
-<h2 id="💬-계산기-기능-분석하기"><a href="#💬-계산기-기능-분석하기" class="headerlink" title="💬 계산기 기능 분석하기"></a>💬 계산기 기능 분석하기</h2><p>계산기에는 어떤 기능들이 있어야 할까?</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 숫자는 <span class="number">0</span>부터 시작한다.</span><br><span class="line"><span class="number">2.</span> +/- 버튼을 누르면 숫자가 양수인 경우 -로 변환하고, 음수인 경우 +로 변환한다.</span><br><span class="line"><span class="number">3.</span> % 버튼을 누르면? 👉🏻 숫자를 퍼센트로 변환한다. (<span class="number">0</span>인 경우 무시한다.)</span><br><span class="line"><span class="number">4.</span> 숫자를 입력하면 숫자가 표시되어야 하는 부분이 나타난다.</span><br><span class="line">    a. 숫자를 입력하면 <span class="variable constant_">AC</span> 버튼이 C로 바뀌어야 한다.</span><br><span class="line">    b. C 버튼을 누르면 <span class="number">0</span>으로 초기화한다.</span><br><span class="line">    c. 숫자는 <span class="number">3</span>자리마다 ‘,’ 표시를 해줘야 한다.</span><br><span class="line">    d. 이 들어오면 그 이후부터는 ‘,’ 표시하지 않는다.</span><br><span class="line">    e. 연산 기호를 누르기 전까지는 하나의 숫자로 계속해서 연결해야 한다.</span><br><span class="line"><span class="number">5.</span> 연산 기호를 누르면? 👉🏻 <span class="variable constant_">CSS</span>를 변경시킨다. (배경색, 글자 색 반전) <span class="keyword">class</span> 동적 추가</span><br><span class="line"><span class="number">6.</span> 숫자 → 연산 기호 → 숫자 → = 기호순으로 클릭하면 👉🏻 값을 계산 후 결과를 보여준다.</span><br><span class="line"><span class="number">7.</span> 숫자 → 연산 기호 → = 기호순으로 클릭하면 👉🏻 동일한 숫자를 연산하여 결과를 보여준다.</span><br></pre></td></tr></table></figure>
-
-<p>🙋🏻‍♂️ 저장해놔야 하는 값들이 있을까?</p>
-<p>: 현재 값, 이전값, 연산자 그리고 화면에 출력되는 값을 변수로 선언해놓고 계속해서 변경해야 한다.</p>
-<h2 id="고민을-하고-있는-부분-🤔"><a href="#고민을-하고-있는-부분-🤔" class="headerlink" title="고민을 하고 있는 부분 🤔"></a>고민을 하고 있는 부분 🤔</h2><p><code>상태가 변경되면 re-rendering을 한다</code> 라는 생각을 가지고 프로그래밍하고 싶은데 어떤 것을 상태로 관리해야 할 지 고민이 되었다. 저장해놔야 하는 값들이 모두 상태라면 너무 많은 리렌더링을 하는 것은 아닌가 싶고, 리렌더링을 해야 하는 시점이 결과를 연산한 값이라면 상태는 화면에 출력될 값밖에 없다는 뜻인데 그렇다면 이것을 상태로 관리해야 할까? 라는 생각이 들었다.</p>
-<p>또 하나 고민을 해야 할 부분은 <code>함수는 하나의 역할만 해야 한다</code> 라는 것이다. 함수를 어떻게 분리할 것인지도 고민을 해야할 것 같다. 현재로서는</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 화면에 출력되는 값을 업데이트하는 함수</span></span><br><span class="line"><span class="comment">// AC 버튼을 눌렀을 때 모든 것을 초기화하는 함수</span></span><br><span class="line"><span class="comment">// operation을 설정하는 함수</span></span><br><span class="line"><span class="comment">// operation을 해제하는 함수</span></span><br><span class="line"><span class="comment">// 연산자와 피연산자를 받아서 결과를 계산하는 함수</span></span><br></pre></td></tr></table></figure>
-
-<p>이렇게 만들어야하지 않을까 미리 생각해보았다. <em>(물론 코드를 짜기 시작하면 많은 것들이 변할테지만..🥲)</em></p>
-<h2 id="🧮-생각해보면서-느꼈던-점"><a href="#🧮-생각해보면서-느꼈던-점" class="headerlink" title="🧮 생각해보면서 느꼈던 점"></a>🧮 생각해보면서 느꼈던 점</h2><p>알고리즘에서 의사코드를 작성하듯이 프로그래밍을 하기 전에 미리 큰 틀을 생각해보는 것도 좋은 것 같다. 당장 생각나는 것들부터 작성하기 시작하면 이후에 수정해야 할 부분들이 한 두가지가 아니라는 것을 경험했기 때문이다.</p>
-<p>내일은 반복문과 조건문 연습문제를 페어와 함께 풀어야 하는 날이니까 계산기는 잠시 제쳐두고 페어에 집중해야지.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>CodeStates</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[JavaScript] Frontend 관점에서 바라본 MVC 패턴</title>
-    <url>/2022/221102-archive/</url>
-    <content><![CDATA[<h2 id="MVC-패턴이란"><a href="#MVC-패턴이란" class="headerlink" title="MVC 패턴이란?"></a>MVC 패턴이란?</h2><p>사용자 인터페이스, 데이터 및 논리 제어를 구현하는데 널리 사용되는 디자인 패턴</p>
-<p><strong>M</strong>odel-<strong>V</strong>iew-<strong>C</strong>ontroller의 약자로 애플리케이션을 세 가지 역할로 구분한 개발 방법론</p>
-<p><a href="https://developer.mozilla.org/ko/docs/Glossary/MVC">MVC - 용어 사전 | MDN</a></p>
-<h2 id="MVC란-패턴은-왜-생겨난-걸까-🤔"><a href="#MVC란-패턴은-왜-생겨난-걸까-🤔" class="headerlink" title="MVC란 패턴은 왜 생겨난 걸까? 🤔"></a>MVC란 패턴은 왜 생겨난 걸까? 🤔</h2><h3 id="역사-1979년-GUI-데스크톱-애플리케이션이-등장하면서-생긴-패턴"><a href="#역사-1979년-GUI-데스크톱-애플리케이션이-등장하면서-생긴-패턴" class="headerlink" title="역사 [ 1979년 GUI 데스크톱 애플리케이션이 등장하면서 생긴 패턴 ]"></a>역사 [ 1979년 GUI 데스크톱 애플리케이션이 등장하면서 생긴 패턴 ]</h3><ul>
-<li>사람-컴퓨터 간의 간극을 해결하기 위함.</li>
-<li>도메인의 재사용을 목적으로 둔다.</li>
-<li>입력 &amp; 이벤트 &amp; 출력 메커니즘을 자연스럽게 처리하기 위함이다.</li>
-</ul>
-<h3 id="현대식-MVC-패턴의-등장-애플-Applie-에서-발표한-Cocoa-MVC-패턴"><a href="#현대식-MVC-패턴의-등장-애플-Applie-에서-발표한-Cocoa-MVC-패턴" class="headerlink" title="현대식 MVC 패턴의 등장 [ 애플(Applie)에서 발표한 Cocoa MVC 패턴 ]"></a><strong>현대식 MVC 패턴의 등장 [ 애플(Applie)에서 발표한 Cocoa MVC 패턴 ]</strong></h3><p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://k.kakaocdn.net/dn/dlf6g4/btrj0LcpNei/uJKMEIQ8tlN8LvOqMBJiw0/img.png" alt="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fdlf6g4%2Fbtrj0LcpNei%2FuJKMEIQ8tlN8LvOqMBJiw0%2Fimg.png"></p>
-<p>👉🏻 사용자가 Controller를 조작하면 Controller는 Model을 통해 데이터를 가져오고 그 데이터를 바탕으로 View를 통해 시각적 표현을 제어하여 사용자에게 전달하게 된다.</p>
-<p><strong>사용자가 구글에 “코딩”이라고 검색했을 때,</strong></p>
-<ol>
-<li>Controller는 코딩에 대한 검색 결과 데이터를 Model에게 요청한다.</li>
-<li>그럼 이 Model은 검색 결과 데이터를 찾아서 Controller에게 전달하고</li>
-<li>Controller는 다시 View에 전달한다.</li>
-</ol>
-<h2 id="🖥-Model-View-Controller가-뭔데"><a href="#🖥-Model-View-Controller가-뭔데" class="headerlink" title="🖥 Model, View, Controller가 뭔데?"></a>🖥 Model, View, Controller가 뭔데?</h2><ul>
-<li>Model: 데이터와 비즈니스 로직을 관리 (데이터와 관련된 일을 하는 곳)</li>
-<li>Controller: 명령을 모델과 뷰 부분으로 라우팅 (Model과 View를 이어주는 역할)</li>
-<li>View: 레이아웃과 화면을 처리 (사용자에게 보여자는 것을 담당)</li>
-</ul>
-<h2 id="모델-뷰-컨트롤러-예시"><a href="#모델-뷰-컨트롤러-예시" class="headerlink" title="모델 뷰 컨트롤러 예시"></a>모델 뷰 컨트롤러 예시</h2><p>간단한 쇼핑 리스트 앱이 있다고 상상해보자.</p>
-<p>우리가 원하는 것은 <strong>이번 주에 사야할 각 항목의 이름, 개수, 가격의 목록</strong></p>
-<h3 id="MVC를-사용해-이-기능의-일부를-구현하는-방법"><a href="#MVC를-사용해-이-기능의-일부를-구현하는-방법" class="headerlink" title="[ MVC를 사용해 이 기능의 일부를 구현하는 방법 ]"></a>[ MVC를 사용해 이 기능의 일부를 구현하는 방법 ]</h3><p><img src="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png" alt="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png"></p>
-<ul>
-<li>모델<ul>
-<li>앱이 포함해야할 <strong>데이터</strong>가 무엇인지를 정의</li>
-<li><strong>데이터의 상태가 변경</strong>되면 모델을 일반적으로 뷰에게 알리며(따라서 필요한대로 화면을 변경할 수 있습니다) 가끔 컨트롤러에게 알리기도 한다. (업데이트된 뷰를 제거하기 위해 다른 로직이 필요한 경우).</li>
-<li>리스트 항목이 포함해야 하는 데이터(품목, 가격 등)와 이미 존재하는 리스트 항목이 무엇인지를 지정한다.</li>
-</ul>
-</li>
-<li>뷰<ul>
-<li>앱의 데이터를 보여주는 방식을 정의</li>
-<li>뷰는 항목이 사용자에게 보여지는 방식을 정의하며, 표시할 데이터를 모델로부터 받는다.</li>
-</ul>
-</li>
-<li>컨트롤러<ul>
-<li>앱의 사용자로부터의 입력에 대한 응답으로 모델 및&#x2F;또는 뷰를 업데이트하는 로직을 포함한다.</li>
-<li>쇼핑 리스트는 항목을 추가하거나 제거할 수 있게 해주는 입력 폼과 버튼을 갖는다.</li>
-<li>이러한 액션들은 모델이 업데이트되는 것이므로 입력이 컨트롤러에게 전송되고, 모델을 적당하게 처리한다음, 업데이트된 데이터를 뷰로 전송한다.</li>
-<li>단순히 데이터를 다른 형태로 나타내기 위해 뷰를 업데이트하고 싶은 경우<ul>
-<li>(예를 들면, 항목을 알파벳순서로 정렬한다거나, 가격이 낮은 순서 또는 높은 순서로 정렬).</li>
-<li>이런 경우에 컨트롤러는 모델을 업데이트할 필요 없이 바로 처리할 수 있다.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="웹에서의-MVC"><a href="#웹에서의-MVC" class="headerlink" title="웹에서의 MVC"></a>웹에서의 MVC</h2><p>프론트엔드단에선 MVC 패턴을 어떻게 바라볼 수 있을까? 백엔드처럼 확실하게 MVC 패턴으로 프로그래밍할 수는 없다. 우리에게 View는 사용자가 보여지는 렌더링된 화면 즉, DOM이고 Model은 데이터베이스에 요청했을 때 받아오는 JSON 파일이다.</p>
-<p>데이터의 흐름은 한 방향으로 흘러야한다. 양방향으로 연결되는 순간 내가 보낸 데이터가 어느 방향으로 흘러갔는지, 또한 이 데이터는 어느 방향에서 흘러왔는지 파악하기가 힘들어진다. 단순한 구조가 이해하기 더 빠르기 때문에 one-way data flow를 지켜야한다.</p>
-<p><strong>그렇다면 어떻게 흘러가야하는게 맞을까?</strong></p>
-<p>사용자가 애플리케이션을 동작하는 경우를 생각해보면 이해하기 쉽다. 사용자는 화면에 보이는 버튼, 또는 입력창에 클릭을 하거나 글씨를 입력한다. 👉🏻 이것을 사용자의 액션이라고 부른다.</p>
-<p>사용자의 액션을 감지하는 이벤트 핸들러는 상태를 변화시킬 수 있는 기능을 가지는 함수에게 상태를 변경해달라고 부탁한다. 즉, 특정한 setState를 할 수 있는 기능을 가진 함수를 호출한다. 예를 들어, 할 일 리스트가 하나 더 추가되어야하는 경우 이벤트 핸들러는 사용자가 입력한 값을 addTodo에 전달한다.</p>
-<p>인자로 추가되어야하는 내용을 전달받은 addTodo 함수는 setState를 호출하여 어떤 내용을 변경시켜야하는지에 내용을 전달해준다. 👉🏻 이렇게 state를 변경시키는 역할을 하는 함수들을 state mutator라고 부른다.</p>
-<p>state가 변경되었으면 render 함수를 호출해서 다시 리렌더링을 시키는 일을 해야하고 사용자는 변경된 내용을 화면에서 다시 볼 수 있다. 이렇게 한 방향으로 계속해서 흘러가야한다.</p>
-<p>그림으로 정리하면 다음과 같다.<br><img src="/../img/mvc.jpeg"></p>
-<h3 id="MVC-패턴으로-파일을-모듈화하자"><a href="#MVC-패턴으로-파일을-모듈화하자" class="headerlink" title="[ MVC 패턴으로 파일을 모듈화하자 ]"></a>[ MVC 패턴으로 파일을 모듈화하자 ]</h3><p>한 파일에 모든 내용을 집어넣는 것은 코드 가독성을 떨어뜨릴 뿐만 아니라, 유지 보수성도 떨어진다. 파일을 분리시키고 싶은 생각이 들 때 한 가지 의문점이 들기 시작한다. 어떤 기준을 가지고 파일을 모듈화해야하지?</p>
-<p>MVC 관점에서 모듈화를 해보자. 일반적으로 알려져있는 MVC 패턴이 아닌, 앞서 말한 프론트엔드에서의 MVC 패턴을 말한다.</p>
-<ul>
-<li>eventHandler<ul>
-<li>사용자의 액션을 감지할 수 있는 이벤트 핸들러 함수만을 모듈화한다.</li>
-</ul>
-</li>
-<li>state<ul>
-<li>상태로 관리하는 정보들과, 그 상태를 변경시킬 수 있는 함수들을 모듈화한다.</li>
-</ul>
-</li>
-<li>render<ul>
-<li>변경된 내용으로 render 함수 호출을 통해 DOM을 다시 생성한다.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>+) MVC 패턴에 대한 내용 자료 참고<br><a href="https://cocoon1787.tistory.com/733">https://cocoon1787.tistory.com/733</a></p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>
