@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="프론트엔드 개발자를 꿈꾸는 코시생 이잴잴의 공부 기록입니다. Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>프로미스(Promise) 쉽게 이해하기🤯 (with 제로초) | 코시생 이잴의 개발로그</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            커넥투 코시생 이잴의 개발로그🐾
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/JavaScript/">
+                            JavaScript
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                프로미스(Promise) 쉽게 이해하기🤯 (with 제로초)
+            
+            
+        </div>
+        <span class="post-date">
+            Mar 21, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <blockquote>
+<p>프로미스의 장점은 실행됐는데 결과값을 나중에 쓸 수 있는 것</p>
+</blockquote>
+<h2 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>); <span class="comment">// 비동기 콜백</span></span><br><span class="line"></span><br><span class="line">콜백은 비동기가 아니다. 비동기 콜백이 비동기일뿐</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">calculator</span>(<span class="params">callback, a, b</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">callback</span>(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">calculator</span>(</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">x, y</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x, y;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="number">3</span>,</span><br><span class="line">  <span class="number">5</span></span><br><span class="line">); <span class="comment">// 동기 콜백</span></span><br></pre></td></tr></table></figure>
+
+<p>콜백의 한 가지 아쉬운 점 → 조건이 달성되면 바로 실행해버림</p>
+<h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title function_">promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">resove</span>();</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>이 코드는 setTimeout으로만 작성된 코드와 차이점이 무엇일까?</p>
+<p>setTimeout은 1초 뒤에 태스크 큐로 넘어가고 콜스택이 비면 바로 실행된다.</p>
+<p>프로미스를 사용하면 나중에 결과값을 사용하고 싶을 때 promise.then을 사용해서 사용할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="title class_">Promise</span>...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 신나게 딴 짓</span></span><br><span class="line"></span><br><span class="line">promise.<span class="title function_">then</span>(<span class="function">(<span class="params">결괏값</span>) =&gt;</span> &#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p1 = axios.<span class="title function_">get</span>(<span class="string">&#x27;서버주소1&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> p2 = axios.<span class="title function_">get</span>(<span class="string">&#x27;서버주소2&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> p3 = axios.<span class="title function_">get</span>(<span class="string">&#x27;서버주소3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([p1, p2, p3]).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>콜백의 단점: 데이터를 바로 받아야한다.</p>
+<p>콜백헬이 왜 안좋은가? 가독성 측면에서 보기 안좋은 것도 있지만,</p>
+<h3 id="근본적인-원인은-결과값을-바로-받아야한다는-것이다"><a href="#근본적인-원인은-결과값을-바로-받아야한다는-것이다" class="headerlink" title="근본적인 원인은 결과값을 바로 받아야한다는 것이다."></a>근본적인 원인은 결과값을 바로 받아야한다는 것이다.</h3><h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><p>프로미스의 단점: 하나라도 실패하면 catch로 넘어간다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([p1, p2, p3])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">results</span>) =&gt;</span> &#123;&#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>p1, p2가 제대로 들어와도 p3에서 데이터가 제대로 들어오지 않으면 바로 catch 구문으로 넘어간다.</p>
+<h2 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h2><p>이를 해결하기 위해서 allSettled가 나옴</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">allSettled</span>([p1, p2, p3]).<span class="title function_">then</span>(<span class="function">(<span class="params">results</span>) =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Promise.allSettled는 모든 처리결과를 반환한다. results는 배열로 반환하기 때문에 filter를 사용해서 실패한 것만 필터링해서 다시 시도할 수 있는 장점이 있다.</p>
+<h1 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h1><p>비동기 함수가 어떻게 동작하는지 원리는 알고 있었지만 쉽게 사용하지 못했었는데 제로초 프로미스 영상을 보고 프로미스가 왜 탄생하게 된건지, 프로미스를 사용하면 어떤 장점이 있는지에 대해서 알게되었다. <em>(제로초님 폼 미쳤다!)</em></p>
+<hr>
+<p>+) 영상 링크</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0f-jNhnN0Qc">프로미스의 최고 장점을 아십니까</a></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230318-1-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230321-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230321-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
