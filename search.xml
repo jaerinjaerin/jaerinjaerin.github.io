@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1부터 N까지의 원소를 갖는 집합의 부분집합 구하기</title>
+    <url>/2022/221007-archive/</url>
+    <content><![CDATA[<h2 id="✏️-문제"><a href="#✏️-문제" class="headerlink" title="✏️ 문제"></a>✏️ 문제</h2><p>자연수 N이 주어지면 1부터 N까지의 원소를 갖는 집합의 부분집합을 모두 출력하는 프로그램을 작성하세요.</p>
+<p>입력설명<br>첫 번째 줄에 자연수 N(1 ≤ N ≤ 10)이 주어집니다.</p>
+<p>출력 설명<br>첫 번째 줄부터 각 줄에 하나씩 부분집합을 출력예제와 같은 순서로 출력한다.</p>
+<p>입력 예제</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>출력 예제</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="👉-부분-집합을-구하는-문제"><a href="#👉-부분-집합을-구하는-문제" class="headerlink" title="👉 부분 집합을 구하는 문제"></a>👉 부분 집합을 구하는 문제</h3><p>1을 방문을 할 지 안 할지 2가지 선택, 2를 방문을 할 지 안 할지 2가지 선택, 3을 방문을 할 지 안 할지 2가지 선택<br>➡️ 총 8가지의 트리가 만들어진다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">상태트리</span><br><span class="line"></span><br><span class="line">부분집합의 개수 <span class="number">2</span> ^ x - <span class="number">1</span> (공집합 제외)</span><br><span class="line">집합에 원소가 들어갈지 안들어갈지 선택한다.</span><br><span class="line"></span><br><span class="line"><span class="title function_">D</span>(<span class="number">1</span>) -&gt; O -&gt; <span class="title function_">D</span>(<span class="number">2</span>) -&gt; o -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">                  -&gt; x -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">     -&gt; X -&gt; <span class="title function_">D</span>(<span class="number">2</span>) -&gt; o -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">                  -&gt; x -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br></pre></td></tr></table></figure>
+
+<p>문제에서 1부터 N까지의 원소를 갖는 부분집합을 구하라고 했기 때문에, 1부터 N까지의 길이에 0을 담은 체크 배열을 만들어준다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> checkArray = <span class="title class_">Array</span>.<span class="title function_">from</span>(&#123; <span class="attr">length</span>: n + <span class="number">1</span> &#125;, <span class="function">() =&gt;</span> <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>이제 Head 노드에서부터 노드를 방문하면서, 해당 노드를 포함할 것인지 확인하고, 부분 집합을 찾아준다.</p>
+<p>(내가 만든 부분 집합에 참여시키고 참여시키지않는 것을 확인 후 배열에 하나씩 담아주면 된다.)</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">DFS</span>(<span class="params">depth</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (depth === n + <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> temp = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">      <span class="comment">// 1로 들어온 것들만 출력하기</span></span><br><span class="line">      <span class="keyword">if</span> (checkArray[i] === <span class="number">1</span>) temp += i + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (temp.<span class="property">length</span> &gt;= <span class="number">1</span>) answer.<span class="title function_">push</span>(temp.<span class="title function_">trim</span>());</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 집합에 포함시킨다.</span></span><br><span class="line">    checkArray[depth] = <span class="number">1</span>;</span><br><span class="line">    <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 집합에 포함시키지 않는다.</span></span><br><span class="line">    checkArray[depth] = <span class="number">0</span>;</span><br><span class="line">    <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="👉-DFS-함수를-잘-살펴보자"><a href="#👉-DFS-함수를-잘-살펴보자" class="headerlink" title="👉  DFS 함수를 잘 살펴보자"></a>👉  DFS 함수를 잘 살펴보자</h3><ol>
+<li>부분집합이 주어진 배열의 길이를 넘어갈 수는 없으므로, depth가 배열의 길이와 같다면 재귀를 멈추고, 1로 들어온 인덱스만 출력한다.</li>
+<li>depth가 아직 배열의 길이에 도달하지 않으면, 자기 자식 노드를 선택하는 경우와 그렇지 않은 경우를 만들고, 자식을 호출하여 부분집합을 찾아간다.</li>
+</ol>
+<h3 id="✅-전체-코드"><a href="#✅-전체-코드" class="headerlink" title="✅ 전체 코드"></a>✅ 전체 코드</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">n</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = [];</span><br><span class="line">  <span class="keyword">let</span> checkArray = <span class="title class_">Array</span>.<span class="title function_">from</span>(&#123; <span class="attr">length</span>: n + <span class="number">1</span> &#125;, <span class="function">() =&gt;</span> <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">DFS</span>(<span class="params">depth</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (depth === n + <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> temp = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 1로 들어온 것들만 출력하기</span></span><br><span class="line">        <span class="keyword">if</span> (checkArray[i] === <span class="number">1</span>) temp += i + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (temp.<span class="property">length</span> &gt;= <span class="number">1</span>) answer.<span class="title function_">push</span>(temp.<span class="title function_">trim</span>());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 집합에 포함시킨다.</span></span><br><span class="line">      checkArray[depth] = <span class="number">1</span>;</span><br><span class="line">      <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">      <span class="comment">// 집합에 포함시키지 않는다.</span></span><br><span class="line">      checkArray[depth] = <span class="number">0</span>;</span><br><span class="line">      <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">DFS</span>(<span class="number">1</span>); <span class="comment">// DFS는 1부터 시작한다.</span></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>DFS를 사용하려면 재귀함수가 기본적인 지식으로 깔려 있어야하는 것 같다. 재귀함수를 배웠다고 생각했는데 막상 그것도 아닌가보다. 😟 DFS가 실행되는 과정에 대해서 더 이해하는 과정이 필요할 것 같다. 부분집합을 구하라는 문제를 봤을 때, 어떻게 구해야하지 라고 생각하다가 가지치기 형식으로 그림을 그리다보니 이진트리 형태로 나오는 것을 보면서 이러면 이진트리로 접근해야겠다. 라는 생각이 들었던 것만으로도 오늘은 성공인것 같다!</p>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까?</title>
     <url>/2022/221012-archive/</url>
     <content><![CDATA[<p>자바스크립트 Deep Dive를 공부하고 정리해보자 :)<br>실행 컨텍스트가 무슨 역할을 하는지에 대해서 알아보자.</p>
@@ -177,41 +212,6 @@
       </tags>
   </entry>
   <entry>
-    <title>1부터 N까지의 원소를 갖는 집합의 부분집합 구하기</title>
-    <url>/2022/221007-archive/</url>
-    <content><![CDATA[<h2 id="✏️-문제"><a href="#✏️-문제" class="headerlink" title="✏️ 문제"></a>✏️ 문제</h2><p>자연수 N이 주어지면 1부터 N까지의 원소를 갖는 집합의 부분집합을 모두 출력하는 프로그램을 작성하세요.</p>
-<p>입력설명<br>첫 번째 줄에 자연수 N(1 ≤ N ≤ 10)이 주어집니다.</p>
-<p>출력 설명<br>첫 번째 줄부터 각 줄에 하나씩 부분집합을 출력예제와 같은 순서로 출력한다.</p>
-<p>입력 예제</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
-<p>출력 예제</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="👉-부분-집합을-구하는-문제"><a href="#👉-부분-집합을-구하는-문제" class="headerlink" title="👉 부분 집합을 구하는 문제"></a>👉 부분 집합을 구하는 문제</h3><p>1을 방문을 할 지 안 할지 2가지 선택, 2를 방문을 할 지 안 할지 2가지 선택, 3을 방문을 할 지 안 할지 2가지 선택<br>➡️ 총 8가지의 트리가 만들어진다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">상태트리</span><br><span class="line"></span><br><span class="line">부분집합의 개수 <span class="number">2</span> ^ x - <span class="number">1</span> (공집합 제외)</span><br><span class="line">집합에 원소가 들어갈지 안들어갈지 선택한다.</span><br><span class="line"></span><br><span class="line"><span class="title function_">D</span>(<span class="number">1</span>) -&gt; O -&gt; <span class="title function_">D</span>(<span class="number">2</span>) -&gt; o -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">                  -&gt; x -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">     -&gt; X -&gt; <span class="title function_">D</span>(<span class="number">2</span>) -&gt; o -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br><span class="line">                  -&gt; x -&gt; <span class="title function_">D</span>(<span class="number">3</span>) -&gt; o</span><br><span class="line">                               -&gt; x</span><br></pre></td></tr></table></figure>
-
-<p>문제에서 1부터 N까지의 원소를 갖는 부분집합을 구하라고 했기 때문에, 1부터 N까지의 길이에 0을 담은 체크 배열을 만들어준다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> checkArray = <span class="title class_">Array</span>.<span class="title function_">from</span>(&#123; <span class="attr">length</span>: n + <span class="number">1</span> &#125;, <span class="function">() =&gt;</span> <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<p>이제 Head 노드에서부터 노드를 방문하면서, 해당 노드를 포함할 것인지 확인하고, 부분 집합을 찾아준다.</p>
-<p>(내가 만든 부분 집합에 참여시키고 참여시키지않는 것을 확인 후 배열에 하나씩 담아주면 된다.)</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">DFS</span>(<span class="params">depth</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (depth === n + <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> temp = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">      <span class="comment">// 1로 들어온 것들만 출력하기</span></span><br><span class="line">      <span class="keyword">if</span> (checkArray[i] === <span class="number">1</span>) temp += i + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (temp.<span class="property">length</span> &gt;= <span class="number">1</span>) answer.<span class="title function_">push</span>(temp.<span class="title function_">trim</span>());</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 집합에 포함시킨다.</span></span><br><span class="line">    checkArray[depth] = <span class="number">1</span>;</span><br><span class="line">    <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 집합에 포함시키지 않는다.</span></span><br><span class="line">    checkArray[depth] = <span class="number">0</span>;</span><br><span class="line">    <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="👉-DFS-함수를-잘-살펴보자"><a href="#👉-DFS-함수를-잘-살펴보자" class="headerlink" title="👉  DFS 함수를 잘 살펴보자"></a>👉  DFS 함수를 잘 살펴보자</h3><ol>
-<li>부분집합이 주어진 배열의 길이를 넘어갈 수는 없으므로, depth가 배열의 길이와 같다면 재귀를 멈추고, 1로 들어온 인덱스만 출력한다.</li>
-<li>depth가 아직 배열의 길이에 도달하지 않으면, 자기 자식 노드를 선택하는 경우와 그렇지 않은 경우를 만들고, 자식을 호출하여 부분집합을 찾아간다.</li>
-</ol>
-<h3 id="✅-전체-코드"><a href="#✅-전체-코드" class="headerlink" title="✅ 전체 코드"></a>✅ 전체 코드</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">n</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = [];</span><br><span class="line">  <span class="keyword">let</span> checkArray = <span class="title class_">Array</span>.<span class="title function_">from</span>(&#123; <span class="attr">length</span>: n + <span class="number">1</span> &#125;, <span class="function">() =&gt;</span> <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">DFS</span>(<span class="params">depth</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (depth === n + <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> temp = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 1로 들어온 것들만 출력하기</span></span><br><span class="line">        <span class="keyword">if</span> (checkArray[i] === <span class="number">1</span>) temp += i + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (temp.<span class="property">length</span> &gt;= <span class="number">1</span>) answer.<span class="title function_">push</span>(temp.<span class="title function_">trim</span>());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 집합에 포함시킨다.</span></span><br><span class="line">      checkArray[depth] = <span class="number">1</span>;</span><br><span class="line">      <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">      <span class="comment">// 집합에 포함시키지 않는다.</span></span><br><span class="line">      checkArray[depth] = <span class="number">0</span>;</span><br><span class="line">      <span class="title function_">DFS</span>(depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">DFS</span>(<span class="number">1</span>); <span class="comment">// DFS는 1부터 시작한다.</span></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>DFS를 사용하려면 재귀함수가 기본적인 지식으로 깔려 있어야하는 것 같다. 재귀함수를 배웠다고 생각했는데 막상 그것도 아닌가보다. 😟 DFS가 실행되는 과정에 대해서 더 이해하는 과정이 필요할 것 같다. 부분집합을 구하라는 문제를 봤을 때, 어떻게 구해야하지 라고 생각하다가 가지치기 형식으로 그림을 그리다보니 이진트리 형태로 나오는 것을 보면서 이러면 이진트리로 접근해야겠다. 라는 생각이 들었던 것만으로도 오늘은 성공인것 같다!</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>크레인 인형뽑기 [2019 카카오 개발자 겨울 인턴십]</title>
     <url>/2022/221013-archive/</url>
     <content><![CDATA[<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>게임개발자인 죠르디는 크레인 인형뽑기 기계를 모바일 게임으로 만들려고 합니다.<br>죠르디는 게임의 재미를 높이기 위해 화면 구성과 규칙을 다음과 같이 게임 로직에 반영하려고 합니다.</p>
@@ -260,8 +260,8 @@
 <p>예전엔 건들지도 못했던 내 자신과 비교하면 그래도 많이 늘었다! 게속 열심히 공부해보즈앗</p>
 ]]></content>
       <tags>
-        <tag>JavaScript</tag>
         <tag>Algorithm</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -728,6 +728,37 @@
       </tags>
   </entry>
   <entry>
+    <title>후위연산식(postfix)</title>
+    <url>/2022/221014-archive/</url>
+    <content><![CDATA[<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.</p>
+<p>만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 12입니다.</p>
+<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다.</p>
+<p>식은 1~9의 숫자와 +, -, *, &#x2F; 연산자로만 이루어진다.</p>
+<h3 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h3><p>연산한 결과를 출력합니다.</p>
+<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1</p>
+<p>352+*9-</p>
+<p>▣ 출력예제 1</p>
+<p>12</p>
+<hr>
+<h2 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h2><p>문제를 해결하기 위해 어떤 방법을 사용해야하는지 생각해보자 :)</p>
+<ol>
+<li>문자열로 받은 argument를 하나씩 확인해야한다. ➡️ split 메서드 사용하여 배열로 만들기</li>
+<li>반복문으로 순회를 하면서 숫자를 만나면 stack에 넣는다.</li>
+<li>연산자를 만나면 stack에서 2개의 값을 꺼내 계산한다.</li>
+<li>계산한 값을 다시 stack에 넣는다.</li>
+<li>반복문이 종료되었을 때 계산된 값을 반환한다.</li>
+</ol>
+<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">let</span> array = s.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(item)) stack.<span class="title function_">push</span>(<span class="title class_">Number</span>(item));</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> right = stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">let</span> left = stack.<span class="title function_">pop</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (item) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left * right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left + right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left - right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left / right);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Number</span>(stack);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;352+*9-&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>이번 문제는 어떻게 풀지만 알고 있으면 쉽게 구현할 수 있는 문제인 것 같았다.</p>
+<p>풀면서 오류를 범했던 것이 있다면 stack에 넣을 값을 숫자로 변환하지 않고 그대로 넣어서 결과값이 147이 나와 깜짝 놀랬다는 것… (앗차차 나의 실수😃)</p>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>스코프 - 스코프와 스코프의 종류</title>
     <url>/2022/221015-archive/</url>
     <content><![CDATA[<p>📚 스코프는 유효범위이다!<br>스코프에 대해서 알아보고 스코프의 종류에는 어떤 것들이 있는지 알아보자 ๑•‿•๑</p>
@@ -904,8 +935,8 @@
 <h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[i] === <span class="string">&#x27;(&#x27;</span>) stack.<span class="title function_">push</span>(s[i]);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">if</span> (s[i - <span class="number">1</span>] === <span class="string">&#x27;(&#x27;</span>) answer += stack.<span class="property">length</span>;</span><br><span class="line">      <span class="keyword">else</span> answer += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;()(((()())(())()))(())&#x27;</span>));</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>JavaScript</tag>
         <tag>Algorithm</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2172,37 +2203,6 @@
       </tags>
   </entry>
   <entry>
-    <title>후위연산식(postfix)</title>
-    <url>/2022/221014-archive/</url>
-    <content><![CDATA[<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.</p>
-<p>만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 12입니다.</p>
-<h3 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h3><p>첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다.</p>
-<p>식은 1~9의 숫자와 +, -, *, &#x2F; 연산자로만 이루어진다.</p>
-<h3 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h3><p>연산한 결과를 출력합니다.</p>
-<h3 id="예제입력"><a href="#예제입력" class="headerlink" title="예제입력"></a>예제입력</h3><p>▣ 입력예제 1</p>
-<p>352+*9-</p>
-<p>▣ 출력예제 1</p>
-<p>12</p>
-<hr>
-<h2 id="🙌🏻-문제-이해하기"><a href="#🙌🏻-문제-이해하기" class="headerlink" title="🙌🏻 문제 이해하기"></a>🙌🏻 문제 이해하기</h2><p>문제를 해결하기 위해 어떤 방법을 사용해야하는지 생각해보자 :)</p>
-<ol>
-<li>문자열로 받은 argument를 하나씩 확인해야한다. ➡️ split 메서드 사용하여 배열로 만들기</li>
-<li>반복문으로 순회를 하면서 숫자를 만나면 stack에 넣는다.</li>
-<li>연산자를 만나면 stack에서 2개의 값을 꺼내 계산한다.</li>
-<li>계산한 값을 다시 stack에 넣는다.</li>
-<li>반복문이 종료되었을 때 계산된 값을 반환한다.</li>
-</ol>
-<h2 id="✅-solution"><a href="#✅-solution" class="headerlink" title="✅ solution"></a>✅ solution</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">let</span> array = s.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(item)) stack.<span class="title function_">push</span>(<span class="title class_">Number</span>(item));</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> right = stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="keyword">let</span> left = stack.<span class="title function_">pop</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">switch</span> (item) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left * right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left + right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left - right);</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> stack.<span class="title function_">push</span>(left / right);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Number</span>(stack);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">solution</span>(<span class="string">&#x27;352+*9-&#x27;</span>));</span><br></pre></td></tr></table></figure>
-
-<h2 id="😎-Review"><a href="#😎-Review" class="headerlink" title="😎 Review"></a>😎 Review</h2><p>이번 문제는 어떻게 풀지만 알고 있으면 쉽게 구현할 수 있는 문제인 것 같았다.</p>
-<p>풀면서 오류를 범했던 것이 있다면 stack에 넣을 값을 숫자로 변환하지 않고 그대로 넣어서 결과값이 147이 나와 깜짝 놀랬다는 것… (앗차차 나의 실수😃)</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Frontend 관점에서 바라본 MVC 패턴</title>
     <url>/2022/221102-archive/</url>
     <content><![CDATA[<h2 id="MVC-패턴이란"><a href="#MVC-패턴이란" class="headerlink" title="MVC 패턴이란?"></a>MVC 패턴이란?</h2><p>사용자 인터페이스, 데이터 및 논리 제어를 구현하는데 널리 사용되는 디자인 패턴</p>
@@ -2686,6 +2686,88 @@
 <h3 id="💬-부정-셀렉터"><a href="#💬-부정-셀렉터" class="headerlink" title="💬 부정 셀렉터"></a>💬 부정 셀렉터</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not</span>(<span class="selector-attr">[type=<span class="string">&#x27;password&#x27;</span>]</span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:nth-of-type</span>(<span class="number">2</span>)) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="💬-적합성-확인-셀렉터"><a href="#💬-적합성-확인-셀렉터" class="headerlink" title="💬 적합성 확인 셀렉터"></a>💬 적합성 확인 셀렉터</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&#x27;text&#x27;</span>]</span><span class="selector-pseudo">:valid</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&#x27;text&#x27;</span>]</span><span class="selector-pseudo">:invalid</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Layout - Flexbox 이해하기</title>
+    <url>/2023/230216-archive/</url>
+    <content><![CDATA[<p>부모 요소엔 Flexbox 속성을 잘 적용하지만 자식 요소에 적용할 수 있는 Flexbox 속성은 익숙치 않아서 정리해보았다.</p>
+<h3 id="💬-자식-요소에-적용해야-하는-Flexbox-속성"><a href="#💬-자식-요소에-적용해야-하는-Flexbox-속성" class="headerlink" title="💬 자식 요소에 적용해야 하는 Flexbox 속성"></a>💬 <strong>자식 요소에 적용해야 하는 Flexbox 속성</strong></h3><blockquote>
+<p><em>부모 요소에 적용해야 하는 속성들이 자식 요소들의 <strong>정렬</strong>과 관련이 있었다면, 자식 요소에게 적용해야 하는 속성인 <code>flex</code> 는 요소가 <strong>차지하는 공간</strong>과 관련이 있다.</em></p>
+</blockquote>
+<p><strong>flex 속성의 값</strong></p>
+<p>: flex 속성에는 세 가지 값을 지정해줄 수 있다.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex</span>: &lt;<span class="built_in">grow</span>(팽창 지수) &gt; &lt;<span class="built_in">shrink</span>(수축 지수) &gt; &lt;<span class="built_in">basis</span>(기본 크기) &gt;;</span><br></pre></td></tr></table></figure>
+
+<p><code>grow(팽창 지수)</code> 👉🏻 요소의 크기가 <strong>늘어나야 할 때</strong> 얼마나 늘어날 것인지</p>
+<p><code>shrink(수축 지수)</code> 👉🏻 요소의 크기가 <strong>줄어들어야 할 때</strong> 얼마나 줄어들 것인지</p>
+<p><code>basis(기본 크기)</code> 👉🏻 <strong>늘어나고 줄어드는 것과 상관없이</strong> 요소의 기본 크기는 얼마인지</p>
+<p>🙋🏻‍♀️ 자식 요소에 <code>flex</code> 속성을 따로 설정해주지 않으면?</p>
+<p>: <strong>기본값</strong>이 적용되며, 왼쪽에서부터 오른쪽으로 콘텐츠의 크기만큼 배치된다.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; //<span class="attribute">flex</span>: grow shrink basis</span><br></pre></td></tr></table></figure>
+
+<p>꼭 <code>flex</code> 속성 안에 세 가지 값을 한 번에 설정해줄 필요 없이, 다음과 같이 각 값을 따로 지정해줄 수 있다.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line"><span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line"><span class="attribute">flex-basis</span>: auto;</span><br></pre></td></tr></table></figure>
+
+<p>💬 <strong>grow : 자식 박스는 얼마나 늘어날 수 있을까?</strong></p>
+<p><code>grow(팽창 지수)</code> 는 요소의 크기가 늘어나야 할 때 <strong>얼마나 늘어날 것인지</strong>를 의미한다고 했다.</p>
+<p>어떤 의미인지 알아보기 위해서 챕터 2-1에서 사용했던 HTML에서 자식 <code>&lt;div&gt;</code> 요소들에 id를 추가해서 <code>grow</code>값을 변경하며 변화를 확인해보자.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box3&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>flex</code> 속성을 설정하기 전의 모습</p>
+<p><img src="/../img/230216/230216-01.png" alt="230216-01.png"></p>
+<p>👉🏻 <code>grow</code>의 기본 값인 0은 빈 공간이 있어도 늘어나지 않음을 의미한다.</p>
+<p>따라서 빈 공간이 있음에도 박스들이 늘어나지 않는다.</p>
+<p>🙋🏻‍♂️ box1만 <code>flex-grow : 1</code>로 설정하면?</p>
+<p><img src="/../img/230216/230216-02.png" alt="230216-02.png"></p>
+<p>🙋🏻‍♀️ box2도 <code>flex-grow : 1</code>로 설정하면?</p>
+<p><img src="/../img/230216/230216-03.png" alt="230216-03.png"></p>
+<p>🙋🏻‍♀️ box3도 <code>flex-grow : 1</code>로 설정하면?</p>
+<p><img src="/../img/230216/230216-04.png" alt="230216-04.png"></p>
+<h3 id="grow-팽창-지수-는-정렬축-방향으로-빈-공간이-있을-때"><a href="#grow-팽창-지수-는-정렬축-방향으로-빈-공간이-있을-때" class="headerlink" title="grow(팽창 지수)는 정렬축 방향으로 빈 공간이 있을 때,"></a><code>grow(팽창 지수)</code>는 정렬축 방향으로 빈 공간이 있을 때,</h3><p>각 자식 요소들이 얼마나 늘어나서 남는 공간을 차지할 것인지 비율을 정하는 것</p>
+<aside>
+💡 1. grow는 box1 : box2 : box3 = 1 : 0 : 0 이므로 box1이 모든 공간을 차지
+2. grow는 box1 : box2 : box3 = 1 : 1 : 0 이므로 box1과 box2가 1:1로 공간을 나눠가짐
+3. grow는 box1 : box2 : box3 = 1 : 1 : 1 이므로 세 박스가 1:1:1로 공간을 나눠가짐
+
+</aside>
+
+<p>💬 <strong>shrink : 자식 박스는 얼마나 줄어들 수 있을까?</strong></p>
+<p><code>shrink(수축 지수)</code>는 grow와 반대로, 설정한 비율만큼 박스 크기가 작아진다.</p>
+<p><strong>비율이 클수록 더 많이 줄어드는 것.</strong></p>
+<blockquote>
+<p>💡 <code>flex-grow</code> 속성과 <code>flex-shrink</code> 속성을 함께 사용하는 일은 추천하지 않는다.</p>
+</blockquote>
+<p>비율로 레이아웃을 지정할 경우 <code>flex-grow</code> 속성 또는 <code>flex: &lt;grow&gt; 1 auto</code>와 같이 <code>grow</code> 속성에 변화를 주는 방식을 권장한다.<br><code>flex-shrink</code> 속성은 <code>width</code> 나 이후 설명할 <code>flex-basis</code> 속성에 따른 비율이므로 실제 크기를 예측하기가 어렵기 때문이다. <strong><code>flex-grow</code> 속성으로 비율을 변경하는 경우, <code>flex-shrink</code> 속성은 기본값인 1로 두어도 무방하다.</strong></p>
+<blockquote>
+</blockquote>
+<p>💬 <strong>basis : 이 박스의 기본 크기는 얼마일까?</strong></p>
+<p><code>basis(기본 크기)</code>는 자식 박스가 <code>flex-grow</code>나 <code>flex-shrink</code> 에 의해 늘어나거나 줄어들기 전에 가지는 기본 크기이다.</p>
+<p><code>flex-grow</code>가 0일 때, <code>basis</code> 크기를 지정하면 그 크기는 유지된다.</p>
+<p>🙋🏻‍♀️ <code>grow</code> 는 0 : 1 : 1 로 설정하고, box1에 <code>flex-basis : 50px</code> 로 설정하면?</p>
+<p>: box1의 크기가 늘어나거나 줄어들지 않고 50픽셀을 유지한다.</p>
+<p>💬 세 개의 박스 모두 <code>flex-grow : 1</code> 일 때, 위 예시는 <code>flex-basis : auto</code>, 아래 예시는 <code>flex-basis : 0</code> 으로 설정하였다. 두 예시 중 실제로 1 : 1 : 1 의 너비를 갖는 것은 어느 예시인가?</p>
+<p><img src="/../img/230216/230216-05.png" alt="230216-05.png"></p>
+<p>👉🏻 <code>flex-basis:0</code>으로 설정한 예시가 실제로 1 : 1 : 1의 너비를 갖는다.</p>
+<p>🙋🏻 왜 이런 차이가 발생할까?</p>
+<p>: flex-basis를 auto로 지정된 경우 컨텐츠 사이즈에 맞춰서 나타나기 때문이다.</p>
+<h3 id="flex-grow-속성의-값이-0인-경우에만-flex-basis-속성의-값이-유지된다"><a href="#flex-grow-속성의-값이-0인-경우에만-flex-basis-속성의-값이-유지된다" class="headerlink" title="flex-grow 속성의 값이 0인 경우에만 flex-basis 속성의 값이 유지된다."></a><code>flex-grow</code> 속성의 값이 0인 경우에만 <code>flex-basis</code> 속성의 값이 유지된다.</h3><p>: <code>diplay</code> 속성에 <code>flex</code> 가 적용된 컨테이너 내부에 존재하는 자식 박스는 경우에 따라, <strong><code>basis</code> 로 설정된 크기가 항상 유지되는 것은 아니다.</strong> <code>flex-grow</code> 속성의 값이 양수일 경우, 늘어나면서 <code>flex-basis</code> 속성에 적용한 값보다 커질 수도 있다.</p>
+<ul>
+<li><code>width</code>와 <code>flex-basis</code>를 동시에 적용하는 경우, <code>flex-basis</code>가 우선된다.</li>
+<li>콘텐츠가 많아 자식 박스가 넘치는 경우, <code>width</code>가 정확한 크기를 보장하지 않는다.</li>
+<li>(<code>flex-basis</code>를 사용하지 않는다면) 콘텐츠가 많아 자식 박스가 넘치는 경우를 대비해, <code>width</code> 대신 <code>max-width</code>를 쓸 수 있다.</li>
+</ul>
+<p><strong>💬 Flexbox를 이용해 레이아웃 만들어보기</strong></p>
+<p><img src="/../img/230216/230216-06.png" alt="230216-06.png"></p>
+<ul>
+<li><p>index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko-KR&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;index.css&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column2&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column3&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>index.css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">gap</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column1</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column2</span>,</span><br><span class="line"><span class="selector-class">.column3</span> &#123;</span><br><span class="line">  <span class="attribute">align-items</span>: stretch;</span><br><span class="line">  <span class="attribute">gap</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column2</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column3</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.icon</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> dotted red;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">2rem</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.area</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> dotted blue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <tags>
         <tag>CSS</tag>
@@ -3296,88 +3378,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Layout - Flexbox 이해하기</title>
-    <url>/2023/230216-archive/</url>
-    <content><![CDATA[<p>부모 요소엔 Flexbox 속성을 잘 적용하지만 자식 요소에 적용할 수 있는 Flexbox 속성은 익숙치 않아서 정리해보았다.</p>
-<h3 id="💬-자식-요소에-적용해야-하는-Flexbox-속성"><a href="#💬-자식-요소에-적용해야-하는-Flexbox-속성" class="headerlink" title="💬 자식 요소에 적용해야 하는 Flexbox 속성"></a>💬 <strong>자식 요소에 적용해야 하는 Flexbox 속성</strong></h3><blockquote>
-<p><em>부모 요소에 적용해야 하는 속성들이 자식 요소들의 <strong>정렬</strong>과 관련이 있었다면, 자식 요소에게 적용해야 하는 속성인 <code>flex</code> 는 요소가 <strong>차지하는 공간</strong>과 관련이 있다.</em></p>
-</blockquote>
-<p><strong>flex 속성의 값</strong></p>
-<p>: flex 속성에는 세 가지 값을 지정해줄 수 있다.</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex</span>: &lt;<span class="built_in">grow</span>(팽창 지수) &gt; &lt;<span class="built_in">shrink</span>(수축 지수) &gt; &lt;<span class="built_in">basis</span>(기본 크기) &gt;;</span><br></pre></td></tr></table></figure>
-
-<p><code>grow(팽창 지수)</code> 👉🏻 요소의 크기가 <strong>늘어나야 할 때</strong> 얼마나 늘어날 것인지</p>
-<p><code>shrink(수축 지수)</code> 👉🏻 요소의 크기가 <strong>줄어들어야 할 때</strong> 얼마나 줄어들 것인지</p>
-<p><code>basis(기본 크기)</code> 👉🏻 <strong>늘어나고 줄어드는 것과 상관없이</strong> 요소의 기본 크기는 얼마인지</p>
-<p>🙋🏻‍♀️ 자식 요소에 <code>flex</code> 속성을 따로 설정해주지 않으면?</p>
-<p>: <strong>기본값</strong>이 적용되며, 왼쪽에서부터 오른쪽으로 콘텐츠의 크기만큼 배치된다.</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; //<span class="attribute">flex</span>: grow shrink basis</span><br></pre></td></tr></table></figure>
-
-<p>꼭 <code>flex</code> 속성 안에 세 가지 값을 한 번에 설정해줄 필요 없이, 다음과 같이 각 값을 따로 지정해줄 수 있다.</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line"><span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line"><span class="attribute">flex-basis</span>: auto;</span><br></pre></td></tr></table></figure>
-
-<p>💬 <strong>grow : 자식 박스는 얼마나 늘어날 수 있을까?</strong></p>
-<p><code>grow(팽창 지수)</code> 는 요소의 크기가 늘어나야 할 때 <strong>얼마나 늘어날 것인지</strong>를 의미한다고 했다.</p>
-<p>어떤 의미인지 알아보기 위해서 챕터 2-1에서 사용했던 HTML에서 자식 <code>&lt;div&gt;</code> 요소들에 id를 추가해서 <code>grow</code>값을 변경하며 변화를 확인해보자.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box3&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>box3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>flex</code> 속성을 설정하기 전의 모습</p>
-<p><img src="/../img/230216/230216-01.png" alt="230216-01.png"></p>
-<p>👉🏻 <code>grow</code>의 기본 값인 0은 빈 공간이 있어도 늘어나지 않음을 의미한다.</p>
-<p>따라서 빈 공간이 있음에도 박스들이 늘어나지 않는다.</p>
-<p>🙋🏻‍♂️ box1만 <code>flex-grow : 1</code>로 설정하면?</p>
-<p><img src="/../img/230216/230216-02.png" alt="230216-02.png"></p>
-<p>🙋🏻‍♀️ box2도 <code>flex-grow : 1</code>로 설정하면?</p>
-<p><img src="/../img/230216/230216-03.png" alt="230216-03.png"></p>
-<p>🙋🏻‍♀️ box3도 <code>flex-grow : 1</code>로 설정하면?</p>
-<p><img src="/../img/230216/230216-04.png" alt="230216-04.png"></p>
-<h3 id="grow-팽창-지수-는-정렬축-방향으로-빈-공간이-있을-때"><a href="#grow-팽창-지수-는-정렬축-방향으로-빈-공간이-있을-때" class="headerlink" title="grow(팽창 지수)는 정렬축 방향으로 빈 공간이 있을 때,"></a><code>grow(팽창 지수)</code>는 정렬축 방향으로 빈 공간이 있을 때,</h3><p>각 자식 요소들이 얼마나 늘어나서 남는 공간을 차지할 것인지 비율을 정하는 것</p>
-<aside>
-💡 1. grow는 box1 : box2 : box3 = 1 : 0 : 0 이므로 box1이 모든 공간을 차지
-2. grow는 box1 : box2 : box3 = 1 : 1 : 0 이므로 box1과 box2가 1:1로 공간을 나눠가짐
-3. grow는 box1 : box2 : box3 = 1 : 1 : 1 이므로 세 박스가 1:1:1로 공간을 나눠가짐
-
-</aside>
-
-<p>💬 <strong>shrink : 자식 박스는 얼마나 줄어들 수 있을까?</strong></p>
-<p><code>shrink(수축 지수)</code>는 grow와 반대로, 설정한 비율만큼 박스 크기가 작아진다.</p>
-<p><strong>비율이 클수록 더 많이 줄어드는 것.</strong></p>
-<blockquote>
-<p>💡 <code>flex-grow</code> 속성과 <code>flex-shrink</code> 속성을 함께 사용하는 일은 추천하지 않는다.</p>
-</blockquote>
-<p>비율로 레이아웃을 지정할 경우 <code>flex-grow</code> 속성 또는 <code>flex: &lt;grow&gt; 1 auto</code>와 같이 <code>grow</code> 속성에 변화를 주는 방식을 권장한다.<br><code>flex-shrink</code> 속성은 <code>width</code> 나 이후 설명할 <code>flex-basis</code> 속성에 따른 비율이므로 실제 크기를 예측하기가 어렵기 때문이다. <strong><code>flex-grow</code> 속성으로 비율을 변경하는 경우, <code>flex-shrink</code> 속성은 기본값인 1로 두어도 무방하다.</strong></p>
-<blockquote>
-</blockquote>
-<p>💬 <strong>basis : 이 박스의 기본 크기는 얼마일까?</strong></p>
-<p><code>basis(기본 크기)</code>는 자식 박스가 <code>flex-grow</code>나 <code>flex-shrink</code> 에 의해 늘어나거나 줄어들기 전에 가지는 기본 크기이다.</p>
-<p><code>flex-grow</code>가 0일 때, <code>basis</code> 크기를 지정하면 그 크기는 유지된다.</p>
-<p>🙋🏻‍♀️ <code>grow</code> 는 0 : 1 : 1 로 설정하고, box1에 <code>flex-basis : 50px</code> 로 설정하면?</p>
-<p>: box1의 크기가 늘어나거나 줄어들지 않고 50픽셀을 유지한다.</p>
-<p>💬 세 개의 박스 모두 <code>flex-grow : 1</code> 일 때, 위 예시는 <code>flex-basis : auto</code>, 아래 예시는 <code>flex-basis : 0</code> 으로 설정하였다. 두 예시 중 실제로 1 : 1 : 1 의 너비를 갖는 것은 어느 예시인가?</p>
-<p><img src="/../img/230216/230216-05.png" alt="230216-05.png"></p>
-<p>👉🏻 <code>flex-basis:0</code>으로 설정한 예시가 실제로 1 : 1 : 1의 너비를 갖는다.</p>
-<p>🙋🏻 왜 이런 차이가 발생할까?</p>
-<p>: flex-basis를 auto로 지정된 경우 컨텐츠 사이즈에 맞춰서 나타나기 때문이다.</p>
-<h3 id="flex-grow-속성의-값이-0인-경우에만-flex-basis-속성의-값이-유지된다"><a href="#flex-grow-속성의-값이-0인-경우에만-flex-basis-속성의-값이-유지된다" class="headerlink" title="flex-grow 속성의 값이 0인 경우에만 flex-basis 속성의 값이 유지된다."></a><code>flex-grow</code> 속성의 값이 0인 경우에만 <code>flex-basis</code> 속성의 값이 유지된다.</h3><p>: <code>diplay</code> 속성에 <code>flex</code> 가 적용된 컨테이너 내부에 존재하는 자식 박스는 경우에 따라, <strong><code>basis</code> 로 설정된 크기가 항상 유지되는 것은 아니다.</strong> <code>flex-grow</code> 속성의 값이 양수일 경우, 늘어나면서 <code>flex-basis</code> 속성에 적용한 값보다 커질 수도 있다.</p>
-<ul>
-<li><code>width</code>와 <code>flex-basis</code>를 동시에 적용하는 경우, <code>flex-basis</code>가 우선된다.</li>
-<li>콘텐츠가 많아 자식 박스가 넘치는 경우, <code>width</code>가 정확한 크기를 보장하지 않는다.</li>
-<li>(<code>flex-basis</code>를 사용하지 않는다면) 콘텐츠가 많아 자식 박스가 넘치는 경우를 대비해, <code>width</code> 대신 <code>max-width</code>를 쓸 수 있다.</li>
-</ul>
-<p><strong>💬 Flexbox를 이용해 레이아웃 만들어보기</strong></p>
-<p><img src="/../img/230216/230216-06.png" alt="230216-06.png"></p>
-<ul>
-<li><p>index.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko-KR&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;index.css&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>아이콘3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column2&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;column3&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span>영역5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>index.css</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">gap</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column1</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column2</span>,</span><br><span class="line"><span class="selector-class">.column3</span> &#123;</span><br><span class="line">  <span class="attribute">align-items</span>: stretch;</span><br><span class="line">  <span class="attribute">gap</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column2</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column3</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.icon</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> dotted red;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">2rem</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.area</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> dotted blue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>메가테라 프론트엔드 생존코스 1주차 주간회고</title>
     <url>/2023/230312-archive/</url>
     <content><![CDATA[<p><img src="https://megaptera.kr/preview.png?dc076017d09a6a13c8be433e235f414b" alt="megaptera"></p>
@@ -3757,6 +3757,61 @@
       </tags>
   </entry>
   <entry>
+    <title>코드스테이츠 프론트엔드 6주차 주간회고</title>
+    <url>/2023/230325-1-archive/</url>
+    <content><![CDATA[<p><img src="https://oopy.lazyrockets.com/api/rest/cdn/image/5ea7b8f9-fe5e-49b6-ad61-40007a25805b.png" alt="."></p>
+<h1 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h1><ul>
+<li>Promise, async&#x2F;await에 대한 개념을 다시 공부했다.</li>
+<li>fetch 함수를 사용해서 데이터를 받아오고 데이터를 가공하는 연습을 했다.</li>
+<li>create-react-app을 통해 간단한 개발용 React 앱을 만들어봤다.</li>
+<li>JSX 문법에 대해서 배웠다.</li>
+<li>React Router에 대해 배우고 Router를 통해 SPA를 구현하는 연습을 했다.</li>
+</ul>
+<h1 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h1><ul>
+<li>비동기가 막연하게 느껴지는 개념이라고 생각해서 어렵다라는 생각을 가지고 있었던 것 같다. 유튜브 제로초님 영상 중 비동기 콜백함수와 프로미스 개념에 관한 영상을 보고 자바스크립트 딥다이브를 다시 읽어보니 생각보다 별거 없네?라는 생각이 들었다.</li>
+<li><code>npx create-react-app</code> 명령어를 통해 리액트 앱을 만들고 JSX 문법을 사용해 브라우저에 띄우는 실습하는 주간이었다. 코드스테이츠에서는 JSX문법에 대해서만 간단하게 배웠지만 한 주 전에 메가테라에서 JSX문법이 어떻게 자바스크립트 코드로 변환되는지 깊게 배웠기 때문에 내용들이 쉽게 느껴졌다.</li>
+<li>Router에 대한 개념을 배우고 나니 이전에 바닐라 자바스크립트로 SPA를 구현했던 코드가 생각이 났었다. 설정한 URL이외의 주소로 접근하면 404 에러 페이지를 띄워줘야할 때 정규표현식을 사용해서 확인했었다. 코드가 너무 복잡해서 알아보기 어렵다는 아쉬움이 있었는데 리액트를 사용하니 이런 부분에서 쉽게 처리할 수 있다는 것을 알게 되었다. 리액트 만세</li>
+</ul>
+<h1 id="Finding"><a href="#Finding" class="headerlink" title="Finding"></a>Finding</h1><ul>
+<li>새로운 기술들이 나옴에 있어서 두려워하지말자. 결국 새로운 기술은 이전 기술보다 더 사용하기 쉽게 나올 것이다. 그래야 많은 사용자들이 기존에 쓰던 기술을 버리고 갈아탈테니까.</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>메가테라 프론트엔드 생존코스 3주차 주간회고</title>
+    <url>/2023/230325-archive/</url>
+    <content><![CDATA[<h1 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h1><ul>
+<li>React 공식문서에 있는 Thinking in React를 공부했다.</li>
+<li>하나의 코드를 컴포넌트로 분리하는 작업에 대해서 배웠다. 👉🏻 ‘컴포넌트를 어떤 기준으로 나눠야하는가?’</li>
+<li>어떤 컴포넌트가 State를 가지고 있어야하는지, 어떤 컴포넌트는 Props를 받아서 사용해야할지에 대해 배웠다.</li>
+<li>컴포넌트를 함수로 추출할 때 타입스크립트를 어떻게 사용하는지에 대해서 배웠다.</li>
+<li><code>나만의 메뉴 만들기</code> 과제를 진행하면서 다시 한 번 컴포넌트와 State에 대해서 연습할 수 있었다.</li>
+</ul>
+<h1 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h1><ul>
+<li>공식문서에서는 컴포넌트를 미리 분리를 해놓고 작업을 하는 방식을 취했는데, 아샬님은 모든 코드를 먼저 작성하고 컴포넌트를 분리하는 방식을 보여주셨다. 이때 아샬님의 리팩토링 과정은 물 흐르듯이 흘러가서 잠깐 놓치면 완전히 다른 방식의 코드가 만들어져 있었다. 강의를 멈췄다가 다시 보고 다시 돌려서 보다보니 강의 하나를 보는데 3시간 정도 걸린 것 같다.</li>
+<li>컴포넌트 추출 작업을 따라가는 방법도 이해하는데 시간이 오래걸렸지만, 타입스크립트를 사용하는 부분에서 완전히 멘붕이었다. 타입스크립트가 익숙하지 않아서 전체 코드를 파악할 때 타입스크립트 코드로 인해 코드가 한 눈에 잘 안보인다. 더 많이 써보면서 코드 구조에 익숙해져야 할 것 같다.</li>
+<li>강의를 보고 코드를 쳐보는 연습도 했지만 막상 과제를 하려고하니 코드가 쉽게 쳐지지 않는다. 많이 연습해보는 것밖에 답이 없다.</li>
+<li>이번주는 린트 오류를 해결하지 못해서 린트 문제를 해결하기 위해 소요한 시간이 꽤 길었다.</li>
+</ul>
+<h1 id="Finding"><a href="#Finding" class="headerlink" title="Finding"></a>Finding</h1><ul>
+<li>Lifting State Up 개념을 배우면서 라이브러리 없이는 상태관리가 생각보다 복잡하다라는 것을 알게되었다. 이래서 라이브러리로 쉽게 전역 상태 관리를 하기 시작한걸까?</li>
+<li>컴포넌트를 분리하고 하나의 컴포넌트가 하는 일을 간단하게 만들었지만, 브라우저에서 어떤 구조로 렌더링되는지는 쉽게 보이지 않는다. 컴포넌트를 타고 타고 들어가면서 코드를 확인해야하는 불편함이 있다. 어떻게 해야 코드에서도 구조적으로 가독성이 높아지는지에 대해서도 알아봐야 겠다.</li>
+</ul>
+<h1 id="Future-aciton"><a href="#Future-aciton" class="headerlink" title="Future aciton"></a>Future aciton</h1><ul>
+<li>3주차 과제 해설이 올라오면 씹고 뜯고 맛보기. 해설 코드를 보면서 어떻게 코드를 작성해야하는지에 대해 연습하기</li>
+<li>매일 저녁 30분 산책하기. 매일 의자에 앉아있고 돌아다니질 않으니 허리 건강과 체력이 나빠지는게 느껴진다.</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>Megaptera</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>프로미스(Promise) 쉽게 이해하기🤯 (with 제로초)</title>
     <url>/2023/230321-archive/</url>
     <content><![CDATA[<blockquote>
@@ -3793,61 +3848,6 @@
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>메가테라 프론트엔드 생존코스 3주차 주간회고</title>
-    <url>/2023/230325-archive/</url>
-    <content><![CDATA[<h1 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h1><ul>
-<li>React 공식문서에 있는 Thinking in React를 공부했다.</li>
-<li>하나의 코드를 컴포넌트로 분리하는 작업에 대해서 배웠다. 👉🏻 ‘컴포넌트를 어떤 기준으로 나눠야하는가?’</li>
-<li>어떤 컴포넌트가 State를 가지고 있어야하는지, 어떤 컴포넌트는 Props를 받아서 사용해야할지에 대해 배웠다.</li>
-<li>컴포넌트를 함수로 추출할 때 타입스크립트를 어떻게 사용하는지에 대해서 배웠다.</li>
-<li><code>나만의 메뉴 만들기</code> 과제를 진행하면서 다시 한 번 컴포넌트와 State에 대해서 연습할 수 있었다.</li>
-</ul>
-<h1 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h1><ul>
-<li>공식문서에서는 컴포넌트를 미리 분리를 해놓고 작업을 하는 방식을 취했는데, 아샬님은 모든 코드를 먼저 작성하고 컴포넌트를 분리하는 방식을 보여주셨다. 이때 아샬님의 리팩토링 과정은 물 흐르듯이 흘러가서 잠깐 놓치면 완전히 다른 방식의 코드가 만들어져 있었다. 강의를 멈췄다가 다시 보고 다시 돌려서 보다보니 강의 하나를 보는데 3시간 정도 걸린 것 같다.</li>
-<li>컴포넌트 추출 작업을 따라가는 방법도 이해하는데 시간이 오래걸렸지만, 타입스크립트를 사용하는 부분에서 완전히 멘붕이었다. 타입스크립트가 익숙하지 않아서 전체 코드를 파악할 때 타입스크립트 코드로 인해 코드가 한 눈에 잘 안보인다. 더 많이 써보면서 코드 구조에 익숙해져야 할 것 같다.</li>
-<li>강의를 보고 코드를 쳐보는 연습도 했지만 막상 과제를 하려고하니 코드가 쉽게 쳐지지 않는다. 많이 연습해보는 것밖에 답이 없다.</li>
-<li>이번주는 린트 오류를 해결하지 못해서 린트 문제를 해결하기 위해 소요한 시간이 꽤 길었다.</li>
-</ul>
-<h1 id="Finding"><a href="#Finding" class="headerlink" title="Finding"></a>Finding</h1><ul>
-<li>Lifting State Up 개념을 배우면서 라이브러리 없이는 상태관리가 생각보다 복잡하다라는 것을 알게되었다. 이래서 라이브러리로 쉽게 전역 상태 관리를 하기 시작한걸까?</li>
-<li>컴포넌트를 분리하고 하나의 컴포넌트가 하는 일을 간단하게 만들었지만, 브라우저에서 어떤 구조로 렌더링되는지는 쉽게 보이지 않는다. 컴포넌트를 타고 타고 들어가면서 코드를 확인해야하는 불편함이 있다. 어떻게 해야 코드에서도 구조적으로 가독성이 높아지는지에 대해서도 알아봐야 겠다.</li>
-</ul>
-<h1 id="Future-aciton"><a href="#Future-aciton" class="headerlink" title="Future aciton"></a>Future aciton</h1><ul>
-<li>3주차 과제 해설이 올라오면 씹고 뜯고 맛보기. 해설 코드를 보면서 어떻게 코드를 작성해야하는지에 대해 연습하기</li>
-<li>매일 저녁 30분 산책하기. 매일 의자에 앉아있고 돌아다니질 않으니 허리 건강과 체력이 나빠지는게 느껴진다.</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-        <tag>Megaptera</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>코드스테이츠 프론트엔드 6주차 주간회고</title>
-    <url>/2023/230325-1-archive/</url>
-    <content><![CDATA[<p><img src="https://oopy.lazyrockets.com/api/rest/cdn/image/5ea7b8f9-fe5e-49b6-ad61-40007a25805b.png" alt="."></p>
-<h1 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h1><ul>
-<li>Promise, async&#x2F;await에 대한 개념을 다시 공부했다.</li>
-<li>fetch 함수를 사용해서 데이터를 받아오고 데이터를 가공하는 연습을 했다.</li>
-<li>create-react-app을 통해 간단한 개발용 React 앱을 만들어봤다.</li>
-<li>JSX 문법에 대해서 배웠다.</li>
-<li>React Router에 대해 배우고 Router를 통해 SPA를 구현하는 연습을 했다.</li>
-</ul>
-<h1 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h1><ul>
-<li>비동기가 막연하게 느껴지는 개념이라고 생각해서 어렵다라는 생각을 가지고 있었던 것 같다. 유튜브 제로초님 영상 중 비동기 콜백함수와 프로미스 개념에 관한 영상을 보고 자바스크립트 딥다이브를 다시 읽어보니 생각보다 별거 없네?라는 생각이 들었다.</li>
-<li><code>npx create-react-app</code> 명령어를 통해 리액트 앱을 만들고 JSX 문법을 사용해 브라우저에 띄우는 실습하는 주간이었다. 코드스테이츠에서는 JSX문법에 대해서만 간단하게 배웠지만 한 주 전에 메가테라에서 JSX문법이 어떻게 자바스크립트 코드로 변환되는지 깊게 배웠기 때문에 내용들이 쉽게 느껴졌다.</li>
-<li>Router에 대한 개념을 배우고 나니 이전에 바닐라 자바스크립트로 SPA를 구현했던 코드가 생각이 났었다. 설정한 URL이외의 주소로 접근하면 404 에러 페이지를 띄워줘야할 때 정규표현식을 사용해서 확인했었다. 코드가 너무 복잡해서 알아보기 어렵다는 아쉬움이 있었는데 리액트를 사용하니 이런 부분에서 쉽게 처리할 수 있다는 것을 알게 되었다. 리액트 만세</li>
-</ul>
-<h1 id="Finding"><a href="#Finding" class="headerlink" title="Finding"></a>Finding</h1><ul>
-<li>새로운 기술들이 나옴에 있어서 두려워하지말자. 결국 새로운 기술은 이전 기술보다 더 사용하기 쉽게 나올 것이다. 그래야 많은 사용자들이 기존에 쓰던 기술을 버리고 갈아탈테니까.</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-        <tag>CodeStates</tag>
       </tags>
   </entry>
   <entry>
@@ -4025,6 +4025,88 @@
 
 <p><code>const id = </code>checkbox-${label}<code>.replace(/ /g, &#39;-&#39;).toLowerCase();</code> 와 같은 코드는 React에선 useRef를 사용한다.</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Megaptera</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thinking in React - React State🚀</title>
+    <url>/2023/230327-archive/</url>
+    <content><![CDATA[<h1 id="React-State"><a href="#React-State" class="headerlink" title="React State"></a>React State</h1><p><strong>Step 3: Find the minimal but complete representation of UI state</strong></p>
+<p><strong>Step 4: Identify where your state should live</strong></p>
+<p><strong>Step 5: Add inverse data flow</strong></p>
+<p>리액트에는 state라는 개념이 있고 state가 바뀌면 해당 컴포넌트와 하위 컴포넌트가 다시 렌더링하게 된다.</p>
+<h3 id="React-State의-조건은"><a href="#React-State의-조건은" class="headerlink" title="React State의 조건은?"></a>React State의 조건은?</h3><ul>
+<li><p>변경되지 않는건 state로 다룰 가치가 없다.</p>
+</li>
+<li><p>props로 전달받았다면 state가 아니다.</p>
+</li>
+<li><p>계산 가능하면 state가 아니다.</p>
+</li>
+</ul>
+<h3 id="상태는-누가-관리해야할까"><a href="#상태는-누가-관리해야할까" class="headerlink" title="상태는 누가 관리해야할까?"></a>상태는 누가 관리해야할까?</h3><p>현재 관리해야하는 상태는? 👉🏻 체크박스 on, off</p>
+<p>체크박스는 누가 관리하는 게 좋을까? 상태를 여러 컴포넌트에 넘겨줘야하는 상황이라면 하위 컴포넌트를 가지고 있는 공통 조상 컴포넌트가 관리하는 것이 좋다. 이것을 <strong>Lifting State Up</strong>이라고 한다.</p>
+<br />
+
+<h3 id="checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기"><a href="#checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기" class="headerlink" title="checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기"></a>checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line">type <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>상태를 관리하려면? <strong>useState</strong> 사용</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p><strong>체크박스를 클릭했을 때 inStockOnly의 값을 변경하는 방법</strong></p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = useState&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setInStockOnly</span>(!inStockOnly);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">checked</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>CheckBoxField</code> 컴포넌트를 누가 사용하지? <code>ProductInCategory</code> 컴포넌트</p>
+<p>inStockOnly가 true가 되면 <code>ProductInCategory</code> 컴포넌트에서 제품 목록 필터링을 해야한다.</p>
+<p><code>CheckBoxField</code> 와 <code>ProductInCategory</code> 컴포넌트를 모두 가지고 있는 조상 컴포넌트를 찾으면?</p>
+<p>👉🏻 <code>FilterableProductTable</code> 컴포넌트, 즉 inStockOnly가 있어야 하는 곳이다.</p>
+<h3 id="TextField-컴포넌트-만들기"><a href="#TextField-컴포넌트-만들기" class="headerlink" title="TextField 컴포넌트 만들기"></a>TextField 컴포넌트 만들기</h3><p><img src="/../img/230327/230327-1.png" alt="스크린샷 2023-03-24 오후 2.27.05.png"></p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="FilterableProductTable-컴포넌트가-가져야-할-state"><a href="#FilterableProductTable-컴포넌트가-가져야-할-state" class="headerlink" title="FilterableProductTable 컴포넌트가 가져야 할 state"></a>FilterableProductTable 컴포넌트가 가져야 할 state</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ProductTable</span> <span class="keyword">from</span> <span class="string">&#x27;./ProductTable&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">SearchBar</span> <span class="keyword">from</span> <span class="string">&#x27;./SearchBar&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Product</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Product&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">FilterableProductTableProps</span> = &#123;</span><br><span class="line">  <span class="attr">products</span>: <span class="title class_">Product</span>[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>검색어라는 상태를 관리하고 싶다면</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>키를 입력할 때마다 무엇을 입력했는 지 확인하려면 onChange 이벤트를 사용한다.</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/230327/230327-2.png" alt="스크린샷 2023-03-24 오후 3.25.39.png"></p>
+<p>👉🏻 target을 얻었는데 불분명해서 나오는 에러. 현재 타겟은 input element이므로 <HTMLInputElement>로 타입을 지정해준다.</p>
+<p><img src="/../img/230327/230327-3.png" alt="스크린샷 2023-03-24 오후 3.30.17.png"></p>
+<p>FilterableProductTable 컴포넌트로 작성한 state를 옮겨준다.</p>
+<blockquote>
+<p>즉, state가 필요한 컴포넌트에서 먼저 작성하고 공통 조상 컴포넌트로 옮기는 방법이 Lifting State Up</p>
+</blockquote>
+<p><img src="/../img/230327/230327-4.png" alt="스크린샷 2023-03-24 오후 3.42.17.png"></p>
+<p>그리고 SearchBar 컴포넌트에 props로 넘겨주기</p>
+<p>SerachBar 컴포넌트에서는?</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">CheckBoxField</span> <span class="keyword">from</span> <span class="string">&#x27;./CheckBoxField&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TextField</span> <span class="keyword">from</span> <span class="string">&#x27;./TextField&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SearchBarProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123; filterText &#125;: SearchBarProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;seach-bar&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">TextField</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">CheckBoxField</span> <span class="attr">label</span>=<span class="string">&quot;Only Show products in stock&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>props으로 받아왔기 때문에 SearchBarProps로 타입을 지정해주고, TextField 컴포넌트에 props로 다시 전달해주기</p>
+<p>TextField 컴포넌트에서는?</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; filterText, placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TextFieldProps에 filterText prop 타입 지정하기</p>
+<p>이제 useState는 더 이상 필요 없기 때문에 지워도 된다.</p>
+<h3 id="문제는-setFilterText"><a href="#문제는-setFilterText" class="headerlink" title="문제는 setFilterText"></a>문제는 setFilterText</h3><p>데이터를 위에서 아래로 보내는 건 문제 없는데, 함수를 아래서 위로 보내야 하는 상황</p>
+<p>이럴 때는 하위 컴포넌트의 props로 함수를 전달한다. (콜백 함수)</p>
+<p><img src="/../img/230327/230327-5.png" alt="스크린샷 2023-03-24 오후 3.52.11.png"></p>
+<p><img src="/../img/230327/230327-6.png" alt="스크린샷 2023-03-24 오후 3.53.42.png"></p>
+<p><img src="/../img/230327/230327-7.png" alt="스크린샷 2023-03-24 오후 3.55.23.png"></p>
+<h3 id="filterText-prop을-ProductTable-컴포넌트로-넘겨주기"><a href="#filterText-prop을-ProductTable-컴포넌트로-넘겨주기" class="headerlink" title="filterText prop을 ProductTable 컴포넌트로 넘겨주기"></a>filterText prop을 ProductTable 컴포넌트로 넘겨주기</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ProductTable</span> products=&#123;products&#125; filterText=&#123;filterText&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 넘겨주는 방법이 있지만, 또 다른 한 가지 방법은</p>
+<p>filterText 값에 해당하는 products만 넘겨주기. (prop을 한개만 넘겨줘도 되는 장점이 있다.)</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> query = filterText.<span class="title function_">trim</span>().<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> filteredProducts = !query.<span class="property">length</span></span><br><span class="line">    ? products</span><br><span class="line">    : products.<span class="title function_">filter</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> product.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">includes</span>(query));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">setFilterText</span>=<span class="string">&#123;setFilterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;filteredProducts&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>inStockOnly, setInStockOnly도 동일하게 리팩토링하기</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>Megaptera</tag>
