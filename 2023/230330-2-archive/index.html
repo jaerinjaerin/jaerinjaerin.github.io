@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="프론트엔드 개발자를 꿈꾸는 코시생 이잴잴의 공부 기록입니다. Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>URL vs URI | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Network/">
+                            Network
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                URL vs URI
+            
+            
+        </div>
+        <span class="post-date">
+            Mar 30, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p><img src="/../img/230330/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%204.png" alt="스크린샷 4.png"></p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>: <strong>Uniform Resource Locator</strong></p>
+<ul>
+<li>네트워크 상에서 웹 페이지, 이미지, 동영상 파일이 위치한 식별하는 문자열</li>
+<li>sceme, hosts, url-path로 구분</li>
+</ul>
+<h3 id="scheme"><a href="#scheme" class="headerlink" title="scheme"></a>scheme</h3><p>통신 방식을 결정한다. 일반적인 웹에서는 https를 사용</p>
+<h3 id="hosts"><a href="#hosts" class="headerlink" title="hosts"></a>hosts</h3><p>웹 서버의 이름이나 도메인, IP를 사용하며 주소를 나타낸다.</p>
+<h3 id="url-path"><a href="#url-path" class="headerlink" title="url-path"></a>url-path</h3><p>웹 서버에서 지정한 루트 디렉토리에서부터 시작해서 웹 페이지, 이미지, 동영상이 위치한 경로와 파일명을 나타낸다.</p>
+<h2 id="URI-브라우저의-검색창을-클릭하면-나타나는-주소"><a href="#URI-브라우저의-검색창을-클릭하면-나타나는-주소" class="headerlink" title="URI - 브라우저의 검색창을 클릭하면 나타나는 주소"></a>URI - 브라우저의 검색창을 클릭하면 나타나는 주소</h2><p>: <strong>Uniform Resource Identifier</strong></p>
+<ul>
+<li>URL의 기본 요소인 scheme, hosts, url-path에 더해 query, fragment를 포함</li>
+</ul>
+<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><p>: 웹 서버에 보내는 추가적인 질문</p>
+<p><code>http://www.google.com:80/search?q=JavaScript</code>를 브라우저의 검색창에 입력하면?</p>
+<p>구글에서 JavaScript를 검색한 결과가 나타난다.</p>
+<h3 id="fragment"><a href="#fragment" class="headerlink" title="fragment"></a>fragment</h3><ul>
+<li>일종의 북마크 기능을 수행</li>
+<li>URL에 fragment(<code>#</code>)와 특정 HTML 요소의 id를 전달하면 해당 요소가 있는 곳으로 스크롤을 이동한다.</li>
+</ul>
+<p><img src="/../img/230330/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%205.png" alt="스크린샷 5.png"></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230330-1-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230330-2-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230330-2-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
