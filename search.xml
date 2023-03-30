@@ -2427,91 +2427,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HTML의 기초 정리하기</title>
-    <url>/2023/230214-archive/</url>
-    <content><![CDATA[<h2 id="HTML-기초"><a href="#HTML-기초" class="headerlink" title="HTML 기초"></a>HTML 기초</h2><h3 id="학습-목표"><a href="#학습-목표" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
-<li>HTML이 무엇일까?</li>
-<li>HTML의 구조와 문법</li>
-<li>자주 사용되는 HTML 요소가 무엇일까?</li>
-<li>id와 class를 목적에 맞게 사용하여 사람과 컴퓨터가 읽기 쉬운 semantic HTML 문서를 작성하자.</li>
-<li>시맨틱 요소엔 무엇이 있을까?</li>
-<li>시맨틱 요소를 사용하는 이유는 무엇일까?</li>
-</ul>
-<p>🙋🏻‍♀️ HTML이 뭐야?</p>
-<p>: Hyper Text Markup Language의 약자. 웹페이지의 틀을 만드는 마크업 언어이다.</p>
-<p>🙋🏻‍♂️ HTML은 어떻게 쓰는거지?</p>
-<p>: HTML은 tag들의 집합이다. &lt;&gt;로 묶인 HTML의 기본 구성 요소로 사용한다. 예를 들어 <code>&lt;span&gt;&lt;/span&gt;</code> 과 같이 태그를 열고 닫는 방식으로 사용한다.</p>
-<p>🙋🏻‍♂️ 무조건 여는태그와 닫는태그가 쌍으로 있어야 하는건가?</p>
-<p>: 무조건은 아니다. img 태그와 같은 경우엔 self-closing tag로 <code>&lt;img /&gt;</code> 처럼 사용할 수 있다.</p>
-<p>🙋🏻 자주 사용하는 element로는 어떤 것들이 있을까?</p>
-<p>: 자주 사용하는 태그로는 <code>div</code>, <code>span</code>, <code>img</code>, <code>a</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>input</code>, <code>textarea</code>, <code>button</code> 태그가 있다.</p>
-<p>textarea 태그는 줄바꿈이 되는 입력폼이다.</p>
-<p>🙋🏻‍♂️ 시맨틱 요소란 무엇일까?</p>
-<p>: HTML5에서는 시멘틱 웹이 중요시되면서 여러 시맨틱 요소가 새롭게 만들어졌다. semantic이란 ‘의미가 있는’ 이라고 해석할 수 있는데 즉, 의미를 가진 요소를 사용하는 방식을 추구한 것이다.</p>
-<p>예를 들어서 문단의 제목을 div 태그를 사용하여 폰트사이즈를 키워서 제목처럼 보이게 만들 수 있지만, h1 태그를 사용하여 heading level 1의 의미를 주는 것과는 다르다.</p>
-<p>🙋🏻 시맨틱 요소를 사용해야 하는 이유는 무엇일까?</p>
-<p>: 첫 번째로 검색 엔진이 시맨틱 요소를 좋아하기 때문이다. 두 번째로는 개발자가 협업을 할 때 의미가 없는 div 태그를 탐색하는 것보다 의미있는 코드 블록을 찾는 것이 편리하기 때문이다.</p>
-<p>🙋🏻 시맨틱 요소의 종류로는 뭐가 있을까?</p>
-<p><code>&lt;article&gt;</code></p>
-<p>: 독립적이고 자체 포함된 콘텐츠를 지정한다.</p>
-<p><code>&lt;aside&gt;</code></p>
-<p>: 본문의 주요 부분을 표시하고 남은 부분을 설명하는 요소. 사이드바나 광고창 등 중요하지 않은 부분에 사용된다.</p>
-<p><code>&lt;footer&gt;</code></p>
-<p>: 일반적으로 페이지나 해당 파트의 <strong>가장 아랫부분</strong>에 위치하며, 사이트의 라이선스, 주소, 연락처 등을 넣을 때 사용한다.</p>
-<p><code>&lt;header&gt;</code></p>
-<p>: 일반적으로 페이지나 해당 섹션의 <strong>가장 윗부분</strong>에 위치하며, 사이트의 제목이 보통 들어간다.</p>
-<p><code>&lt;nav&gt;</code></p>
-<p>: 내비게이션(<strong>nav</strong>igation)의 약자로, 일반적으로 상단바 등 사이트를 안내하는 요소에 사용한다.</p>
-<p><code>&lt;main&gt;</code></p>
-<p>: 문서의 주된 콘텐츠를 표시</p>
-<h2 id="HTML-심화"><a href="#HTML-심화" class="headerlink" title="HTML 심화"></a>HTML 심화</h2><h3 id="학습-목표-1"><a href="#학습-목표-1" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
-<li>웹 앱의 구조 잡기</li>
-<li><code>&lt;div&gt;</code> 요소 또는 <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code> 등의 시맨틱 요소로 영역을 구분하는 이유를 이해할 수 있다.</li>
-<li>HTML 문서에서 언제 id 혹은 class를 사용해야 하는지 이해할 수 있다.</li>
-</ul>
-<p>🙋🏻‍♀️ 웹 앱의 구조는 어떻게 잡아야할까?</p>
-<p>: 댓글창을 생각해보자. 크게 작성하는 영역과 읽기 영역으로 나눠져있다.</p>
-<p>🙋🏻‍♂️ 댓글창엔 어떤 태그로 구조를 만들어야할까?</p>
-<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-01.png"></p>
-<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-02.png"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;댓글을 입력해주세요&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>🙋🏻‍♀️ 읽기 영역은 어떤 구조로 잡아야할까?</p>
-<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-03.png"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>ouo***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>cake***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>💬 id 및 class를 목적에 맞게 사용하자</strong></p>
-<p>🙋🏻‍♀️ id는 언제 쓰고 class는 언제 써야할까?</p>
-<ul>
-<li>id: 고유한 이름을 붙일 때 사용한다.</li>
-<li>class: 반복되는 영역을 유형별로 분류할 때 사용한다.</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>HTML 태그</th>
-<th>Selector</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>&lt;div id=”writing-seciton”&gt;</code></td>
-<td>div#writing-section</td>
-</tr>
-<tr>
-<td><code>&lt;li class=”comment”&gt;</code></td>
-<td>li.comment</td>
-</tr>
-</tbody></table>
-<p>반복되는 영역은? 👉🏻 <strong>class</strong>를 사용하자.</p>
-<p>🙋🏻‍♀️ id를 사용하지 않은 이유는?</p>
-<p>: id는 고유한 이름을 붙일 때 사용한다. id를 사용하게 되면 모든 영역이 고유해야한다.</p>
-<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-04.png"></p>
-]]></content>
-      <tags>
-        <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CSS 기초 정리하기</title>
     <url>/2023/230215-archive/</url>
     <content><![CDATA[<h2 id="CSS-기초"><a href="#CSS-기초" class="headerlink" title="CSS 기초"></a>CSS 기초</h2><h3 id="학습-목표"><a href="#학습-목표" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
@@ -2692,51 +2607,6 @@
       </tags>
   </entry>
   <entry>
-    <title>코드스테이츠 프론트엔드 1주차 주간회고</title>
-    <url>/2023/230217-archive/</url>
-    <content><![CDATA[<p>벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하려 한다.</p>
-<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="1주차엔-뭘-배웠지"><a href="#1주차엔-뭘-배웠지" class="headerlink" title="1주차엔 뭘 배웠지?"></a>1주차엔 뭘 배웠지?</h3><p>1주차에는 HTML과 CSS에 대해서 학습했다. 이미 알던 내용이라고 해서 대충 넘어가는 것이 아니라 내가 확실하게 알고 있는 것인가에 대해서 한 번씩 더 체크하고 넘어가는 과정이었다.</p>
-<p>Section1 파트의 강사님이신 운도님께서 이후 과정에선 CSS를 자세히 살펴볼 기회가 많지 않으니 이때 많이 학습해놓는 것이 좋다고 말씀해주셨는데 정말 공감이 가는 말이었다. 왜냐하면 자바스크립트를 배우게 되는 순간, 헤어 나올 수 없는 늪에 빠지는 느낌이 들기 때문이다.</p>
-<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><ol>
-<li>수업이 있는 9시부터 6시까지는 딴 짓하지 않고 집중해서 공부했다.</li>
-<li>자바스크립트로 계산기로 만들기 위해 로직을 먼저 구상해보았다. 이후에 진행되는 과정이지만, 스스로 먼저 어떻게 구현할 수 있을지 생각해보는 것이 내 성장에 도움이 된다고 생각했다.</li>
-</ol>
-<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>코드스테이츠 수업에서 조금 아쉬운 부분이라면 실시간 세션이 너무 짧다는 것이다. 오전에 수업자료로 우선 각자 공부하고 1-2시간 정도 라이브 강의에서 배운 내용을 복습하는데 처음 마크업을 배우는 사람 입장에서는 조금 어렵지 않을까라는 생각이 들었다.</p>
-<p>스스로에게 아쉬운 점은 수업이 있는 시간 외에 따로 공부한 시간이 거의 없다는 것이다. 6시 이후로 공부하는 게 쉽지 않지만 누구보다 열정적으로 공부해야하는 걸 알기에 다음주엔 더 열심히 해야겠다 다짐했다.</p>
-<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
-<li><input disabled="" type="checkbox"> 코드스테이츠 과정에 맞춰 자바스크립트 Deep Dive 개념 다시 복습하기. (잊지말자, 다른 사람에 설명할 수 있어야 내 것이 된 것이다✍🏻)</li>
-<li><input disabled="" type="checkbox"> 계산기 기능 코드로 작성해보기</li>
-<li><input disabled="" type="checkbox"> 리액트 공식문서 공부하기</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-        <tag>CodeStates</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>계산기 구현 로직 생각해보기 🔨</title>
-    <url>/2023/230221-archive/</url>
-    <content><![CDATA[<p>코드스테이츠 2주차 일정을 보니 이틀 뒤에 계산기 기능을 구현하는 시간이 있어 혼자서 미리 생각해보는 시간을 가져보았다.</p>
-<h2 id="💬-계산기-기능-분석하기"><a href="#💬-계산기-기능-분석하기" class="headerlink" title="💬 계산기 기능 분석하기"></a>💬 계산기 기능 분석하기</h2><p>계산기에는 어떤 기능들이 있어야 할까?</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 숫자는 <span class="number">0</span>부터 시작한다.</span><br><span class="line"><span class="number">2.</span> +/- 버튼을 누르면 숫자가 양수인 경우 -로 변환하고, 음수인 경우 +로 변환한다.</span><br><span class="line"><span class="number">3.</span> % 버튼을 누르면? 👉🏻 숫자를 퍼센트로 변환한다. (<span class="number">0</span>인 경우 무시한다.)</span><br><span class="line"><span class="number">4.</span> 숫자를 입력하면 숫자가 표시되어야 하는 부분이 나타난다.</span><br><span class="line">    a. 숫자를 입력하면 <span class="variable constant_">AC</span> 버튼이 C로 바뀌어야 한다.</span><br><span class="line">    b. C 버튼을 누르면 <span class="number">0</span>으로 초기화한다.</span><br><span class="line">    c. 숫자는 <span class="number">3</span>자리마다 ‘,’ 표시를 해줘야 한다.</span><br><span class="line">    d. 이 들어오면 그 이후부터는 ‘,’ 표시하지 않는다.</span><br><span class="line">    e. 연산 기호를 누르기 전까지는 하나의 숫자로 계속해서 연결해야 한다.</span><br><span class="line"><span class="number">5.</span> 연산 기호를 누르면? 👉🏻 <span class="variable constant_">CSS</span>를 변경시킨다. (배경색, 글자 색 반전) <span class="keyword">class</span> 동적 추가</span><br><span class="line"><span class="number">6.</span> 숫자 → 연산 기호 → 숫자 → = 기호순으로 클릭하면 👉🏻 값을 계산 후 결과를 보여준다.</span><br><span class="line"><span class="number">7.</span> 숫자 → 연산 기호 → = 기호순으로 클릭하면 👉🏻 동일한 숫자를 연산하여 결과를 보여준다.</span><br></pre></td></tr></table></figure>
-
-<p>🙋🏻‍♂️ 저장해놔야 하는 값들이 있을까?</p>
-<p>: 현재 값, 이전값, 연산자 그리고 화면에 출력되는 값을 변수로 선언해놓고 계속해서 변경해야 한다.</p>
-<h2 id="고민을-하고-있는-부분-🤔"><a href="#고민을-하고-있는-부분-🤔" class="headerlink" title="고민을 하고 있는 부분 🤔"></a>고민을 하고 있는 부분 🤔</h2><p><code>상태가 변경되면 re-rendering을 한다</code> 라는 생각을 가지고 프로그래밍하고 싶은데 어떤 것을 상태로 관리해야 할 지 고민이 되었다. 저장해놔야 하는 값들이 모두 상태라면 너무 많은 리렌더링을 하는 것은 아닌가 싶고, 리렌더링을 해야 하는 시점이 결과를 연산한 값이라면 상태는 화면에 출력될 값밖에 없다는 뜻인데 그렇다면 이것을 상태로 관리해야 할까? 라는 생각이 들었다.</p>
-<p>또 하나 고민을 해야 할 부분은 <code>함수는 하나의 역할만 해야 한다</code> 라는 것이다. 함수를 어떻게 분리할 것인지도 고민을 해야할 것 같다. 현재로서는</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 화면에 출력되는 값을 업데이트하는 함수</span></span><br><span class="line"><span class="comment">// AC 버튼을 눌렀을 때 모든 것을 초기화하는 함수</span></span><br><span class="line"><span class="comment">// operation을 설정하는 함수</span></span><br><span class="line"><span class="comment">// operation을 해제하는 함수</span></span><br><span class="line"><span class="comment">// 연산자와 피연산자를 받아서 결과를 계산하는 함수</span></span><br></pre></td></tr></table></figure>
-
-<p>이렇게 만들어야하지 않을까 미리 생각해보았다. <em>(물론 코드를 짜기 시작하면 많은 것들이 변할테지만..🥲)</em></p>
-<h2 id="🧮-생각해보면서-느꼈던-점"><a href="#🧮-생각해보면서-느꼈던-점" class="headerlink" title="🧮 생각해보면서 느꼈던 점"></a>🧮 생각해보면서 느꼈던 점</h2><p>알고리즘에서 의사코드를 작성하듯이 프로그래밍을 하기 전에 미리 큰 틀을 생각해보는 것도 좋은 것 같다. 당장 생각나는 것들부터 작성하기 시작하면 이후에 수정해야 할 부분들이 한 두가지가 아니라는 것을 경험했기 때문이다.</p>
-<p>내일은 반복문과 조건문 연습문제를 페어와 함께 풀어야 하는 날이니까 계산기는 잠시 제쳐두고 페어에 집중해야지.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>CodeStates</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Layout - Flexbox 이해하기</title>
     <url>/2023/230216-archive/</url>
     <content><![CDATA[<p>부모 요소엔 Flexbox 속성을 잘 적용하지만 자식 요소에 적용할 수 있는 Flexbox 속성은 익숙치 않아서 정리해보았다.</p>
@@ -2816,6 +2686,88 @@
 ]]></content>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>코드스테이츠 프론트엔드 1주차 주간회고</title>
+    <url>/2023/230217-archive/</url>
+    <content><![CDATA[<p>벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하려 한다.</p>
+<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="1주차엔-뭘-배웠지"><a href="#1주차엔-뭘-배웠지" class="headerlink" title="1주차엔 뭘 배웠지?"></a>1주차엔 뭘 배웠지?</h3><p>1주차에는 HTML과 CSS에 대해서 학습했다. 이미 알던 내용이라고 해서 대충 넘어가는 것이 아니라 내가 확실하게 알고 있는 것인가에 대해서 한 번씩 더 체크하고 넘어가는 과정이었다.</p>
+<p>Section1 파트의 강사님이신 운도님께서 이후 과정에선 CSS를 자세히 살펴볼 기회가 많지 않으니 이때 많이 학습해놓는 것이 좋다고 말씀해주셨는데 정말 공감이 가는 말이었다. 왜냐하면 자바스크립트를 배우게 되는 순간, 헤어 나올 수 없는 늪에 빠지는 느낌이 들기 때문이다.</p>
+<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><ol>
+<li>수업이 있는 9시부터 6시까지는 딴 짓하지 않고 집중해서 공부했다.</li>
+<li>자바스크립트로 계산기로 만들기 위해 로직을 먼저 구상해보았다. 이후에 진행되는 과정이지만, 스스로 먼저 어떻게 구현할 수 있을지 생각해보는 것이 내 성장에 도움이 된다고 생각했다.</li>
+</ol>
+<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>코드스테이츠 수업에서 조금 아쉬운 부분이라면 실시간 세션이 너무 짧다는 것이다. 오전에 수업자료로 우선 각자 공부하고 1-2시간 정도 라이브 강의에서 배운 내용을 복습하는데 처음 마크업을 배우는 사람 입장에서는 조금 어렵지 않을까라는 생각이 들었다.</p>
+<p>스스로에게 아쉬운 점은 수업이 있는 시간 외에 따로 공부한 시간이 거의 없다는 것이다. 6시 이후로 공부하는 게 쉽지 않지만 누구보다 열정적으로 공부해야하는 걸 알기에 다음주엔 더 열심히 해야겠다 다짐했다.</p>
+<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
+<li><input disabled="" type="checkbox"> 코드스테이츠 과정에 맞춰 자바스크립트 Deep Dive 개념 다시 복습하기. (잊지말자, 다른 사람에 설명할 수 있어야 내 것이 된 것이다✍🏻)</li>
+<li><input disabled="" type="checkbox"> 계산기 기능 코드로 작성해보기</li>
+<li><input disabled="" type="checkbox"> 리액트 공식문서 공부하기</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] 변수(Variable)란?</title>
+    <url>/2023/230220-archive/</url>
+    <content><![CDATA[<p>변수와 데이터 타입에 대해서 배우는 시간이었는데, 변수에 대해서 조금 더 자세히 정리해보는 시간을 가졌다.</p>
+<h2 id="🙋🏻‍♂️-변수란-무엇일까"><a href="#🙋🏻‍♂️-변수란-무엇일까" class="headerlink" title="🙋🏻‍♂️ 변수란 무엇일까?"></a>🙋🏻‍♂️ 변수란 무엇일까?</h2><p>: 변수란 <strong>값을 메모리에 저장하기 위해 확보한 메모리 공간</strong> 또는 <strong>어떠한 값을 구별해서 식별할 수 있는 고유한 이름</strong>을 의미한다.</p>
+<p>즉, 값은 메모리 공간에 저장되어있다. 따라서 변수는 메모리 공간에 저장되어 있는 어떤 값을 구별해서 식별해낼 수 있어야 한다.</p>
+<h3 id="변수-이름을-식별자라고도-한다-식별자는-어떤-값을-구별해서-식별할-수-있는-고유한-이름을-말한다"><a href="#변수-이름을-식별자라고도-한다-식별자는-어떤-값을-구별해서-식별할-수-있는-고유한-이름을-말한다" class="headerlink" title="변수 이름을 식별자라고도 한다. 식별자는 어떤 값을 구별해서 식별할 수 있는 고유한 이름을 말한다."></a><strong><em>변수 이름을 식별자라고도 한다. 식별자는 어떤 값을 구별해서 식별할 수 있는 고유한 이름을 말한다.</em></strong></h3><p>이를 위해 식별자는 어떤 값이 저장되어 있는 메모리 주소를 기억해야 한다.</p>
+<p>식별자는 <strong>메모리 주소에 붙인 이름</strong>이라고 할 수 있다.</p>
+<h2 id="🙋🏻‍♀️-변수를-사용해야하는-이유는"><a href="#🙋🏻‍♀️-변수를-사용해야하는-이유는" class="headerlink" title="🙋🏻‍♀️ 변수를 사용해야하는 이유는?"></a>🙋🏻‍♀️ 변수를 사용해야하는 이유는?</h2><p>: <strong>재사용성</strong>을 위해서 변수를 사용한다.</p>
+<p>예를 들면, 10 + 20을 더한 값을 다른 곳에서 사용하고 싶을 때 30이라는 평가된 값을 변수에 저장한 후 다른 곳에서도 사용하고 싶을 수 있다.</p>
+<p>만약 연산 결과 30을 재사용하고 싶은데 변수라는 개념이 없었다면, 메모리 주소를 통해 연산 결과 30이 저장된 메모리 공간에 직접 접근하는 것 외에는 방법이 없다.</p>
+<h2 id="💬-변수의-선언과-할당을-구분해서-생각하자"><a href="#💬-변수의-선언과-할당을-구분해서-생각하자" class="headerlink" title="💬 변수의 선언과 할당을 구분해서 생각하자."></a>💬 변수의 선언과 할당을 구분해서 생각하자.</h2><h3 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h3><p>: 값을 저장하기 위한 메모리 공간을 확보하고 변수 이름과 확보된 메모리 공간의 주소를 연결해서 값을 저장할 수 있도록 준비하는 것이다.</p>
+<p>변수를 선언하게되면, 선언에 의해 확보된 메모리 공간은 확보가 해제되기 전까지 누구도 확보된 메모리 공간을 사용할 수 없도록 보호된다.</p>
+<p><strong>변수를 선언하는 방법</strong><br> : var, let, const와 같은 키워드를 사용한다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> course;</span><br></pre></td></tr></table></figure>
+
+<p>변수를 선언하였지만, 아직 값을 할당하지 않았다. 이 상태에선 메모리 공간이 비어있는 것일까? 👉🏻 비어있을 것이라고 생각할 수 있지만, 메모리 공간에는 undefined라는 값이 암묵적으로 할당되어 초기화된다.</p>
+<h2 id="🙋🏻‍♀️-변수-호이스팅이란"><a href="#🙋🏻‍♀️-변수-호이스팅이란" class="headerlink" title="🙋🏻‍♀️ 변수 호이스팅이란?"></a>🙋🏻‍♀️ 변수 호이스팅이란?</h2><p>: 변수 호이스팅이란 변수 선언문이 해당 스코프의 선두로 옮겨진 것처럼 동작하는 특성을 말한다.</p>
+<p>ES5 이전엔 let, const 키워드가 없었기 때문에 변수를 선언하기 위해선 var 키워드만 사용할 수 있었다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ① undefined</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="number">123</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ② 123</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">456</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ③ 456</span></span><br></pre></td></tr></table></figure>
+
+<p>①에서 foo는 아직 선언되지 않았으므로 ReferenceError가 발생할 것을 기대했지만 undefined가 출력된다. 그 이유는 다른 언어와 달리 자바스크립트는 모든 선언문을 <strong>호이스팅</strong> 하기 때문이다.</p>
+<h3 id="변수는-3단계에-걸쳐-생성된다"><a href="#변수는-3단계에-걸쳐-생성된다" class="headerlink" title="변수는 3단계에 걸쳐 생성된다."></a>변수는 3단계에 걸쳐 생성된다.</h3><p>선언 단계 ➡️ 초기화 단계 ➡️ 할당 단계</p>
+<p><img src="https://poiemaweb.com/img/var-lifecycle.png"></p>
+<p>var키워드로 선언된 변수는 선언 단계와 초기화 단계가 한번에 이루어진다. 따라서 변수 선언문 이전에 변수에 접근하여도 등록된 변수가 존재하기 때문에 에러가 발생하지 않는다. 다만 undefined를 반환한다. 이러한 현상을 변수 호이스팅이라 한다.</p>
+<h3 id="💡-그럼-let-const는-변수-호이스팅이-일어나지-않는걸까"><a href="#💡-그럼-let-const는-변수-호이스팅이-일어나지-않는걸까" class="headerlink" title="💡 그럼 let, const는 변수 호이스팅이 일어나지 않는걸까?"></a>💡 그럼 let, const는 변수 호이스팅이 일어나지 않는걸까?</h3><p><img src="https://velog.velcdn.com/images/kozel/post/aec01fe9-b458-4ca1-9015-cef821d84b2b/image.jpeg"><br>:let, const 키워드는 런타임 이전에 선언단계가 먼저 실행되지만, 초기화 단계는 변수 선언문에 도달했을 때 실행된다. 초기화 단계가 실행되기 이전에 변수에 접근하려고 하면 참조에러가 발생한다. 그렇기 때문에 호이스팅이 일어나지 않는다고 생각할 수 있지만, let, const 키워드도 호이스팅 된다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="number">1</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ReferenceError: Cannot access &#x27;foo&#x27; before initialization</span></span><br><span class="line">  <span class="keyword">let</span> foo = <span class="number">2</span>; <span class="comment">// 지역 변수</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>만약 호이스팅이 되지 않는다면 <code>console.log(foo)</code>는 1을 출력해야한다. 하지만 호이스팅이 발생하기 떄문에 참조에러가 발생한다.</p>
+<h2 id="🙋🏻-우리는-변수를-어떻게-사용해야할까"><a href="#🙋🏻-우리는-변수를-어떻게-사용해야할까" class="headerlink" title="🙋🏻 우리는 변수를 어떻게 사용해야할까?"></a>🙋🏻 우리는 변수를 어떻게 사용해야할까?</h2><p>: 네이밍 규칙을 준수해서 사용해야한다. 변수의 이름을 지을 땐, 자식의 이름을 짓는 것만큼 신중하게 지어야 한다는 말을 들은 적이 있다. 그만큼 변수 네이밍 하나가 프로그래밍에 영향을 미친다는 의미가 아닐까 싶다.</p>
+<p>개발을 혼자하면 문제가 없겠지만, 여러 사람이 함께 개발을 하기 때문에 모두가 이해하기 쉬운 변수명을 사용해야 한다. 그렇게 되면 코드 리뷰 시 다른 사람의 소스 코드를 읽고 이해하는데 필요한 비용을 절약할 수 있다.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>CodeStates</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>계산기 구현 로직 생각해보기 🔨</title>
+    <url>/2023/230221-archive/</url>
+    <content><![CDATA[<p>코드스테이츠 2주차 일정을 보니 이틀 뒤에 계산기 기능을 구현하는 시간이 있어 혼자서 미리 생각해보는 시간을 가져보았다.</p>
+<h2 id="💬-계산기-기능-분석하기"><a href="#💬-계산기-기능-분석하기" class="headerlink" title="💬 계산기 기능 분석하기"></a>💬 계산기 기능 분석하기</h2><p>계산기에는 어떤 기능들이 있어야 할까?</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 숫자는 <span class="number">0</span>부터 시작한다.</span><br><span class="line"><span class="number">2.</span> +/- 버튼을 누르면 숫자가 양수인 경우 -로 변환하고, 음수인 경우 +로 변환한다.</span><br><span class="line"><span class="number">3.</span> % 버튼을 누르면? 👉🏻 숫자를 퍼센트로 변환한다. (<span class="number">0</span>인 경우 무시한다.)</span><br><span class="line"><span class="number">4.</span> 숫자를 입력하면 숫자가 표시되어야 하는 부분이 나타난다.</span><br><span class="line">    a. 숫자를 입력하면 <span class="variable constant_">AC</span> 버튼이 C로 바뀌어야 한다.</span><br><span class="line">    b. C 버튼을 누르면 <span class="number">0</span>으로 초기화한다.</span><br><span class="line">    c. 숫자는 <span class="number">3</span>자리마다 ‘,’ 표시를 해줘야 한다.</span><br><span class="line">    d. 이 들어오면 그 이후부터는 ‘,’ 표시하지 않는다.</span><br><span class="line">    e. 연산 기호를 누르기 전까지는 하나의 숫자로 계속해서 연결해야 한다.</span><br><span class="line"><span class="number">5.</span> 연산 기호를 누르면? 👉🏻 <span class="variable constant_">CSS</span>를 변경시킨다. (배경색, 글자 색 반전) <span class="keyword">class</span> 동적 추가</span><br><span class="line"><span class="number">6.</span> 숫자 → 연산 기호 → 숫자 → = 기호순으로 클릭하면 👉🏻 값을 계산 후 결과를 보여준다.</span><br><span class="line"><span class="number">7.</span> 숫자 → 연산 기호 → = 기호순으로 클릭하면 👉🏻 동일한 숫자를 연산하여 결과를 보여준다.</span><br></pre></td></tr></table></figure>
+
+<p>🙋🏻‍♂️ 저장해놔야 하는 값들이 있을까?</p>
+<p>: 현재 값, 이전값, 연산자 그리고 화면에 출력되는 값을 변수로 선언해놓고 계속해서 변경해야 한다.</p>
+<h2 id="고민을-하고-있는-부분-🤔"><a href="#고민을-하고-있는-부분-🤔" class="headerlink" title="고민을 하고 있는 부분 🤔"></a>고민을 하고 있는 부분 🤔</h2><p><code>상태가 변경되면 re-rendering을 한다</code> 라는 생각을 가지고 프로그래밍하고 싶은데 어떤 것을 상태로 관리해야 할 지 고민이 되었다. 저장해놔야 하는 값들이 모두 상태라면 너무 많은 리렌더링을 하는 것은 아닌가 싶고, 리렌더링을 해야 하는 시점이 결과를 연산한 값이라면 상태는 화면에 출력될 값밖에 없다는 뜻인데 그렇다면 이것을 상태로 관리해야 할까? 라는 생각이 들었다.</p>
+<p>또 하나 고민을 해야 할 부분은 <code>함수는 하나의 역할만 해야 한다</code> 라는 것이다. 함수를 어떻게 분리할 것인지도 고민을 해야할 것 같다. 현재로서는</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 화면에 출력되는 값을 업데이트하는 함수</span></span><br><span class="line"><span class="comment">// AC 버튼을 눌렀을 때 모든 것을 초기화하는 함수</span></span><br><span class="line"><span class="comment">// operation을 설정하는 함수</span></span><br><span class="line"><span class="comment">// operation을 해제하는 함수</span></span><br><span class="line"><span class="comment">// 연산자와 피연산자를 받아서 결과를 계산하는 함수</span></span><br></pre></td></tr></table></figure>
+
+<p>이렇게 만들어야하지 않을까 미리 생각해보았다. <em>(물론 코드를 짜기 시작하면 많은 것들이 변할테지만..🥲)</em></p>
+<h2 id="🧮-생각해보면서-느꼈던-점"><a href="#🧮-생각해보면서-느꼈던-점" class="headerlink" title="🧮 생각해보면서 느꼈던 점"></a>🧮 생각해보면서 느꼈던 점</h2><p>알고리즘에서 의사코드를 작성하듯이 프로그래밍을 하기 전에 미리 큰 틀을 생각해보는 것도 좋은 것 같다. 당장 생각나는 것들부터 작성하기 시작하면 이후에 수정해야 할 부분들이 한 두가지가 아니라는 것을 경험했기 때문이다.</p>
+<p>내일은 반복문과 조건문 연습문제를 페어와 함께 풀어야 하는 날이니까 계산기는 잠시 제쳐두고 페어에 집중해야지.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>CodeStates</tag>
       </tags>
   </entry>
   <entry>
@@ -3084,26 +3036,6 @@
       </tags>
   </entry>
   <entry>
-    <title>코드스테이츠 프론트엔드 2주차 주간회고</title>
-    <url>/2023/230224-archive/</url>
-    <content><![CDATA[<p>1주차엔 붕 뜬 마음이 가라앉지 않아 정신없이 공부했다면, 2주차는 어느정도 적응이 되었던 것 같다. 열심히 공부한 2주차 회고! 🏃🏻</p>
-<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="2주차엔-뭘-배웠지"><a href="#2주차엔-뭘-배웠지" class="headerlink" title="2주차엔 뭘 배웠지?"></a>2주차엔 뭘 배웠지?</h3><p>지난 주엔 HTML과 CSS 기초에 대해서 배웠다면 2주차에는 자바스크립트를 시작했다. 변수와 데이터 타입, 제어문, 함수에 대해서 공부했다. 페어 시간에는 자바스크립트로 계산기를 구현하는 시간을 가졌다.</p>
-<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><p>뭔가 풀리지 않을 때에도 검색하지 않고 끝까지 내가 생각해보고 코드를 작성했다. 예전의 나는 기능 구현을 하려고 할 때 막히는 부분이 생기면 다른 사람의 코드를 보고 비슷하게 썼었다.</p>
-<p>하지만 이렇게 구현하면 동작은 하겠지만, 내 지식이 아니게 된다. 내 성장을 위해선 안되더라도 끝까지 부딪혀봐야한다고 생각해서 나의 코드로 먼저 동작을 하도록 만들고 그 이후에 모범 코드를 확인했다.</p>
-<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>집중을 잘 하지 못했다.</p>
-<p>분명 오늘 해야할 일들이 여러 개 있다는 것을 알면서도 쉽게 집중하지 못하는 시간이 많았던 것 같다. 이럴 때 어떻게 극복해야 하는지 해결방법을 찾지 못했다. 다음주에는 배열, 객체 코플릿 문제도 풀어야하고 클로저 개념도 배우니 자연스럽게 집중하지 않을까싶다.</p>
-<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
-<li>계산기 구현 코드 정리해놓기(이번 주말까지)</li>
-<li>DOM 내용 정리하기</li>
-<li>클로저 개념 공부하기</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Retrospective</tag>
-        <tag>CodeStates</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>innerText | textContent</title>
     <url>/2023/230223-archive/</url>
     <content><![CDATA[<h3 id="innerText와-textContent의-공통점은-무엇일까"><a href="#innerText와-textContent의-공통점은-무엇일까" class="headerlink" title="innerText와 textContent의 공통점은 무엇일까?"></a>innerText와 textContent의 공통점은 무엇일까?</h3><p>: 자바스크립트로 텍스트를 변경할 때 사용한다.</p>
@@ -3131,6 +3063,26 @@
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>코드스테이츠 프론트엔드 2주차 주간회고</title>
+    <url>/2023/230224-archive/</url>
+    <content><![CDATA[<p>1주차엔 붕 뜬 마음이 가라앉지 않아 정신없이 공부했다면, 2주차는 어느정도 적응이 되었던 것 같다. 열심히 공부한 2주차 회고! 🏃🏻</p>
+<h2 id="주간-회고"><a href="#주간-회고" class="headerlink" title="주간 회고"></a>주간 회고</h2><h3 id="2주차엔-뭘-배웠지"><a href="#2주차엔-뭘-배웠지" class="headerlink" title="2주차엔 뭘 배웠지?"></a>2주차엔 뭘 배웠지?</h3><p>지난 주엔 HTML과 CSS 기초에 대해서 배웠다면 2주차에는 자바스크립트를 시작했다. 변수와 데이터 타입, 제어문, 함수에 대해서 공부했다. 페어 시간에는 자바스크립트로 계산기를 구현하는 시간을 가졌다.</p>
+<h3 id="잘한-점은-무엇이-있을까"><a href="#잘한-점은-무엇이-있을까" class="headerlink" title="잘한 점은 무엇이 있을까?"></a>잘한 점은 무엇이 있을까?</h3><p>뭔가 풀리지 않을 때에도 검색하지 않고 끝까지 내가 생각해보고 코드를 작성했다. 예전의 나는 기능 구현을 하려고 할 때 막히는 부분이 생기면 다른 사람의 코드를 보고 비슷하게 썼었다.</p>
+<p>하지만 이렇게 구현하면 동작은 하겠지만, 내 지식이 아니게 된다. 내 성장을 위해선 안되더라도 끝까지 부딪혀봐야한다고 생각해서 나의 코드로 먼저 동작을 하도록 만들고 그 이후에 모범 코드를 확인했다.</p>
+<h3 id="아쉬운-점은-무엇이-있을까"><a href="#아쉬운-점은-무엇이-있을까" class="headerlink" title="아쉬운 점은 무엇이 있을까?"></a>아쉬운 점은 무엇이 있을까?</h3><p>집중을 잘 하지 못했다.</p>
+<p>분명 오늘 해야할 일들이 여러 개 있다는 것을 알면서도 쉽게 집중하지 못하는 시간이 많았던 것 같다. 이럴 때 어떻게 극복해야 하는지 해결방법을 찾지 못했다. 다음주에는 배열, 객체 코플릿 문제도 풀어야하고 클로저 개념도 배우니 자연스럽게 집중하지 않을까싶다.</p>
+<h3 id="✅-다음-주에-해야-할-것들"><a href="#✅-다음-주에-해야-할-것들" class="headerlink" title="✅ 다음 주에 해야 할 것들"></a>✅ 다음 주에 해야 할 것들</h3><ul>
+<li>계산기 구현 코드 정리해놓기(이번 주말까지)</li>
+<li>DOM 내용 정리하기</li>
+<li>클로저 개념 공부하기</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Retrospective</tag>
+        <tag>CodeStates</tag>
       </tags>
   </entry>
   <entry>
@@ -3364,40 +3316,88 @@
       </tags>
   </entry>
   <entry>
-    <title>[JavaScript] 변수(Variable)란?</title>
-    <url>/2023/230220-archive/</url>
-    <content><![CDATA[<p>변수와 데이터 타입에 대해서 배우는 시간이었는데, 변수에 대해서 조금 더 자세히 정리해보는 시간을 가졌다.</p>
-<h2 id="🙋🏻‍♂️-변수란-무엇일까"><a href="#🙋🏻‍♂️-변수란-무엇일까" class="headerlink" title="🙋🏻‍♂️ 변수란 무엇일까?"></a>🙋🏻‍♂️ 변수란 무엇일까?</h2><p>: 변수란 <strong>값을 메모리에 저장하기 위해 확보한 메모리 공간</strong> 또는 <strong>어떠한 값을 구별해서 식별할 수 있는 고유한 이름</strong>을 의미한다.</p>
-<p>즉, 값은 메모리 공간에 저장되어있다. 따라서 변수는 메모리 공간에 저장되어 있는 어떤 값을 구별해서 식별해낼 수 있어야 한다.</p>
-<h3 id="변수-이름을-식별자라고도-한다-식별자는-어떤-값을-구별해서-식별할-수-있는-고유한-이름을-말한다"><a href="#변수-이름을-식별자라고도-한다-식별자는-어떤-값을-구별해서-식별할-수-있는-고유한-이름을-말한다" class="headerlink" title="변수 이름을 식별자라고도 한다. 식별자는 어떤 값을 구별해서 식별할 수 있는 고유한 이름을 말한다."></a><strong><em>변수 이름을 식별자라고도 한다. 식별자는 어떤 값을 구별해서 식별할 수 있는 고유한 이름을 말한다.</em></strong></h3><p>이를 위해 식별자는 어떤 값이 저장되어 있는 메모리 주소를 기억해야 한다.</p>
-<p>식별자는 <strong>메모리 주소에 붙인 이름</strong>이라고 할 수 있다.</p>
-<h2 id="🙋🏻‍♀️-변수를-사용해야하는-이유는"><a href="#🙋🏻‍♀️-변수를-사용해야하는-이유는" class="headerlink" title="🙋🏻‍♀️ 변수를 사용해야하는 이유는?"></a>🙋🏻‍♀️ 변수를 사용해야하는 이유는?</h2><p>: <strong>재사용성</strong>을 위해서 변수를 사용한다.</p>
-<p>예를 들면, 10 + 20을 더한 값을 다른 곳에서 사용하고 싶을 때 30이라는 평가된 값을 변수에 저장한 후 다른 곳에서도 사용하고 싶을 수 있다.</p>
-<p>만약 연산 결과 30을 재사용하고 싶은데 변수라는 개념이 없었다면, 메모리 주소를 통해 연산 결과 30이 저장된 메모리 공간에 직접 접근하는 것 외에는 방법이 없다.</p>
-<h2 id="💬-변수의-선언과-할당을-구분해서-생각하자"><a href="#💬-변수의-선언과-할당을-구분해서-생각하자" class="headerlink" title="💬 변수의 선언과 할당을 구분해서 생각하자."></a>💬 변수의 선언과 할당을 구분해서 생각하자.</h2><h3 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h3><p>: 값을 저장하기 위한 메모리 공간을 확보하고 변수 이름과 확보된 메모리 공간의 주소를 연결해서 값을 저장할 수 있도록 준비하는 것이다.</p>
-<p>변수를 선언하게되면, 선언에 의해 확보된 메모리 공간은 확보가 해제되기 전까지 누구도 확보된 메모리 공간을 사용할 수 없도록 보호된다.</p>
-<p><strong>변수를 선언하는 방법</strong><br> : var, let, const와 같은 키워드를 사용한다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> course;</span><br></pre></td></tr></table></figure>
+    <title>HTML의 기초 정리하기</title>
+    <url>/2023/230214-archive/</url>
+    <content><![CDATA[<h2 id="HTML-기초"><a href="#HTML-기초" class="headerlink" title="HTML 기초"></a>HTML 기초</h2><h3 id="학습-목표"><a href="#학습-목표" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
+<li>HTML이 무엇일까?</li>
+<li>HTML의 구조와 문법</li>
+<li>자주 사용되는 HTML 요소가 무엇일까?</li>
+<li>id와 class를 목적에 맞게 사용하여 사람과 컴퓨터가 읽기 쉬운 semantic HTML 문서를 작성하자.</li>
+<li>시맨틱 요소엔 무엇이 있을까?</li>
+<li>시맨틱 요소를 사용하는 이유는 무엇일까?</li>
+</ul>
+<p>🙋🏻‍♀️ HTML이 뭐야?</p>
+<p>: Hyper Text Markup Language의 약자. 웹페이지의 틀을 만드는 마크업 언어이다.</p>
+<p>🙋🏻‍♂️ HTML은 어떻게 쓰는거지?</p>
+<p>: HTML은 tag들의 집합이다. &lt;&gt;로 묶인 HTML의 기본 구성 요소로 사용한다. 예를 들어 <code>&lt;span&gt;&lt;/span&gt;</code> 과 같이 태그를 열고 닫는 방식으로 사용한다.</p>
+<p>🙋🏻‍♂️ 무조건 여는태그와 닫는태그가 쌍으로 있어야 하는건가?</p>
+<p>: 무조건은 아니다. img 태그와 같은 경우엔 self-closing tag로 <code>&lt;img /&gt;</code> 처럼 사용할 수 있다.</p>
+<p>🙋🏻 자주 사용하는 element로는 어떤 것들이 있을까?</p>
+<p>: 자주 사용하는 태그로는 <code>div</code>, <code>span</code>, <code>img</code>, <code>a</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>input</code>, <code>textarea</code>, <code>button</code> 태그가 있다.</p>
+<p>textarea 태그는 줄바꿈이 되는 입력폼이다.</p>
+<p>🙋🏻‍♂️ 시맨틱 요소란 무엇일까?</p>
+<p>: HTML5에서는 시멘틱 웹이 중요시되면서 여러 시맨틱 요소가 새롭게 만들어졌다. semantic이란 ‘의미가 있는’ 이라고 해석할 수 있는데 즉, 의미를 가진 요소를 사용하는 방식을 추구한 것이다.</p>
+<p>예를 들어서 문단의 제목을 div 태그를 사용하여 폰트사이즈를 키워서 제목처럼 보이게 만들 수 있지만, h1 태그를 사용하여 heading level 1의 의미를 주는 것과는 다르다.</p>
+<p>🙋🏻 시맨틱 요소를 사용해야 하는 이유는 무엇일까?</p>
+<p>: 첫 번째로 검색 엔진이 시맨틱 요소를 좋아하기 때문이다. 두 번째로는 개발자가 협업을 할 때 의미가 없는 div 태그를 탐색하는 것보다 의미있는 코드 블록을 찾는 것이 편리하기 때문이다.</p>
+<p>🙋🏻 시맨틱 요소의 종류로는 뭐가 있을까?</p>
+<p><code>&lt;article&gt;</code></p>
+<p>: 독립적이고 자체 포함된 콘텐츠를 지정한다.</p>
+<p><code>&lt;aside&gt;</code></p>
+<p>: 본문의 주요 부분을 표시하고 남은 부분을 설명하는 요소. 사이드바나 광고창 등 중요하지 않은 부분에 사용된다.</p>
+<p><code>&lt;footer&gt;</code></p>
+<p>: 일반적으로 페이지나 해당 파트의 <strong>가장 아랫부분</strong>에 위치하며, 사이트의 라이선스, 주소, 연락처 등을 넣을 때 사용한다.</p>
+<p><code>&lt;header&gt;</code></p>
+<p>: 일반적으로 페이지나 해당 섹션의 <strong>가장 윗부분</strong>에 위치하며, 사이트의 제목이 보통 들어간다.</p>
+<p><code>&lt;nav&gt;</code></p>
+<p>: 내비게이션(<strong>nav</strong>igation)의 약자로, 일반적으로 상단바 등 사이트를 안내하는 요소에 사용한다.</p>
+<p><code>&lt;main&gt;</code></p>
+<p>: 문서의 주된 콘텐츠를 표시</p>
+<h2 id="HTML-심화"><a href="#HTML-심화" class="headerlink" title="HTML 심화"></a>HTML 심화</h2><h3 id="학습-목표-1"><a href="#학습-목표-1" class="headerlink" title="학습 목표"></a>학습 목표</h3><ul>
+<li>웹 앱의 구조 잡기</li>
+<li><code>&lt;div&gt;</code> 요소 또는 <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code> 등의 시맨틱 요소로 영역을 구분하는 이유를 이해할 수 있다.</li>
+<li>HTML 문서에서 언제 id 혹은 class를 사용해야 하는지 이해할 수 있다.</li>
+</ul>
+<p>🙋🏻‍♀️ 웹 앱의 구조는 어떻게 잡아야할까?</p>
+<p>: 댓글창을 생각해보자. 크게 작성하는 영역과 읽기 영역으로 나눠져있다.</p>
+<p>🙋🏻‍♂️ 댓글창엔 어떤 태그로 구조를 만들어야할까?</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-01.png"></p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-02.png"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;댓글을 입력해주세요&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>변수를 선언하였지만, 아직 값을 할당하지 않았다. 이 상태에선 메모리 공간이 비어있는 것일까? 👉🏻 비어있을 것이라고 생각할 수 있지만, 메모리 공간에는 undefined라는 값이 암묵적으로 할당되어 초기화된다.</p>
-<h2 id="🙋🏻‍♀️-변수-호이스팅이란"><a href="#🙋🏻‍♀️-변수-호이스팅이란" class="headerlink" title="🙋🏻‍♀️ 변수 호이스팅이란?"></a>🙋🏻‍♀️ 변수 호이스팅이란?</h2><p>: 변수 호이스팅이란 변수 선언문이 해당 스코프의 선두로 옮겨진 것처럼 동작하는 특성을 말한다.</p>
-<p>ES5 이전엔 let, const 키워드가 없었기 때문에 변수를 선언하기 위해선 var 키워드만 사용할 수 있었다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ① undefined</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="number">123</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ② 123</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="number">456</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ③ 456</span></span><br></pre></td></tr></table></figure>
+<p>🙋🏻‍♀️ 읽기 영역은 어떤 구조로 잡아야할까?</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-03.png"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>ouo***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>cake***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>댓글...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>2018-03-22 23:29:22<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👍🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>👎🏻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>①에서 foo는 아직 선언되지 않았으므로 ReferenceError가 발생할 것을 기대했지만 undefined가 출력된다. 그 이유는 다른 언어와 달리 자바스크립트는 모든 선언문을 <strong>호이스팅</strong> 하기 때문이다.</p>
-<h3 id="변수는-3단계에-걸쳐-생성된다"><a href="#변수는-3단계에-걸쳐-생성된다" class="headerlink" title="변수는 3단계에 걸쳐 생성된다."></a>변수는 3단계에 걸쳐 생성된다.</h3><p>선언 단계 ➡️ 초기화 단계 ➡️ 할당 단계</p>
-<p><img src="https://poiemaweb.com/img/var-lifecycle.png"></p>
-<p>var키워드로 선언된 변수는 선언 단계와 초기화 단계가 한번에 이루어진다. 따라서 변수 선언문 이전에 변수에 접근하여도 등록된 변수가 존재하기 때문에 에러가 발생하지 않는다. 다만 undefined를 반환한다. 이러한 현상을 변수 호이스팅이라 한다.</p>
-<h3 id="💡-그럼-let-const는-변수-호이스팅이-일어나지-않는걸까"><a href="#💡-그럼-let-const는-변수-호이스팅이-일어나지-않는걸까" class="headerlink" title="💡 그럼 let, const는 변수 호이스팅이 일어나지 않는걸까?"></a>💡 그럼 let, const는 변수 호이스팅이 일어나지 않는걸까?</h3><p><img src="https://velog.velcdn.com/images/kozel/post/aec01fe9-b458-4ca1-9015-cef821d84b2b/image.jpeg"><br>:let, const 키워드는 런타임 이전에 선언단계가 먼저 실행되지만, 초기화 단계는 변수 선언문에 도달했을 때 실행된다. 초기화 단계가 실행되기 이전에 변수에 접근하려고 하면 참조에러가 발생한다. 그렇기 때문에 호이스팅이 일어나지 않는다고 생각할 수 있지만, let, const 키워드도 호이스팅 된다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="number">1</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(foo); <span class="comment">// ReferenceError: Cannot access &#x27;foo&#x27; before initialization</span></span><br><span class="line">  <span class="keyword">let</span> foo = <span class="number">2</span>; <span class="comment">// 지역 변수</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>만약 호이스팅이 되지 않는다면 <code>console.log(foo)</code>는 1을 출력해야한다. 하지만 호이스팅이 발생하기 떄문에 참조에러가 발생한다.</p>
-<h2 id="🙋🏻-우리는-변수를-어떻게-사용해야할까"><a href="#🙋🏻-우리는-변수를-어떻게-사용해야할까" class="headerlink" title="🙋🏻 우리는 변수를 어떻게 사용해야할까?"></a>🙋🏻 우리는 변수를 어떻게 사용해야할까?</h2><p>: 네이밍 규칙을 준수해서 사용해야한다. 변수의 이름을 지을 땐, 자식의 이름을 짓는 것만큼 신중하게 지어야 한다는 말을 들은 적이 있다. 그만큼 변수 네이밍 하나가 프로그래밍에 영향을 미친다는 의미가 아닐까 싶다.</p>
-<p>개발을 혼자하면 문제가 없겠지만, 여러 사람이 함께 개발을 하기 때문에 모두가 이해하기 쉬운 변수명을 사용해야 한다. 그렇게 되면 코드 리뷰 시 다른 사람의 소스 코드를 읽고 이해하는데 필요한 비용을 절약할 수 있다.</p>
+<p><strong>💬 id 및 class를 목적에 맞게 사용하자</strong></p>
+<p>🙋🏻‍♀️ id는 언제 쓰고 class는 언제 써야할까?</p>
+<ul>
+<li>id: 고유한 이름을 붙일 때 사용한다.</li>
+<li>class: 반복되는 영역을 유형별로 분류할 때 사용한다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>HTML 태그</th>
+<th>Selector</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;div id=”writing-seciton”&gt;</code></td>
+<td>div#writing-section</td>
+</tr>
+<tr>
+<td><code>&lt;li class=”comment”&gt;</code></td>
+<td>li.comment</td>
+</tr>
+</tbody></table>
+<p>반복되는 영역은? 👉🏻 <strong>class</strong>를 사용하자.</p>
+<p>🙋🏻‍♀️ id를 사용하지 않은 이유는?</p>
+<p>: id는 고유한 이름을 붙일 때 사용한다. id를 사용하게 되면 모든 영역이 고유해야한다.</p>
+<p><img src="https://github.com/leejaelll/TIL/raw/main/TIL/image/230214-04.png"></p>
 ]]></content>
       <tags>
-        <tag>JavaScript</tag>
-        <tag>CodeStates</tag>
+        <tag>HTML</tag>
       </tags>
   </entry>
   <entry>
@@ -3540,6 +3540,202 @@
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thinking in React 내 마음대로 이해하기🌱 </title>
+    <url>/2023/230318-3-archive/</url>
+    <content><![CDATA[<blockquote>
+<p><em>React can change how you think about the designs you look at and the apps you build. When you build a user interface with React, you will first break it apart into pieces called components. Then, you will describe the different visual states for each of your components. Finally, you will connect your components together so that the data flows through them. In this tutorial, we’ll guide you through the thought process of building a searchable product data table with React.</em></p>
+</blockquote>
+<p>React는 <strong>디자인을 바라보는 방식</strong>과 <strong>앱을 빌드하는 방식</strong>을 바꿀 수 있습니다. React로 사용자 인터페이스를 빌드할 때는 먼저 컴포넌트라고하는 조각으로 분해합니다. 그런 다음 각 컴포넌트에 대해 서로 다른 시각적 상태를 설명합니다. 마지막으로 컴포넌트를 서로 연결해 데이터가 흐르도록 합니다. 이 튜토리얼에서는 React로 검색 가능한 데이터 테이블을 구축하는 사고 과정을 안내합니다.</p>
+<h2 id="Start-with-the-mockup"><a href="#Start-with-the-mockup" class="headerlink" title="Start with the mockup"></a>Start with the mockup</h2><p>JSON API와 디자이너의 목업이 있다고 가정해보자</p>
+<p>JSON API는 다음과 같이 일부 데이터를 반환함</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Apple&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dragonfruit&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Passionfruit&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Spinach&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$4&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Pumpkin&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Peas&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>The mockup looks like this:</p>
+<p><img src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png" alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png"></p>
+<p>To implement a UI in React, you will usually follow the same five steps.</p>
+<p><em>React에서 UI를 구현하려면 일반적으로 동일한 5단계를 따른다.</em></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Step</span> <span class="number">1</span>: <span class="title class_">Break</span> the <span class="variable constant_">UI</span> into a component hierarchy****</span><br><span class="line"><span class="title class_">Step</span> <span class="number">2</span>: <span class="title class_">Build</span> a <span class="keyword">static</span> version <span class="keyword">in</span> <span class="title class_">React</span></span><br><span class="line"><span class="title class_">Step</span> <span class="number">3</span>: <span class="title class_">Find</span> the minimal but complete representation <span class="keyword">of</span> <span class="variable constant_">UI</span> state</span><br><span class="line"><span class="title class_">Step</span> <span class="number">4</span>: <span class="title class_">Identify</span> where your state should live</span><br><span class="line"><span class="title class_">Step</span> <span class="number">5</span>: <span class="title class_">Add</span> inverse data flow</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Step-1-Break-the-UI-into-a-component-hierarchy"><a href="#Step-1-Break-the-UI-into-a-component-hierarchy" class="headerlink" title="Step 1: Break the UI into a component hierarchy"></a>Step 1: Break the UI into a component hierarchy</h3><p><em>UI 컴포넌트를 계층구조로 나누기</em></p>
+<p>목업의 모든 컴포넌트와 하위 컴포넌트 주위에 상자를 그리고 이름을 지정하기. 디자이너와 같이 일한다면 컴포넌트의 이름이 이미 있을 수도 있다.</p>
+<p>여러가지 방식으로 컴포넌트를 분할하는 것을 고려할 수 있는데:</p>
+<ul>
+<li>Programming - 새로운 함수나 객체를 생성할 때에도 동일한 기법 사용하기.<ul>
+<li>이러한 기법 중 하나는 <a href="https://www.notion.so/Thinking-in-React-3dc21d2691dd4302957bed94a7e7b582">단일 책임 원칙(single responsibility principle)</a></li>
+<li>컴포넌트는 한 가지 일만 수행해야 한다.</li>
+<li>컴포넌트가 커지면 더 작은 하위 컴포넌트로 분해해야 한다.</li>
+</ul>
+</li>
+<li>CSS - 클래스 선택자를 어디에 사용할 지 생각하기</li>
+<li>Design - 디자인의 레이어를 어떻게 구성할지 생각하기</li>
+</ul>
+<p>JSON이 잘 구조화되어 있으면 UI 컴포넌트 구조에 자연스럽게 매핑되는 것을 발견할 수 있다. 동일한 형태를 가지고 있는 경우가 많기 때문.</p>
+<p>UI를 컴포넌트로 분리하고 각 컴포넌트가 데이터 모델의 한 부분과 일치하도록 해보자</p>
+<p><img src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png" alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png"></p>
+<ul>
+<li><code>FilterableProductTable</code> 은 전체 app을 포함</li>
+<li><code>SearchBar</code> 는 user input을 받음</li>
+<li><code>ProductTable</code> 는 사용자 입력에 따라 리스트를 표시하고 필터링 함</li>
+<li><code>ProductCategoryRow</code> 는 각 카테고리에 대한 제목을 표시</li>
+<li><code>ProductRow</code> 는 각 제품에 대한 행을 표시</li>
+</ul>
+<p><code>ProductTable</code>을 보면 Name과 Price를 포함하고 있는 헤더가 자체 구성 요소가 아님을 알 수 있다. 👉🏻 <strong>선호도의 문제</strong></p>
+<ul>
+<li><code>ProductTable</code> 의 목록 안에 표시되므로 <code>ProductTable</code> 의 일부</li>
+<li>헤더가 복잡해지는 경우에는 컴포넌트로 따로 분리할 수도 있다.</li>
+</ul>
+<p>mockup in the hierarchy:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">FilterableProductTable</span><br><span class="line">	SearchBar</span><br><span class="line">	ProductTable</span><br><span class="line">		ProductCategoryRow</span><br><span class="line">		ProductRow</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-2-Build-a-static-version-in-React"><a href="#Step-2-Build-a-static-version-in-React" class="headerlink" title="Step 2: Build a static version in React"></a>Step 2: Build a static version in React</h3><p><em>React에서 정적 버전 빌드하기</em></p>
+<p>정적 버전을 빌드하려면 다른 컴포넌트를 재사용하고 props를 사용하여 데이터를 전달하는 컴포넌트를 빌드하는 것이 좋다.</p>
+<ul>
+<li>props는 <strong>부모에서 자식으로 데이터를 전달하는 방법</strong></li>
+</ul>
+<p>계층 구조에서 상위 컴포넌트로부터 빌드하는 “top down” 빌드 또는 하위 컴포넌트부터 작업하는 “bottom up” 중 하나를 선택할 수 있다.</p>
+<ul>
+<li>간단한 예제에서는 하향식으로 작성하는 것이 더 쉽고, 대규모 프로젝트에서는 상향식으로 작성하는 것이 쉽다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ProductCategoryRow</span>(<span class="params">&#123; category &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span>(</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">th</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				&#123;category&#125;</span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductRow</span>(<span class="params">&#123; product &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> name = product.<span class="property">stocked</span> ? product.<span class="property">name</span> :</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &#x27;<span class="attr">red</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">			&#123;product.name&#125;</span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;product.price&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> rows = [];</span><br><span class="line">	<span class="keyword">let</span> lastCategory = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	products.<span class="title function_">forEach</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(product.<span class="property">category</span> !== lastCategory) &#123;</span><br><span class="line">			rows.<span class="title function_">push</span>(</span><br><span class="line">				<span class="language-xml"><span class="tag">&lt;<span class="name">ProductCategoryRow</span> <span class="attr">category</span>=<span class="string">&#123;product.category&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span></span><br><span class="line">			);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		rows.<span class="title function_">push</span>(</span><br><span class="line">			<span class="language-xml"><span class="tag">&lt;<span class="name">ProductRow</span> <span class="attr">product</span>=<span class="string">&#123;product&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span></span><br><span class="line">		);</span><br><span class="line"></span><br><span class="line">		lastCategory = product.<span class="property">category</span>;</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>&#123;rows&#125;<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span> // rows 배열을 전달</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				&#123;&#x27; &#x27;&#125;</span></span><br><span class="line"><span class="language-xml">	      Only show products in stock</span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  );</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">// 가장 상위 컴포넌트에서부터 products 객체를 받아야 한다.</span></span><br><span class="line"><span class="language-xml">function FilterableProductTable(&#123; products &#125;) &#123;</span></span><br><span class="line"><span class="language-xml">	return (</span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	);</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">const PRODUCTS = [</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Apple&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Dragonfruit&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$2&quot;, stocked: false, name: &quot;Passionfruit&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$2&quot;, stocked: true, name: &quot;Spinach&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$4&quot;, stocked: false, name: &quot;Pumpkin&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Peas&quot;&#125;</span></span><br><span class="line"><span class="language-xml">];</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">export default function App() &#123;</span></span><br><span class="line"><span class="language-xml">	return <span class="tag">&lt;<span class="name">FilterableProductTable</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://codesandbox.io/s/0jfw74?file=/App.js&utm_medium=sandpack">https://codesandbox.io/s/0jfw74?file=/App.js&utm_medium&#x3D;sandpack</a></p>
+<p>컴포넌트를 빌드하고 나면 데이터 모델을 렌더링하는 재사용 가능한 컴포넌트 라이브러리를 갖게 된다. 이 앱은 정적 앱이므로 컴포넌트는 JSX만 반환함.</p>
+<p>계층 구조의 맨 위에 있는 컴포넌트(FilterableProductTable)는 데이터 모델을 소품으로 사용.</p>
+<p>데이터가 최 상위 컴포넌트에서 트리 하단에 있는 컴포넌트로 흘러내림 👉🏻 <strong>단방향 데이터 흐름</strong></p>
+<h3 id="Step-3-Find-the-minimal-but-complete-representation-of-UI-state"><a href="#Step-3-Find-the-minimal-but-complete-representation-of-UI-state" class="headerlink" title="Step 3: Find the minimal but complete representation of UI state"></a>Step 3: Find the minimal but complete representation of UI state</h3><p><em>최소한이지만 UI 상태 표현 완성하기</em></p>
+<p>UI 대화형으로 만들려면 사용자가 기본 데이터 모델을 변경할 수 있도록 해야함 👉🏻 <strong>이를 위해 state를 사용</strong></p>
+<ul>
+<li>상태(state): 앱이 기억해야하는 최소한의 변경 데이터 집합</li>
+<li>상태를 구조화할 때 가장 중요한 원칙<br>: 반복하지 않는 것</li>
+</ul>
+<p>애플리케이션에 필요한 최소한의 상태 표현을 파악하고, 그 외의 모든 것들은 요청 시에 계산한다.</p>
+<p>예를 들어 쇼핑 목록을 만드는 경우,</p>
+<ul>
+<li>항목 👉🏻 상태 배열로 저장</li>
+<li>목록에 있는 항목의 개수를 표시하려면 다른 상태 값으로 저장하지 말고 배열의 길이를 읽으면 된다.</li>
+</ul>
+<p>예제 애플리케이션의 모든 데이터 조각들을 생각해보기</p>
+<ol>
+<li>원래 제품 목록</li>
+<li>사용자가 입력한 검색 텍스트</li>
+<li>체크박스의 값</li>
+<li>필터링된 제품 목록</li>
+</ol>
+<p>여기서 상태는 무엇인가? 상태가 아닌 것들을 판별해보자.</p>
+<ul>
+<li>시간이 지나도 변하지 않는가? 👉🏻 상태 X</li>
+<li>부모로부터 props를 통해 전달받는가? 👉🏻 상태 X</li>
+<li>컴포넌트의 기존 state나 props를 기반으로 계산할 수 있는가? 👉🏻 상태 X</li>
+</ul>
+<p>이 외의 나머지는 모두 상태이다.</p>
+<p>예제 데이터를 보면서 살펴보자.</p>
+<ol>
+<li>원래 제품 목록: props로 전달되었기 때문에 상태 X</li>
+<li>사용자가 입력한 검색 텍스트: 시간이 지남에 따라 변경되고 아무것도 계산할 수 없으므로 상태 O</li>
+<li>체크박스의 값: 시간이 지남에 따라 변경되고 계산이 어려우므로 상태 O</li>
+<li>필터링된 제품 목록: 원래 제품 목록을 가져와서 검색 텍스트 및 확인란 값에 따라 필터링하여 계산할 수 있으므로 상태 X</li>
+</ol>
+<h3 id="Step-4-Identify-where-your-state-should-live"><a href="#Step-4-Identify-where-your-state-should-live" class="headerlink" title="Step 4: Identify where your state should live"></a>Step 4: Identify where your state should live</h3><p><em>상태가 어디서 살아있어야하는지 식별하기</em></p>
+<p>앱의 최소 상태 데이터를 식별했다면 이제는 <strong>상태를 소유하는 컴포넌트를 식별</strong>해야한다.</p>
+<p><strong>리액트는 단방향 데이터 흐름을 사용하며, 부모 컴포넌트가 자식 컴포넌트로 컴포넌트 계층 구조를 따라 데이터를 전달한다는 것을 기억하자.</strong></p>
+<ol>
+<li>해당 상태를 기반으로 무언갈르 렌더링하는 모든 컴포넌트를 식별한다.</li>
+<li>가장 가까운 공통 상위 컴포넌트, 즉 계층 구조에서 모든 컴포넌트 위에 있는 컴포넌트를 찾는다.</li>
+<li>상태가 어디에 위치해야할 지 결정한다.<ol>
+<li>종종 상태를 공통 부모에 직접 넣을 수 있다.</li>
+<li>상태를 공통 부모 위에 있는 컴포넌트에 넣을 수 있다.</li>
+<li>상태를 소유하기에 적합한 컴포넌트를 찾을 수 없는 경우 상태를 보유하기 위한 컴포넌트를 새로 만들어 공통 부모 컴포넌트 위에 추가한다.</li>
+</ol>
+</li>
+</ol>
+<p>우리는 이전 단계에서 검색 입력 텍스트와 체크박스 확인 값이라는 두 가지 상태를 찾아놓음.</p>
+<p>이 상태에 대한 전략을 실행해보자.</p>
+<ol>
+<li>상태를 사용하는 컴포넌트 식별하기:<ol>
+<li>ProductTable은 해당 상태를 기준으로 제품 목록을 필터링해야한다.</li>
+<li>SearchBar는 해당 상태를 표시해야 한다.</li>
+</ol>
+</li>
+<li>공통 부모 찾기: 두 컴포넌트가 공유하는 첫 번째 상위 컴포넌트는 FilterableProductTable</li>
+<li>상태를 어디에 있게할지 결정하기: 필터 텍스트와 체크된 상태 값은 FilterableProductTable에 있어야 한다.</li>
+</ol>
+<p>따라서 상태 값은 FilterableProductTable에 저장한다.</p>
+<p><code>useState()</code> Hook으로 컴포넌트에 state를 추가하기</p>
+<p>FilterableProductTable의 상단에 상태 변수 두 개를 추가하고 애플리케이션의 초기 상태를 지정:</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">	<span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>filterText와 inStockOnly를 ProductTable과 SearchBar 컴포넌트에 props로 전달하기</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SearchBar</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>이제 애플리케이션이 어떻게 동작하는지 확인할 수 있다.</p>
+<p><a href="https://codesandbox.io/s/n3gc1j?file=/App.js&utm_medium=sandpack">https://codesandbox.io/s/n3gc1j?file=/App.js&utm_medium&#x3D;sandpack</a></p>
+<p>폼을 편집하는 것은 아직 동작하지 않음. 그 이유는?</p>
+<p>👉🏻 onChange 핸들러가 없는 양식 필드에 Value 프로퍼티를 제공. 이렇게 되면 읽기 전용 필드가 렌더링된다.</p>
+<p>ProductTable과 SearchBar는 filterText 및 inStockOnly prop을 읽어 테이블, input, 체크박스를 렌더링한다. 예를 들어, SearchBar가 입력 값을 채우는 방식은 다음과 같다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params"> &#123; filterText, inStockOnly &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		&lt;form&gt;</span><br><span class="line">			<span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> **<span class="attr">value</span>=<span class="string">&#123;filterText&#125;**</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-5-Add-inverse-data-flow"><a href="#Step-5-Add-inverse-data-flow" class="headerlink" title="Step 5: Add inverse data flow"></a>Step 5: Add inverse data flow</h3><p><em>역데이터 흐름 추가하기</em></p>
+<p>현재 애플리케이션은 프로퍼티와 상태가 계층 구조 아래로 흐르면서 올바르게 렌더링된다.</p>
+<dl><dt>그러나 사용자 입력에 따라 상태를 변경하려면 👉🏻 다른 방향으로 데이터가 흐르도록 해야 한다</dt><dd>form 컴포넌트가 FilterableProductTable 상태를 업데이트 해야한다.</dd></dl><p>위 예시에서 입력하거나 확인란을 선택하려고 하면 리액트가 입력을 의도적으로 무시한다.</p>
+<p><code>&lt;input value=&#123;filterText&#125; /&gt;</code>를 작성함으로써, 입력 값 prop이 항상 FilterableProductTable에서 전달된 filterText 상태와 같도록 만들어 놓았기 때문.</p>
+<p>즉, filterText 상태가 설정되지 않으므로 입력은 변경되지 않는다.</p>
+<p>input이 변경될 때마다 변경 사항을 반영해서 상태가 업데이트 되도록 만들고 싶다면</p>
+<ul>
+<li>상태는 FilterableProductTable가 가지고 있으므로 FilterableProductTable 함수만이 setFilterText와 setInStockOnly 를 호출할 수 있음</li>
+</ul>
+<p>SearchBar가 FilterableProductTable의 상태를 업데이트하도록 하려면</p>
+<ul>
+<li>setFilterText와 같은 함수를 SearchBar에 전달해야한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">SearchBar</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onFilterTextChange</span>=<span class="string">&#123;setFilterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onInStockOnlyChange</span>=<span class="string">&#123;setInStockOnly&#125;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>SearchBar 내부에는 onChange 이벤트 핸들러를 추가하고 이 핸들러에서 상위 상태를 설정한다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> value=&#123;filterText&#125; placeholder=<span class="string">&quot;Search...&quot;</span> onChange=&#123;<span class="function">(<span class="params">e</span>) =&gt;</span> <span class="title function_">onFilterTextChange</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onFilterTextChange</span>=<span class="string">&#123;setFilterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onInStockOnlyChange</span>=<span class="string">&#123;setInStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductCategoryRow</span>(<span class="params">&#123; category &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">colSpan</span>=<span class="string">&quot;2&quot;</span>&gt;</span>&#123;category&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductRow</span>(<span class="params">&#123; product &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> name = product.<span class="property">stocked</span> ? product.<span class="property">name</span> : <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &#x27;<span class="attr">red</span>&#x27; &#125;&#125;&gt;</span>&#123;product.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;product.price&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductTable</span>(<span class="params">&#123; products, filterText, inStockOnly &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> rows = [];</span><br><span class="line">  <span class="keyword">let</span> lastCategory = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  products.<span class="title function_">forEach</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (product.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">indexOf</span>(filterText.<span class="title function_">toLowerCase</span>()) === -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (inStockOnly &amp;&amp; !product.<span class="property">stocked</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (product.<span class="property">category</span> !== lastCategory) &#123;</span><br><span class="line">      rows.<span class="title function_">push</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ProductCategoryRow</span> <span class="attr">category</span>=<span class="string">&#123;product.category&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span>);</span><br><span class="line">    &#125;</span><br><span class="line">    rows.<span class="title function_">push</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ProductRow</span> <span class="attr">product</span>=<span class="string">&#123;product&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.name&#125;</span> /&gt;</span></span>);</span><br><span class="line">    lastCategory = product.<span class="property">category</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>&#123;rows&#125;<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123; filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> onFilterTextChange(e.target.value)&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">checked</span>=<span class="string">&#123;inStockOnly&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> onInStockOnlyChange(e.target.checked)&#125; /&gt; Only</span></span><br><span class="line"><span class="language-xml">        show products in stock</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PRODUCTS</span> = [</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Apple&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Dragonfruit&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$2&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">false</span>, <span class="attr">name</span>: <span class="string">&#x27;Passionfruit&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$2&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Spinach&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$4&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">false</span>, <span class="attr">name</span>: <span class="string">&#x27;Pumpkin&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Peas&#x27;</span> &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">FilterableProductTable</span> <span class="attr">products</span>=<span class="string">&#123;PRODUCTS&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="단일-책임-원칙-single-responsibility-principle"><a href="#단일-책임-원칙-single-responsibility-principle" class="headerlink" title="단일 책임 원칙(single responsibility principle)"></a><a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">단일 책임 원칙(single responsibility principle)</a></h3><ul>
+<li>객체 지향 프로그래밍에서 중요한 원칙 중 하나</li>
+<li>‘클래스나 모듈은 하나의 액터에게만 책임을 져야한다.’는 컴퓨터 프로그래밍 원칙</li>
+<li>액터라는 용어는 모듈을 변경해야하는 그룹을 의미 (한 명 이상의 이해관계자 또는 사용자로 구성됨)<ul>
+<li><em>The term actor refers to a group (consisting of one or more stakeholders or users) that requires a change in the module.</em></li>
+</ul>
+</li>
+<li>로버트 C. 마틴은 이 원칙을 ‘클래스를 변경할 이유가 하나만 있어야 한다.’라고 표현</li>
+<li>“원인(이유)”이라는 단어 때문에 혼란이 생겨 그는 “원칙은 사람에 관한 것이다”라고 명확히 함.</li>
+<li>주문 클래스 👉🏻 주문을 처리하는 책임만 가지고 있어야 한다.<ul>
+<li>결제나 배송과 같은 책임은 다른 클래스에서 처리되어야 함</li>
+<li>이렇게 되면 주문 클래스는 주문과 관련된 기능만을 가지고 있고 코드의 복잡도가 감소하여 유지보수가 쉬워진다.</li>
+</ul>
+</li>
+<li>단일 책임 원칙을 지키면 클래스 간 의존성이 감소하고, 결합도가 낮아져 시스템의 유연성과 확장성이 향상된다.</li>
+</ul>
+<p><strong>History</strong></p>
+<ul>
+<li>로버트 C. 마틴이 객체 지향 설계의 원칙의 일부인 “OOD의 원칙”이라는 글에서 소개</li>
+</ul>
+<h3 id="Props-vs-State"><a href="#Props-vs-State" class="headerlink" title="Props vs State"></a>Props vs State</h3><ul>
+<li>Props는 함수에 전달하는 arguments와 같다.<ul>
+<li>부모 컴포넌트가 자식 컴포넌트에 데이터를 전달</li>
+<li>ex) form은 버튼에 색상 프로퍼티를 전달할 수 있다.</li>
+</ul>
+</li>
+<li>State는 컴포넌트의 메모리와 같다.<ul>
+<li>컴포넌트가 일부 정보를 추적하고 상호작용에 반응하여 변경할 수있게 해줌</li>
+<li>ex) 버튼은 isHovered 상태를 추적할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p>props와 state는 다르지만 함께 작동한다. 부모 컴포넌트는 일부 정보를 state에 보관하고 이를 자식 컴포넌트에 프로퍼티로 전달하는 경우가 있다.</p>
+]]></content>
+      <tags>
+        <tag>React</tag>
       </tags>
   </entry>
   <entry>
@@ -3836,101 +4032,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Thinking in React - React State🚀</title>
-    <url>/2023/230327-archive/</url>
-    <content><![CDATA[<h1 id="React-State"><a href="#React-State" class="headerlink" title="React State"></a>React State</h1><p><strong>Step 3: Find the minimal but complete representation of UI state</strong></p>
-<p><strong>Step 4: Identify where your state should live</strong></p>
-<p><strong>Step 5: Add inverse data flow</strong></p>
-<p>리액트에는 state라는 개념이 있고 state가 바뀌면 해당 컴포넌트와 하위 컴포넌트가 다시 렌더링하게 된다.</p>
-<h3 id="React-State의-조건은"><a href="#React-State의-조건은" class="headerlink" title="React State의 조건은?"></a>React State의 조건은?</h3><ul>
-<li><p>변경되지 않는건 state로 다룰 가치가 없다.</p>
-</li>
-<li><p>props로 전달받았다면 state가 아니다.</p>
-</li>
-<li><p>계산 가능하면 state가 아니다.</p>
-</li>
-</ul>
-<h3 id="상태는-누가-관리해야할까"><a href="#상태는-누가-관리해야할까" class="headerlink" title="상태는 누가 관리해야할까?"></a>상태는 누가 관리해야할까?</h3><p>현재 관리해야하는 상태는? 👉🏻 체크박스 on, off</p>
-<p>체크박스는 누가 관리하는 게 좋을까? 상태를 여러 컴포넌트에 넘겨줘야하는 상황이라면 하위 컴포넌트를 가지고 있는 공통 조상 컴포넌트가 관리하는 것이 좋다. 이것을 <strong>Lifting State Up</strong>이라고 한다.</p>
-<br />
-
-<h3 id="checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기"><a href="#checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기" class="headerlink" title="checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기"></a>checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line">type <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>상태를 관리하려면? <strong>useState</strong> 사용</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-
-<br />
-
-<p><strong>체크박스를 클릭했을 때 inStockOnly의 값을 변경하는 방법</strong></p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = useState&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setInStockOnly</span>(!inStockOnly);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">checked</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>CheckBoxField</code> 컴포넌트를 누가 사용하지? <code>ProductInCategory</code> 컴포넌트</p>
-<p>inStockOnly가 true가 되면 <code>ProductInCategory</code> 컴포넌트에서 제품 목록 필터링을 해야한다.</p>
-<p><code>CheckBoxField</code> 와 <code>ProductInCategory</code> 컴포넌트를 모두 가지고 있는 조상 컴포넌트를 찾으면?</p>
-<p>👉🏻 <code>FilterableProductTable</code> 컴포넌트, 즉 inStockOnly가 있어야 하는 곳이다.</p>
-<h3 id="TextField-컴포넌트-만들기"><a href="#TextField-컴포넌트-만들기" class="headerlink" title="TextField 컴포넌트 만들기"></a>TextField 컴포넌트 만들기</h3><p><img src="/../img/230327/230327-1.png" alt="스크린샷 2023-03-24 오후 2.27.05.png"></p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="FilterableProductTable-컴포넌트가-가져야-할-state"><a href="#FilterableProductTable-컴포넌트가-가져야-할-state" class="headerlink" title="FilterableProductTable 컴포넌트가 가져야 할 state"></a>FilterableProductTable 컴포넌트가 가져야 할 state</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ProductTable</span> <span class="keyword">from</span> <span class="string">&#x27;./ProductTable&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">SearchBar</span> <span class="keyword">from</span> <span class="string">&#x27;./SearchBar&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Product</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Product&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">FilterableProductTableProps</span> = &#123;</span><br><span class="line">  <span class="attr">products</span>: <span class="title class_">Product</span>[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>검색어라는 상태를 관리하고 싶다면</p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>키를 입력할 때마다 무엇을 입력했는 지 확인하려면 onChange 이벤트를 사용한다.</p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../img/230327/230327-2.png" alt="스크린샷 2023-03-24 오후 3.25.39.png"></p>
-<p>👉🏻 target을 얻었는데 불분명해서 나오는 에러. 현재 타겟은 input element이므로 <HTMLInputElement>로 타입을 지정해준다.</p>
-<p><img src="/../img/230327/230327-3.png" alt="스크린샷 2023-03-24 오후 3.30.17.png"></p>
-<p>FilterableProductTable 컴포넌트로 작성한 state를 옮겨준다.</p>
-<blockquote>
-<p>즉, state가 필요한 컴포넌트에서 먼저 작성하고 공통 조상 컴포넌트로 옮기는 방법이 Lifting State Up</p>
-</blockquote>
-<p><img src="/../img/230327/230327-4.png" alt="스크린샷 2023-03-24 오후 3.42.17.png"></p>
-<p>그리고 SearchBar 컴포넌트에 props로 넘겨주기</p>
-<p>SerachBar 컴포넌트에서는?</p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">CheckBoxField</span> <span class="keyword">from</span> <span class="string">&#x27;./CheckBoxField&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TextField</span> <span class="keyword">from</span> <span class="string">&#x27;./TextField&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SearchBarProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123; filterText &#125;: SearchBarProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;seach-bar&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">TextField</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">CheckBoxField</span> <span class="attr">label</span>=<span class="string">&quot;Only Show products in stock&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>props으로 받아왔기 때문에 SearchBarProps로 타입을 지정해주고, TextField 컴포넌트에 props로 다시 전달해주기</p>
-<p>TextField 컴포넌트에서는?</p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; filterText, placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>TextFieldProps에 filterText prop 타입 지정하기</p>
-<p>이제 useState는 더 이상 필요 없기 때문에 지워도 된다.</p>
-<h3 id="문제는-setFilterText"><a href="#문제는-setFilterText" class="headerlink" title="문제는 setFilterText"></a>문제는 setFilterText</h3><p>데이터를 위에서 아래로 보내는 건 문제 없는데, 함수를 아래서 위로 보내야 하는 상황</p>
-<p>이럴 때는 하위 컴포넌트의 props로 함수를 전달한다. (콜백 함수)</p>
-<p><img src="/../img/230327/230327-5.png" alt="스크린샷 2023-03-24 오후 3.52.11.png"></p>
-<p><img src="/../img/230327/230327-6.png" alt="스크린샷 2023-03-24 오후 3.53.42.png"></p>
-<p><img src="/../img/230327/230327-7.png" alt="스크린샷 2023-03-24 오후 3.55.23.png"></p>
-<h3 id="filterText-prop을-ProductTable-컴포넌트로-넘겨주기"><a href="#filterText-prop을-ProductTable-컴포넌트로-넘겨주기" class="headerlink" title="filterText prop을 ProductTable 컴포넌트로 넘겨주기"></a>filterText prop을 ProductTable 컴포넌트로 넘겨주기</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ProductTable</span> products=&#123;products&#125; filterText=&#123;filterText&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>이렇게 넘겨주는 방법이 있지만, 또 다른 한 가지 방법은</p>
-<p>filterText 값에 해당하는 products만 넘겨주기. (prop을 한개만 넘겨줘도 되는 장점이 있다.)</p>
-<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> query = filterText.<span class="title function_">trim</span>().<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> filteredProducts = !query.<span class="property">length</span></span><br><span class="line">    ? products</span><br><span class="line">    : products.<span class="title function_">filter</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> product.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">includes</span>(query));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">setFilterText</span>=<span class="string">&#123;setFilterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;filteredProducts&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>inStockOnly, setInStockOnly도 동일하게 리팩토링하기</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Megaptera</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello, World!</title>
-    <url>/2022/hello-world-0/</url>
-    <content><![CDATA[<h2 id="🙌-안녕-GitHub-블로그"><a href="#🙌-안녕-GitHub-블로그" class="headerlink" title="🙌 안녕, GitHub 블로그!"></a>🙌 안녕, GitHub 블로그!</h2><p>여태 Notion으로 공부한 내용을 정리하다가 github 블로그로 넘어오게되었다.<br>그 이유는.. 모두에게 공개되는 github에 글을 작성했을 때, 더 신중하게 작성할 수 &gt;있을 것이라는 생각에 바로 github으로 변경했다.</p>
-<h3 id="📒-영어공부의-필요성을-느끼는-중입니다"><a href="#📒-영어공부의-필요성을-느끼는-중입니다" class="headerlink" title="📒 영어공부의 필요성을 느끼는 중입니다."></a>📒 영어공부의 필요성을 느끼는 중입니다.</h3><p>최근 공부를 하면서 모르는 개념이 생길 때마다 공식 문서를 찾아보는데 문서를 볼 때마다 제대로 된 이해를 하지 못하는 것 같은 느낌이 들었다. 개발 관련된 단어라도 알고 있으면 이해가 수월하지 않을까? 라는 생각이 드는 찰나에 meot님의 개발 용어 레포지토리를 찾았다! 이것부터 차근차근 열심히 영어공부를 해보자..!</p>
-<h3 id="✨-공부한-내용-기록하기"><a href="#✨-공부한-내용-기록하기" class="headerlink" title="✨ 공부한 내용 기록하기"></a>✨ 공부한 내용 기록하기</h3><p>TIL 이외의 내용들은 모두 이 곳에 기록해두자.<br>아직 미완성된 블로그이지만 글도 많이 쌓이고 기능도 조금씩 고쳐나가면 좋은 블로그가 되지 않을까:)<br>~<br>~-</p>
-]]></content>
-      <tags>
-        <tag>IT</tag>
-        <tag>Web</tag>
-        <tag>Frontend</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>REST API가 무엇인가 (부제: 그런 REST API로 괜찮은가)</title>
     <url>/2023/230329-archive/</url>
     <content><![CDATA[<p>REST API가 어떤 배경에서 나온건지부터 알아보자</p>
@@ -4140,198 +4241,114 @@
       </tags>
   </entry>
   <entry>
-    <title>Thinking in React 내 마음대로 이해하기🌱 </title>
-    <url>/2023/230318-3-archive/</url>
-    <content><![CDATA[<blockquote>
-<p><em>React can change how you think about the designs you look at and the apps you build. When you build a user interface with React, you will first break it apart into pieces called components. Then, you will describe the different visual states for each of your components. Finally, you will connect your components together so that the data flows through them. In this tutorial, we’ll guide you through the thought process of building a searchable product data table with React.</em></p>
-</blockquote>
-<p>React는 <strong>디자인을 바라보는 방식</strong>과 <strong>앱을 빌드하는 방식</strong>을 바꿀 수 있습니다. React로 사용자 인터페이스를 빌드할 때는 먼저 컴포넌트라고하는 조각으로 분해합니다. 그런 다음 각 컴포넌트에 대해 서로 다른 시각적 상태를 설명합니다. 마지막으로 컴포넌트를 서로 연결해 데이터가 흐르도록 합니다. 이 튜토리얼에서는 React로 검색 가능한 데이터 테이블을 구축하는 사고 과정을 안내합니다.</p>
-<h2 id="Start-with-the-mockup"><a href="#Start-with-the-mockup" class="headerlink" title="Start with the mockup"></a>Start with the mockup</h2><p>JSON API와 디자이너의 목업이 있다고 가정해보자</p>
-<p>JSON API는 다음과 같이 일부 데이터를 반환함</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Apple&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dragonfruit&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Fruits&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Passionfruit&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Spinach&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$4&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Pumpkin&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> <span class="attr">&quot;category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Vegetables&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;stocked&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Peas&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+    <title>Queue 구현하기</title>
+    <url>/2023/230330-archive/</url>
+    <content><![CDATA[<h3 id="Array로-구현하는-방법"><a href="#Array로-구현하는-방법" class="headerlink" title="Array로 구현하는 방법"></a>Array로 구현하는 방법</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">queue</span> = [];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">front</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">rear</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">enqueue</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> value = (<span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">rear</span>++] = value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dequeue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> value = <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">    <span class="keyword">delete</span> <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">front</span> -= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">peek</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">size</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">rear</span> - <span class="variable language_">this</span>.<span class="property">front</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>The mockup looks like this:</p>
-<p><img src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png" alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png"></p>
-<p>To implement a UI in React, you will usually follow the same five steps.</p>
-<p><em>React에서 UI를 구현하려면 일반적으로 동일한 5단계를 따른다.</em></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Step</span> <span class="number">1</span>: <span class="title class_">Break</span> the <span class="variable constant_">UI</span> into a component hierarchy****</span><br><span class="line"><span class="title class_">Step</span> <span class="number">2</span>: <span class="title class_">Build</span> a <span class="keyword">static</span> version <span class="keyword">in</span> <span class="title class_">React</span></span><br><span class="line"><span class="title class_">Step</span> <span class="number">3</span>: <span class="title class_">Find</span> the minimal but complete representation <span class="keyword">of</span> <span class="variable constant_">UI</span> state</span><br><span class="line"><span class="title class_">Step</span> <span class="number">4</span>: <span class="title class_">Identify</span> where your state should live</span><br><span class="line"><span class="title class_">Step</span> <span class="number">5</span>: <span class="title class_">Add</span> inverse data flow</span><br></pre></td></tr></table></figure>
+<p>list로 구현하는 방법</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">next</span> = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tail</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">enqueue</span>(<span class="params">newValue</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">newNode</span> = <span class="keyword">new</span> <span class="title class_">Node</span>(newValue);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">head</span> === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">head</span> = newNode;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">tail</span> = newNode;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">tail</span>.<span class="property">next</span> = newNode;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">tail</span> = newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dequeue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> value = <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">value</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">next</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">peek</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">value</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<br>
-
-<h3 id="Step-1-Break-the-UI-into-a-component-hierarchy"><a href="#Step-1-Break-the-UI-into-a-component-hierarchy" class="headerlink" title="Step 1: Break the UI into a component hierarchy"></a>Step 1: Break the UI into a component hierarchy</h3><p><em>UI 컴포넌트를 계층구조로 나누기</em></p>
-<p>목업의 모든 컴포넌트와 하위 컴포넌트 주위에 상자를 그리고 이름을 지정하기. 디자이너와 같이 일한다면 컴포넌트의 이름이 이미 있을 수도 있다.</p>
-<p>여러가지 방식으로 컴포넌트를 분할하는 것을 고려할 수 있는데:</p>
-<ul>
-<li>Programming - 새로운 함수나 객체를 생성할 때에도 동일한 기법 사용하기.<ul>
-<li>이러한 기법 중 하나는 <a href="https://www.notion.so/Thinking-in-React-3dc21d2691dd4302957bed94a7e7b582">단일 책임 원칙(single responsibility principle)</a></li>
-<li>컴포넌트는 한 가지 일만 수행해야 한다.</li>
-<li>컴포넌트가 커지면 더 작은 하위 컴포넌트로 분해해야 한다.</li>
-</ul>
-</li>
-<li>CSS - 클래스 선택자를 어디에 사용할 지 생각하기</li>
-<li>Design - 디자인의 레이어를 어떻게 구성할지 생각하기</li>
-</ul>
-<p>JSON이 잘 구조화되어 있으면 UI 컴포넌트 구조에 자연스럽게 매핑되는 것을 발견할 수 있다. 동일한 형태를 가지고 있는 경우가 많기 때문.</p>
-<p>UI를 컴포넌트로 분리하고 각 컴포넌트가 데이터 모델의 한 부분과 일치하도록 해보자</p>
-<p><img src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png" alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png"></p>
-<ul>
-<li><code>FilterableProductTable</code> 은 전체 app을 포함</li>
-<li><code>SearchBar</code> 는 user input을 받음</li>
-<li><code>ProductTable</code> 는 사용자 입력에 따라 리스트를 표시하고 필터링 함</li>
-<li><code>ProductCategoryRow</code> 는 각 카테고리에 대한 제목을 표시</li>
-<li><code>ProductRow</code> 는 각 제품에 대한 행을 표시</li>
-</ul>
-<p><code>ProductTable</code>을 보면 Name과 Price를 포함하고 있는 헤더가 자체 구성 요소가 아님을 알 수 있다. 👉🏻 <strong>선호도의 문제</strong></p>
-<ul>
-<li><code>ProductTable</code> 의 목록 안에 표시되므로 <code>ProductTable</code> 의 일부</li>
-<li>헤더가 복잡해지는 경우에는 컴포넌트로 따로 분리할 수도 있다.</li>
-</ul>
-<p>mockup in the hierarchy:</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">FilterableProductTable</span><br><span class="line">	SearchBar</span><br><span class="line">	ProductTable</span><br><span class="line">		ProductCategoryRow</span><br><span class="line">		ProductRow</span><br></pre></td></tr></table></figure>
-
-<h3 id="Step-2-Build-a-static-version-in-React"><a href="#Step-2-Build-a-static-version-in-React" class="headerlink" title="Step 2: Build a static version in React"></a>Step 2: Build a static version in React</h3><p><em>React에서 정적 버전 빌드하기</em></p>
-<p>정적 버전을 빌드하려면 다른 컴포넌트를 재사용하고 props를 사용하여 데이터를 전달하는 컴포넌트를 빌드하는 것이 좋다.</p>
-<ul>
-<li>props는 <strong>부모에서 자식으로 데이터를 전달하는 방법</strong></li>
-</ul>
-<p>계층 구조에서 상위 컴포넌트로부터 빌드하는 “top down” 빌드 또는 하위 컴포넌트부터 작업하는 “bottom up” 중 하나를 선택할 수 있다.</p>
-<ul>
-<li>간단한 예제에서는 하향식으로 작성하는 것이 더 쉽고, 대규모 프로젝트에서는 상향식으로 작성하는 것이 쉽다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ProductCategoryRow</span>(<span class="params">&#123; category &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span>(</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">th</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				&#123;category&#125;</span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductRow</span>(<span class="params">&#123; product &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> name = product.<span class="property">stocked</span> ? product.<span class="property">name</span> :</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &#x27;<span class="attr">red</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">			&#123;product.name&#125;</span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;product.price&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> rows = [];</span><br><span class="line">	<span class="keyword">let</span> lastCategory = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	products.<span class="title function_">forEach</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(product.<span class="property">category</span> !== lastCategory) &#123;</span><br><span class="line">			rows.<span class="title function_">push</span>(</span><br><span class="line">				<span class="language-xml"><span class="tag">&lt;<span class="name">ProductCategoryRow</span> <span class="attr">category</span>=<span class="string">&#123;product.category&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span></span><br><span class="line">			);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		rows.<span class="title function_">push</span>(</span><br><span class="line">			<span class="language-xml"><span class="tag">&lt;<span class="name">ProductRow</span> <span class="attr">product</span>=<span class="string">&#123;product&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span></span><br><span class="line">		);</span><br><span class="line"></span><br><span class="line">		lastCategory = product.<span class="property">category</span>;</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>&#123;rows&#125;<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span> // rows 배열을 전달</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				&#123;&#x27; &#x27;&#125;</span></span><br><span class="line"><span class="language-xml">	      Only show products in stock</span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  );</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">// 가장 상위 컴포넌트에서부터 products 객체를 받아야 한다.</span></span><br><span class="line"><span class="language-xml">function FilterableProductTable(&#123; products &#125;) &#123;</span></span><br><span class="line"><span class="language-xml">	return (</span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	);</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">const PRODUCTS = [</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Apple&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Dragonfruit&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Fruits&quot;, price: &quot;$2&quot;, stocked: false, name: &quot;Passionfruit&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$2&quot;, stocked: true, name: &quot;Spinach&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$4&quot;, stocked: false, name: &quot;Pumpkin&quot;&#125;,</span></span><br><span class="line"><span class="language-xml">  &#123;category: &quot;Vegetables&quot;, price: &quot;$1&quot;, stocked: true, name: &quot;Peas&quot;&#125;</span></span><br><span class="line"><span class="language-xml">];</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">export default function App() &#123;</span></span><br><span class="line"><span class="language-xml">	return <span class="tag">&lt;<span class="name">FilterableProductTable</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><a href="https://codesandbox.io/s/0jfw74?file=/App.js&utm_medium=sandpack">https://codesandbox.io/s/0jfw74?file=/App.js&utm_medium&#x3D;sandpack</a></p>
-<p>컴포넌트를 빌드하고 나면 데이터 모델을 렌더링하는 재사용 가능한 컴포넌트 라이브러리를 갖게 된다. 이 앱은 정적 앱이므로 컴포넌트는 JSX만 반환함.</p>
-<p>계층 구조의 맨 위에 있는 컴포넌트(FilterableProductTable)는 데이터 모델을 소품으로 사용.</p>
-<p>데이터가 최 상위 컴포넌트에서 트리 하단에 있는 컴포넌트로 흘러내림 👉🏻 <strong>단방향 데이터 흐름</strong></p>
-<h3 id="Step-3-Find-the-minimal-but-complete-representation-of-UI-state"><a href="#Step-3-Find-the-minimal-but-complete-representation-of-UI-state" class="headerlink" title="Step 3: Find the minimal but complete representation of UI state"></a>Step 3: Find the minimal but complete representation of UI state</h3><p><em>최소한이지만 UI 상태 표현 완성하기</em></p>
-<p>UI 대화형으로 만들려면 사용자가 기본 데이터 모델을 변경할 수 있도록 해야함 👉🏻 <strong>이를 위해 state를 사용</strong></p>
-<ul>
-<li>상태(state): 앱이 기억해야하는 최소한의 변경 데이터 집합</li>
-<li>상태를 구조화할 때 가장 중요한 원칙<br>: 반복하지 않는 것</li>
-</ul>
-<p>애플리케이션에 필요한 최소한의 상태 표현을 파악하고, 그 외의 모든 것들은 요청 시에 계산한다.</p>
-<p>예를 들어 쇼핑 목록을 만드는 경우,</p>
-<ul>
-<li>항목 👉🏻 상태 배열로 저장</li>
-<li>목록에 있는 항목의 개수를 표시하려면 다른 상태 값으로 저장하지 말고 배열의 길이를 읽으면 된다.</li>
-</ul>
-<p>예제 애플리케이션의 모든 데이터 조각들을 생각해보기</p>
-<ol>
-<li>원래 제품 목록</li>
-<li>사용자가 입력한 검색 텍스트</li>
-<li>체크박스의 값</li>
-<li>필터링된 제품 목록</li>
-</ol>
-<p>여기서 상태는 무엇인가? 상태가 아닌 것들을 판별해보자.</p>
-<ul>
-<li>시간이 지나도 변하지 않는가? 👉🏻 상태 X</li>
-<li>부모로부터 props를 통해 전달받는가? 👉🏻 상태 X</li>
-<li>컴포넌트의 기존 state나 props를 기반으로 계산할 수 있는가? 👉🏻 상태 X</li>
-</ul>
-<p>이 외의 나머지는 모두 상태이다.</p>
-<p>예제 데이터를 보면서 살펴보자.</p>
-<ol>
-<li>원래 제품 목록: props로 전달되었기 때문에 상태 X</li>
-<li>사용자가 입력한 검색 텍스트: 시간이 지남에 따라 변경되고 아무것도 계산할 수 없으므로 상태 O</li>
-<li>체크박스의 값: 시간이 지남에 따라 변경되고 계산이 어려우므로 상태 O</li>
-<li>필터링된 제품 목록: 원래 제품 목록을 가져와서 검색 텍스트 및 확인란 값에 따라 필터링하여 계산할 수 있으므로 상태 X</li>
-</ol>
-<h3 id="Step-4-Identify-where-your-state-should-live"><a href="#Step-4-Identify-where-your-state-should-live" class="headerlink" title="Step 4: Identify where your state should live"></a>Step 4: Identify where your state should live</h3><p><em>상태가 어디서 살아있어야하는지 식별하기</em></p>
-<p>앱의 최소 상태 데이터를 식별했다면 이제는 <strong>상태를 소유하는 컴포넌트를 식별</strong>해야한다.</p>
-<p><strong>리액트는 단방향 데이터 흐름을 사용하며, 부모 컴포넌트가 자식 컴포넌트로 컴포넌트 계층 구조를 따라 데이터를 전달한다는 것을 기억하자.</strong></p>
-<ol>
-<li>해당 상태를 기반으로 무언갈르 렌더링하는 모든 컴포넌트를 식별한다.</li>
-<li>가장 가까운 공통 상위 컴포넌트, 즉 계층 구조에서 모든 컴포넌트 위에 있는 컴포넌트를 찾는다.</li>
-<li>상태가 어디에 위치해야할 지 결정한다.<ol>
-<li>종종 상태를 공통 부모에 직접 넣을 수 있다.</li>
-<li>상태를 공통 부모 위에 있는 컴포넌트에 넣을 수 있다.</li>
-<li>상태를 소유하기에 적합한 컴포넌트를 찾을 수 없는 경우 상태를 보유하기 위한 컴포넌트를 새로 만들어 공통 부모 컴포넌트 위에 추가한다.</li>
-</ol>
-</li>
-</ol>
-<p>우리는 이전 단계에서 검색 입력 텍스트와 체크박스 확인 값이라는 두 가지 상태를 찾아놓음.</p>
-<p>이 상태에 대한 전략을 실행해보자.</p>
-<ol>
-<li>상태를 사용하는 컴포넌트 식별하기:<ol>
-<li>ProductTable은 해당 상태를 기준으로 제품 목록을 필터링해야한다.</li>
-<li>SearchBar는 해당 상태를 표시해야 한다.</li>
-</ol>
-</li>
-<li>공통 부모 찾기: 두 컴포넌트가 공유하는 첫 번째 상위 컴포넌트는 FilterableProductTable</li>
-<li>상태를 어디에 있게할지 결정하기: 필터 텍스트와 체크된 상태 값은 FilterableProductTable에 있어야 한다.</li>
-</ol>
-<p>따라서 상태 값은 FilterableProductTable에 저장한다.</p>
-<p><code>useState()</code> Hook으로 컴포넌트에 state를 추가하기</p>
-<p>FilterableProductTable의 상단에 상태 변수 두 개를 추가하고 애플리케이션의 초기 상태를 지정:</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">	<span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-
-<p>filterText와 inStockOnly를 ProductTable과 SearchBar 컴포넌트에 props로 전달하기</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SearchBar</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>이제 애플리케이션이 어떻게 동작하는지 확인할 수 있다.</p>
-<p><a href="https://codesandbox.io/s/n3gc1j?file=/App.js&utm_medium=sandpack">https://codesandbox.io/s/n3gc1j?file=/App.js&utm_medium&#x3D;sandpack</a></p>
-<p>폼을 편집하는 것은 아직 동작하지 않음. 그 이유는?</p>
-<p>👉🏻 onChange 핸들러가 없는 양식 필드에 Value 프로퍼티를 제공. 이렇게 되면 읽기 전용 필드가 렌더링된다.</p>
-<p>ProductTable과 SearchBar는 filterText 및 inStockOnly prop을 읽어 테이블, input, 체크박스를 렌더링한다. 예를 들어, SearchBar가 입력 값을 채우는 방식은 다음과 같다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params"> &#123; filterText, inStockOnly &#125;</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		&lt;form&gt;</span><br><span class="line">			<span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> **<span class="attr">value</span>=<span class="string">&#123;filterText&#125;**</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Step-5-Add-inverse-data-flow"><a href="#Step-5-Add-inverse-data-flow" class="headerlink" title="Step 5: Add inverse data flow"></a>Step 5: Add inverse data flow</h3><p><em>역데이터 흐름 추가하기</em></p>
-<p>현재 애플리케이션은 프로퍼티와 상태가 계층 구조 아래로 흐르면서 올바르게 렌더링된다.</p>
-<dl><dt>그러나 사용자 입력에 따라 상태를 변경하려면 👉🏻 다른 방향으로 데이터가 흐르도록 해야 한다</dt><dd>form 컴포넌트가 FilterableProductTable 상태를 업데이트 해야한다.</dd></dl><p>위 예시에서 입력하거나 확인란을 선택하려고 하면 리액트가 입력을 의도적으로 무시한다.</p>
-<p><code>&lt;input value=&#123;filterText&#125; /&gt;</code>를 작성함으로써, 입력 값 prop이 항상 FilterableProductTable에서 전달된 filterText 상태와 같도록 만들어 놓았기 때문.</p>
-<p>즉, filterText 상태가 설정되지 않으므로 입력은 변경되지 않는다.</p>
-<p>input이 변경될 때마다 변경 사항을 반영해서 상태가 업데이트 되도록 만들고 싶다면</p>
-<ul>
-<li>상태는 FilterableProductTable가 가지고 있으므로 FilterableProductTable 함수만이 setFilterText와 setInStockOnly 를 호출할 수 있음</li>
-</ul>
-<p>SearchBar가 FilterableProductTable의 상태를 업데이트하도록 하려면</p>
-<ul>
-<li>setFilterText와 같은 함수를 SearchBar에 전달해야한다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">SearchBar</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onFilterTextChange</span>=<span class="string">&#123;setFilterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onInStockOnlyChange</span>=<span class="string">&#123;setInStockOnly&#125;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>SearchBar 내부에는 onChange 이벤트 핸들러를 추가하고 이 핸들러에서 상위 상태를 설정한다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> value=&#123;filterText&#125; placeholder=<span class="string">&quot;Search...&quot;</span> onChange=&#123;<span class="function">(<span class="params">e</span>) =&gt;</span> <span class="title function_">onFilterTextChange</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123; products &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onFilterTextChange</span>=<span class="string">&#123;setFilterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onInStockOnlyChange</span>=<span class="string">&#123;setInStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">inStockOnly</span>=<span class="string">&#123;inStockOnly&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductCategoryRow</span>(<span class="params">&#123; category &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">colSpan</span>=<span class="string">&quot;2&quot;</span>&gt;</span>&#123;category&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductRow</span>(<span class="params">&#123; product &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> name = product.<span class="property">stocked</span> ? product.<span class="property">name</span> : <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &#x27;<span class="attr">red</span>&#x27; &#125;&#125;&gt;</span>&#123;product.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;product.price&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductTable</span>(<span class="params">&#123; products, filterText, inStockOnly &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> rows = [];</span><br><span class="line">  <span class="keyword">let</span> lastCategory = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  products.<span class="title function_">forEach</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (product.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">indexOf</span>(filterText.<span class="title function_">toLowerCase</span>()) === -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (inStockOnly &amp;&amp; !product.<span class="property">stocked</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (product.<span class="property">category</span> !== lastCategory) &#123;</span><br><span class="line">      rows.<span class="title function_">push</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ProductCategoryRow</span> <span class="attr">category</span>=<span class="string">&#123;product.category&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.category&#125;</span> /&gt;</span></span>);</span><br><span class="line">    &#125;</span><br><span class="line">    rows.<span class="title function_">push</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ProductRow</span> <span class="attr">product</span>=<span class="string">&#123;product&#125;</span> <span class="attr">key</span>=<span class="string">&#123;product.name&#125;</span> /&gt;</span></span>);</span><br><span class="line">    lastCategory = product.<span class="property">category</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">th</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">tbody</span>&gt;</span>&#123;rows&#125;<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123; filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> onFilterTextChange(e.target.value)&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">checked</span>=<span class="string">&#123;inStockOnly&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> onInStockOnlyChange(e.target.checked)&#125; /&gt; Only</span></span><br><span class="line"><span class="language-xml">        show products in stock</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PRODUCTS</span> = [</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Apple&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Dragonfruit&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Fruits&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$2&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">false</span>, <span class="attr">name</span>: <span class="string">&#x27;Passionfruit&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$2&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Spinach&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$4&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">false</span>, <span class="attr">name</span>: <span class="string">&#x27;Pumpkin&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">category</span>: <span class="string">&#x27;Vegetables&#x27;</span>, <span class="attr">price</span>: <span class="string">&#x27;$1&#x27;</span>, <span class="attr">stocked</span>: <span class="literal">true</span>, <span class="attr">name</span>: <span class="string">&#x27;Peas&#x27;</span> &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">FilterableProductTable</span> <span class="attr">products</span>=<span class="string">&#123;PRODUCTS&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="단일-책임-원칙-single-responsibility-principle"><a href="#단일-책임-원칙-single-responsibility-principle" class="headerlink" title="단일 책임 원칙(single responsibility principle)"></a><a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">단일 책임 원칙(single responsibility principle)</a></h3><ul>
-<li>객체 지향 프로그래밍에서 중요한 원칙 중 하나</li>
-<li>‘클래스나 모듈은 하나의 액터에게만 책임을 져야한다.’는 컴퓨터 프로그래밍 원칙</li>
-<li>액터라는 용어는 모듈을 변경해야하는 그룹을 의미 (한 명 이상의 이해관계자 또는 사용자로 구성됨)<ul>
-<li><em>The term actor refers to a group (consisting of one or more stakeholders or users) that requires a change in the module.</em></li>
-</ul>
-</li>
-<li>로버트 C. 마틴은 이 원칙을 ‘클래스를 변경할 이유가 하나만 있어야 한다.’라고 표현</li>
-<li>“원인(이유)”이라는 단어 때문에 혼란이 생겨 그는 “원칙은 사람에 관한 것이다”라고 명확히 함.</li>
-<li>주문 클래스 👉🏻 주문을 처리하는 책임만 가지고 있어야 한다.<ul>
-<li>결제나 배송과 같은 책임은 다른 클래스에서 처리되어야 함</li>
-<li>이렇게 되면 주문 클래스는 주문과 관련된 기능만을 가지고 있고 코드의 복잡도가 감소하여 유지보수가 쉬워진다.</li>
-</ul>
-</li>
-<li>단일 책임 원칙을 지키면 클래스 간 의존성이 감소하고, 결합도가 낮아져 시스템의 유연성과 확장성이 향상된다.</li>
-</ul>
-<p><strong>History</strong></p>
-<ul>
-<li>로버트 C. 마틴이 객체 지향 설계의 원칙의 일부인 “OOD의 원칙”이라는 글에서 소개</li>
-</ul>
-<h3 id="Props-vs-State"><a href="#Props-vs-State" class="headerlink" title="Props vs State"></a>Props vs State</h3><ul>
-<li>Props는 함수에 전달하는 arguments와 같다.<ul>
-<li>부모 컴포넌트가 자식 컴포넌트에 데이터를 전달</li>
-<li>ex) form은 버튼에 색상 프로퍼티를 전달할 수 있다.</li>
-</ul>
-</li>
-<li>State는 컴포넌트의 메모리와 같다.<ul>
-<li>컴포넌트가 일부 정보를 추적하고 상호작용에 반응하여 변경할 수있게 해줌</li>
-<li>ex) 버튼은 isHovered 상태를 추적할 수 있다.</li>
-</ul>
-</li>
-</ul>
-<p>props와 state는 다르지만 함께 작동한다. 부모 컴포넌트는 일부 정보를 state에 보관하고 이를 자식 컴포넌트에 프로퍼티로 전달하는 경우가 있다.</p>
+<h2 id="Shift-함수는-쓰지말자"><a href="#Shift-함수는-쓰지말자" class="headerlink" title="Shift 함수는 쓰지말자!"></a>Shift 함수는 쓰지말자!</h2><p>shift 메서드를 사용하게 되면 배열의 index를 하나씩 당겨서 다시 정리해야하기 때문에 시간복잡도가 증가한다.</p>
+<h1 id="Circluar-Queue"><a href="#Circluar-Queue" class="headerlink" title="Circluar Queue"></a>Circluar Queue</h1><p>Front와 Rear가 이어져있는 Queue</p>
+<p>Circluar Queue는 Linked List로 구현했을 때 이점이 없다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">maxSize</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">maxSize</span> = maxSize;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">queue</span> = [];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">front</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">rear</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">enqueue</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="title function_">isFull</span>()) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Queue is full&quot;</span>)</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">rear</span>] = value;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">rear</span> = (<span class="variable language_">this</span>.<span class="property">rear</span> + <span class="number">1</span>) % <span class="variable language_">this</span>.<span class="property">maxSize</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dequeue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> value = <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">    <span class="keyword">delete</span> <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">front</span> = (<span class="variable language_">this</span>.<span class="property">front</span> + <span class="number">1</span>) % <span class="variable language_">this</span>.<span class="property">maxSize</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> -= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">isFull</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">size</span> === <span class="variable language_">this</span>.<span class="property">maxSize</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">peek</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">queue</span>[<span class="variable language_">this</span>.<span class="property">front</span>];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello, World!</title>
+    <url>/2022/hello-world-0/</url>
+    <content><![CDATA[<h2 id="🙌-안녕-GitHub-블로그"><a href="#🙌-안녕-GitHub-블로그" class="headerlink" title="🙌 안녕, GitHub 블로그!"></a>🙌 안녕, GitHub 블로그!</h2><p>여태 Notion으로 공부한 내용을 정리하다가 github 블로그로 넘어오게되었다.<br>그 이유는.. 모두에게 공개되는 github에 글을 작성했을 때, 더 신중하게 작성할 수 &gt;있을 것이라는 생각에 바로 github으로 변경했다.</p>
+<h3 id="📒-영어공부의-필요성을-느끼는-중입니다"><a href="#📒-영어공부의-필요성을-느끼는-중입니다" class="headerlink" title="📒 영어공부의 필요성을 느끼는 중입니다."></a>📒 영어공부의 필요성을 느끼는 중입니다.</h3><p>최근 공부를 하면서 모르는 개념이 생길 때마다 공식 문서를 찾아보는데 문서를 볼 때마다 제대로 된 이해를 하지 못하는 것 같은 느낌이 들었다. 개발 관련된 단어라도 알고 있으면 이해가 수월하지 않을까? 라는 생각이 드는 찰나에 meot님의 개발 용어 레포지토리를 찾았다! 이것부터 차근차근 열심히 영어공부를 해보자..!</p>
+<h3 id="✨-공부한-내용-기록하기"><a href="#✨-공부한-내용-기록하기" class="headerlink" title="✨ 공부한 내용 기록하기"></a>✨ 공부한 내용 기록하기</h3><p>TIL 이외의 내용들은 모두 이 곳에 기록해두자.<br>아직 미완성된 블로그이지만 글도 많이 쌓이고 기능도 조금씩 고쳐나가면 좋은 블로그가 되지 않을까:)<br>~<br>~-</p>
+]]></content>
+      <tags>
+        <tag>IT</tag>
+        <tag>Web</tag>
+        <tag>Frontend</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thinking in React - React State🚀</title>
+    <url>/2023/230327-archive/</url>
+    <content><![CDATA[<h1 id="React-State"><a href="#React-State" class="headerlink" title="React State"></a>React State</h1><p><strong>Step 3: Find the minimal but complete representation of UI state</strong></p>
+<p><strong>Step 4: Identify where your state should live</strong></p>
+<p><strong>Step 5: Add inverse data flow</strong></p>
+<p>리액트에는 state라는 개념이 있고 state가 바뀌면 해당 컴포넌트와 하위 컴포넌트가 다시 렌더링하게 된다.</p>
+<h3 id="React-State의-조건은"><a href="#React-State의-조건은" class="headerlink" title="React State의 조건은?"></a>React State의 조건은?</h3><ul>
+<li><p>변경되지 않는건 state로 다룰 가치가 없다.</p>
+</li>
+<li><p>props로 전달받았다면 state가 아니다.</p>
+</li>
+<li><p>계산 가능하면 state가 아니다.</p>
+</li>
+</ul>
+<h3 id="상태는-누가-관리해야할까"><a href="#상태는-누가-관리해야할까" class="headerlink" title="상태는 누가 관리해야할까?"></a>상태는 누가 관리해야할까?</h3><p>현재 관리해야하는 상태는? 👉🏻 체크박스 on, off</p>
+<p>체크박스는 누가 관리하는 게 좋을까? 상태를 여러 컴포넌트에 넘겨줘야하는 상황이라면 하위 컴포넌트를 가지고 있는 공통 조상 컴포넌트가 관리하는 것이 좋다. 이것을 <strong>Lifting State Up</strong>이라고 한다.</p>
+<br />
+
+<h3 id="checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기"><a href="#checkbox를-클릭하면-stocked가-true인-제품의-목록만-나오도록-만들기" class="headerlink" title="checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기"></a>checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line">type <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>상태를 관리하려면? <strong>useState</strong> 사용</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [inStockOnly, setInStockOnly] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p><strong>체크박스를 클릭했을 때 inStockOnly의 값을 변경하는 방법</strong></p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">CheckBoxFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">label</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CheckBoxField</span>(<span class="params">&#123; label &#125;: CheckBoxFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="title function_">useRef</span>(<span class="string">`checkbox-<span class="subst">$&#123;label&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;-&#x27;</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [inStockOnly, setInStockOnly] = useState&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setInStockOnly</span>(!inStockOnly);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">id</span>=<span class="string">&#123;id.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">checked</span>=<span class="string">&#123;inStockOnly&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id.current&#125;</span>&gt;</span>&#123;label&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>CheckBoxField</code> 컴포넌트를 누가 사용하지? <code>ProductInCategory</code> 컴포넌트</p>
+<p>inStockOnly가 true가 되면 <code>ProductInCategory</code> 컴포넌트에서 제품 목록 필터링을 해야한다.</p>
+<p><code>CheckBoxField</code> 와 <code>ProductInCategory</code> 컴포넌트를 모두 가지고 있는 조상 컴포넌트를 찾으면?</p>
+<p>👉🏻 <code>FilterableProductTable</code> 컴포넌트, 즉 inStockOnly가 있어야 하는 곳이다.</p>
+<h3 id="TextField-컴포넌트-만들기"><a href="#TextField-컴포넌트-만들기" class="headerlink" title="TextField 컴포넌트 만들기"></a>TextField 컴포넌트 만들기</h3><p><img src="/../img/230327/230327-1.png" alt="스크린샷 2023-03-24 오후 2.27.05.png"></p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="FilterableProductTable-컴포넌트가-가져야-할-state"><a href="#FilterableProductTable-컴포넌트가-가져야-할-state" class="headerlink" title="FilterableProductTable 컴포넌트가 가져야 할 state"></a>FilterableProductTable 컴포넌트가 가져야 할 state</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ProductTable</span> <span class="keyword">from</span> <span class="string">&#x27;./ProductTable&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">SearchBar</span> <span class="keyword">from</span> <span class="string">&#x27;./SearchBar&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Product</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Product&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">FilterableProductTableProps</span> = &#123;</span><br><span class="line">  <span class="attr">products</span>: <span class="title class_">Product</span>[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;products&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>검색어라는 상태를 관리하고 싶다면</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span> <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>키를 입력할 때마다 무엇을 입력했는 지 확인하려면 onChange 이벤트를 사용한다.</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/230327/230327-2.png" alt="스크린샷 2023-03-24 오후 3.25.39.png"></p>
+<p>👉🏻 target을 얻었는데 불분명해서 나오는 에러. 현재 타겟은 input element이므로 <HTMLInputElement>로 타입을 지정해준다.</p>
+<p><img src="/../img/230327/230327-3.png" alt="스크린샷 2023-03-24 오후 3.30.17.png"></p>
+<p>FilterableProductTable 컴포넌트로 작성한 state를 옮겨준다.</p>
+<blockquote>
+<p>즉, state가 필요한 컴포넌트에서 먼저 작성하고 공통 조상 컴포넌트로 옮기는 방법이 Lifting State Up</p>
+</blockquote>
+<p><img src="/../img/230327/230327-4.png" alt="스크린샷 2023-03-24 오후 3.42.17.png"></p>
+<p>그리고 SearchBar 컴포넌트에 props로 넘겨주기</p>
+<p>SerachBar 컴포넌트에서는?</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">CheckBoxField</span> <span class="keyword">from</span> <span class="string">&#x27;./CheckBoxField&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TextField</span> <span class="keyword">from</span> <span class="string">&#x27;./TextField&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SearchBarProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123; filterText &#125;: SearchBarProps</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;seach-bar&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">TextField</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">CheckBoxField</span> <span class="attr">label</span>=<span class="string">&quot;Only Show products in stock&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>props으로 받아왔기 때문에 SearchBarProps로 타입을 지정해주고, TextField 컴포넌트에 props로 다시 전달해주기</p>
+<p>TextField 컴포넌트에서는?</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">TextFieldProps</span> = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">placeholder</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TextField</span>(<span class="params">&#123; filterText, placeholder &#125;: TextFieldProps</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; value &#125; = event.<span class="property">target</span>;</span><br><span class="line">    <span class="title function_">setFilterText</span>(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TextFieldProps에 filterText prop 타입 지정하기</p>
+<p>이제 useState는 더 이상 필요 없기 때문에 지워도 된다.</p>
+<h3 id="문제는-setFilterText"><a href="#문제는-setFilterText" class="headerlink" title="문제는 setFilterText"></a>문제는 setFilterText</h3><p>데이터를 위에서 아래로 보내는 건 문제 없는데, 함수를 아래서 위로 보내야 하는 상황</p>
+<p>이럴 때는 하위 컴포넌트의 props로 함수를 전달한다. (콜백 함수)</p>
+<p><img src="/../img/230327/230327-5.png" alt="스크린샷 2023-03-24 오후 3.52.11.png"></p>
+<p><img src="/../img/230327/230327-6.png" alt="스크린샷 2023-03-24 오후 3.53.42.png"></p>
+<p><img src="/../img/230327/230327-7.png" alt="스크린샷 2023-03-24 오후 3.55.23.png"></p>
+<h3 id="filterText-prop을-ProductTable-컴포넌트로-넘겨주기"><a href="#filterText-prop을-ProductTable-컴포넌트로-넘겨주기" class="headerlink" title="filterText prop을 ProductTable 컴포넌트로 넘겨주기"></a>filterText prop을 ProductTable 컴포넌트로 넘겨주기</h3><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ProductTable</span> products=&#123;products&#125; filterText=&#123;filterText&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 넘겨주는 방법이 있지만, 또 다른 한 가지 방법은</p>
+<p>filterText 값에 해당하는 products만 넘겨주기. (prop을 한개만 넘겨줘도 되는 장점이 있다.)</p>
+<figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FilterableProductTable</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  products,</span></span><br><span class="line"><span class="params">&#125;: FilterableProductTableProps</span>) &#123;</span><br><span class="line">  <span class="comment">// inStockOnly가 있어야 하는 곳</span></span><br><span class="line">  <span class="comment">// filterText가 있어야 하는 곳</span></span><br><span class="line">  <span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> query = filterText.<span class="title function_">trim</span>().<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> filteredProducts = !query.<span class="property">length</span></span><br><span class="line">    ? products</span><br><span class="line">    : products.<span class="title function_">filter</span>(<span class="function">(<span class="params">product</span>) =&gt;</span> product.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">includes</span>(query));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> <span class="attr">filterText</span>=<span class="string">&#123;filterText&#125;</span> <span class="attr">setFilterText</span>=<span class="string">&#123;setFilterText&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ProductTable</span> <span class="attr">products</span>=<span class="string">&#123;filteredProducts&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>inStockOnly, setInStockOnly도 동일하게 리팩토링하기</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Megaptera</tag>
         <tag>React</tag>
       </tags>
   </entry>
