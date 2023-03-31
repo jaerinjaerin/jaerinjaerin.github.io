@@ -175,10 +175,9 @@
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FancyBorder</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;</span>&#x27;<span class="attr">FancyBorder</span> <span class="attr">FancyBorder-</span>&#x27; + <span class="attr">props.color</span>&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.children&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>props.children</code> 을 사용하면 해당 컴포넌트의 하위 컴포넌트가 children이라는 prop으로 들어오게 된다. (리액트에서 기본적으로 제공)</p>
-<p>JSX 문법 없이 사용하면?</p>
+<p>React.createElement 문법을 생각해보면 세 번째로 들어가는 파라미터가 children이 들어간다.</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="keyword">type</span>, [props], [...children]);</span><br></pre></td></tr></table></figure>
 
-<p>세 번째로 들어가는 파라미터가 children</p>
 <details>
   <summary>💬 배열로 들어가는 이유는?</summary>
   <div markdown="1">
