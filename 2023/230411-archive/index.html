@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+    <meta name="description" content="Records of what I learned from Coding and Life">
+
+
+
+
+
+<title>재귀를 공부해보았읍니다. | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+        </div>
+        <div class="post-title">
+            
+            
+                재귀를 공부해보았읍니다.
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 11, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>오늘은 재귀함수를 공부했습니다. 재귀함수가 나올 떄마다 이해가 안가서 재귀를 사용하면 코드 가독성이 떨어진다는 합리화를 하며 요리조리 피해다녔는데 오늘 정면으로 승부를 볼 수 있는 시간이었습니다.</p>
+<img src="https://jjalbang.today/jjv2Qx.jpg" style="width:512px; height:auto">
+
+<br />
+
+<h2 id="재귀함수란"><a href="#재귀함수란" class="headerlink" title="재귀함수란?"></a>재귀함수란?</h2><p>재귀라는 의미는 자기 자신으로 되돌아 간다는 의미인데요, 자바스크립트에서 말하는 재귀는 자기 자신을 호출하는 것입니다. 그러니까 함수 내부 안에서 자신의 함수를 호출하는 것이지요.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">recursive</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello world&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">recursive</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>👉🏻 이렇게 정의한 함수를 함수 내부 안에서 호출하면 <code>hello world</code>를 무한으로 출력시킬 수 있습니다.</p>
+<br />
+
+<h2 id="재귀함수-언제-사용해야하는데"><a href="#재귀함수-언제-사용해야하는데" class="headerlink" title="재귀함수, 언제 사용해야하는데?"></a>재귀함수, 언제 사용해야하는데?</h2><ul>
+<li>반복문을 사용할 때 호출 횟수가 명확하지 않을 때</li>
+<li>중첩된 반복문이 많을 때</li>
+</ul>
+<p>이런 경우일 때 주로 재귀함수를 사용합니다.</p>
+<br />
+
+<h2 id="재귀함수-활용방법에-대해서-알려드리자면"><a href="#재귀함수-활용방법에-대해서-알려드리자면" class="headerlink" title="재귀함수 활용방법에 대해서 알려드리자면,"></a>재귀함수 활용방법에 대해서 알려드리자면,</h2><p>우선 base case와 recursive case를 나눠서 생각해야합니다.</p>
+<p>base case는 종료조건을 의미하고 recursive case는 반복으로 재귀함수를 호출해야하는 조건을 의미합니다. base case가 없으면 함수가 무한으로 호출되기 때문에 콜스택에 계속해서 함수가 쌓이는 현상을 경험할 수 있답니다.</p>
+<p><strong>🐛 일반적 재귀함수 템플릿</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">recursive</span>(<span class="params">input1, input2, ...</span>) &#123;</span><br><span class="line">  <span class="comment">// 탈출 조건</span></span><br><span class="line">  <span class="keyword">if</span>(재귀함수를 종료해야하는 경우)&#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">recursive</span>(); <span class="comment">// 재귀조건</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h2 id="재귀-문제를-풀어봅시다"><a href="#재귀-문제를-풀어봅시다" class="headerlink" title="재귀 문제를 풀어봅시다."></a>재귀 문제를 풀어봅시다.</h2><p>오늘 풀어 본 문제 중에서 푸는데 시간이 오래 걸렸던 문제들을 다시 풀면서 정리해봅시다.</p>
+<h3 id="take"><a href="#take" class="headerlink" title="take"></a>take</h3><p>수(num)와 배열을 입력받아 차례대로 num개의 요소만 포함된 새로운 배열을 리턴</p>
+<p>입출력 예시</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> output = <span class="title function_">take</span>(<span class="number">2</span>, [<span class="number">1</span>, -<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(output); <span class="comment">// --&gt; [1, -2]</span></span><br><span class="line"></span><br><span class="line">output = <span class="title function_">take</span>(<span class="number">5</span>, [<span class="number">1</span>, -<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(output); <span class="comment">// --&gt; [1, -2, 1, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>✅ 문제 이해하기</strong></p>
+<ul>
+<li><p>num개의 요소를 가진 배열을 리턴해라!</p>
+</li>
+<li><p>recursive case</p>
+<ul>
+<li>배열의 length와 num이 다를 때 👉🏻 맨 뒤 요소를 제외한 배열을 만들어서 재귀 함수에 전달 후 호출</li>
+</ul>
+</li>
+<li><p>base case</p>
+<ul>
+<li>배열의 length와 num이 같을 때</li>
+<li>num이 배열의 길이보다 크다면 바로 배열 값 그대로 리턴하고 종료</li>
+</ul>
+</li>
+</ul>
+<br />
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">take</span>(<span class="params">num, arr</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (num &gt;= arr.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (arr.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">take</span>(num, arr.<span class="title function_">slice</span>(<span class="number">0</span>, arr.<span class="property">length</span> - <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이게 간단한 코드인 것 같지만 왜 오래 걸렸냐면… 처음엔 num개의 요소를 뺀 배열을 리턴하라는 문제인 줄 알고 열심히 풀었지만, 계속해서 테스트 케이스를 통과하지 못하는 것을 보고 제가 잘못 풀고 있다는 것을 그제서야 깨달았습니다.</p>
+<h3 id="unpackGiftbox"><a href="#unpackGiftbox" class="headerlink" title="unpackGiftbox"></a>unpackGiftbox</h3><p>선물 상자에 대한 정보를 담은 배열과 문자열을 입력받아 조건에 맞는 선물이 있는지 여부를 리턴</p>
+<p>입출력 예시</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> giftBox = [<span class="string">&#x27;macbook&#x27;</span>, <span class="string">&#x27;mugcup&#x27;</span>, [<span class="string">&#x27;eyephone&#x27;</span>, <span class="string">&#x27;postcard&#x27;</span>], <span class="string">&#x27;money&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> output = <span class="title function_">unpackGiftbox</span>(giftBox, <span class="string">&#x27;iphone&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(output); <span class="comment">// --&gt; false</span></span><br><span class="line"></span><br><span class="line">output = <span class="title function_">unpackGiftbox</span>(giftBox, <span class="string">&#x27;postcard&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(output); <span class="comment">// --&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>✅ 문제 이해하기</strong></p>
+<ul>
+<li>배열 안에 있는 요소들을 탐색하면서 wish로 받은 값이 있는지 확인 후 boolean 값으로 리턴하자!</li>
+<li>현재 배열 안에 배열이 많은데? 👉🏻 flat 메서드로 배열을 평탄화 시키고 작업하자.</li>
+<li>recursive case</li>
+<li>base case<ul>
+<li>wish와 동일한 값이 있을 떄 true 리턴</li>
+<li>giftBox.length가 0일 때 false 리턴</li>
+</ul>
+</li>
+</ul>
+<br />
+
+<p>처음에 작성한 코드</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unpackGiftbox</span>(<span class="params">giftBox, wish</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (giftBox.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 중첩된 배열이 많으니 배열을 평탄화 시켜놓고 작업</span></span><br><span class="line">  <span class="keyword">const</span> newGiftBox = giftBox.<span class="title function_">flat</span>(<span class="title class_">Infinity</span>);</span><br><span class="line">  <span class="keyword">if</span> (newGiftBox[<span class="number">0</span>] === wish) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">unpackGiftbox</span>(newGiftBox.<span class="title function_">slice</span>(<span class="number">1</span>), wish);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>배열 안에 배열이 너무 많기 때문에 배열을 먼저 평탄화 시키고 작업해야겠다!라는 생각이 먼저 들었고 배열의 첫 번째 요소값과 wish를 비교해서 같은지 확인작업을 진행했습니다. 만약 첫 번째 요소와 wish의 값이 다르다면 0번째 요소를 제외한 배열을 재귀 함수의 인수로 전달하고 후출하는 방식으로요.</p>
+<br />
+
+<p>이 코드를 실행시켜보면 1개의 테스트 코드를 실패한 것을 볼 수 있습니다.</p>
+<p><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%204.png" alt="."><br><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%205.png" alt="alt"><br><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%206.png" alt="alt"></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230409-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230411-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230411-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
