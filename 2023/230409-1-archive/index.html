@@ -18,7 +18,7 @@
 
 
 
-<title>메가테라 프론트엔드 생존코스 5주차 주간회고 | LEE_PLAY</title>
+<title>코드스테이츠 프론트엔드 8주차 주간회고 (부제: 진짜 회고) | LEE_PLAY</title>
 
 
 
@@ -124,8 +124,8 @@
                     </span>    
                 
                     <span class="post-tag">
-                        <a href="/tags/Megaptera/">
-                            Megaptera
+                        <a href="/tags/CodeStates/">
+                            CodeStates
                         </a>
                     </span>    
                            
@@ -134,7 +134,7 @@
         <div class="post-title">
             
             
-                메가테라 프론트엔드 생존코스 5주차 주간회고
+                코드스테이츠 프론트엔드 8주차 주간회고 (부제: 진짜 회고)
             
             
         </div>
@@ -149,24 +149,28 @@
     </div>
 </div>
     <div class="post-content">
-    <p>🐛 <strong>이번 주 요약</strong>: 테스트 코드 실패의 연속<br><img src="https://jjalbang.today/jjv2J6.jpg" style="width:512px; height:auto"></p>
+    <p>section이 끝난 주에 주간회고를 쓰는건 언제나 당황스럽습니다.<br>지금 회고를 쓴다는 것은 코드스테이츠는 section이 4개로 나눠져있는데 벌써 section이 2개가 끝나버렸다는 이야기이기 때문이죠. 곧 있으면 경쟁 사회에 홀로 서 있을 제가 불안한겁니다.</p>
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjONFtjN_FhZ7VTiOp6RyPZd0hANVpw-PB2w&usqp=CAU" alt="alt"></p>
+<p>그래도 section2에서 무엇을 배웠고 뭐가 아쉬웠는지 먼저 돌아보는게 먼저니까 한 번 돌아보겠습니다.</p>
 <br />
 
-<h2 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h2><ul>
-<li>TDD에 관한 개념을 배웠고 실제로 테스트 코드를 작성해볼 수 있는 시간이었다.</li>
-<li>테스트를 위한 도구 사용방법을 배웠다.</li>
-<li>4주차에 만들었던 푸드코트 키오스크에 Unit 테스트와 E2E 테스트를 작성하는 과제를 진행했다.</li>
-</ul>
-<h2 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h2><ul>
-<li>지난 주에 과제를 하다가 이해하지 못한 개념들이 있었는데, 5주차 과제에서 한 번 더 작성해보면서 코드에 익숙해진 것 같다.</li>
-<li>5주차의 학습 목표 첫 문장에 ‘처음부터 TDD를 제대로 습득하는 건 대단히 어렵습니다.’라고 되어있었는데 그걸 느낀 사람? 바로 나.. 대단한 어려움에 부딪혔다! 반복 학습만이 해결해줄 수 있을 것 같은데 짧은 시간 안에 해결하기는 어려워보인다.</li>
-<li>이번 주 TDD를 배우면서 ‘하나의 컴포넌트를 테스트하기 위해서 해야하는 것들이 정말 많다’라고 느꼈다. 배보다 배꼽이 커진 것 같은 느낌이랄까…? 컴포넌트 구현 자체도 어렵다고 느껴지니 이런 생각이 드는 것 같다.</li>
-<li>어찌 저찌 코드를 만들어서 테스트를 돌리면 계속해서 실패할 때의 좌절감… 굉장히 정신적으로 피폐해지는 것 같았다. 해설 코드를 보지 않고 어떻게든 통과해보려고했지만 실패해서 결국은 해설 코드를 확인하고 제출했다.</li>
-</ul>
-<h2 id="Finding"><a href="#Finding" class="headerlink" title="Finding"></a>Finding</h2><ul>
-<li>axios로 데이터를 받아오는 과정에서 AxiosError를 마주쳤는데, 그 이유에 대해서 아직 찾지 못했다. 데이터를 정상적으로 받아온 후에 에러가 발생하는데 이럴 땐 어떻게 구글링을 해야할지 모르겠다.🤔</li>
-<li>매주 새로운 개념들을 받아들이는게 쉽지 않다. 반복 학습만이 답이라는 것 잊지 말자!</li>
-</ul>
+<h3 id="section2-학습-목표를-달성했나요"><a href="#section2-학습-목표를-달성했나요" class="headerlink" title="section2 학습 목표를 달성했나요?"></a>section2 학습 목표를 달성했나요?</h3><p>이번 section2의 목표는 리액트로 클라이언트를 구현하고, Node.js, Express를 사용하여 서버를 구현한 후 각 클라이언트와 서버를 연결해 데이터를 주고 받는 Wep App을 만들어보는 것이었습니다.</p>
+<p>사실 이전에 Express를 사용해서 서버를 구현해본 적이 있기 때문에 개념들을 이해하는데 큰 어려움은 없었습니다. 하지만 exress를 사용하지 않고 http 모듈로 서버를 구성하는 실습 과제에선 어려웠던 것 같습니다. 저는 새로운 개념을 마주쳤을 때 겁부터 먹어버리는 겁쟁이인 건 변함이 없나봅니다. ʕ ´•̥̥̥ ᴥ•̥̥̥&#96;ʔ</p>
+<br />
+
+<h3 id="공부하던-방식을-모두-바꿔보자"><a href="#공부하던-방식을-모두-바꿔보자" class="headerlink" title="공부하던 방식을 모두 바꿔보자!"></a>공부하던 방식을 모두 바꿔보자!</h3><p>최근에 프론트엔드 개발자 취준생들을 위한 웨비나를 들었는데, 그 중에서 기억에 남는 말이 있습니다. 바로 ‘뇌에 부하를 줘야한다’라는 말이었습니다. 그리고 교재나 강의를 그대로 옮겨적는 건 그냥 손가락 운동이기 때문에 공부가 하나도 안된다라는 말씀을 해주셨습니다.</p>
+<p>근데 이거 나한테 애기해주시는 건가..?라는 생각이 들었던 게 저는 항상 다른 공식문서나 교재들을 보고 그대로 옮겨 적거나, 강의를 그대로 적는 의미없는 활동만 계속해서 해왔었습니다.</p>
+<p>물론 패러프레이징, 즉 나만의 언어로 작성하면서 성장한다는 것은 머리로는 알고 있지만 알고 있는 지식들이 많지 않기 때문에 다른 글들을 찾아보면서 어느샌가 나도 모르게 글을 그대로 적고 있는 경우들이 많았습니다.</p>
+<p>내가 해왔던 모든 활동들이 가치 없는 것들이라는 이야기를 들으니 되게 아프면서도, 지금이라도 빨리 올바른 습관을 들이자라는 마음이 들었습니다!</p>
+<img src="https://jjalbang.today/jjv3rQ.jpg" style="width:512px; height:auto">
+
+<br />
+
+<p><strong>✅ 떠오르는 인사이트들을 적어보기</strong></p>
+<p>교재나 보거나 강의를 들었을 때 생각나는 인사이트들이 있다면 바로 적어놓으려고 합니다. 나의 상황에서는 어떻게 대입하면 좋을지 혹은 ‘나는 이렇게 생각해왔었는데 여기서는 이렇게 얘기를 하네?’라는 식으로요.</p>
+<p><strong>✅ 깊은 개념보단 우선 간단한 구현부터 시작해보기</strong></p>
+<p>사실 이 부분은 매번 고민하고 있습니다. 깊은 개념까지 알아놓는 것이 좋을까? 아니면 개념은 나중에, 우선 실습이 먼저와 같은 고민들이요.</p>
+<p>저 같은 경우는 하나의 개념을 깊게 봐야 그 기술에 대한 이해도가 높아진다 생각해서 구현보단 이론에 중점을 두고 공부를 했었습니다. 하지만 매번 교재를 그대로 적어가면서 공부를 했었기 때문에 시간만 소비하고 성장도 하지못하는 결과를 초래해버렸습니다.이제부터는 간단한 코드라도 내 머릿속에서 생각해서 만들어보기 위한 노력을 해보려고합니다.</p>
 
 </div> 
 
@@ -178,12 +182,17 @@
     <nav class="post-nav">
         <div class="prev-item">
            
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230409-archive/">Prev</a>
+                </div>
+            
         </div>
         <div class="next-item">
             
                 <div class="icon arrow-right"></div>
                 <div class="post-link">
-                  <a href="/2023/230409-1-archive/">Next</a>  
+                  <a href="/2023/230404-archive/">Next</a>  
                 </div>  
             
         </div>
@@ -203,8 +212,8 @@
             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
             
             var disqus_config = function () {
-                this.page.url = 'https://leejaelll.github.io/2023/230409-archive/';  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = '2023/230409-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.page.url = 'https://leejaelll.github.io/2023/230409-1-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230409-1-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                 this.language = 'en'
             };
             
