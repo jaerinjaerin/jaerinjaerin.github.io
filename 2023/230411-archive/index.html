@@ -116,6 +116,14 @@
     <div class="post-info">
         <div class="tag-list">
             
+                
+                    <span class="post-tag">
+                        <a href="/tags/JavaScript/">
+                            JavaScript
+                        </a>
+                    </span>    
+                           
+            
         </div>
         <div class="post-title">
             
@@ -211,6 +219,23 @@
 
 <p>이 코드를 실행시켜보면 1개의 테스트 코드를 실패한 것을 볼 수 있습니다.</p>
 <p><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%204.png" alt="."><br><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%205.png" alt="alt"><br><img src="/../img/230411/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%206.png" alt="alt"></p>
+<p>재귀 호출 횟수가 최대 4번까지인 것 같은데 제 코드에서는 현재 7번의 재귀 호출이 일어나고 있습니다.</p>
+<p>호출 횟수를 줄이려면 어떻게 하는게 좋을까..🤔 생각을 해보다가 <code>배열의 1depth는 for문으로 순회하면 되겠다!</code>라는 생각이 들었습니다.</p>
+<img src="https://jjalbang.today/jjv2lQ.jpg" style="width:512px; height:auto">
+
+<p>이만큼 생각한 내 자신? 대단해</p>
+<br />
+
+<p><strong>정리를 해보자면</strong></p>
+<p>우선 for문으로 배열을 순회한다.<br>➡️ i번째 요소가 wish와 같은 지 확인한다.<br>➡️ 만약 i번째 요소가 배열이라면, i번째 요소를 인수로 전달하고 재귀함수를 호출한다.</p>
+<p>이 순서대로 간다면 재귀 호출 횟수를 줄일 수 있을 것 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unpackGiftbox</span>(<span class="params">giftBox, width</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; giftBox.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (giftBox[i] === wish) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ✅ i번째 요소가 Array인지 확인하기</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(giftBox[i])) &#123;</span><br><span class="line">      <span class="comment">// 재귀 호출했을 떄 그 함수의 값이 true라면 true 리턴하기</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">unpackGiftbox</span>(giftBox[i], wish)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>테스트 통과😎</p>
+<br />
+
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>재귀 함수를 썼던 경험이 많이 없다보니, 경우의 수를 생각하는데 시간이 오래 걸렸던 것 같습니다. 혼자서 공부했다면 계속해서 피해다녔을 것 같은데 오늘 수업 덕분에 정면승부할 수 있었던 것 같습니다.</p>
+<p>그런데 실무에서는 재귀를 어떻게 쓸까요? 정말 혹시라도 실무자분들이나 재귀를 프로젝트에 사용해보신적이 있다면 답변을 남겨주셨으면 좋겠습니다.👏🏻</p>
 
 </div> 
 
@@ -222,6 +247,11 @@
     <nav class="post-nav">
         <div class="prev-item">
            
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230414-archive/">Prev</a>
+                </div>
+            
         </div>
         <div class="next-item">
             
