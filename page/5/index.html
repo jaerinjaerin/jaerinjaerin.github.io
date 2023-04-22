@@ -1,528 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
 
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    LEE_PLAY
-  </title>
-  <meta name="description" content="Records of what I learned from Coding and Life">
-  
-  <meta name="author" content="leejaelll">
+    <meta name="subtitle" content="by Leejaelll">
 
-  <meta http-equiv="Cache-Control" content="no-transform"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-  <meta name="theme-color" content="#1e2327">
-  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
 
-  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
 
-  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
 
-<body id="replica-app">
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+<title>LEE_PLAY</title>
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
 
-      <ul class="navbar-nav float-left">
-        
-        <li><a href="/">Archives</a></li>
-        
-        
-        <li><a href="/">Categories</a></li>
-        
-        
-        <li><a href="/">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
 
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
-        </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <link rel="icon" href="/favicon.png">
 
-<div class="main-container">
-  
 
-<div class="container-lg">
-  
 
-<div class="blog-intro">
-  <div class="blog-intro-user">
-    <img class="avatar" src="https://octodex.github.com/images/baracktocat.jpg">
-    <div class="user-name">
-      <div class="blog-title"></div>
-      <div class="blog-author"></div>
-        <ul class="user-detail mobile-only">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
     
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://leejaelll.github.io">https://leejaelll.github.io</a>
-    </li>
-  </ul>
-    </div>
-    <div class="blog-description">
-      
-    </div>
-  </div>
-
-  <ul class="user-detail desktop-only">
+    <link rel="stylesheet" href="/css/style.css">
     
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://leejaelll.github.io">https://leejaelll.github.io</a>
-    </li>
-  </ul>
-
-  <div class="social-media desktop-only">
-    <h4>Social Media</h4>
-    <ul>
-      
-    </ul>
-  </div>
-</div>
 
 
-  <div class="blog-detail">
+
+
+    <!-- scripts list from _config.yml -->
     
-<nav class="blog-detail-nav desktop-only">
-  <ul class="clearfix">
-    <li class="selected">
-      <a href="/">Overview</a></li>
-    <li class="">
-      <a href="/">Posts <span class="counter">65</span></a>
-    </li>
-    <li class="">
-      <a href="/">Categories <span
-                class="counter">1</span></a></li>
-    <li class="">
-      <a href="/">Tags <span class="counter">20</span></a></li>
-  </ul>
-</nav>
-
-    <div class="body-secondary">
-      <p class="right-title">Recent post</p>
-      <ul class="recent-post clearfix">
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230220-archive/">[JavaScript] 변수(Variable)란?</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               변수와 데이터 타입에 대해서 배우는 시간이었는데, 변수에 대해서 조금 더 자세히 정리해보
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 2 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230217-archive/">코드스테이츠 프론트엔드 1주차 주간회고</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               벌써 수업이 1주차가 끝났다니..😱 한 주동안 어떻게 공부했는지에 대해서 회고를 작성하
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 2 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230216-archive/">Layout - Flexbox 이해하기</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               부모 요소엔 Flexbox 속성을 잘 적용하지만 자식 요소에 적용할 수 있는 Flexbo
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230215-archive/">CSS 기초 정리하기</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                 CSS 기초    학습 목표  
- CSS의 사용 목적을 이해한다. 
- CSS의 기본 
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230214-archive/">HTML의 기초 정리하기</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                 HTML 기초    학습 목표  
- HTML이 무엇일까? 
- HTML의 구조와 문법 
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2023/230213-archive/">코드스테이츠 새로운 시작🐥</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                 부트캠프, 했는데 왜 또 해?    
- 그렇다. 나는 이미 제로베이스로 부트캠프를 경
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <i class="fa fa-folder-open"></i> Uncategorized
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-      </ul>
-      <div class="calendar-container" id="calendar">
-  <div class="calendar">
-    <h3>
-      {{posts.length}} contributions in the last year
-    </h3>
-    <div class="calendar-graph-container">
-      <div class="calendar-graph">
-        <svg width="676" height="104" @mouseout="mouseoverDate=null">
-          <g transform="translate(16, 20)">
-            <g v-for="week in calendar" :transform="week.transform">
-              <rect v-for="day in week.days"
-                    :x="day.x"
-                    :y="day.y"
-                    :fill="day.fill"
-                    @click="selectedDate=day.date"
-                    @mouseover="mouseoverDate=day.date"
-                    :class="{active:selectedDate===day.date}"
-                    data-count="{{day.posts.length}}"
-                    data-date="{{day.date}}"
-                    class="day" width="10" height="10"
-              ></rect>
-            </g>
-
-            <text v-for="month in monthLabels"
-                  :x="month.x"
-                  y="-5"
-                  class="month">{{month.text}}
-            </text>
+    <script src="/js/frame.js"></script>
+    
 
 
-            <text text-anchor="start" class="wday" dx="-14" dy="8"
-                  style="display: none;">S
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="20">Mon</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="32"
-                  style="display: none;">T
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="44">Wed</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="57"
-                  style="display: none;">T
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="69">Fri</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="81"
-                  style="display: none;">S
-            </text>
-          </g>
-        </svg>
-        <div class="svg-tip svg-tip-one-line"
-             v-bind:style="{ top: svgtip.top, left: svgtip.left, display: svgtip.display}">
-          <strong>{{svgtip.text}}</strong> on
-          {{moment(mouseoverDate).format('MMM DD, YYYY')}}
-        </div>
-      </div>
-      <div class="calendar-footer clearfix">
-      <span>
-        <a href="#">Learn how we count contributions.</a>
-      </span>
-        <div class="calendar-legend">
-          <span>Less</span>
-          <ul class="legend">
-            <li style="background-color: #eee"></li>
-            <li style="background-color: #d6e685"></li>
-            <li style="background-color: #8cc665"></li>
-            <li style="background-color: #44a340"></li>
-            <li style="background-color: #1e6823"></li>
-          </ul>
-          <span>More</span>
-        </div>
-      </div>
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
     </div>
-  </div>
 
-  <h3>Contribution activity</h3>
-  <div class="contribution-list">
-    <ul>
-      <li v-for="post in posts | filterBy selectedDate in 'date'">
-        <a href="{{post.url}}">{{post.title}}
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
         </a>
-        <span>{{post.date}}</span>
-      </li>
-    </ul>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 
+
+      <div class="main">
+        <div class="flex-container">
+          <div class="profile">
+    <div class="profile-image">
+        
+            <img src="/coding.gif" alt="featured_image">
+          
+    </div>
+    <div class="post-content profile-content">
+        <div class="profile-title">
+            Hello, world!
+        </div>
+        <div class="profile-body">
+            기억은 기록을 이길 수 없다 :)
+        </div>
+        
+            <div class="profile-link">
+                <a href="/">Home</a> 
+            </div>           
+        
+            <div class="profile-link">
+                <a href="/archives/">Archive</a> 
+            </div>           
+        
+            <div class="profile-link">
+                <a href="/tag/">Tag</a> 
+            </div>           
+        
+    </div>
+    
+</div>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
 
 <script>
-  var posts = [{"date":"2022-10-07","title":"1부터 N까지의 원소를 갖는 집합의 부분집합 구하기","url":"https://leejaelll.github.io/2022/221007-archive/"},{"date":"2022-10-07","title":"Hello, World!","url":"https://leejaelll.github.io/2022/hello-world-0/"},{"date":"2022-10-12","title":"실행 컨텍스트 - 실행 컨텍스트가 하는 역할이 무엇일까?","url":"https://leejaelll.github.io/2022/221012-archive/"},{"date":"2022-10-13","title":"크레인 인형뽑기 [2019 카카오 개발자 겨울 인턴십]","url":"https://leejaelll.github.io/2022/221013-archive/"},{"date":"2022-10-14","title":"실행 컨텍스트 스택","url":"https://leejaelll.github.io/2022/221014-1-archive/"},{"date":"2022-10-14","title":"후위연산식(postfix)","url":"https://leejaelll.github.io/2022/221014-archive/"},{"date":"2022-10-15","title":"스코프 - 스코프와 스코프의 종류","url":"https://leejaelll.github.io/2022/221015-archive/"},{"date":"2022-10-17","title":"레이저로 쇠막대기 자르기 ","url":"https://leejaelll.github.io/2022/221017-archive/"},{"date":"2022-10-18","title":"변수 - 우리는 왜 변수를 사용할까?","url":"https://leejaelll.github.io/2022/221018-archive/"},{"date":"2022-10-20","title":"표현식과 문'","url":"https://leejaelll.github.io/2022/221020-archive/"},{"date":"2022-10-22","title":"왜 1byte는 8bit일까?","url":"https://leejaelll.github.io/2022/221022-archive/"},{"date":"2022-10-23","title":"데이터 타입 - 자바스크립트는 동적 타입 언어다.","url":"https://leejaelll.github.io/2022/221023-archive/"},{"date":"2022-10-26","title":"연산자","url":"https://leejaelll.github.io/2022/221026-archive/"},{"date":"2022-10-27","title":"VSCode Snippets 설정하기 - 우리의 손목은 소중하니까:)","url":"https://leejaelll.github.io/2022/221027-archive/"},{"date":"2022-11-02","title":"Frontend 관점에서 바라본 MVC 패턴","url":"https://leejaelll.github.io/2022/221102-archive/"},{"date":"2022-11-12","title":"Express 실습해보기 [ Express 환경 세팅하기 ]","url":"https://leejaelll.github.io/2022/221112-archive/"},{"date":"2022-11-17","title":"TIL에 대한 나의 생각","url":"https://leejaelll.github.io/2022/221117-archive/"},{"date":"2022-11-19","title":"input에 keydown 이벤트를 사용했을 때 e.target.value가 예상과 다르게 나오는 이유","url":"https://leejaelll.github.io/2022/221119-archive/"},{"date":"2022-12-26","title":"제로베이스 커넥to 2기를 마치며","url":"https://leejaelll.github.io/2022/221226-archive/"},{"date":"2023-02-13","title":"코드스테이츠 새로운 시작🐥","url":"https://leejaelll.github.io/2023/230213-archive/"},{"date":"2023-02-14","title":"HTML의 기초 정리하기","url":"https://leejaelll.github.io/2023/230214-archive/"},{"date":"2023-02-15","title":"CSS 기초 정리하기","url":"https://leejaelll.github.io/2023/230215-archive/"},{"date":"2023-02-16","title":"Layout - Flexbox 이해하기","url":"https://leejaelll.github.io/2023/230216-archive/"},{"date":"2023-02-17","title":"코드스테이츠 프론트엔드 1주차 주간회고","url":"https://leejaelll.github.io/2023/230217-archive/"},{"date":"2023-02-20","title":"[JavaScript] 변수(Variable)란?","url":"https://leejaelll.github.io/2023/230220-archive/"},{"date":"2023-02-21","title":"계산기 구현 로직 생각해보기 🔨","url":"https://leejaelll.github.io/2023/230221-archive/"},{"date":"2023-02-22","title":"제어문","url":"https://leejaelll.github.io/2023/230222-archive/"},{"date":"2023-02-23","title":"innerText | textContent","url":"https://leejaelll.github.io/2023/230223-archive/"},{"date":"2023-02-24","title":"코드스테이츠 프론트엔드 2주차 주간회고","url":"https://leejaelll.github.io/2023/230224-archive/"},{"date":"2023-03-02","title":"원시 자료형과 참조 자료형","url":"https://leejaelll.github.io/2023/230302-archive/"},{"date":"2023-03-03","title":"코드스테이츠 프론트엔드 3주차 주간회고","url":"https://leejaelll.github.io/2023/230303-archive-1/"},{"date":"2023-03-03","title":"커링(Currying) 함수에 대해서 정복해보자 🦖","url":"https://leejaelll.github.io/2023/230303-archive/"},{"date":"2023-03-07","title":"fnm(Fast Node Manager) 환경 변수 에러 해결하기 (부제: 돌고돌아 원점으로🐋)","url":"https://leejaelll.github.io/2023/230307-archive/"},{"date":"2023-03-12","title":"코드스테이츠 프론트엔드 4주차 주간회고 (부제: section1을 마치며👍🏻)","url":"https://leejaelll.github.io/2023/230312-archive-1/"},{"date":"2023-03-12","title":"메가테라 프론트엔드 생존코스 1주차 주간회고","url":"https://leejaelll.github.io/2023/230312-archive/"},{"date":"2023-03-18","title":"메가테라 프론트엔드 생존코스 2주차 주간회고","url":"https://leejaelll.github.io/2023/230318-1-archive/"},{"date":"2023-03-18","title":"클래스(Class)","url":"https://leejaelll.github.io/2023/230318-2-archive/"},{"date":"2023-03-18","title":"Thinking in React 내 마음대로 이해하기🌱 ","url":"https://leejaelll.github.io/2023/230318-3-archive/"},{"date":"2023-03-18","title":"코드스테이츠 프론트엔드 5주차 주간회고","url":"https://leejaelll.github.io/2023/230318-archive/"},{"date":"2023-03-21","title":"프로미스(Promise) 쉽게 이해하기🤯 (with 제로초)","url":"https://leejaelll.github.io/2023/230321-archive/"},{"date":"2023-03-25","title":"메가테라 프론트엔드 생존코스 3주차 주간회고","url":"https://leejaelll.github.io/2023/230325-archive/"},{"date":"2023-03-25","title":"코드스테이츠 프론트엔드 6주차 주간회고","url":"https://leejaelll.github.io/2023/230325-1-archive/"},{"date":"2023-03-26","title":"Thinking in React - React Component🚀","url":"https://leejaelll.github.io/2023/230326-archive/"},{"date":"2023-03-27","title":"Thinking in React - React State🚀","url":"https://leejaelll.github.io/2023/230327-archive/"},{"date":"2023-03-29","title":"REST API가 무엇인가 (부제: 그런 REST API로 괜찮은가)","url":"https://leejaelll.github.io/2023/230329-archive/"},{"date":"2023-03-30","title":"컴포넌트 합성(Compoistion) 사용법 알려드립니다. 🚗","url":"https://leejaelll.github.io/2023/230330-1-archive/"},{"date":"2023-03-30","title":"URL vs URI","url":"https://leejaelll.github.io/2023/230330-2-archive/"},{"date":"2023-03-30","title":"Queue 구현하기","url":"https://leejaelll.github.io/2023/230330-archive/"},{"date":"2023-03-31","title":"HOC(Higher-Order Components), 그래서 언제 써야하는데요? 🤷🏻‍♀️","url":"https://leejaelll.github.io/2023/230330-3-archive/"},{"date":"2023-04-02","title":"메가테라 프론트엔드 생존코스 4주차 주간회고","url":"https://leejaelll.github.io/2023/230402-archive/"},{"date":"2023-04-02","title":"코드스테이츠 프론트엔드 7주차 주간회고","url":"https://leejaelll.github.io/2023/230402-1-archive/"},{"date":"2023-04-04","title":"useEffect 정복 가보자고 🏃🏻","url":"https://leejaelll.github.io/2023/230404-archive/"},{"date":"2023-04-09","title":"코드스테이츠 프론트엔드 8주차 주간회고 (부제: 진짜 회고)","url":"https://leejaelll.github.io/2023/230409-1-archive/"},{"date":"2023-04-09","title":"메가테라 프론트엔드 생존코스 5주차 주간회고","url":"https://leejaelll.github.io/2023/230409-archive/"},{"date":"2023-04-11","title":"재귀를 공부해보았읍니다.","url":"https://leejaelll.github.io/2023/230411-archive/"},{"date":"2023-04-14","title":"코드스테이츠 프론트엔드 9주차 주간회고","url":"https://leejaelll.github.io/2023/230414-1archive/"},{"date":"2023-04-14","title":"리액트의 LifeCycle과 LifeCycle Method","url":"https://leejaelll.github.io/2023/230414-archive/"},{"date":"2023-04-16","title":"메가테라 프론트엔드 생존코스 6주차 주간회고","url":"https://leejaelll.github.io/2023/230416-archive/"},{"date":"2023-04-18","title":"🫧 버블 정렬(bubble sort) 구현해보기","url":"https://leejaelll.github.io/2023/230418-archive/"},{"date":"2023-04-19","title":"HTTP와 HTTPS 차이점이 무엇인가요?","url":"https://leejaelll.github.io/2023/230419-archive/"},{"date":"2023-04-20","title":"최빈값 구하기 [프로그래머스 - Lv.0]","url":"https://leejaelll.github.io/2023/230420-archive/"},{"date":"2023-04-22","title":"메가테라 프론트엔드 생존코스 7주차 주간회고","url":"https://leejaelll.github.io/2023/230422-1-archive/"},{"date":"2023-04-22","title":"문자 반복 출력하기 [프로그래머스 Lv.0]","url":"https://leejaelll.github.io/2023/230422-2-archive/"},{"date":"2023-04-22","title":"코드스테이츠 프론트엔드 10주차 주간회고","url":"https://leejaelll.github.io/2023/230422-archive/"},{"date":"2023-04-22","title":"React Hooks를 이용한 쇼핑몰 애플리케이션 만들기 [코드스테이츠 - 상태관리] 🛒","url":"https://leejaelll.github.io/2023/230422-3-archive/"}];
-  var today = moment().format('YYYY-MM-DD');
-  var oneYearAgo = moment(today).subtract(1, 'years');
-  posts = posts.filter(function(post) {
-    return new Date(post.date) > oneYearAgo;
-  });
-  var monthLabels = [];
-  var monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var calendar = getCalendar(posts);
-
-  var dateRange = {
-    start: moment(oneYearAgo).format('MMM D, YYYY'),
-    end: moment().format('MMM D, YYYY')
-  }
-
-  var app = new Vue({
-    el: '#calendar',
-    data: {
-      posts: posts,
-      selectedDate: null,
-      calendar: calendar,
-      dateRange: dateRange,
-      mouseoverDate: null,
-      moment: moment,
-      monthLabels: monthLabels
-    },
-    created: function() {
-      this.selectedDate = 'none';
-    },
-    methods: {},
-    computed: {
-      svgtip: function() {
-        var date = this.mouseoverDate;
-        var display = date ? 'block' : 'none';
-        if (date) {
-          var coordinator = getIndexByDate(date);
-          var x = coordinator[0];
-          var y = coordinator[1];
-          var len = this.calendar[x].days[y].posts.length;
-          var text = len ? len + ' contributions' : 'No contributions';
-          var left = coordinator[0] * 12 - 37 + 'px';
-          coordinator[1] = coordinator[0] ? coordinator[1] : coordinator[1] + oneYearAgo.day();
-          var top = coordinator[1] * 12 + 12 - 32 + 'px';
-        }
-        return {
-          text: text,
-          left: left,
-          top: top,
-          display: display
-        }
-      }
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
     }
-  });
-
-  function getCalendar(posts) {
-    // raw calendar
-    var maxCount = 0;
-    var tmr = new Date();
-    tmr.setDate(tmr.getDate() + 1);
-    var tmrStr = tmr.toISOString().slice(0, 10);
-    var date = new Date();
-    date.setYear(date.getFullYear() - 1); // start date is a year ago;
-    var calendar = [];
-    while (date.toISOString().slice(0, 10) !== tmrStr) {
-      var day = date.getDay();
-      if (day === 0 || calendar.length === 0) {
-        var x = calendar.length * 13;
-        calendar.push({
-          transform: 'translate(' + x + ',0)',
-          days: []
-        })
-      }
-
-      calendar[calendar.length - 1].days.push({
-        x: 14 - calendar.length,
-        y: day * 12,
-        date: date.toISOString().slice(0, 10),
-        posts: []
-      });
-
-      if (day === 0 && date.getDate() < 8) {
-        monthLabels.push({
-          x: 14 - calendar.length + x,
-          text: monthName[date.getMonth() - 1]
-        })
-      }
-
-      date.setDate(date.getDate() + 1);
-    }
-
-    // handle post info
-    posts.forEach(function(post) {
-      var x = getIndexByDate(post.date)[0];
-      var y = getIndexByDate(post.date)[1];
-
-      calendar[x].days[y].posts.push({
-        title: post.title,
-        url: post.url
-      });
-
-      var len = calendar[x].days[y].posts.length;
-      maxCount = Math.max(len, maxCount);
-    })
-
-    // handle fill color
-    calendar.forEach(function(week) {
-      week.days.forEach(function(day) {
-        day.fill = getColorByLength(day.posts.length, maxCount);
-      })
-    })
-
-    return calendar;
-  }
-
-  function getIndexByDate(date) {
-    date = moment(date);
-    var firstColumnLen = 7 - oneYearAgo.day();
-    var days = date.diff(oneYearAgo, 'days');
-
-    var x = days > firstColumnLen - 1 ? Math.ceil((days - firstColumnLen + 1) / 7) : 0;
-    var y = days > firstColumnLen - 1 ? date.day() : date.day() - oneYearAgo.day();
-    return [x, y];
-  }
-
-  function getColorByLength(len, max) {
-    var colors = ['#eee', '#d6e685', '#8cc665', '#44a340', '#1e6823'];
-    var colorsLen = colors.length - 1;
-    var color = len ? colors[0] : colors[1];
-    var interval = max / colorsLen;
-    if (max < colorsLen) {
-      color = colors[len];
-    } else {
-      color = colors[Math.ceil(len / interval)];
-    }
-    return color;
-  }
-
 </script>
-
-
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="https://leejaelll.github.io" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2019 leejaelll</li>
-      <li><a href="https://leejaelll.github.io">Home</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a target="_blank" rel="noopener" href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a target="_blank" rel="noopener" href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
-    </div>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
     
-  </footer>
-</div>
+    
 
-
-
-
-<script src="/js/main.js"></script>
-
-</body>
+  </body>
 </html>
