@@ -153,18 +153,20 @@
     </div>
 </div>
     <div class="post-content">
-    <h2 id="zsh-command-not-found-code"><a href="#zsh-command-not-found-code" class="headerlink" title="zsh: command not found: code"></a>zsh: command not found: code</h2><p><strong>해결방법</strong></p>
-<p>: bin 디렉토리에 접근하여 PATH code를 지우고 다시 설치</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin</span><br><span class="line">sudo rm -rf code</span><br></pre></td></tr></table></figure>
+    <h1 style="background-color: rgba(153, 219, 218, 0.3); font-style: italic">💡 zsh: command not found: code </h1>
 
-<p>command + shift + P’Shell Command: Install ‘code’ command in PATH’</p>
-<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic">💡 zsh: command not found: code </span></p>
 <h3 id="에러-환경"><a href="#에러-환경" class="headerlink" title="[ 에러 환경 ]"></a>[ 에러 환경 ]</h3><ul>
 <li>iterm에서 <code>code .</code> 명령어를 입력했을 때 나타나는 오류</li>
 </ul>
 <p><img src="/../img/230425/230425-1.png"></p>
-<h3 id="해결-방법"><a href="#해결-방법" class="headerlink" title="[ 해결 방법 ]"></a>[ 해결 방법 ]</h3><p>bin 디렉토리에 접근하여 PATH code를 지우고 다시 설치합니다.</p>
+<h3 id="해결-방법"><a href="#해결-방법" class="headerlink" title="[ 해결 방법 ]"></a>[ 해결 방법 ]</h3><ol>
+<li>bin 디렉토리에 접근하여 PATH code를 지우고 다시 설치합니다.</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/bin</span><br><span class="line">$ sudo rm -rf code</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>command + shift + P ➡️ Shell Command: Install ‘code’ command in PATH’</li>
+</ol>
 
 </div> 
 
