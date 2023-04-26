@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>브라우저 렌더링 과정 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Post</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Tech-Interview/">
+                            Tech_Interview
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                브라우저 렌더링 과정
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 26, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/tech-interview.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>지금 당장 브라우저 렌더링 과정에 대해서 설명해보라고 한다면 문장으로는 하나도 대답하지 못할 것 같습니다. 왜냐하면 생각나는 것들이 키워드 몇 개밖에 되지 않기 때문이죠.</p>
+<p>지금 생각나는 키워드들을 말해보자면, DOM, CSSOM, 자바스크립트 엔진 정도..? 되는 것 같습니다.</p>
+<br />
+
+<h2 id="✅-브라우저-렌더링-과정"><a href="#✅-브라우저-렌더링-과정" class="headerlink" title="✅ 브라우저 렌더링 과정"></a>✅ 브라우저 렌더링 과정</h2><p>브라우저가 화면에 요소를 렌더링할 때, 웹킷(Webkit)이나 게코(Geako) 등과 같은 렌더링 엔진을 사용합니다. 렌더링 엔진이 HTML, CSS, JavaScript로 렌더링할 때 CRP(Critical Rendering Path)라는 프로세스를 사용하며 다음 단계들로 이뤄집니다.</p>
+<ol>
+<li>HTML 파싱 후, DOM 트리 생성</li>
+<li>CSS 파싱 후, CSSOM 트리 생성</li>
+<li>JavaScript 실행<br>(🚧 HTML 중간에 script가 있다면 HTML 파싱이 중단)</li>
+<li>DOM과 CSSOM을 조합하여 렌더트리 생성<br>(🚧 display:none과 같이 화면에서 보이지도 않고 공간을 차지하지 않는 것은 렌더트리로 구축되지 않는다.)</li>
+<li>뷰포트 기반으로 렌더트리의 각 노드가 가지는 정확한 위치와 크기 계산</li>
+<li>계산한 위키와 크기를 기반으로 화면에 그린다.</li>
+</ol>
+<br />
+
+<p>실제로 크롬 개발자 도구를 통해 코드를 어떻게 렌더링하는지 살펴보았습니다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;style.css&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>테스트<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>).<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Click div&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<img src="../img/230426/rendering.png" style="width:512px; height:auto">
+
+<p>위 로그를 보면 알 수 있는 것처럼 위에서 언급한 CRP가 진행됩니다.</p>
+<ul>
+<li>Parse HTML을 통해 HTML 파싱 후, DOM 트리 구축</li>
+<li>Parse Stylesheet를 통해 CSS 파싱 후, CSSOM 트리 구축</li>
+<li>Evaluate Script를 통해 Javascript 실행</li>
+<li>렌더트리 구축</li>
+<li>Layout을 통해 뷰포트 기준으로 렌더트리 노드들의 각 크기&#x2F;위치 계산</li>
+<li>Paint를 통해 Layout에서 계산한 값들로 각 요소를 화면에 그림</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230426-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230426-1-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230426-1-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

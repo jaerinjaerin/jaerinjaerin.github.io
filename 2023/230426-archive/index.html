@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>간단한 실습과 함께 React Query(Tanstack Query) 공부하기 ✍🏻 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Post</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/TIL/">
+                            TIL
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/React-Query/">
+                            React_Query
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                간단한 실습과 함께 React Query(Tanstack Query) 공부하기 ✍🏻
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 26, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="https://jjalbang.today/jjv3tH.jpg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h1 id="React-Query-Tanstack-Query"><a href="#React-Query-Tanstack-Query" class="headerlink" title="React Query(Tanstack Query)"></a>React Query(Tanstack Query)</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/">Tanstack Query 공식문서</a></li>
+</ul>
+<br />
+
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold; font-size:27px">🕶 서버 상태를 관리하는 라이브러리</span></p>
+<p>서버 상태란,</p>
+<ul>
+<li>앱이 소유하거나 제어하지 않는다.</li>
+<li>데이터를 가져오려면 비동기 API가 필요하다.</li>
+<li>앱에서 사용하는 데이터는 유효기간이 지난 상태가 될 수 있다.</li>
+</ul>
+<br />
+
+<p>쇼핑몰 애플리케이션에선 어떤 것들이 서버상태일까요?<br>예를 들면, 쇼핑물의 상품 목록, 게시판 댓글, 주문 진행 상황과 같은 것들이 있습니다.</p>
+<br />
+
+<p>이러한 특성을 가진 서버 상태는 다음과 같은 작업들이 필요합니다.</p>
+<ul>
+<li>캐싱</li>
+<li>데이터 중복 호출을 제거</li>
+<li>데이터의 만료 시점을 파악</li>
+<li>만료되었다면 데이터를 업데이트</li>
+</ul>
+<p><em>👉🏻 즉, React Query는 서버 상태를 보다 쉽게 관리할 수 있도록 도와주며, 클라이언트 상태와 서버 상태를 명확히 구분하기 위해 만들어진 라이브러리입니다.</em></p>
+<br />
+
+<p>결론적으로 말하면 React Query를 사용하게 되면,<br><img src="/../img/230426/230426-1.png" alt="useState"><br>이 만큼의 코드를</p>
+<p><img src="/../img/230426/230426-2.png" alt="useState"><br>이렇게 간결하게 사용할 수 있다는 장점이 있습니다 :)</p>
+<br />
+
+<h2 id="React-Query-사용방법"><a href="#React-Query-사용방법" class="headerlink" title="React Query 사용방법"></a>React Query 사용방법</h2><p>간단한 예제를 통해 React Query를 사용하는 방법에 대해서 배워보겠습니다.</p>
+<p>데이터가 다 받아와지기 전까지는 Loading… 표시를 해줬다가 데이터가 들어오면 코인 리스트를 보여주려고 합니다.</p>
+<p>여기 코인 데이터를 받아올 수 있는 API가 있습니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;https://api.coinpaprika.com/v1/coins&#x27;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h3 id="React-Query를-사용하지-않고-구현하는-방법"><a href="#React-Query를-사용하지-않고-구현하는-방법" class="headerlink" title="React Query를 사용하지 않고 구현하는 방법"></a>React Query를 사용하지 않고 구현하는 방법</h3><p>처음 애플리케이션이 시작될 때 한 번만 받아오고 싶으니 useEffect를 안에 fetch 함수를 사용해서 데이터를 받아오도록 하겠습니다.</p>
+<p>비동기 데이터의 순서를 보장하려면 async, await를 사용해야하는데 말이죠..<br>방법은 두 가지 입니다.</p>
+<ul>
+<li>useEffect 함수 내에서 새로운 함수를 정의하고 실행시킨다.</li>
+<li>즉시실행함수를 사용한다.</li>
+</ul>
+<p>저는 즉시실행함수를 사용하도록 하겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> resposnse = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;https://api.coinpaprika.com/v1/coins&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> json = <span class="keyword">await</span> resposnse.<span class="title function_">json</span>();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p>그리고 코인 데이터를 애플리케이션에서 사용하려면 상태로 관리해야하므로 useState를 사용합니다.</p>
+<p>추가로 또 하나의 상태가 필요합니다. 로딩 중인지 아닌지에 대한 상태입니다. 이것 또한 useState를 사용해서 관리하도록 하겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Coins</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [coins, setCoins] = <span class="title function_">useState</span>([]);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> resposnse = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;https://api.coinpaprika.com/v1/coins&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> json = <span class="keyword">await</span> resposnse.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">      <span class="title function_">setCoins</span>(json);</span><br><span class="line">      <span class="title function_">setLoading</span>(<span class="literal">false</span>);</span><br><span class="line">    &#125;)();</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Coins<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;loading ? (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      ) : (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;coins.map((coin) =&gt; (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;coin.id&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Link</span> <span class="attr">to</span>=<span class="string">&#123;</span>`/$&#123;<span class="attr">coin.id</span>&#125;`&#125;&gt;</span>&#123;coin.name&#125;<span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ))&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h3 id="React-Query를-사용해서-구현하는-방법"><a href="#React-Query를-사용해서-구현하는-방법" class="headerlink" title="React Query를 사용해서 구현하는 방법"></a>React Query를 사용해서 구현하는 방법</h3><ol>
+<li>react query 패키지를 다운받아야합니다.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @tanstack/react-query-devtools</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>QueryClient를 생성합니다.</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> queryClient = <span class="keyword">new</span> <span class="title class_">QueryClient</span>();</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Provider로 react-query를 사용할 컴포넌트를 감싸주고, client 속성에 queryClient를 전달합니다.</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">QueryClientProvider</span> client=&#123;queryClient&#125;&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">QueryClientProvider</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>react-query를 사용할 Coins 컴포넌트에서 useQuery를 사용합니다.</li>
+</ol>
+<p>useQuery는 두 개의 arguments를 받습니다.</p>
+<ul>
+<li>queryKey(고유 식별자)</li>
+<li>fetcher function</li>
+</ul>
+<p>저는 queryKey는 “allCoins”라고 정해주고 fetcher function은 useEffect 안에 있던 코드를 외부 파일로 추출하여 사용하도록 하겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// api.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">fetchCoins</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;https://api.coinpaprika.com/v1/coins&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> json = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">  <span class="keyword">return</span> json;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useQuery &#125; <span class="keyword">from</span> <span class="string">&#x27;react-query&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fetchCoins &#125; <span class="keyword">from</span> <span class="string">&#x27;../api&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Coins</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">useQuery</span>(<span class="string">&#x27;allCoins&#x27;</span>, fetchCoins);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>useQuery(‘allCoins’, fetchCoins)가 무엇을 반환하는걸까요?🤔<br><img src="/../img/230426/230426-3.png" alt="useQuery"><br>처음 애플리케이션이 실행되면 status가 loading인 객체를 반환하고, 데이터를 불러온 후에는 status가 success인 객체를 반환합니다.</p>
+<br />
+
+<p><img src="/../img/230426/230426-4.png"><br>객체를 보면 isLoading에 대한 정보도 있고, data에 대한 정보도 있으니 구조분해할당을 통해 가져오면 될 것 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useQuery &#125; <span class="keyword">from</span> <span class="string">&#x27;react-query&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fetchCoins &#125; <span class="keyword">from</span> <span class="string">&#x27;../api&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Coins</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; isLoading, data &#125; = <span class="title function_">useQuery</span>(<span class="string">&#x27;allCoins&#x27;</span>, fetchCoins);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Coins<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;isLoading ? (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      ) : (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;data.slice(0, 100).map((coin) =&gt; (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;coin.id&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Link</span> <span class="attr">to</span>=<span class="string">&#123;</span>`/$&#123;<span class="attr">coin.id</span>&#125;`&#125;&gt;</span>&#123;coin.name&#125;<span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ))&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>react-query를 사용하면 불러왔던 데이터는 캐시에 저장해놓기 때문에 다시 “&#x2F;“로 돌아왔을 때 새로고침을 하지 않는다는 장점이 있습니다.</p>
+<br />
+
+<h2 id="ReactQueryDevtools"><a href="#ReactQueryDevtools" class="headerlink" title="ReactQueryDevtools"></a>ReactQueryDevtools</h2><p>: 서버에서 불러온 데이터들을 쉽게 확인할 수 있는 방법</p>
+<p>ReactQueryDevtools로 캐시에 있는 query를 확인할 수 있습니다. 우선 ReactQueryDevTools를 import 합니다. 그 후 initialIsOpen 속성 값에 true를 전달합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Router</span> <span class="keyword">from</span> <span class="string">&#x27;./Router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReactQueryDevtools</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-query/devtools&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Router</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ReactQueryDevtools</span> <span class="attr">initialIsOpen</span>=<span class="string">&#123;true&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/230426/230426-5.png"></p>
+<p>브라우저를 확인해보면 캐시에 어떤 query들이 저장되어있는지를 확인할 수 있습니다 :)</p>
+<br />
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://velog.io/@jkl1545/React-Query#%EC%98%B5%EC%85%98">https:&#x2F;&#x2F;velog.io&#x2F;@jkl1545&#x2F;React-Query</a></li>
+<li><a target="_blank" rel="noopener" href="https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/">Tanstack Query</a></li>
+<li><a target="_blank" rel="noopener" href="https://kyounghwan01.github.io/blog/React/react-query/basic/#%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2">kyounghwan01.github.io&#x2F;blog&#x2F;React</a></li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230426-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230425-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230426-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230426-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
