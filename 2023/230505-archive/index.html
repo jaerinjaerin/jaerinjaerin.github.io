@@ -16,7 +16,7 @@
 
 
 
-<title>농구기록지 애플리케이션 프로젝트 회고 | LEE_PLAY</title>
+<title>농구기록지 애플리케이션 Move_Record 프로젝트 회고 🚀 | LEE_PLAY</title>
 
 
 
@@ -126,7 +126,7 @@
         <div class="post-title">
             
             
-                농구기록지 애플리케이션 프로젝트 회고
+                농구기록지 애플리케이션 Move_Record 프로젝트 회고 🚀
             
             
         </div>
@@ -136,12 +136,51 @@
     </div>
     <div class="post-img">
         
-            <div class="h-line-primary"></div>
+            <img src="/../img/photo/gabojago.png" alt="featured_image">
               
     </div>
 </div>
     <div class="post-content">
-    
+    <p>혼자서 프로젝트를 진행해보면서 하지 못했던 이야기들을 신세한탄 겸 회고를 적어보려고 합니다.</p>
+<h3 id="🛵-회고-전에-프로젝트-결과물을-보고싶다면-👉🏻-Basketball-Record-Application"><a href="#🛵-회고-전에-프로젝트-결과물을-보고싶다면-👉🏻-Basketball-Record-Application" class="headerlink" title="🛵 회고 전에 프로젝트 결과물을 보고싶다면? 👉🏻 Basketball_Record_Application"></a>🛵 회고 전에 프로젝트 결과물을 보고싶다면? 👉🏻 <a href="https://leejaelll.github.io/Basketball_Record_Application/">Basketball_Record_Application</a></h3><br />
+
+<h2 id="기획-📝"><a href="#기획-📝" class="headerlink" title="기획 📝"></a>기획 📝</h2><p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">시작은 농구 동호회 자체전에서부터 시작되었다.</span></p>
+<p>프로그램을 기획하게 된 계기는 제가 있는 농구 동호회가 자체 리그전을 시작하면서부터였습니다. 각 팀의 팀원들 개인 기록을 적어놔야하는 업무를 맡았는데, 기록원은 1명밖에 되지 않았습니다.</p>
+<p>기록원은 득점 기록도 해야하지만, 대회를 뛰는 모든 선수들의 득점, 리버운드, 어시스트, 스틸, 개인파울, 팀파울까지 기록을 해야했기 때문에 종이 기록지로 기록하는 것은 너무 할 일이 많다고 느껴져서 선수들의 게임 기록을 기록할 수 있는 애플리케이션을 만들어야겠다! 라는 생각을 하게되었습니다.</p>
+<br />
+
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">솔로 프로젝트 내가 할 수 있을까..?🥶</span></p>
+<p>프로젝트 경험이 아예 없는 건 아니지만, 팀으로 프로젝트를 했었기 때문에 혼자서 프로젝트를 해보는 건 처음이었습니다. 팀으로 할 때는 내가 겪는 어려움들을 팀원들과 같이 해결할 수 있다라는 든든함이 있다는 장점이 있습니다.</p>
+<p>하지만 혼자서 프로젝트를 하게 되었을 때 겪는 어려움들을 해결하지 못하면 정해진 기간 안에 완성하지 못할 수도 있겠다라는 생각이 들면서 조금 두려웠습니다. 참고로 저에게 주어진 시간은 5일 정도였습니다. 되돌아보면 마감기한이라는 것이 있어서 더 집중해서 만들 수 있었던 것 같습니다.</p>
+<br />
+
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">리덕스, 배운거 써먹어야지!👍🏻</span></p>
+<p>개발에 들어가기 전에, 기술 스택을 정할 때 전역 상태관리를 무엇으로 해야할까?에 대해서 고민을 했습니다. 제각 고민했던 상태관리 라이브러리는 두 개 였는데요, <code>Recoil 정말 편한데... vs Redux 아직 다 이해 못한 것 같은데...</code> 두 가지의 생각이 충돌했었습니다. 결론은 ‘이왕 수업 때 배웠던 거 복습할 겸 사용해보자!’로 Redux가 선택되었지만요.</p>
+<br />
+
+<h2 id="개발-🐾"><a href="#개발-🐾" class="headerlink" title="개발 🐾"></a>개발 🐾</h2><p>구현하고 싶었던 기능은 다음과 같습니다.</p>
+<ul>
+<li>페이지 라우팅</li>
+<li>각 팀 선수 선택 페이지<ul>
+<li>선수 선택 시, 등록된 선수는 중복으로 선택할 수 없다.</li>
+<li>선택 후, X 버튼을 클릭하면 선택 인원에서 제거된다.</li>
+</ul>
+</li>
+<li>선수 기록 페이지<ul>
+<li>선택된 모든 선수는 득점, 어시스트, 리바운드, 스틸, 파울을 가지고 있어야한다.</li>
+<li>+버튼을 누르면 증가하고, -버튼을 누르면 감소한다.</li>
+<li>선수의 득점이 증가하면 팀 득점도 함께 증가한다.</li>
+</ul>
+</li>
+<li>경기 종료 결과페이지<ul>
+<li>최종 점수와 모든 선수의 기록을 보여준다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../img/230505/23-05-05-1.png"><br><em>(열심히 만든 wireframe…🫥)</em></p>
+<br />
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
 </div> 
 
 <script>
