@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>useMemo는 언제 사용하는 걸까? 🙋🏻 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">Post</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/React-Hooks/">
+                            React_Hooks
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                useMemo는 언제 사용하는 걸까? 🙋🏻
+            
+            
+        </div>
+        <span class="post-date">
+            May 19, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230519/23-05-19-3.jpeg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>오늘은 useMemo와 useCallback에 대해서 배워보았습니다.</p>
+<p>두 Hook의 공통점이라면 렌더링 최적화를 위한 Hook이다 라고 할 수 있겠군요.<br>먼저 useMemo에 대해서 배운 내용을 정리해보려고 합니다.</p>
+<br />
+
+<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><p>useMemo는 리렌더링 사이에 연산 결과를 캐시(cache)할 수 있는 React Hook입니다.<br>즉, 특정 값을 재사용하고자 할 때 사용하는 Hook이죠.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cachedValue = <span class="title function_">useMemo</span>(calculateValue, dependencies);</span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="keyword">const</span> calculateValue = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> <span class="title function_">calculate</span>(value), [value]);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h2 id="useMemo-어떤-상황에서-사용하면-좋을까요"><a href="#useMemo-어떤-상황에서-사용하면-좋을까요" class="headerlink" title="useMemo, 어떤 상황에서 사용하면 좋을까요?"></a>useMemo, 어떤 상황에서 사용하면 좋을까요?</h2><p>기본적으로 React는 컴포넌트를 리렌더링할 때마다 컴포넌트 전체를 실행시키기 때문에 연산이 오래 걸리는 복잡한 함수를 호출한다면 렌더링 속도에도 영향을 미치게 됩니다.</p>
+<p>일반적으로 대부분의 계산은 매우 빠르기 때문에 문제가 되지 않는다고 하는데요, 규모가 큰 배열을 필터링하거나 변환하는 경우 데이터가 변경되지 않았다면 계산을 다시 수행하지 않는 것이 좋습니다. 이 때 useMemo를 사용합니다.</p>
+<p>👉🏻 이러한 유형의 캐싱을 <strong>Memoization</strong>이라고 합니다.</p>
+<br />
+
+<h2 id="useMemo를-통해-앱-최적화하는-방법"><a href="#useMemo를-통해-앱-최적화하는-방법" class="headerlink" title="useMemo를 통해 앱 최적화하는 방법"></a>useMemo를 통해 앱 최적화하는 방법</h2><p>이름을 입력하는 input창과 두 개의 input 값을 더해서 출력하는 기능을 구현하려고 합니다.<br><br /></p>
+<p><img src="/../img/230519/23-05-19-1.png"></p>
+<br />
+
+<p>useMemo를 배우기 전에 코드를 작성했다면, 다음과 같이 작성할 것 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = (<span class="params">num1, num2</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;num1&#125;</span>, <span class="subst">$&#123;num2&#125;</span>: 지금 들어온 숫자`</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Number</span>(num1) + <span class="title class_">Number</span>(num2);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [name, setName] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [val1, setVal1] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [val2, setVal2] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> answer = <span class="title function_">add</span>(val1, val2);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;name-input&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;이름을 입력해주세요&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;name&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setName(e.target.value)&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;value-input&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;숫자를 입력해주세요&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;val1&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;number&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setVal1(Number(e.target.value))&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;value-input&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;숫자를 입력해주세요&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;val2&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;number&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setVal2(Number(e.target.value))&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;answer&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 컴포넌트에서 실제로 연산 로직에 영향을 주는 값은 val1과 val2입니다. 즉, 이름을 입력할 때에는 add 함수가 호출될 필요가 없는거죠. 하지만 현재는 이름을 작성할 때마다 add 함수도 함께 호출되고 있는 것을 확인할 수 있습니다.<br><img src="/../img/230519/23-05-19-2.png"><br><em>이름 input만 가지고 놀았는데 add 함수가 40번 호출되는 매직..😱</em></p>
+<br />
+
+<h3 style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">그럼 이제 useMemo를 활용해서 컴포넌트를 최적화해보자구요!</h3>
+
+<p>add 함수가 반환하는 값이 변하지 않았다면 호출할 필요가 없기 때문에 answer의 값을 캐싱해놓으면 될 것 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [name, setName] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [val1, setVal1] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [val2, setVal2] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> answer = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> <span class="title function_">add</span>(val1, val2), [val1, val2]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...(생략)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>👉🏻 useMemo를 사용하면 이름을 입력할 땐 val1과 val2의 값이 변하지 않았기 때문에 add함수의 호출이 일어나지 않습니다 :)</p>
+<br />
+
+<h3 id="🐢-컴포넌트-리렌더링-건너뛸-때도-사용할-수-있습니다-Skipping-re-rendering-of-components"><a href="#🐢-컴포넌트-리렌더링-건너뛸-때도-사용할-수-있습니다-Skipping-re-rendering-of-components" class="headerlink" title="🐢 컴포넌트 리렌더링 건너뛸 때도 사용할 수 있습니다. (Skipping re-rendering of components)"></a>🐢 컴포넌트 리렌더링 건너뛸 때도 사용할 수 있습니다. (Skipping re-rendering of components)</h3><p>경우에 따라 하위 컴포넌트 리렌더링 성능을 최적화할 수도 있습니다. TodoList 컴포넌트가 하위 List 컴포넌트에 프로퍼티로 visibleTodos를 전달한다고 가정해 보겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TodoList</span>(<span class="params">&#123; todos, tab, theme &#125;</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">List</span> <span class="attr">items</span>=<span class="string">&#123;visibleTodos&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>리액트는 기본적으로 컴포넌트가 리렌더링되면 재귀적으로 하위 컴포넌트를 리렌더링시킵니다. 그렇기 때문에 TodoList 컴포넌트가 다시 렌더링되면 List 컴포넌트도 다시 렌더링이 됩니다. 이때 리렌더링이 느리다는 것을 확인했다면 List를 memo로 감싸서 props가 이전 렌더링과 동일할 때 리렌더링을 건너뛰도록 할 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; memo &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">List</span> = <span class="title function_">memo</span>(<span class="keyword">function</span> <span class="title function_">List</span>(<span class="params">&#123; items &#125;</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>TodoList 컴포넌트에서 filterTodos 배열을 만드는 함수를 호출해서 배열을 가져오고, 만든 배열을 List 컴포넌트에 전달한다고 가정을 했을 때, useMemo와 memo를 사용해 최적화한 코드는 다음과 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createTodos &#125; <span class="keyword">from</span> <span class="string">&#x27;./utils.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TodoList</span> <span class="keyword">from</span> <span class="string">&#x27;./TodoList.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todos = <span class="title function_">createTodos</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [tab, setTab] = <span class="title function_">useState</span>(<span class="string">&#x27;all&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [isDark, setIsDark] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setTab(&#x27;all&#x27;)&#125;&gt;All<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setTab(&#x27;active&#x27;)&#125;&gt;Active<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setTab(&#x27;completed&#x27;)&#125;&gt;Completed<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">checked</span>=<span class="string">&#123;isDark&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setIsDark(e.target.checked)&#125;</span></span><br><span class="line"><span class="language-xml">        /&gt;</span></span><br><span class="line"><span class="language-xml">        Dark mode</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">TodoList</span> <span class="attr">todos</span>=<span class="string">&#123;todos&#125;</span> <span class="attr">tab</span>=<span class="string">&#123;tab&#125;</span> <span class="attr">theme</span>=<span class="string">&#123;isDark</span> ? &#x27;<span class="attr">dark</span>&#x27; <span class="attr">:</span> &#x27;<span class="attr">light</span>&#x27;&#125; /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TodoList.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; useMemo &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">List</span> <span class="keyword">from</span> <span class="string">&#x27;./List.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; filterTodos &#125; <span class="keyword">from</span> <span class="string">&#x27;./utils.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ TodoList 컴포넌트는 App.js로부터 todos, theme, tab을 props로 받는다.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">TodoList</span>(<span class="params">&#123; todos, theme, tab &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> visibleTodos = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> <span class="title function_">filterTodos</span>(todos, tab), [todos, tab]); <span class="comment">// ✅ tab에 해당하는 배열을 만든다.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">b</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          Note: <span class="tag">&lt;<span class="name">code</span>&gt;</span>List<span class="tag">&lt;/<span class="name">code</span>&gt;</span> is artificially slowed down!</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">b</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">List</span> <span class="attr">items</span>=<span class="string">&#123;visibleTodos&#125;</span> /&gt;</span> // ✅ List 컴포넌트에 배열 전달</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; memo &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ memo로 함수를 래핑한 후 export</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">List</span> = <span class="title function_">memo</span>(<span class="keyword">function</span> <span class="title function_">List</span>(<span class="params">&#123; items &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;items.map((item) =&gt; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.completed ? <span class="tag">&lt;<span class="name">s</span>&gt;</span>&#123;item.text&#125;<span class="tag">&lt;/<span class="name">s</span>&gt;</span> : item.text&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      ))&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">List</span>;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<hr>
+<p>컴포넌트에서 여러 개의 useState를 사용해서 작업하는 일이 많았는데, 리렌더링되면서 굳이 호출되지 않아도되는 함수들이 호출되는 경험을 했었습니다. ‘이런 부분은 리액트에서 어쩔 수 없는 부분인가?’ 라고 생각했었는데 이번 기회를 통해 최적화하는 방법을 배울 수 있었던 것 같습니다.😃</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230519-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230516-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230519-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230519-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
