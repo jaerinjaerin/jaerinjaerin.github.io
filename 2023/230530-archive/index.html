@@ -170,6 +170,17 @@
 </ul>
 </li>
 </ul>
+<hr>
+<br />
+
+<h3 id="🚀-esModuleInterop"><a href="#🚀-esModuleInterop" class="headerlink" title="🚀 esModuleInterop"></a>🚀 esModuleInterop</h3><p>NodeJS 패키지 중 하나인 Crypto를 사용할 때 <code>import crypto from &#39;crypto&#39;</code>로 import를 하게 되면</p>
+<blockquote>
+<p>Module ‘“crypto”‘ has no default export.</p>
+</blockquote>
+<p>라는 오류가 발생합니다.</p>
+<p>crypto는 default export가 없다는 이야기인데 crypto의 기본 동작이 ESModule이 아니기 때문입니다. 이것을 해결하기 위한 첫 번째 방법은 <code>import * as crypto from &#39;crypto&#39;</code>입니다. 하지만 이렇게 쓰고 싶지 않다면 이때는 tsconfig.json에서 옵션을 설정해야 합니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">👉🏻 이 때 사용하는 것이 esModuleInterop</span></p>
+<p>tsconfig.json 파일에서 <code>&quot;esModuleInterop&quot;: true</code>로 옵션을 설정하면 ESModule의 구문을 사용할 수 있습니다.</p>
 
 </div> 
 
