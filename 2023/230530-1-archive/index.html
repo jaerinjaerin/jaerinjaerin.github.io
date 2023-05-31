@@ -162,13 +162,13 @@
 </blockquote>
 <br />
  
-<p>도대체 이게 무슨 말인가 하고 살펴보니 data라는 변수는 unknown이라서 제가 지정한 타입을 할당할 수 없다는 것이었습니다. 그럼 어떻게 해야할지 너무 막막해서 Chat GPT에게 도움을 받은 결과,</p>
+<p>도대체 이게 무슨 말인가 하고 살펴보니 data라는 변수는 unknown이라서 제가 지정한 타입을 할당할 수 없다는 것이었습니다. 그럼 어떻게 해야하는거지…? 기본 개념만 익힌 저에겐 너무 막막한 문제라고 생각이 들었고 Chat GPT에게 도움을 받아봤습니다.</p>
 <p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">unknown 타입의 값을 확정적인 타입으로 변환하기 위해서는 타입 단언(Type Assertion)을 사용할 수 있습니다. 다음과 같이 코드를 수정해보세요</span></p>
 <p>라는 답변을 받았고,</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; data &#125;: &#123; <span class="attr">data</span>: <span class="title class_">Restaurant</span>[] | <span class="literal">undefined</span> &#125; = <span class="title function_">useFetchRestaurants</span>() <span class="keyword">as</span> &#123;</span><br><span class="line">  <span class="attr">data</span>: <span class="title class_">Restaurant</span>[] | <span class="literal">undefined</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>위와 같이 코드를 작성하면 에러 없이 동작하는 것을 확인했습니다.</p>
-<p>그런데 문득 든 생각이 unknown은 가급적 사용하지 말라고 했는데, 저렇게 타입 단언을 한다는 건 unknown을 사용했다는 거 아닌가?라는 생각이 들었습니다.</p>
+<p>그런데 문득 ‘unknown은 가급적 사용하지 말라고 했는데, 저렇게 타입 단언을 한다는 건 unknown을 사용했다는 거 아닌가?’라는 생각이 들었습니다.</p>
 <br />
 
 <h3 id="✅-해결방법"><a href="#✅-해결방법" class="headerlink" title="✅ 해결방법"></a>✅ 해결방법</h3><p>usehooks-ts 공식문서에서 Usage를 살펴보니, useFetch를 할 때 타입을 지정해줘야 하는 것을 알게되었습니다.</p>
