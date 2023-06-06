@@ -185,6 +185,11 @@
 <br />
 
 <p>타입스크립트는 아직 익숙하지 않아서 에러 메세지를 봐도 이 에러 메세지가 무엇을 의미하는지 이해하지 못하는 경우가 대부분입니다.. 오히려 좋은 점이라면 에러 메세지를 해결하면서 타입스크립트를 공부할 수 있다는 것이죠!</p>
+<br />
+
+<h2 id="🔨-Reference-Code"><a href="#🔨-Reference-Code" class="headerlink" title="🔨 Reference Code"></a>🔨 Reference Code</h2><p>이전에 제가 작성한 코드에서는 <code>return &#123;data&#125;</code>를 보냈었는데요, 이렇게 되면 data가 undefined으로 들어오거나 데이터를 담을 배열이 들어옵니다. 하지만 저는 지금 undefined가 필요가 없기 때문에 useFetch를 할 때 data가 undefined이면 빈 배열을 리턴하는 것이 낫다는 생각이 들었습니다.</p>
+<p>왜냐하면 데이터를 받아서 map으로 순회할 것이기 때문에 undefined가 들어오면 에러가 발생합니다. 하지만 빈 배열일 때는 아무 것도 렌더링을 시키지 않을 뿐 에러는 발생시키지 않습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Restaurants</span> &#123;</span><br><span class="line">  [<span class="attr">restaurants</span>: <span class="built_in">string</span>]: <span class="title class_">Restaurant</span>[];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">useFetchRestaurants</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data &#125; = useFetch&lt;<span class="title class_">Restaurants</span>&gt;(url);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">    <span class="keyword">return</span> [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> data.<span class="property">restaurants</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </div> 
 
