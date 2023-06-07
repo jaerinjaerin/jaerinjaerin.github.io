@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>테스트 코드 작성 연습하기🐻 (with fireEvent) | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/TDD/">
+                            TDD
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                테스트 코드 작성 연습하기🐻 (with fireEvent)
+            
+            
+        </div>
+        <span class="post-date">
+            Jun 7, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/testingLibrary.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>체크박스가 체크되기 전에는 버튼이 활성화되어 있고, 체크박스에 체크가 되면 버튼을 비활성화시키려고 합니다.</p>
+<p>테스트에서 체크박스가 체크되게끔 업데이트하려면 어떻게 해야 할까요?</p>
+<p>버튼에서와 동일한 방법을 사용하면 됩니다. <code>fireEvent.click</code>을 사용해 체크박스를 클릭하는 거죠.</p>
+<p>그리고 테스트 내에서는 이 과정을 두 번 거칠 텐데요,</p>
+<ol>
+<li>체크박스에 체크를 하고 버튼 비활성화 여부를 확인한 뒤,</li>
+<li>클릭 이후 체크박스의 체크가 해제되면 버튼이 다시 활성화되는지의 여부를 확인해야합니다.</li>
+</ol>
+<h3 id="🐥-테스트-코드-작성"><a href="#🐥-테스트-코드-작성" class="headerlink" title="🐥 테스트 코드 작성"></a>🐥 테스트 코드 작성</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&#x27;체크박스를 클릭하면 버튼이 비활성화 되어야 하고, 다시 클릭하면 버튼이 활성화되어야 한다.&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>);</span><br><span class="line">  <span class="keyword">const</span> colorButton = screen.<span class="title function_">getByRole</span>(<span class="string">&#x27;button&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> checkbox = screen.<span class="title function_">getByRole</span>(<span class="string">&#x27;checkbox&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  fireEvent.<span class="title function_">click</span>(checkbox);</span><br><span class="line">  <span class="title function_">expect</span>(colorButton).<span class="title function_">toBeDisabled</span>();</span><br><span class="line"></span><br><span class="line">  fireEvent.<span class="title function_">click</span>(checkbox);</span><br><span class="line">  <span class="title function_">expect</span>(colorButton).<span class="title function_">toBeEnabled</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>두 클릭 이벤트 사이에 체크박스를 재정의할 필요가 없습니다. 한 번 정의하면 DOM에서 요소가 사라지지 않는 한 그대로 있기 때문이죠.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [buttonColor, setButtonColor] = <span class="title function_">useState</span>(<span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [disabled, setDisabled] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> newButtonColor = buttonColor === <span class="string">&#x27;red&#x27;</span> ? <span class="string">&#x27;blue&#x27;</span> : <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> <span class="attr">buttonColor</span> &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setButtonColor(newButtonColor)&#125;</span></span><br><span class="line"><span class="language-xml">        disabled=&#123;disabled&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        Change to &#123;newButtonColor&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setDisabled(e.target.checked)&#125;</span></span><br><span class="line"><span class="language-xml">        defaultChecked=&#123;disabled&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="🚧-Code-Refactoring"><a href="#🚧-Code-Refactoring" class="headerlink" title="🚧 Code Refactoring"></a>🚧 Code Refactoring</h3><p>현재 테스트 코드에서는 <code>const checkbox = screen.getByRole(&#39;checkbox&#39;);</code> 로 checkbox를 확인하는데요, 체크박스가 여러 개 존재하는 경우 문제가 생기게 됩니다. 이때 사용하는 것이 <strong>getByRole의 name 옵션</strong>입니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&#x27;체크박스를 클릭하면 버튼이 비활성화 되어야 하고, 다시 클릭하면 버튼이 활성화되어야 한다.&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>);</span><br><span class="line">  <span class="keyword">const</span> colorButton = screen.<span class="title function_">getByRole</span>(<span class="string">&#x27;button&#x27;</span>, &#123; <span class="attr">name</span>: <span class="string">&#x27;Disable button&#x27;</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> checkbox = screen.<span class="title function_">getByRole</span>(<span class="string">&#x27;checkbox&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  fireEvent.<span class="title function_">click</span>(checkbox);</span><br><span class="line">  <span class="title function_">expect</span>(colorButton).<span class="title function_">toBeDisabled</span>();</span><br><span class="line"></span><br><span class="line">  fireEvent.<span class="title function_">click</span>(checkbox);</span><br><span class="line">  <span class="title function_">expect</span>(colorButton).<span class="title function_">toBeEnabled</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>테스트를 실행하면 아래와 같은 오류가 발생합니다.</p>
+<blockquote>
+<p>TestingLibraryElementError: Unable to find an accessible element with the role “checkbox” and name “Disable button”</p>
+</blockquote>
+<p>체크박스이면서 name이 Disable button이라는 요소를 찾을 수 없다고 하는데요, 이를 해결하기 위해선 label을 만들어주면 됩니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> <span class="attr">buttonColor</span> &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setButtonColor(newButtonColor)&#125;</span></span><br><span class="line"><span class="language-xml">    disabled=&#123;disabled&#125;</span></span><br><span class="line"><span class="language-xml">  &gt;</span></span><br><span class="line"><span class="language-xml">    Change to &#123;newButtonColor&#125;</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">id</span>=<span class="string">&quot;enable-button-checkbox&quot;</span> // 🚧 <span class="attr">input에</span> <span class="attr">id</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setDisabled(e.target.checked)&#125;</span></span><br><span class="line"><span class="language-xml">    defaultChecked=&#123;disabled&#125;</span></span><br><span class="line"><span class="language-xml">  /&gt;</span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&quot;enable-button-checkbox&quot;</span>&gt;</span>Disable button<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span> <span class="comment">// 🚧 label에</span></span><br><span class="line">  동일한 id값</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>테스팅 라이브러리는 똑똑해서 체크박스 역할을 하고 이 이름을 갖는 요소가 라벨이 결합된 요소라는 걸 압니다! :)</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230605-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230607-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230607-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
