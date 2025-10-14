@@ -1,10 +1,12 @@
 'use client';
 import { useHideOnScroll } from '@/hooks/use-hide-on-scroll';
 import { useTheme } from 'next-themes';
+import { Button } from '../ui/button';
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export function Header() {
   const { targetRef, marginTop } = useHideOnScroll(65);
-  console.log(targetRef, marginTop);
 
   return (
     <nav
@@ -14,21 +16,32 @@ export function Header() {
     >
       <div className='mt-1 flex h-[40px] w-full max-w-[1200px] items-center justify-between px-4 max-sm:pb-1 sm:h-[64px]'>
         <div className='bg-red-100'>로고 들어갈 부분</div>
-        <div className='bg-blue-200'>
-          <ThemeSwitcher />
-        </div>
+
+        <ThemeSwitcher />
       </div>
     </nav>
   );
 }
 
 function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    if (resolvedTheme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+  };
+
   return (
-    <>
-      The current theme is: {theme}
-      <button onClick={() => setTheme('light')}>Light Mode</button>
-      <button onClick={() => setTheme('dark')}>Dark Mode</button>
-    </>
+    <Button size={'icon'} variant={'ghost'} onClick={toggleTheme}>
+      {mounted ? resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon /> : <div className='w-5 h-5' />}
+    </Button>
   );
 }
