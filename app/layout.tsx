@@ -2,8 +2,14 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import { BASE_URL, BLOG_DESCRIPTION, BLOG_NAME, BLOG_THUMBNAIL_URL } from '@/config/const';
+import {
+  BASE_URL,
+  BLOG_DESCRIPTION,
+  BLOG_NAME,
+  BLOG_THUMBNAIL_URL,
+} from '@/config/const';
 import { Header } from '@/components/header/header';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -57,11 +63,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='h-full scroll-my-20 scroll-smooth' suppressHydrationWarning>
-      <body className={`${pretendard.variable} antialiased flex min-h-screen flex-col font-pretendard`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+    <html
+      lang='en'
+      className='h-full scroll-my-20 scroll-smooth'
+      suppressHydrationWarning
+    >
+      <body
+        className={`${pretendard.variable} antialiased flex min-h-screen flex-col font-pretendard`}
+      >
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
-          <main className='mt-[40px] flex flex-1 flex-col sm:mt-[64px]'>{children}</main>
+          <main className='mt-[40px] flex flex-1 flex-col sm:mt-[64px]'>
+            {children}
+          </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
