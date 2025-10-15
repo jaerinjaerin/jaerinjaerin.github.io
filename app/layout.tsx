@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='h-full scroll-my-20 scroll-smooth' suppressHydrationWarning>
+    <html lang='en' className='h-full scroll-my-20 scroll-smooth' data-scroll-behavior='smooth' suppressHydrationWarning>
       <body className={`${pretendard.variable} antialiased flex min-h-screen flex-col font-pretendard`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <Header />

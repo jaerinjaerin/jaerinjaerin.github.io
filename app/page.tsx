@@ -4,14 +4,15 @@ import { CategoryFilter } from '@/components/category-filter';
 import { PostList } from '@/components/post/post-list';
 
 interface HomeProps {
-  searchParams: {
+  searchParams: Promise<{
     category?: string;
-  };
+  }>;
 }
-export default function Home({ searchParams }: HomeProps) {
+export default async function Home({ searchParams }: HomeProps) {
+  const { category } = await searchParams;
   const categories = getCategories();
   const postCounts = getPostCountByCategory();
-  const selectedCategory = searchParams.category || 'all';
+  const selectedCategory = category || 'all';
   // 선택된 카테고리에 따라 포스트 필터링
   const posts = selectedCategory === 'all' ? getAllPosts() : getPostsByCategory(selectedCategory);
   const totalCount = getAllPosts().length;

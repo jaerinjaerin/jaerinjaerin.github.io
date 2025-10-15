@@ -28,7 +28,7 @@ export function PostList({ posts, selectedCategory }: PostListProps) {
 
 function PostCard({ post }: { post: Post }) {
   return (
-    <Link href={`/posts/${post.slug}`} className='block p-6 rounded-lg border bg-card hover:shadow-md transition-shadow'>
+    <Link href={`/post/${post.slug}`} className='block p-6 rounded-lg border bg-card hover:shadow-md transition-shadow'>
       <div className='flex items-center gap-2 mb-2'>
         <span className='text-xs font-medium px-2 py-1 bg-primary/10 text-primary rounded'>{post.category}</span>
         {post.date && <time className='text-sm text-muted-foreground'>{format(new Date(post.date), 'yyyy년 MM월 dd일')}</time>}
