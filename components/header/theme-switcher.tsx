@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import Image from 'next/image';
 
 export function ThemeSwitcher() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -34,7 +35,12 @@ export function ThemeSwitcher() {
               exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
               transition={{ duration: 0.35, ease: 'easeInOut' }}
             >
-              <SunIcon className='size-[1.2rem]' />
+              <Image
+                src={'/images/icons/sun.png'}
+                width={36}
+                height={36}
+                alt='sun icon'
+              />
             </motion.div>
           ) : (
             <motion.div
@@ -44,7 +50,12 @@ export function ThemeSwitcher() {
               exit={{ opacity: 0, rotate: -90, scale: 0.6 }}
               transition={{ duration: 0.35, ease: 'easeInOut' }}
             >
-              <MoonIcon className='size-[1.2rem]' />
+              <Image
+                src={'/images/icons/moon.png'}
+                width={36}
+                height={36}
+                alt='moon icon'
+              />
             </motion.div>
           )}
         </AnimatePresence>

@@ -10,8 +10,13 @@
   /* 폰트 */
   --font-pretendard: var(--font-pretendard);
   /* active color variable */
-  --color-muted: var(--muted);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-white01: var(--white01);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -28,16 +33,10 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -56,19 +55,20 @@
   --muted: oklch(0.4657 0.008 286.09); /*#59595e*/
   --muted-foreground: oklch(0.9436 0.0017 67.8);
   --destructive: oklch(0.6846 0.2042 24.28);
-  --primary: oklch(0.7146 0.1931 47.8); /* #FF7409 */
+  --primary: oklch(0.3987 0.1564 275.36); /* #343799 */
+  --primary-foreground: oklch(0.4877 0.1479 278.03); /*#4f52b1*/
+  --border: oklch(0.9691 0.0093 286.22); /*#f4f4fb*/
+  --white01: oklch(1 0 0 / 87.06%);
+  --card: oklch(0.7243 0.1422 266.12); /* #020034 */
 
   /* ======================= */
-  --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -92,20 +92,20 @@
   --muted: oklch(0.4657 0.008 286.09); /*#59595e*/
   --muted-foreground: oklch(0.9436 0.0017 67.8);
   --destructive: oklch(0.6846 0.2042 24.28);
-  --primary: oklch(0.7146 0.1931 47.8); /* #FF7409 */
+  --primary: oklch(0.3987 0.1564 275.36); /* #343799 */
+  --primary-foreground: oklch(0.4877 0.1479 278.03); /*#4f52b1*/
+  --border: oklch(0.9691 0.0093 286.22); /*#f4f4fb*/
+  --white01: oklch(1 0 0 / 87.06%);
+  --card: oklch(0.7243 0.1422 266.12); /* #020034 */
   /* ======================= */
 
-  --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -187,7 +187,8 @@
   /* 코드 블록 스크롤바 */
   .prose pre > code {
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent) transparent;
+    scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent)
+      transparent;
   }
 
   .prose pre > code::-webkit-scrollbar {
@@ -311,6 +312,26 @@
 }
 
 @layer utilities {
+  .claymorphism-rectangle {
+    background: #ffffff;
+    box-shadow: 24px 24px 48px #839ad7, inset -24px -24px 48px #bfd1ff,
+      inset 12px 12px 24px #eff3ff;
+    border-radius: 120px;
+  }
+
+  .claymorphism {
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 32px;
+    box-shadow: 35px 35px 68px 0px rgba(145, 192, 255, 0.5),
+      inset -8px -8px 16px 0px rgba(145, 192, 255, 0.6),
+      inset 0px 11px 28px 0px rgb(255, 255, 255);
+  }
+
+  .shadow-blue-glow {
+    box-shadow: 0px 13px 24px rgba(47, 107, 255, 0.6),
+      inset 6px 6px 12px #4379ff, inset -12px -12px 24px #004aff;
+  }
   /* 모바일: 스크롤바 숨김 */
   .scrollbar-custom {
     scrollbar-width: none;
@@ -324,7 +345,8 @@
   @media (min-width: 768px) {
     .scrollbar-custom {
       scrollbar-width: thin;
-      scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent) transparent;
+      scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent)
+        transparent;
     }
 
     .scrollbar-custom::-webkit-scrollbar {
@@ -353,9 +375,12 @@
         color-mix(in srgb, var(--color-accent) 20%, transparent)
       );
       border-radius: 100px;
-      border: 1px solid color-mix(in srgb, var(--color-foreground) 15%, transparent);
-      box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 10%, transparent),
-        inset 0 1px 0 color-mix(in srgb, var(--color-background) 40%, transparent),
+      border: 1px solid
+        color-mix(in srgb, var(--color-foreground) 15%, transparent);
+      box-shadow: 0 4px 16px
+          color-mix(in srgb, var(--color-primary) 10%, transparent),
+        inset 0 1px 0
+          color-mix(in srgb, var(--color-background) 40%, transparent),
         inset 0 -1px 0 color-mix(in srgb, var(--color-foreground) 10%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -369,8 +394,10 @@
         color-mix(in srgb, var(--color-primary) 20%, transparent),
         color-mix(in srgb, var(--color-accent) 30%, transparent)
       );
-      box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary) 20%, transparent),
-        inset 0 2px 0 color-mix(in srgb, var(--color-background) 50%, transparent),
+      box-shadow: 0 6px 20px
+          color-mix(in srgb, var(--color-primary) 20%, transparent),
+        inset 0 2px 0
+          color-mix(in srgb, var(--color-background) 50%, transparent),
         inset 0 -2px 0 color-mix(in srgb, var(--color-foreground) 15%, transparent);
       transform: scaleY(1.2);
     }

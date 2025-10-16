@@ -2,9 +2,9 @@
 import Link from 'next/link';
 import { useHideOnScroll } from '@/hooks/use-hide-on-scroll';
 import { Button } from '../ui/button';
-import { GithubIcon } from 'lucide-react';
 import { ThemeSwitcher } from './theme-switcher';
 import { ScrollProgressBar } from '../common/scroll-progress-bar';
+import { GithubIcon } from '../icon/github';
 
 export function Header() {
   const { targetRef, marginTop } = useHideOnScroll(65);
@@ -17,11 +17,11 @@ export function Header() {
     >
       <div className='mt-1 flex h-[40px] w-full max-w-[1200px] items-center justify-between px-4 max-sm:pb-1 sm:h-[64px]'>
         <div className='bg-red-100'>로고 들어갈 부분</div>
-        <div className='flex gap-3'>
+        <div className='flex gap-2'>
           <ThemeSwitcher />
           <Button asChild variant='ghost' size='icon'>
             <Link href='https://github.com/leejaelll' target='_blank'>
-              <GithubIcon className='size-[1.2rem]' />
+              <GithubIcon className='size-6' />
             </Link>
           </Button>
         </div>
