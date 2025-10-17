@@ -18,9 +18,11 @@ export function Greeting() {
 
 // To infinity and beyond!
 export const description = {
+  who: '3년차 주니어 개발자 이재린의',
   learning: '프론트엔드의 기초부터 실전 프로젝트까지',
   story: '코드 한 줄에서 시작된 본격 성장 스토리',
-};`;
+};
+`;
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;

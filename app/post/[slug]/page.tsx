@@ -9,6 +9,11 @@ interface PostPageProps {
   }>;
 }
 
+// 정적 빌드를 위한 slug 생성
+export function generateStaticParams() {
+  return getAllSlugs();
+}
+
 // SEO: 메타데이터 생성
 export async function generateMetadata({ params }: PostPageProps) {
   const { slug } = await params;

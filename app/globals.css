@@ -187,8 +187,7 @@
   /* 코드 블록 스크롤바 */
   .prose pre > code {
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent)
-      transparent;
+    scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent) transparent;
   }
 
   .prose pre > code::-webkit-scrollbar {
@@ -314,23 +313,17 @@
 @layer utilities {
   .claymorphism-rectangle {
     background: #ffffff;
-    box-shadow: 24px 24px 48px #839ad7, inset -24px -24px 48px #bfd1ff,
-      inset 12px 12px 24px #eff3ff;
+    box-shadow: 24px 24px 48px #839ad7, inset -24px -24px 48px #bfd1ff, inset 12px 12px 24px #eff3ff;
     border-radius: 120px;
   }
 
-  .claymorphism {
-    backdrop-filter: blur(5px);
-    background-color: rgba(255, 255, 255, 1);
-    border-radius: 32px;
-    box-shadow: 35px 35px 68px 0px rgba(145, 192, 255, 0.5),
-      inset -8px -8px 16px 0px rgba(145, 192, 255, 0.6),
-      inset 0px 11px 28px 0px rgb(255, 255, 255);
+  .clay-card {
+    background: #ffffff;
+    box-shadow: inset 6px 6px 12px rgba(121, 135, 176, 0.08), inset -8px -8px 30px rgba(121, 135, 176, 0.25);
+    border-radius: 50px;
   }
-
   .shadow-blue-glow {
-    box-shadow: 0px 13px 24px rgba(47, 107, 255, 0.6),
-      inset 6px 6px 12px #4379ff, inset -12px -12px 24px #004aff;
+    box-shadow: 0px 13px 24px rgba(47, 107, 255, 0.6), inset 6px 6px 12px #4379ff, inset -12px -12px 24px #004aff;
   }
   /* 모바일: 스크롤바 숨김 */
   .scrollbar-custom {
@@ -345,8 +338,7 @@
   @media (min-width: 768px) {
     .scrollbar-custom {
       scrollbar-width: thin;
-      scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent)
-        transparent;
+      scrollbar-color: color-mix(in srgb, var(--color-primary) 20%, transparent) transparent;
     }
 
     .scrollbar-custom::-webkit-scrollbar {
@@ -375,12 +367,9 @@
         color-mix(in srgb, var(--color-accent) 20%, transparent)
       );
       border-radius: 100px;
-      border: 1px solid
-        color-mix(in srgb, var(--color-foreground) 15%, transparent);
-      box-shadow: 0 4px 16px
-          color-mix(in srgb, var(--color-primary) 10%, transparent),
-        inset 0 1px 0
-          color-mix(in srgb, var(--color-background) 40%, transparent),
+      border: 1px solid color-mix(in srgb, var(--color-foreground) 15%, transparent);
+      box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 10%, transparent),
+        inset 0 1px 0 color-mix(in srgb, var(--color-background) 40%, transparent),
         inset 0 -1px 0 color-mix(in srgb, var(--color-foreground) 10%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -394,10 +383,8 @@
         color-mix(in srgb, var(--color-primary) 20%, transparent),
         color-mix(in srgb, var(--color-accent) 30%, transparent)
       );
-      box-shadow: 0 6px 20px
-          color-mix(in srgb, var(--color-primary) 20%, transparent),
-        inset 0 2px 0
-          color-mix(in srgb, var(--color-background) 50%, transparent),
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary) 20%, transparent),
+        inset 0 2px 0 color-mix(in srgb, var(--color-background) 50%, transparent),
         inset 0 -2px 0 color-mix(in srgb, var(--color-foreground) 15%, transparent);
       transform: scaleY(1.2);
     }

@@ -164,16 +164,16 @@ async function compileMDXFile(filePath: string, category: string, slug: string):
               },
               keepBackground: false,
               defaultLang: 'plaintext',
-              onVisitLine(node: any) {
+              onVisitLine(node: { children: { type: string; value: string }[] }) {
                 // 빈 줄 처리
                 if (node.children.length === 0) {
                   node.children = [{ type: 'text', value: ' ' }];
                 }
               },
-              onVisitHighlightedLine(node: any) {
+              onVisitHighlightedLine(node: { properties: { className?: string[] } }) {
                 node.properties.className?.push('highlighted');
               },
-              onVisitHighlightedChars(node: any) {
+              onVisitHighlightedChars(node: { properties: { className?: string[] } }) {
                 node.properties.className = ['word'];
               },
             },
