@@ -12,9 +12,9 @@ export function PostList({ posts, selectedCategory }: PostListProps) {
     return <div className='text-center py-12 text-muted-foreground'>포스트가 없습니다.</div>;
   }
   return (
-    <div className='space-y-8'>
-      <h3 className='text-xl font-bold text-muted-foreground'>
-        {selectedCategory === 'all' ? 'All Posts' : selectedCategory} ({posts.length})
+    <div className='space-y-4'>
+      <h3 className='text-xl font-bold '>
+        📂 {selectedCategory === 'all' ? 'All Posts' : selectedCategory} ({posts.length})
       </h3>
 
       <div className='grid gap-6'>
