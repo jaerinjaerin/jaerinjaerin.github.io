@@ -2,63 +2,34 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useMemo } from 'react';
-import { Post } from '@/lib/posts';
-import { PostList } from '@/components/post/post-list';
 import { MobileCategory, WebCategory } from '@/components/category/category';
 import { Greeting } from '@/components/greeting';
 
-interface HomeClientProps {
-  categories: string[];
-  postCounts: Record<string, number>;
-  totalCount: number;
-  allPosts: Post[];
-}
-
-function HomeClientContent({
-  categories,
-  postCounts,
-  totalCount,
-  allPosts,
-}: HomeClientProps) {
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const selectedCategory = category || 'all';
-  console.log(selectedCategory);
-
-  // 선택된 카테고리에 따라 포스트 필터링
-  const filteredPosts = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return allPosts;
-    }
-    return allPosts.filter((post) => post.category === selectedCategory);
-  }, [selectedCategory, allPosts]);
-
+function HomeClientContent() {
   return (
     <>
-      <WebCategory
+      {/* <WebCategory
         categories={categories}
         postCounts={postCounts}
         totalCount={totalCount}
         selectedCategory={selectedCategory}
-      />
+      /> */}
 
       <section className='flex-1 w-full'>
-        {selectedCategory === 'all' && <Greeting />}
+        {/* {selectedCategory === 'all' && <Greeting />} */}
         {/* 모바일 카테고리 */}
-        <MobileCategory
+        {/* <MobileCategory
           categories={categories}
           postCounts={postCounts}
           totalCount={totalCount}
           selectedCategory={selectedCategory}
-        />
-
-        <PostList posts={filteredPosts} selectedCategory={selectedCategory} />
+        /> */}
       </section>
     </>
   );
 }
 
-export function HomeClient(props: HomeClientProps) {
+export function HomeClient() {
   return (
     <Suspense
       fallback={
@@ -72,7 +43,7 @@ export function HomeClient(props: HomeClientProps) {
         </>
       }
     >
-      <HomeClientContent {...props} />
+      <HomeClientContent />
     </Suspense>
   );
 }
