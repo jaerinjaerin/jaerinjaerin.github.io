@@ -10,11 +10,11 @@ export function Footer() {
     triggerOnce: false, // 다시 화면에 들어오면 재시작
     threshold: 0.1, // 10% 이상 보여야 inView = true
   });
-  console.log(inView);
+
   return (
     <footer
       ref={ref}
-      className='mb-16 mt-20 flex flex-col items-center justify-center gap-2 text-center print:hidden'
+      className='mt-10 md:mt-20 flex flex-col items-center justify-center gap-2 text-center print:hidden border-t-2 py-5 md:py-10'
     >
       <div className='flex justify-center gap-4'>
         <Link href='https://github.com/leejaelll' target='_blank'>
@@ -40,7 +40,7 @@ export function Footer() {
         </Link>
       </div>
       <div>
-        © {new Date().getFullYear()}.
+        © {new Date().getFullYear()}.{' '}
         <span className='font-semibold'>JAERIN LEE</span> all rights reserved.
       </div>
     </footer>
