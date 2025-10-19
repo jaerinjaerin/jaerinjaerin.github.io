@@ -1,78 +1,47 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { Suspense, useMemo } from 'react';
-import { Post } from '@/lib/posts';
-import { PostList } from '@/components/post/post-list';
-import { MobileCategory, WebCategory } from '@/components/category/category';
-import { Greeting } from '@/components/greeting';
+import { CategoryData, HomePageClientProps } from '@/types';
+import { useCategory } from '@/hooks/use-category';
+import { InlineCategory, SidebarCategory } from '../category/category';
+import { Greeting } from './greeting';
+import { BlogCard } from './blog-card';
 
-interface HomeClientProps {
-  categories: string[];
-  postCounts: Record<string, number>;
-  totalCount: number;
-  allPosts: Post[];
-}
+export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
+  const { selectedCategory, filteredPosts, postCounts, totalCounts } =
+    useCategory(allPosts);
 
-function HomeClientContent({
-  categories,
-  postCounts,
-  totalCount,
-  allPosts,
-}: HomeClientProps) {
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const selectedCategory = category || 'all';
-  console.log(selectedCategory);
-
-  // 선택된 카테고리에 따라 포스트 필터링
-  const filteredPosts = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return allPosts;
+  const categoryCounts = allTags.reduce((acc, tag) => {
+    if (tag === 'All') {
+      acc[tag] = allPosts.length;
+    } else {
+      acc[tag] = allPosts.filter((blog) =>
+        // blog.data.tags?.includes(tag)
+        blog.tags.includes(tag)
+      ).length;
     }
-    return allPosts.filter((post) => post.category === selectedCategory);
-  }, [selectedCategory, allPosts]);
+    return acc;
+  }, {} as Record<string, number>);
+
+  console.log('➡️➡️➡️ categoryCounts', categoryCounts);
+
+  const categoryProps: CategoryData = {
+    selectedCategory,
+    categories: allTags,
+    categoryCounts,
+  };
 
   return (
     <>
-      <WebCategory
-        categories={categories}
-        postCounts={postCounts}
-        totalCount={totalCount}
-        selectedCategory={selectedCategory}
-      />
-
+      <SidebarCategory {...categoryProps} />
       <section className='flex-1 w-full'>
-        {selectedCategory === 'all' && <Greeting />}
-        {/* 모바일 카테고리 */}
-        <MobileCategory
-          categories={categories}
-          postCounts={postCounts}
-          totalCount={totalCount}
-          selectedCategory={selectedCategory}
-        />
-
-        <PostList posts={filteredPosts} selectedCategory={selectedCategory} />
+        <Greeting />
+        <InlineCategory {...categoryProps} />
+        <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
+          {filteredPosts.map((blog) => {
+            return <BlogCard blog={blog} key={blog.slug} />;
+          })}
+        </div>
       </section>
     </>
-  );
-}
-
-export function HomeClient(props: HomeClientProps) {
-  return (
-    <Suspense
-      fallback={
-        <>
-          <aside className='hidden md:block sticky top-20 self-start min-w-[200px] max-w-[200px] font-pretendard'>
-            <h2 className='px-4 pb-1 text-xl font-bold'>🗂️ Categories</h2>
-          </aside>
-          <section className='flex-1 w-full'>
-            <Greeting />
-          </section>
-        </>
-      }
-    >
-      <HomeClientContent {...props} />
-    </Suspense>
   );
 }

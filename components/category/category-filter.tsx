@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { CategoryData } from '@/types';
 
 const CATEGORY_ICON_MAP: Record<string, string> = {
   all: 'color.png',
@@ -14,19 +15,14 @@ const CATEGORY_ICON_MAP: Record<string, string> = {
   // Add other category-icon mappings here
 };
 
-interface CategoryFilterProps {
-  categories: string[];
-  postCounts: Record<string, number>;
-  totalCount: number;
-  selectedCategory: string;
+interface CategoryFilterProps extends CategoryData {
   isMobile?: boolean;
 }
 
 export function CategoryFilter({
   categories,
-  postCounts,
-  totalCount,
   selectedCategory,
+  categoryCounts,
   isMobile = false,
 }: CategoryFilterProps) {
   return (
@@ -35,26 +31,16 @@ export function CategoryFilter({
         'flex gap-2',
         isMobile
           ? 'overflow-x-auto scrollbar-custom pb-3'
-          : 'flex-col overflow-y-auto px-3 py-2' // px-3 py-2 추가, overflow-x-visible 제거
+          : 'flex-col overflow-y-auto px-3 py-2'
       )}
     >
-      {/* ALL 카테고리 */}
-      <CategoryItem
-        label='All'
-        count={totalCount}
-        href='/'
-        icon={CATEGORY_ICON_MAP['all']}
-        isActive={selectedCategory === 'all'}
-        isMobile={isMobile}
-      />
-
       {/* 각 카테고리 */}
       {categories.map((category) => (
         <CategoryItem
           key={category}
           label={category}
           icon={CATEGORY_ICON_MAP[category]}
-          count={postCounts[category] || 0}
+          count={categoryCounts?.[category] ?? 0}
           href={`/?category=${encodeURIComponent(category)}`}
           isActive={selectedCategory === category}
           isMobile={isMobile}
@@ -66,7 +52,7 @@ export function CategoryFilter({
 
 interface CategoryItemProps {
   label: string;
-  count: number;
+  count?: number;
   href: string;
   isActive: boolean;
   isMobile: boolean;
@@ -81,18 +67,6 @@ function CategoryItem({
   icon,
 }: CategoryItemProps) {
   return (
-    // <motion.div
-    //   whileHover={{
-    //     scale: 1.05,
-    //   }}
-    //   whileTap={{ scale: 0.95 }}
-    //   transition={{
-    //     type: 'spring',
-    //     stiffness: 400,
-    //     damping: 10,
-    //     mass: 0.3,
-    //   }}
-    // >
     <Link
       href={href}
       className={cn(
@@ -110,7 +84,7 @@ function CategoryItem({
           height={25}
         />
       )}
-      <span>{label}</span>
+      <span>{`${label} (${count})`}</span>
     </Link>
     // </motion.div>
   );

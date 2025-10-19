@@ -2,32 +2,19 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import {
-  BASE_URL,
-  BLOG_DESCRIPTION,
-  BLOG_NAME,
-  BLOG_THUMBNAIL_URL,
-} from '@/config/const';
 import { Header } from '@/components/header/header';
 import { Footer } from '@/components/footer';
+import { siteConfig } from '@/lib/site';
+import { metadataKeywords } from './metadata';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
-  title: BLOG_NAME,
-  description: BLOG_DESCRIPTION,
-  openGraph: {
-    title: BLOG_NAME,
-    description: BLOG_DESCRIPTION,
-    siteName: BLOG_NAME,
-    images: [BLOG_THUMBNAIL_URL],
-    type: 'website',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: BLOG_NAME,
-    description: BLOG_DESCRIPTION,
-    images: [BLOG_THUMBNAIL_URL],
-  },
+  description: siteConfig.description,
+  keywords: metadataKeywords,
 };
 
 const pretendard = localFont({
