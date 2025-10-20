@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { CategoryData } from '@/types';
 
 const CATEGORY_ICON_MAP: Record<string, string> = {
-  all: 'color.png',
+  All: 'color.png',
   'Next.js': 'music.png',
   React: 'target.png',
   Retrospective: 'megaphone.png',
@@ -19,21 +19,9 @@ interface CategoryFilterProps extends CategoryData {
   isMobile?: boolean;
 }
 
-export function CategoryFilter({
-  categories,
-  selectedCategory,
-  categoryCounts,
-  isMobile = false,
-}: CategoryFilterProps) {
+export function CategoryFilter({ categories, selectedCategory, categoryCounts, isMobile = false }: CategoryFilterProps) {
   return (
-    <nav
-      className={cn(
-        'flex gap-2',
-        isMobile
-          ? 'overflow-x-auto scrollbar-custom pb-3'
-          : 'flex-col overflow-y-auto px-3 py-2'
-      )}
-    >
+    <nav className={cn('flex gap-2', isMobile ? 'overflow-x-auto scrollbar-custom pb-3' : 'flex-col overflow-y-auto px-3 py-2')}>
       {/* 각 카테고리 */}
       {categories.map((category) => (
         <CategoryItem
@@ -58,14 +46,7 @@ interface CategoryItemProps {
   isMobile: boolean;
   icon?: string;
 }
-function CategoryItem({
-  label,
-  count,
-  href,
-  isActive,
-  isMobile,
-  icon,
-}: CategoryItemProps) {
+function CategoryItem({ label, count, href, isActive, isMobile, icon }: CategoryItemProps) {
   return (
     <Link
       href={href}
@@ -76,14 +57,7 @@ function CategoryItem({
         isActive && 'bg-muted-foreground text-primary'
       )}
     >
-      {icon && (
-        <Image
-          src={`/images/icons/dynamic-color/${icon}`}
-          alt={label}
-          width={25}
-          height={25}
-        />
-      )}
+      {icon && <Image src={`/images/icons/dynamic-color/${icon}`} alt={label} width={25} height={25} />}
       <span>{`${label} (${count})`}</span>
     </Link>
     // </motion.div>
