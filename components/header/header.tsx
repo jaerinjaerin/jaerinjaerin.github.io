@@ -33,7 +33,7 @@ export function Header() {
         <div className='flex gap-2'>
           <ThemeSwitcher />
           <Button asChild variant='ghost' size='icon'>
-            <Link href='https://github.com/leejaelll' target='_blank'>
+            <Link href='https://github.com/jaerinjaerin' target='_blank'>
               <GithubIcon className='size-6' />
             </Link>
           </Button>
