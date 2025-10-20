@@ -14,7 +14,7 @@ export function Footer() {
   return (
     <footer
       ref={ref}
-      className='mt-10 md:mt-20 flex flex-col items-center justify-center gap-2 text-center print:hidden border-t-2 py-5 md:py-10'
+      className='mt-10 md:mt-20 flex flex-col items-center justify-center gap-2 text-center print:hidden border-t-[1px] py-5 md:py-10'
     >
       <div className='flex justify-center gap-4'>
         <Link href='https://github.com/leejaelll' target='_blank'>

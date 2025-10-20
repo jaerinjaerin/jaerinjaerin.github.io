@@ -11,6 +11,7 @@
   --color-foreground: var(--foreground);
   /* 폰트 */
   --font-pretendard: var(--font-pretendard);
+  --font-waguri: var(--font-waguri);
   /* active color variable */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);

@@ -32,7 +32,7 @@ export function BlogCard({ blog }: BlogCardProps) {
           </div>
         )}
         <div className='p-6 flex flex-col gap-2 flex-1'>
-          <h3 className='text-xl font-semibold text-black group-hover:underline underline-offset-4'>
+          <h3 className='text-lg md:text-xl font-semibold text-black group-hover:underline underline-offset-4'>
             {blog.title}
           </h3>
           <p className='text-sidebar-ring text-sm'>{blog.description}</p>

@@ -3,10 +3,8 @@ import { CategoryData } from '@/types';
 
 export function SidebarCategory(props: CategoryData) {
   return (
-    <aside className='md:block md:sticky hidden top-25 min-w-[200px] max-w-[200px] mt-4 font-pretendard'>
-      <h2 className='md:block hidden px-4 pb-1 text-xl font-bold'>
-        🗂️ Categories
-      </h2>
+    <aside className='md:block md:sticky hidden top-25 w-[180px] mt-4 font-pretendard self-start'>
+      <h2 className='px-2 pb-1 text-xl font-bold'>🗂️ Categories</h2>
       <CategoryFilter {...props} />
     </aside>
   );
