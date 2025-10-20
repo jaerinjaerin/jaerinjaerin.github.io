@@ -18,9 +18,16 @@ export const metadata: Metadata = {
 };
 
 const pretendard = localFont({
-  src: '../public/fonts/pretendard/PretendardVariable.ttf',
+  src: './fonts/PretendardVariable.ttf',
   variable: '--font-pretendard',
   display: 'swap',
+});
+const waguri = localFont({
+  src: './fonts/Waguri.ttf',
+  variable: '--font-waguri',
+  display: 'swap',
+  weight: '400 700',
+  style: 'normal',
 });
 
 export default function RootLayout({
@@ -36,7 +43,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${pretendard.variable} antialiased flex min-h-screen flex-col font-pretendard`}
+        className={`${pretendard.variable} ${waguri.variable} antialiased flex min-h-screen flex-col font-pretendard`}
       >
         <ThemeProvider
           attribute='class'

@@ -27,7 +27,7 @@ export interface Post {
 export interface CategoryData {
   categories: string[];
   selectedCategory: string;
-  categoryCounts?: Record<string, number>;
+  categoryCounts: Record<string, number>;
 }
 
 export interface HomePageClientProps {

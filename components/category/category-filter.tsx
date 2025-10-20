@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { CategoryData } from '@/types';
+import { usePathname, useRouter } from 'next/navigation';
 
 const CATEGORY_ICON_MAP: Record<string, string> = {
   All: 'color.png',
@@ -19,19 +20,42 @@ interface CategoryFilterProps extends CategoryData {
   isMobile?: boolean;
 }
 
-export function CategoryFilter({ categories, selectedCategory, categoryCounts, isMobile = false }: CategoryFilterProps) {
+export function CategoryFilter({
+  categories,
+  selectedCategory,
+  categoryCounts,
+  isMobile = false,
+}: CategoryFilterProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleCategoryClick = (category: string) => {
+    const params = new URLSearchParams();
+    if (category !== 'All') {
+      params.set('category', category);
+    }
+    router.push(`${pathname}?${params.toString()}`);
+  };
   return (
-    <nav className={cn('flex gap-2', isMobile ? 'overflow-x-auto scrollbar-custom pb-3' : 'flex-col overflow-y-auto px-3 py-2')}>
+    <nav
+      className={cn(
+        'flex gap-2',
+        isMobile
+          ? 'overflow-x-auto scrollbar-custom pb-3'
+          : 'flex-col overflow-y-auto py-2'
+      )}
+    >
       {/* 각 카테고리 */}
       {categories.map((category) => (
         <CategoryItem
           key={category}
-          label={category}
-          icon={CATEGORY_ICON_MAP[category]}
-          count={categoryCounts?.[category] ?? 0}
-          href={`/?category=${encodeURIComponent(category)}`}
-          isActive={selectedCategory === category}
+          selectedCategory={selectedCategory}
+          category={category}
           isMobile={isMobile}
+          handleCategoryClick={() => handleCategoryClick(category)}
+          categoryCounts={categoryCounts}
+          isActive={selectedCategory === category}
+          icon={CATEGORY_ICON_MAP[category]}
         />
       ))}
     </nav>
@@ -39,17 +63,28 @@ export function CategoryFilter({ categories, selectedCategory, categoryCounts, i
 }
 
 interface CategoryItemProps {
-  label: string;
-  count?: number;
-  href: string;
+  icon?: string;
   isActive: boolean;
   isMobile: boolean;
-  icon?: string;
+  category: string;
+  selectedCategory: string;
+  categoryCounts: Record<string, number>;
+  handleCategoryClick: () => void;
 }
-function CategoryItem({ label, count, href, isActive, isMobile, icon }: CategoryItemProps) {
+
+function CategoryItem({
+  icon,
+  isActive,
+  isMobile,
+  category,
+  selectedCategory,
+  categoryCounts,
+  handleCategoryClick,
+}: CategoryItemProps) {
   return (
-    <Link
-      href={href}
+    <button
+      key={category}
+      onClick={handleCategoryClick}
       className={cn(
         'flex items-center gap-3 px-4 py-3 rounded-[8px] bg-primary text-white font-extrabold transition-all duration-500 text-sm md:text-base',
         'hover:bg-muted-foreground hover:text-primary',
@@ -57,9 +92,15 @@ function CategoryItem({ label, count, href, isActive, isMobile, icon }: Category
         isActive && 'bg-muted-foreground text-primary'
       )}
     >
-      {icon && <Image src={`/images/icons/dynamic-color/${icon}`} alt={label} width={25} height={25} />}
-      <span>{`${label} (${count})`}</span>
-    </Link>
-    // </motion.div>
+      {icon && (
+        <Image
+          src={`/images/icons/dynamic-color/${icon}`}
+          alt={icon}
+          width={25}
+          height={25}
+        />
+      )}
+      <span className='text-start'>{category}</span>
+    </button>
   );
 }

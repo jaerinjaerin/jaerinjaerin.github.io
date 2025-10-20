@@ -3,14 +3,6 @@ import { HomePageClient } from '@/components/home/home-client';
 import { blog } from '@/.source';
 import { BlogData } from '@/types';
 
-const formatDate = (date: Date): string => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
 export default function HomePage() {
   // 정적 빌드를 위한 블로그 포스트 데이터
   const allPosts = blog.docs.map((doc) => {
