@@ -11,15 +11,9 @@ export function BlogCard({ blog }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className={cn(
-        'w-full group clay-card overflow-hidden '
-        // "group block relative before:absolute before:-left-0.5 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-0.5 after:left-0 after:z-0 after:h-px after:w-screen after:bg-border after:content-['']"
-      )}
+      className={cn('w-full group clay-card overflow-hidden ')}
     >
-      <div
-        className='flex flex-col'
-        style={{ height: '-webkit-fill-available' }}
-      >
+      <div className='flex flex-col'>
         {blog.thumbnail && (
           <div className='relative w-full overflow-hidden h-25 md:h-48'>
             <Image
