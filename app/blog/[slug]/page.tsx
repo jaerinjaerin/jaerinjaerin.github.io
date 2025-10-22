@@ -110,12 +110,12 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className='absolute max-w-7xl mx-auto left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] lg:w-full h-full border-x border-border p-0 pointer-events-none' />
         <main className='w-full p-0 overflow-hidden'>
           {pageData.thumbnail && (
-            <div className='relative w-full h-[500px] overflow-hidden object-cover border border-transparent'>
+            <div className='relative w-full h-[500px] overflow-hidden border border-transparent'>
               <Image
                 src={pageData.thumbnail}
                 alt={pageData.title}
                 fill
-                className='object-cover'
+                className='object-contain'
                 priority
               />
             </div>
