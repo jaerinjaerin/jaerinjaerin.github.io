@@ -21,9 +21,11 @@ interface PageProps {
 
 // 정적 빌드를 위한 모든 slug 생성
 export function generateStaticParams() {
-  return blog.docs.map((doc) => ({
-    slug: (doc as BlogData)._file.path.replace('.mdx', ''),
-  }));
+  return blog.docs.map((doc) => {
+    const blogData = doc as BlogData;
+    const slug = blogData._file.path.replace(/\.mdx$/, '');
+    return { slug };
+  });
 }
 
 // SEO를 위한 메타데이터 생성

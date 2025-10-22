@@ -14,6 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import Image from 'next/image';
 
 const createHeading = (level: number) => {
   const Heading = ({
@@ -57,6 +58,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     h4: createHeading(4),
     h5: createHeading(5),
     h6: createHeading(6),
+    img: (props) => <Image {...(props as any)} />,
     ...components,
   };
 }
