@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           )}
           <div className='p-6 lg:p-10'>
-            <div className='prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance prose-lg'>
+            <div className='prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-lg'>
               <DocsBody>
                 <MDXContent />
               </DocsBody>

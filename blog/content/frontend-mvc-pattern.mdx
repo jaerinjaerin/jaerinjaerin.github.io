@@ -1,0 +1,168 @@
+---
+title: Frontend 관점에서 바라본 MVC 패턴
+description: 사용자 인터페이스, 데이터 및 논리 제어를 구현하는데 널리 사용되는 MVC 디자인 패턴을 프론트엔드 관점에서 이해하고 적용하는 방법
+date: 2022-11-02
+tags: ['JavaScript']
+featured: false
+thumbnail: '/thumbnails/javascript.jpg'
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## MVC 패턴이란?
+
+<Callout type='info' title='MVC 패턴'>
+사용자 인터페이스, 데이터 및 논리 제어를 구현하는데 널리 사용되는 디자인 패턴
+
+**M**odel-**V**iew-**C**ontroller의 약자로 애플리케이션을 세 가지 역할로 구분한 개발 방법론
+
+</Callout>
+
+[MVC - 용어 사전 | MDN](https://developer.mozilla.org/ko/docs/Glossary/MVC)
+
+---
+
+## MVC란 패턴은 왜 생겨난 걸까? 🤔
+
+### 역사 [1979년 GUI 데스크톱 애플리케이션이 등장하면서 생긴 패턴]
+
+- 사람-컴퓨터 간의 간극을 해결하기 위함.
+- 도메인의 재사용을 목적으로 둔다.
+- 입력 & 이벤트 & 출력 메커니즘을 자연스럽게 처리하기 위함이다.
+
+### 현대식 MVC 패턴의 등장 [애플(Apple)에서 발표한 Cocoa MVC 패턴]
+
+![Cocoa MVC Pattern](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://k.kakaocdn.net/dn/dlf6g4/btrj0LcpNei/uJKMEIQ8tlN8LvOqMBJiw0/img.png)
+
+👉🏻 사용자가 Controller를 조작하면 Controller는 Model을 통해 데이터를 가져오고 그 데이터를 바탕으로 View를 통해 시각적 표현을 제어하여 사용자에게 전달하게 된다.
+
+**사용자가 구글에 "코딩"이라고 검색했을 때,**
+
+<Steps>
+
+<Step>
+### Controller가 Model에 데이터 요청
+
+Controller는 코딩에 대한 검색 결과 데이터를 Model에게 요청한다.
+
+</Step>
+
+<Step>
+### Model이 데이터를 Controller에 전달
+
+Model은 검색 결과 데이터를 찾아서 Controller에게 전달한다.
+
+</Step>
+
+<Step>
+### Controller가 View에 데이터 전달
+
+Controller는 받은 데이터를 다시 View에 전달한다.
+
+</Step>
+
+</Steps>
+
+---
+
+## 🖥 Model, View, Controller가 뭔데?
+
+<Callout type='warn'>
+**MVC의 세 가지 구성 요소**
+
+- **Model**: 데이터와 비즈니스 로직을 관리 (데이터와 관련된 일을 하는 곳)
+- **Controller**: 명령을 모델과 뷰 부분으로 라우팅 (Model과 View를 이어주는 역할)
+- **View**: 레이아웃과 화면을 처리 (사용자에게 보여지는 것을 담당)
+
+</Callout>
+
+---
+
+## 모델 뷰 컨트롤러 예시
+
+간단한 쇼핑 리스트 앱이 있다고 상상해보자.
+
+우리가 원하는 것은 **이번 주에 사야할 각 항목의 이름, 개수, 가격의 목록**
+
+### MVC를 사용해 이 기능의 일부를 구현하는 방법
+
+![MVC Pattern](https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png)
+
+#### 모델 (Model)
+
+- 앱이 포함해야할 **데이터**가 무엇인지를 정의
+- **데이터의 상태가 변경**되면 모델을 일반적으로 뷰에게 알리며(따라서 필요한대로 화면을 변경할 수 있습니다) 가끔 컨트롤러에게 알리기도 한다. (업데이트된 뷰를 제거하기 위해 다른 로직이 필요한 경우).
+- 리스트 항목이 포함해야 하는 데이터(품목, 가격 등)와 이미 존재하는 리스트 항목이 무엇인지를 지정한다.
+
+#### 뷰 (View)
+
+- 앱의 데이터를 보여주는 방식을 정의
+- 뷰는 항목이 사용자에게 보여지는 방식을 정의하며, 표시할 데이터를 모델로부터 받는다.
+
+#### 컨트롤러 (Controller)
+
+- 앱의 사용자로부터의 입력에 대한 응답으로 모델 및/또는 뷰를 업데이트하는 로직을 포함한다.
+- 쇼핑 리스트는 항목을 추가하거나 제거할 수 있게 해주는 입력 폼과 버튼을 갖는다.
+- 이러한 액션들은 모델이 업데이트되는 것이므로 입력이 컨트롤러에게 전송되고, 모델을 적당하게 처리한다음, 업데이트된 데이터를 뷰로 전송한다.
+- 단순히 데이터를 다른 형태로 나타내기 위해 뷰를 업데이트하고 싶은 경우
+  - (예를 들면, 항목을 알파벳순서로 정렬한다거나, 가격이 낮은 순서 또는 높은 순서로 정렬).
+  - 이런 경우에 컨트롤러는 모델을 업데이트할 필요 없이 바로 처리할 수 있다.
+
+---
+
+## 웹에서의 MVC
+
+프론트엔드단에선 MVC 패턴을 어떻게 바라볼 수 있을까? 백엔드처럼 확실하게 MVC 패턴으로 프로그래밍할 수는 없다. 우리에게 View는 사용자가 보여지는 렌더링된 화면 즉, DOM이고 Model은 데이터베이스에 요청했을 때 받아오는 JSON 파일이다.
+
+<Callout type='warn'>
+**One-way Data Flow의 중요성**
+
+데이터의 흐름은 한 방향으로 흘러야한다. 양방향으로 연결되는 순간 내가 보낸 데이터가 어느 방향으로 흘러갔는지, 또한 이 데이터는 어느 방향에서 흘러왔는지 파악하기가 힘들어진다. 단순한 구조가 이해하기 더 빠르기 때문에 one-way data flow를 지켜야한다.
+
+</Callout>
+
+**그렇다면 어떻게 흘러가야하는게 맞을까?**
+
+사용자가 애플리케이션을 동작하는 경우를 생각해보면 이해하기 쉽다. 사용자는 화면에 보이는 버튼, 또는 입력창에 클릭을 하거나 글씨를 입력한다. 👉🏻 이것을 사용자의 액션이라고 부른다.
+
+사용자의 액션을 감지하는 이벤트 핸들러는 상태를 변화시킬 수 있는 기능을 가지는 함수에게 상태를 변경해달라고 부탁한다. 즉, 특정한 setState를 할 수 있는 기능을 가진 함수를 호출한다. 예를 들어, 할 일 리스트가 하나 더 추가되어야하는 경우 이벤트 핸들러는 사용자가 입력한 값을 addTodo에 전달한다.
+
+인자로 추가되어야하는 내용을 전달받은 addTodo 함수는 setState를 호출하여 어떤 내용을 변경시켜야하는지에 내용을 전달해준다. 👉🏻 이렇게 state를 변경시키는 역할을 하는 함수들을 state mutator라고 부른다.
+
+state가 변경되었으면 render 함수를 호출해서 다시 리렌더링을 시키는 일을 해야하고 사용자는 변경된 내용을 화면에서 다시 볼 수 있다. 이렇게 한 방향으로 계속해서 흘러가야한다.
+
+그림으로 정리하면 다음과 같다.
+
+{/* TODO: Add mvc.jpeg image to /public/images/content/ folder */}
+
+---
+
+## MVC 패턴으로 파일을 모듈화하자
+
+한 파일에 모든 내용을 집어넣는 것은 코드 가독성을 떨어뜨릴 뿐만 아니라, 유지 보수성도 떨어진다. 파일을 분리시키고 싶은 생각이 들 때 한 가지 의문점이 들기 시작한다. 어떤 기준을 가지고 파일을 모듈화해야하지?
+
+MVC 관점에서 모듈화를 해보자. 일반적으로 알려져있는 MVC 패턴이 아닌, 앞서 말한 프론트엔드에서의 MVC 패턴을 말한다.
+
+<Callout type='success'>
+**프론트엔드 MVC 모듈화 전략**
+
+- **eventHandler**
+
+  - 사용자의 액션을 감지할 수 있는 이벤트 핸들러 함수만을 모듈화한다.
+
+- **state**
+
+  - 상태로 관리하는 정보들과, 그 상태를 변경시킬 수 있는 함수들을 모듈화한다.
+
+- **render**
+  - 변경된 내용으로 render 함수 호출을 통해 DOM을 다시 생성한다.
+
+</Callout>
+
+---
+
+## 참고 자료
+
+- [MVC 패턴에 대한 상세 내용](https://cocoon1787.tistory.com/733)
+- [MDN - MVC 용어 사전](https://developer.mozilla.org/ko/docs/Glossary/MVC)
