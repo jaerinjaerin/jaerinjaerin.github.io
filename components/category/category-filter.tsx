@@ -1,8 +1,6 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { motion } from 'motion/react';
 import Image from 'next/image';
 import { CategoryData } from '@/types';
 import { usePathname, useRouter } from 'next/navigation';
@@ -10,9 +8,12 @@ import { usePathname, useRouter } from 'next/navigation';
 const CATEGORY_ICON_MAP: Record<string, string> = {
   All: 'color.png',
   'Next.js': 'music.png',
-  React: 'target.png',
+  Algorithm: 'target.png',
   Retrospective: 'megaphone.png',
   Typescript: 'key.png',
+  Develop: 'brush.png',
+  JavaScript: 'rocket.png',
+  Life: 'tool.png',
   // Add other category-icon mappings here
 };
 
