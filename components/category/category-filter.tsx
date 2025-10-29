@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 const CATEGORY_ICON_MAP: Record<string, string> = {
   All: 'color.png',
   'Next.js': 'music.png',
-  Typescript: 'key.png',
+  TypeScript: 'key.png',
   JavaScript: 'rocket.png',
   Algorithm: 'target.png',
   HTML: 'notebook.png',

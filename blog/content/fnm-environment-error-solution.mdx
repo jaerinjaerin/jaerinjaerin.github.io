@@ -1,0 +1,134 @@
+---
+title: 'fnm(Fast Node Manager) 환경 변수 에러 해결하기'
+description: '돌고돌아 원점으로 - fnm 환경 변수 설정 트러블슈팅'
+date: '2023-03-07'
+tags: ['Error', 'React']
+featured: false
+thumbnail: '/thumbnails/error-solution.png'
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+프로젝트 개발 환경 세팅하는 방법에 대해서 공부를 하고 있는데, node 버전 관리를 nvm 대신 fnm으로 세팅해보는 시간을 가졌다.
+
+간단히 말하자면 둘 다 Node.js의 버전 관리 도구이다.
+
+<Callout type="info">
+**fnm vs nvm 비교**
+
+- **fnm**은 Rust 기반으로 만들어져 성능이 더 빠르다. (Rust로 만들면 왜 더 빠른건지?)
+- **nvm**은 전역적으로 버전을 관리하고 **fnm**은 프로젝트마다 버전을 관리한다.
+- 사용자 커뮤니티는 **nvm**이 더 큰 편. **fnm**은 상대적으로 최신기술이라 사용자 수가 적다.
+
+</Callout>
+
+강의 내용을 따라가면서 fnm을 설치하고 `~/.zshrc`에 변수를 추가해주는 것까지는 문제가 없었는데...
+
+```bash
+brew install fnm
+eval "$(fnm env)"
+```
+
+LTS를 설치하고 `fnm use lts-latest` 최신 LTS를 쓰겠다는 명령어를 입력하자마자 오류가 발생했다.
+
+```bash
+fnm install --lts
+fnm use lts-latest
+fnm default $(fnm current)
+```
+
+![에러 화면](/images/content/fnm-environment-error-solution/1.png)
+
+<Callout type="warn">
+**에러 메시지**
+
+> error: We can't find the necessary environment variables to replace the Node version. You should setup your shell profile to evaluate `fnm env`, see https://github.com/Schniz/fnm#shell-setup on how to do this Check out our documentation for more information: https://fnm.vercel.app
+
+필요한 환경 변수를 찾지 못한다는 에러 메세지
+
+</Callout>
+
+우리의 친절한 에러 메세지는
+
+'💬 https://github.com/Schniz/fnm#shell-setup 여기로 가서 shell-setup 한 번 해봐' 라고 답해주었다.
+
+이때부터 시작된 나의 삽질,,,
+
+---
+
+## 첫 번째 시도
+
+하라면 일단 가보는 게 인지상정. 내용을 읽어보니,
+
+![fnm 문서](/images/content/fnm-environment-error-solution/3.png)
+
+fnm을 사용하기 전에 환경 변수 세팅을 할 필요가 있다네..?
+
+그래서 원래 작성한 코드 `eval "$(fnm env)"` 에서 `eval "$(fnm env --use-on-cd)"` 로 변경
+
+다시 확인을 해봤는데..?!
+
+![에러 화면](/images/content/fnm-environment-error-solution/1.png)
+
+여전히 동일한 에러를 띄운다😢
+
+GitHub 페이지에서도 환경 변수 에러와 관련된 내용은 이것밖에 없는 것 같고, fnm을 사용하는 커뮤니티도 많이 없는 것 같았다. 아무리 구글링해도 나오지가 않아…
+
+---
+
+## 두 번째 시도
+
+나와 동일한 문제를 겪고 있는 사람이 GitHub Issue에 남겨놓지 않았을까..? 라는 마음으로 찾아봤다.
+
+https://github.com/Schniz/fnm/issues/803
+
+정확하게 이해하진 못했지만, brew로 설치를 했다면 경로 설정이 필요하다는 답변이 달린 것을 보았다! (이거 나잖아..?)
+
+```bash
+-# FNM
+-eval "$(fnm env --use-on-cd)"
+
+# Homebrew
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
++# FNM
++eval "$(fnm env --use-on-cd)"
+```
+
+똑같이 해본 결과는..?! 여전히 실패…🤦🏻‍♀️
+
+---
+
+## 그런데 갑자기 머리를 스치듯 지나가는 생각 한 가지
+
+혹시.. 저장하고 iterm을 껐다키지 않아서 그런건가..?
+
+바로 이전 상태로 되돌려놓고 프로그램 종료 후 다시 실행시켜보니
+
+![성공 화면](/images/content/fnm-environment-error-solution/2.png)
+
+<Callout type="success">
+**해결!**
+
+아니 이게 왠걸.. 에러 없이 정상적으로 작동하는 것을 확인할 수 있었다.
+
+항상 뭐가 안될 땐, 수정된 내용들이 정상적으로 반영이 되었는지 확인을 해보고 구글링을 해보자… 10분이면 끝날 작업을 2시간 동안 쩔쩔맸다.
+
+</Callout>
+
+![삽질 짤](https://i.pinimg.com/originals/f0/4a/f5/f04af508057d51dd3875e0598f4ac4a5.png)
+
+그래도 때려치고 누군가에게 물어보려고 하지 않고 스스로 해결했다는 점에서 스스로를 위안해본다!
+
+---
+
+## 교훈
+
+<Callout type="info">
+**디버깅의 기본**
+
+1. 설정 변경 후 터미널/IDE 재시작
+2. 환경 변수 변경은 세션 재시작 필요
+3. 복잡한 해결책을 찾기 전에 기본부터 확인하기
+
+</Callout>
