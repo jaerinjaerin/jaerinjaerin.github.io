@@ -1,0 +1,427 @@
+---
+title: 클래스(Class)
+description: ES5 생성자 함수와 ES6 클래스의 차이점, 클래스 메서드와 프로퍼티에 대한 이해
+date: 2023-03-18
+tags: ['JavaScript']
+thumbnail: /thumbnails/javascript.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import Image from 'next/image';
+
+자바스크립트는 ES5 이전에도 클래스 키워드 없이 상속을 구현할 수 있었다.
+
+```jsx
+// ES5 생성자 함수
+var Person = (function () {
+  // 생성자 함수
+  function Person(name) {
+    this.name = name;
+  }
+
+  // 프로토타입 메서드
+  Person.prototype.sayHi = function () {
+    console.log('Hi! My name is ' + this.name);
+  };
+
+  // 생성자 함수 변환
+  return Person;
+})();
+
+// 인스턴스 생성
+var me = new Person('Lee');
+me.sayHi();
+```
+
+ES6에서 클래스를 도입했지만 내부 동작은 크게 다르지 않다.
+
+```jsx
+class Person2 {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHi() {
+    console.log('Hi! My name is ' + this.name);
+  }
+}
+
+const you = new Person2('Kim');
+you.sayHi();
+```
+
+console.dir로 me와 you를 확인해보면
+
+<Image
+  src='/images/content/javascript-class/1.png'
+  alt='생성자 함수로 만든 인스턴스'
+  width={600}
+  height={300}
+/>
+
+<Image
+  src='/images/content/javascript-class/2.png'
+  alt='클래스로 만든 인스턴스'
+  width={600}
+  height={300}
+/>
+
+생김새가 거의 유사하다는걸 볼 수 있다.
+
+큰 차이점이라면 constructor가 생성자 함수이냐 클래스이냐의 차이가 존재한다.
+
+## 클래스는 프로토타입을 좀 더 쉽게 쓰기 위해서 만들어놓은 문법적 설탕(Syntax Sugar)인가?
+
+그러나 클래스에는 다른 내용이 존재한다.
+
+<Callout type="info">
+## 클래스만의 특징
+
+1. new 연산자 없이 호출하면 에러가 발생한다.
+2. extends와 super 키워드를 제공한다.
+3. 호이스팅이 발생하지 않는 것처럼 동작한다. (하지만 호이스팅은 발생한다. TDZ에 걸리는 것뿐)
+4. 모든 코드에는 암묵적으로 strict mode가 지정되어 실행된다.
+5. 클래스의 constructor, 프로토타입 메서드, 정적 메서드는 모두 프로퍼티 어트리뷰트 [[Enumerable]]의 값이 false다. 👉🏻 즉, 열거되지 않는다.
+
+</Callout>
+
+## 클래스 정의하는 방법
+
+```jsx
+class Person {}
+```
+
+클래스는 함수다. 즉 값처럼 사용할 수 있는 일급 객체다.
+
+```jsx
+// 클래스 선언문
+class Person {
+  // 생성자
+  constructor(name) {
+    // 인스턴스 생성 및 초기화
+    this.name = name; // name 프로퍼티는 public하다.
+  }
+
+  // 프로토타입 메서드
+  sayHi() {
+    console.log(`Hi! My name is ${this.name}`);
+  }
+
+  // 정적 메서드
+  static sayHello() {
+    console.log('Hello!');
+  }
+}
+
+// 인스턴스 생성
+const me = new Person('Lee');
+
+// 인스턴스의 프로퍼티 참조
+console.log(me.name); // Lee
+// 프로토타입 메서드 호출
+me.sayHi(); // Hi! My name is Lee
+// 정적 메서드 호출
+Person.sayHello(); // Hello!
+me.sayHello();
+```
+
+프로토타입 메서드와 정적 메서드의 차이는?
+
+`console.dir(Person)` 을 열어보면 sayHi 메서드는 prototype에 들어가있고, sayHello는 Person의 프로퍼티로 들어가있는 것을 볼 수 있다.
+
+그렇다는 말은 me.sayHi는 호출이 가능하지만 me.sayHello는 호출이 되지 않는다는 말과 동일하다. 👉🏻 `Person.sayHello()` 로 호출해야한다.
+
+그럼 정적 메서드는 언제 사용할까?
+
+클래스 내에서 메서드가 필요한 경우가 있다. 이때는 인스턴스를 생성하기 전에 메서드를 사용하는 것이기 때문에 프로토타입 메서드로 만들지 않아도 된다. 이럴 때 정적 메서드를 사용한다.
+
+생성자 함수는 new 없이도 실행이 가능하다. new 없이 실행하면 일반함수로 실행된다.
+
+### 하지만 클래스는 new 없이 실행하려고 하면 에러가 발생한다.
+
+```jsx
+class Person {}
+
+// 클래스를 new 연산자 없이 호출하면 타입 에러가 발생한다.
+const me = Person();
+// TypeError: Class constructor Person cannot be invoked without 'new'
+```
+
+## 클래스 메서드
+
+클래스 메서드 👉🏻 constructor, prototype method, static method
+
+### constructor
+
+: 인스턴스를 생성하고 초기화하기 위한 특수한 메서드
+
+<Callout type="info">
+## constructor 특징
+
+- 클래스는 평가되어 함수 객체가 된다.
+- 모든 함수 객체는 prototype 프로퍼티를 가지고 있다. 이 prototype 프로퍼티가 가리키는 객체 안의 constructor 프로퍼티는 클래스 자신을 가리키고 있다. 👉🏻 즉, 클래스가 인스턴스를 생성하는 생성자 함수다.
+- new 연산자를 호출하면 클래스는 인스턴스를 생성한다.
+- 클래스 내부에는 한 개의 constructor만 존재해야한다.
+- constructor를 생략하면 빈 객체의 인스턴스가 생성된다.
+
+</Callout>
+
+<Callout type="warn">
+## return문 반드시 생략
+
+별도의 반환문을 갖지 말아야한다. 명시적으로 객체를 반환하면 return 문에 명시한 객체가 반환된다.
+
+```jsx
+class Person {
+  constructor(name) {
+    this.name = name;
+
+    // 명시적으로 다른 객체를 반환하면 빈 객체 반환
+    return {};
+  }
+}
+
+// 인스턴스 대신에 빈 객체가 반환된다.
+const me = new Person('Lee');
+console.log(me); // {}
+```
+
+</Callout>
+
+### prototype method
+
+생성자 함수와 마찬가지로 클래스가 생성한 인스턴스는 프로토타입 체인의 일원이 된다.
+
+```jsx
+// me 객체의 프로토타입은 Person.prototype이다.
+Object.getPrototypeOf(me) === Person.prototype; // -> true
+me instanceof Person; // -> true
+
+// Person.prototype의 프로토타입은 Object.prototype이다.
+Object.getPrototypeOf(Person.prototype) === Object.prototype; // -> true
+me instanceof Object; // -> true
+
+// me 객체의 constructor는 Person 클래스다.
+me.constructor === Person; // -> true
+```
+
+### static method
+
+```jsx
+class Person {
+  // 생성자
+  constructor(name) {
+    // 인스턴스 생성 및 초기화
+    this.name = name;
+  }
+
+  // 정적 메서드
+  static sayHi() {
+    console.log('Hi!');
+  }
+}
+```
+
+우리는 정적메서드를 본 적이 있다.
+
+```jsx
+// 표준 빌트인 객체의 메서드
+Math.max(1, 2, 3); // 3
+JSON.Stringify({ a: 1 }); // "{ "a" : 1 }"
+```
+
+Math 함수는 this를 사용해서 뭔가를 계산하는 것이 아니라 인수로 받은 값들을 가지고 처리한다. _(사실상 함수와 다름없다.)_
+
+## 클래스에서 정의한 메서드의 특징
+
+1. function 키워드를 생략한 **메서드 축약 표현**을 사용한다. 👉🏻 내부적으로 constructor를 갖지 않는 non-constructor이다.
+2. 객체 리터럴과는 다르게 클래스에 메서드를 정의할 때는 **콤마가 필요 없다.**
+3. 암묵적으로 strict mode로 실행된다.
+4. 열거 가능 여부를 나타내며 불리언 값을 갖는 프로퍼티 어트리뷰트 **[[Enumerable]]의 값이 false**이다.
+5. 내부 메소드 [[Construct]]를 갖지 않는 non-constructor이다.
+   - 따라서 new 연산자와 함께 호출할 수 없다.
+
+## 클래스의 인스턴스 생성 과정
+
+```jsx
+class Person {
+  // 생성자
+  constructor(name) {
+    // 1. 암묵적으로 인스턴스가 생성되고 this에 바인딩된다.
+    console.log(this); // Person {}
+    console.log(Object.getPrototypeOf(this) === Person.prototype); // true
+
+    // 2. this에 바인딩되어 있는 인스턴스를 초기화한다.
+    this.name = name;
+
+    // 3. 완성된 인스턴스가 바인딩된 this가 암묵적으로 반환된다.
+  }
+}
+```
+
+## 프로퍼티
+
+### 인스턴스 프로퍼티
+
+- 인스턴스 프로퍼티는 constructor 내부에서 정의해야 한다.
+- constructor 내부에서 정의한 모든 프로퍼티는 public하다.
+
+### 접근자 프로퍼티
+
+- getter, setter 함수
+
+```jsx
+const person = {
+  // 데이터 프로퍼티
+  firstName: 'Ungmo',
+  lastName: 'Lee',
+
+  // fullName은 접근자 함수로 구성된 접근자 프로퍼티다.
+  // getter 함수
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  // setter 함수
+  set fullName(name) {
+    // 배열 디스트럭처링 할당: "36.1. 배열 디스트럭처링 할당" 참고
+    [this.firstName, this.lastName] = name.split(' ');
+  },
+};
+
+// 데이터 프로퍼티를 통한 프로퍼티 값의 참조.
+console.log(`${person.firstName} ${person.lastName}`); // Ungmo Lee
+
+// 접근자 프로퍼티를 통한 프로퍼티 값의 저장
+// 접근자 프로퍼티 fullName에 값을 저장하면 setter 함수가 호출된다.
+person.fullName = 'Heegun Lee';
+console.log(person); // {firstName: "Heegun", lastName: "Lee"}
+
+// 접근자 프로퍼티를 통한 프로퍼티 값의 참조
+// 접근자 프로퍼티 fullName에 접근하면 getter 함수가 호출된다.
+console.log(person.fullName); // Heegun Lee
+
+// fullName은 접근자 프로퍼티다.
+// 접근자 프로퍼티는 get, set, enumerable, configurable 프로퍼티 어트리뷰트를 갖는다.
+console.log(Object.getOwnPropertyDescriptor(person, 'fullName'));
+// {get: ƒ, set: ƒ, enumerable: true, configurable: true}
+```
+
+### 클래스 필드 정의
+
+자바스크립트는 constructor 내부에서 프로퍼티를 정의하기 때문에 모든 프로퍼티가 public하다. 하지만 Java와 같은 언어에선 클래스 필드에서 프로퍼티를 정의할 수 있다.
+
+ES2022부터는 자바스크립트도 클래스 필드에서 정의할 수 있게 되었다.
+
+- 단, 필드에서 정의할 때에는 this를 사용하면 안된다.
+- 참조하는 경우에는 this를 반드시 사용해야 한다.
+
+```jsx
+class Person() {
+	name;
+
+	constructor(name) {
+		this.name = name
+	}
+};
+```
+
+## 메서드를 화살표함수로 썼을 때의 장점
+
+```jsx
+document.body.innerHTML = `<button class="btn">0</button>`;
+
+class App {
+  constructor() {
+    this.$button = document.querySelector('.btn');
+    this.count = 0;
+
+    // increase 메서드를 이벤트 핸들러로 등록
+    // 이벤트 핸들러 increase 내부의 this는 DOM요소를 가리킨다.
+    // 하지만 increase 함수는 화살표함수로 정의되어 있으므로
+    // increase 내부의 this는 인스턴스를 가리킨다.
+    this.$button.onClick = this.increase;
+
+    // 만약 increase가 화살표 함수가 아니라면 bind를 이용해야한다.
+    // this.$button.onClick = this.increase.bind(this);
+  }
+
+  // 인스턴스 메서드
+  // 화살표 함수의 this는 언제나 상위 컨텍스트의 this를 가리킨다.
+  increase = () => (this.$button.textContent = ++this.count);
+}
+```
+
+만약 화살표 함수가 아니면?
+
+```jsx
+document.body.innerHTML = '<button class="btn">0</button>';
+
+class App {
+  constructor() {
+    this.$button = document.querySelector('.btn');
+    this.count = 0;
+
+    this.$button.onClick = this.increase;
+  }
+
+  increase() {
+    this.$button.textContent = ++this.count;
+  }
+}
+
+new App();
+```
+
+클릭했을 때 `Cannot set properties of undefined (setting 'textContent')` 라는 에러가 발생함
+
+- 이유는? 👉🏻 this.increase를 실행했을 때 $button이라는 요소가 undefined이기 때문
+- 왜 undefined인거지? 👉🏻 this 바인딩이 달라졌다는 의미
+
+<Callout type="info">
+## this 바인딩 문제
+
+- this.increase를 넘긴게 onClick에 콜백함수로 넘긴 것
+- 메서드로 넘어간 게 아니라 `this.$button.textContent = ++this.count;` 의 내용만 넘어감.
+- `this.$button.onClick = **this.increase**;` 여기서의 this는 event 객체의 currentTarget, 즉 `<button>`을 가리키게 된다.
+- button 태그에 $button이 없기 때문에 undefined가 나올 수밖에 없는 것
+
+</Callout>
+
+이전엔 이런 문제를 해결하기 위해 bind를 사용했다.
+
+```jsx
+document.body.innerHTML = `<button class="btn">0</button>`;
+
+class App {
+  constructor() {
+    this.$button = document.querySelector('.btn');
+    this.count = 0;
+    this.$button.onClick = this.increase.bind(this);
+  }
+
+  // 인스턴스 메서드
+  // 화살표 함수의 this는 언제나 상위 컨텍스트의 this를 가리킨다.
+  increase = () => (this.$button.textContent = ++this.count);
+}
+```
+
+this 바인딩을 하지 않는 화살표함수를 사용하면?
+
+```jsx
+document.body.innerHTML = `<button class="btn">0</button>`;
+
+class App {
+  constructor() {
+    this.$button = document.querySelector('.btn');
+    this.count = 0;
+
+    this.$button.onClick = this.increase;
+  }
+
+  increase = () => (this.$button.textContent = ++this.count);
+}
+```
+
+처음 인스턴스를 생성할 때 그 자체가 this가 된다.
+
+인스턴스에 있는 $button에 접근하기 때문에 문제 없이 클릭이벤트가 동작한다.
