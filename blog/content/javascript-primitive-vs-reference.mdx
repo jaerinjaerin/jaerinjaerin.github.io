@@ -1,0 +1,175 @@
+---
+title: '원시 자료형과 참조 자료형'
+description: '자바스크립트의 원시 타입과 참조 타입의 차이점 이해하기'
+date: '2023-03-02'
+tags: ['JavaScript']
+featured: false
+thumbnail: '/thumbnails/javascript.jpg'
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+### 원시 자료형과 참조 자료형에 대해서 설명해주실 수 있을까요?
+
+라는 질문에 정확히 대답할 수 있냐라고 물어보면, 뭔지는 아는데 정확하게 설명하기 어려워 두 개념에 대해서 정리해보는 시간을 가지게 되었다.
+
+---
+
+## 원시 자료형
+
+<Callout type="info">
+**원시 자료형의 특징**
+
+- 원시 자료형은 **변경 불가능**한 값이다.
+- 값을 변경할 수 없다는 것은 구체적으로 값에 대한 진술이다. 변수에 할당한 값을 다른 값으로 변경할 수 있지만 즉, 변수 값은 변경이 가능하지만 원시 값 자체를 변경할 수 없다는 것이다.
+- 원시 값을 변수에 할당하면 변수에는 실제 값이 저장된다.
+- 원시 자료형에는 number, string, boolean, undefined, null, symbol 6개의 데이터 타입이 있다.
+
+</Callout>
+
+---
+
+## 참조 자료형
+
+<Callout type="info">
+**참조 자료형의 특징**
+
+- 참조 자료형은 **변경 가능한 값**이다.
+- 참조 값을 변수에 할당하면 변수에는 원본의 주소 값이 저장된다.
+- 원시 자료형이 아닌 모든 데이터 타입을 참조 자료형으로 구분하는데 대표적으로 배열, 객체가 있다.
+
+</Callout>
+
+<Callout type="success">
+**핵심 정리**
+
+- 원시 자료형은 **값에 의한 전달**
+- 참조 자료형은 **참조에 의한 전달**
+
+</Callout>
+
+---
+
+## 값에 의한 전달
+
+```jsx
+var score = 80;
+var copy = score;
+
+console.log(score); // 80
+console.log(copy); // 80
+
+score = 100;
+
+console.log(score); // 100
+console.log(copy); // ?
+```
+
+<Callout type="warn">
+**값 복사 메커니즘**
+
+score에 80이라는 값을 할당하고, copy 변수에 score를 할당했다. 그 후 score 변수에 새로운 숫자 값 100을 재할당하면 copy 변수의 값은 어떻게 될까?
+
+변수에 변수를 할당했을 때, 무엇이 어떻게 전달되는지를 알아야 한다.
+
+</Callout>
+
+`copy = score` 에서 score는 변수 값 80으로 평가되므로 copy에는 80이 할당된다. 이 때 새로운 숫자 값 80이 생성되어 copy 변수에 할당된다. 이처럼 변수에 원시 값을 갖는 변수를 할당하면 할당되는 변수의 원시 값이 복사되어 전달된다.
+
+![값에 의한 전달](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/7e6OS/btrdo862oUX/lnv8cYKhqCsKU6NBs3mKV0/img.jpg)
+
+<Callout type="info">
+**메모리 관점에서의 이해**
+
+변수가 할당되는 값을 **가리키고 있다** 라고 생각하면 이해하기 쉽다. 숫자 값 80을 가리키고 있는 것은 동일하지만, 다른 메모리 공간에 저장되어 있기 때문에 별개의 값이다.
+
+</Callout>
+
+그렇기 때문에 copy의 값을 변경하면,
+
+```jsx
+var score = 80;
+
+// copy 변수에는 score 변수의 값 80이 복사되어 할당된다.
+var copy = score;
+
+console.log(score, copy); // 80  80
+console.log(score === copy); // true
+
+// score 변수와 copy 변수의 값은 다른 메모리 공간에 저장된 별개의 값이다.
+// 따라서 score 변수의 값을 변경해도 copy 변수의 값에는 어떠한 영향도 주지 않는다.
+score = 100;
+
+console.log(score, copy); // 100  80
+console.log(score === copy); // false
+```
+
+<Callout type='success'>
+  score와 copy는 다른 별개의 메모리 공간에 저장되어 있었기 때문에 score에 다른
+  값을 할당하여도 copy 변수 값에는 어떠한 영향을 주지 않는다.
+</Callout>
+
+---
+
+## 참조에 의한 전달
+
+<Callout type="warn">
+**객체의 구조적 특징**
+
+객체를 원시 값처럼 복사해서 생성하게 되면 무슨 일이 일어날까? 명확하고 신뢰성이 확보되겠지만 복사해서 생성하는 비용이 많이든다. 객체는 이러한 구조적 단점에 따른 부작용이 있다. 원시 값과는 다르게 여러개의 식별자가 하나의 객체를 공유할 수 있다는 것이다.
+
+</Callout>
+
+여러개 식별자가 하나의 객체를 공유할 수 있다는 것이 무엇을 의미할까?
+
+```jsx
+var person = {
+  name: 'Lee',
+};
+
+// 참조값을 복사(얕은 복사)
+var copy = person;
+```
+
+객체를 가리키는 변수를 다른 변수에 할당했다. 이때 원본의 **참조 값이 복사되어 전달**된다. 즉, person이라는 변수의 메모리 공간 주소와 copy 변수의 메모리 공간 주소는 다르지만, 동일한 참조 값을 가지고 있다.
+
+![참조에 의한 전달](https://velog.velcdn.com/images/kozel/post/31738528-08ce-43c4-bb41-3ae672590f92/image.jpeg)
+
+<Callout type="info">
+**객체 공유의 의미**
+
+이것은 두 개의 식별자가 하나의 객체를 공유한다는 것을 의미한다.
+
+</Callout>
+
+```jsx
+var person = {
+  name: 'Lee',
+};
+
+// 참조값을 복사(얕은 복사) copy와 person은 동일한 참조 값을 갖는다.
+var copy = person;
+
+// copy와 person은 동일한 객체를 참조한다.
+console.log(copy === person); // true
+
+// copy를 통해 객체를 변경한다.
+copy.name = 'Kim';
+
+// person을 통해 객체를 변경한다.
+person.address = 'Seoul';
+
+// copy와 person은 동일한 객체를 가리킨다.
+// 따라서 어는 한쪽에서 객체를 변경하면 서로 영향을 주고 받는다.
+console.log(person); // {name: "Kim", address: "Seoul"}
+console.log(copy); // {name: "Kim", address: "Seoul"}
+```
+
+---
+
+## Review
+
+<Callout type='success'>
+  이번 기회에 원시 자료형과 참조 자료형에 대해서 정리하면서 '값에 의한 전달'과
+  '참조에 의한 전달' 이라는 용어에 대해서 다시 한 번 정리해볼 수 있었던 것 같다.
+</Callout>

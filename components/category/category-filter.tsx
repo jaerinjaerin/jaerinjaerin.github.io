@@ -8,11 +8,13 @@ import { usePathname, useRouter } from 'next/navigation';
 const CATEGORY_ICON_MAP: Record<string, string> = {
   All: 'color.png',
   'Next.js': 'music.png',
-  Algorithm: 'target.png',
-  Retrospective: 'megaphone.png',
   Typescript: 'key.png',
-  Develop: 'brush.png',
   JavaScript: 'rocket.png',
+  Algorithm: 'target.png',
+  HTML: 'notebook.png',
+  CSS: 'tool.png',
+  Retrospective: 'megaphone.png',
+  Develop: 'brush.png',
   Life: 'tool.png',
   // Add other category-icon mappings here
 };
