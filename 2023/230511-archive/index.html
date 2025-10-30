@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>Tree 개념 정복하기 🌲 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CodeStates/">
+                            CodeStates
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm-Tree/">
+                            Algorithm_Tree
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Tree 개념 정복하기 🌲
+            
+            
+        </div>
+        <span class="post-date">
+            May 11, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230511/23-05-11-4.jpeg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="Tree란-무엇인가"><a href="#Tree란-무엇인가" class="headerlink" title="Tree란 무엇인가?"></a>Tree란 무엇인가?</h2><ul>
+<li>계층적 구조를 가지고 있습니다.</li>
+<li>자식 노드를 가지고 있지 않은 가장 마지막 Node를 Leaf Node라고 합니다.</li>
+<li>노드와 노드는 간선(Edge)으로 이루어져있습니다.</li>
+</ul>
+<h2 id="Tree는-어디에-사용될까"><a href="#Tree는-어디에-사용될까" class="headerlink" title="Tree는 어디에 사용될까?"></a>Tree는 어디에 사용될까?</h2><ul>
+<li>HTML DOM<br><img src="https://poiemaweb.com/img/dom-tree.png"></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Routing">Network Routing</a></li>
+<li>Abstract Syntax Tree<br><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Abstract_syntax_tree_for_Euclidean_algorithm.svg"></li>
+</ul>
+<p>와 같은 곳에서 Tree 구조를 사용합니다.</p>
+<h2 id="Tree에는-많은-종류의-Tree가-있다"><a href="#Tree에는-많은-종류의-Tree가-있다" class="headerlink" title="Tree에는 많은 종류의 Tree가 있다."></a>Tree에는 많은 종류의 Tree가 있다.</h2><p><a target="_blank" rel="noopener" href="https://namu.wiki/w/%ED%8A%B8%EB%A6%AC(%EA%B7%B8%EB%9E%98%ED%94%84)">Tree 종류</a>를 보면 트리에도 여러 종류의 트리가 있는 걸 볼 수 있습니다. 이것들은 다 트리의 규칙에 맞게 정의된, 같은 규정을 따릅니다. 서로 약간씩 다르게 특별한 프로퍼티를 추가하거나 약간의 규칙이 더해지거나 하는 식이죠.</p>
+<p>이번에 중점적으로 공부할 트리의 종류는</p>
+<ul>
+<li>Trees</li>
+<li>Binary Trees (이진 트리)</li>
+<li>Binary Search Trees (이진 탐색 트리)</li>
+</ul>
+<p>세 가지입니다.</p>
+<h3 id="Trees"><a href="#Trees" class="headerlink" title="Trees"></a>Trees</h3><p>일반적인 트리의 모형은 다음과 같습니다.<br>자식이 0개인 노드도 있고, 자식이 2개, 3개인 노드도 있습니다. 즉, 부모 노드가 몇 개의 자식노드를 가져야한다라는 규칙이 없습니다.</p>
+<br />
+
+<h3 id="Binary-Trees-이진-트리"><a href="#Binary-Trees-이진-트리" class="headerlink" title="Binary Trees (이진 트리)"></a>Binary Trees (이진 트리)</h3><p>하지만 이진트리는 각 노드가 최대 두 개의 자식을 가저야 한다는 조건이 있습니다.<br>자식이 0개이거나 1개거나 2개일 수 있습니다. 그렇지만 3개는 안되는거죠.</p>
+<p><img src="/../img/230511/23-05-11-1.png"></p>
+<details>
+<summary>위에 트리는 트리일까요?, 이진트리일까요?</summary>
+<div markdown='1' style ="padding-top: 10px">
+트리는 맞지만, 이진트리는 아닙니다. 처음 root 노드에서부터 보면 자식 노드가 3개이기 때문에 이진트리라고 할 수 없습니다.
+</div>
+</details>
+
+<br />
+
+<h3 id="Binary-Search-Trees-이진-탐색-트리"><a href="#Binary-Search-Trees-이진-탐색-트리" class="headerlink" title="Binary Search Trees (이진 탐색 트리)"></a>Binary Search Trees (이진 탐색 트리)</h3><p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">이진 탐색 트리는 이진 트리입니다.</span></p>
+<p>둘의 차이점이라면 이진 트리의 특별한 버전이라고 생각하면 될 것 같습니다. 이진 탐색 트리는 특별한 방식으로 정렬이 되어있습니다.</p>
+<ul>
+<li>부모 노드의 왼쪽에 있는 모든 노드는 언제나 부모보다 <strong>작고</strong>,</li>
+<li>부모 노드보다 오른쪽에 있는 모든 노드는 언제나 부모보다 <strong>큽니다.</strong><br><img src="/../img/230511/23-05-11-2.png"></li>
+</ul>
+<br />
+
+<h2 id="📝-Binary-Search-Tree를-사용하는-이유"><a href="#📝-Binary-Search-Tree를-사용하는-이유" class="headerlink" title="📝 Binary Search Tree를 사용하는 이유"></a>📝 Binary Search Tree를 사용하는 이유</h2><p>이진 탐색 트리를 사용하면 찾아야하는 값을 빠르게 찾을 수 있습니다. 정렬되어 있는 데이터이기 때문에 찾아야 하는 값보다 작으면 왼쪽을, 크면 오른쪽을 탐색하면 되기 때문에 데이터 검색의 횟수가 반으로 줄어듭니다.</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230511-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230510-1-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230511-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230511-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>HOC(Higher-Order Components), 그래서 언제 써야하는데요? 🤷🏻‍♀️ | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                HOC(Higher-Order Components), 그래서 언제 써야하는데요? 🤷🏻‍♀️
+            
+            
+        </div>
+        <span class="post-date">
+            Mar 31, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230331/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>HOC 패턴 이제 안써도 된답니다.👏🏻</p>
+<p>이제 레거시 패턴이 되긴 했지만 그래도 어떻게 사용하고 언제 사용해야할지는 알아야하지 않겠습니까? 레거시 코드를 많이 마주치는 상황이 오기 때문이죠.</p>
+<br />
+
+<h1 id="HOC-Higher-Order-Components"><a href="#HOC-Higher-Order-Components" class="headerlink" title="HOC(Higher-Order Components)"></a>HOC(Higher-Order Components)</h1><p>앱 전반적으로 재사용한 로직을 prop으로 컴포넌트에게 제공</p>
+<div style="background-color:#CCEEFF; padding: 1rem; text-align: center;">🚀 컴포넌트는 props를 UI로 변환하는 반면에, 고차 컴포넌트는 컴포넌트를 새로운 컴포넌트로 변환합니다.</div>
+
+<p>우리는 여러 컴포넌트에서 같은 로직을 사용해야 하는 경우가 있습니다. 예를 들어, 컴포넌트의 스타일 시트를 설정할 수도 있고, 상태를 추가해야하는 경우가 있죠.</p>
+<p>같은 로직을 여러 컴포넌트에서 재사용하는 방법 중 하나로 고차 컴포넌트 패턴을 활용하는 방법이 있습니다.</p>
+<h2 id="고차-컴포넌트"><a href="#고차-컴포넌트" class="headerlink" title="고차 컴포넌트"></a>고차 컴포넌트</h2><p>고차 컴포넌트란 다른 컴포넌트를 받는 컴포넌트를 뜻합니다. HOC는 인자로 넘긴 컴포넌트에게 추가되길 원하는 로직을 가지고 있고 로직이 적용된 엘리먼트를 반환합니다.</p>
+<p>네..? 무슨 말인지 잘 모르겟는데요<br><img src="/../img/230331/%EC%9D%B4%ED%95%B4%EB%B6%88%EA%B0%80-%EC%9D%B4%ED%95%B4%EC%95%88%EA%B0%80-%ED%99%A9%EB%8B%B9-%EB%AA%B0%EB%9D%BC-%EB%AA%A8%EB%A5%B4%EA%B2%A0%EB%8B%A4-%EB%AA%A8%EB%A6%84-%EC%9D%B4%ED%95%B4%EB%A5%BC-%EB%AA%BB%ED%95%98%EA%B2%A0%EC%96%B4.jpg" alt="."></p>
+<br />
+
+<h3 id="예를-들어-여러-컴포넌트에게-동일한-스타일을-적용하고-싶다고-가정해봅시다"><a href="#예를-들어-여러-컴포넌트에게-동일한-스타일을-적용하고-싶다고-가정해봅시다" class="headerlink" title="예를 들어, 여러 컴포넌트에게 동일한 스타일을 적용하고 싶다고 가정해봅시다."></a>예를 들어, 여러 컴포넌트에게 동일한 스타일을 적용하고 싶다고 가정해봅시다.</h3><p>로컬 스코프에 style 객체를 직접 만드는 대신, HOC가 style 객체를 만들어 컴포넌트에 전달하도록 합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">withStyles</span>(<span class="params">WrappedComponent</span>) &#123;</span><br><span class="line">  <span class="comment">// 로직이 적용된 엘리먼트를 반환한다.</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> style = &#123; <span class="attr">padding</span>: <span class="string">&#x27;100px&#x27;</span>, <span class="attr">margin</span>: <span class="string">&#x27;1rem&#x27;</span>, <span class="attr">fontSize</span>: <span class="string">&#x27;30px&#x27;</span> &#125;;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;style&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">WrappedComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Button</span> = (<span class="params"></span>) =&gt; <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Text</span> = (<span class="params"></span>) =&gt; <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello word!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">StyledButton</span> = <span class="title function_">withStyles</span>(<span class="title class_">Button</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">StyledText</span> = <span class="title function_">withStyles</span>(<span class="title class_">Text</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">StyledButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">StyledText</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/230331/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%201.png" alt="."><br>Button컴포넌트와 Text컴포넌트를 수정한 StyledButton과 StyledText컴포넌트를 만들었습니다. 두 컴포넌트 모두 withStyles HOC로부터 스타일링 로직이 적용된거죠!</p>
+<br />
+
+<p>강아지 사진 목록을 API로부터 받아와서 렌더링을 하는 또 하나의 예제를 봐봅시다.</p>
+<iframe src="https://codesandbox.io/embed/hoc-pattern-1-forked-3zy2ec?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="hoc-pattern-1 (forked)"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+
+<p>UX를 개선하기 위해서 데이터를 받아오는 중에는 “로딩 중”이라는 메세지를 화면에 보여주고 싶다면 어떻게 해야할까요?</p>
+<p>지금 드는 아이디어로는 useState를 사용해서 데이터를 받아오기 전엔 Loader 컴포넌트를 렌더링하고 데이터가 다 받아와지면 이미지 컴포넌트를 렌더링시키면 될 것 같습니다.</p>
+  <br />
+
+<p>고차 컴포넌트를 활용하면?</p>
+<p>먼저 withLoader라는 HOC를 만듭니다.</p>
+<blockquote>
+<p>HOC는 컴포넌트를 인자로 받아 컴포넌트를 반환해야하는 것 잊지 마세요!</p>
+</blockquote>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// withLoader.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">withLoader</span>(<span class="params">Element, url</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [data, setData] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(url);</span><br><span class="line">        <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line">        <span class="title function_">setData</span>(data);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="title function_">getData</span>();</span><br><span class="line">    &#125;, []);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// API응답을 받기 전까진 `Loading...`메시지를 출력</span></span><br><span class="line">    <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Element</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">data</span>=<span class="string">&#123;data&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 예제에서 HOC는 컴포넌트와 URL을 받습니다.</p>
+<ol>
+<li><p>withLoader의 useEffect 훅에서 url로 API를 호출하여 데이터를 받아오고 있습니다. 응답이 오기 전까지는 Loading… 텍스트를 렌더링합니다.</p>
+</li>
+<li><p>데이터를 받아오고 나면 data 상태를 초기화하게 되므로 인자로 전달되었던 컴포넌트가 화면에 렌더링됩니다.</p>
+</li>
+</ol>
+<br />
+
+<p><code>DogImages.js</code>에서 더 이상 DogImages 컴포넌트를 직접 export할 필요가 없어졌습니다. 대신 withLoading HOC로 감싸진 DogImages 컴포넌트를 export하면 됩니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withLoader</span>(</span><br><span class="line">  <span class="title class_">DogImages</span>,</span><br><span class="line">  <span class="string">&#x27;https://dog.ceo/api/breed/labrador/images/random/6&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p>withLoader HOC는 데이터를 prop으로 전달하고 있기 때문에 데이터를 가지고 강아지 사진 목록을 사용할 수 있습니다.</p>
+<p>고차 컴포넌트 패터은 동일 로직을 여러 컴포넌트들에 제공할 수 있게 해줍니다. <code>withLoader</code> HOC는 컴포넌트와 url에서 받아오는 데이터에 대해서는 관여하지 않고 받아온 데이터를 넘길 뿐이죠.</p>
+<h2 id="고차-컴포넌트를-조합해보자"><a href="#고차-컴포넌트를-조합해보자" class="headerlink" title="고차 컴포넌트를 조합해보자!"></a>고차 컴포넌트를 조합해보자!</h2><p>여러 고차 컴포넌트를 조합해서 사용할 수도 있습니다. 위 예제에서 DogImages 컴포넌트에 hover 효과를 적용시켜보자구요.</p>
+<p><code>hovering</code>이라는 prop을 제공하는 HOC를 만들어야 합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">DogImages</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> &#123;<span class="attr">...props</span>&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.hovering &amp;&amp; <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;hover&quot;</span>&gt;</span>Hovering!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.data.message.map((dog, index) =&gt; (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;dog&#125;</span> <span class="attr">alt</span>=<span class="string">&quot;Dog&quot;</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        ))&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withHover</span>(</span><br><span class="line">  <span class="title function_">withLoader</span>(<span class="title class_">DogImages</span>, <span class="string">&#x27;https://dog.ceo/api/breed/labrador/images/random/6&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>DogImages에서 이 prop을 기준으로 hover 효과를 결정하면 됩니다.</p>
+<iframe src="https://codesandbox.io/embed/hoc-pattern-3-whhh0?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="hoc-pattern-3"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+
+<p>DogImages 엘리먼트는 이제 withHover와 withLoader에서 제공하는 prop을 사용할 수 있습니다.</p>
+<br />
+
+<p>쉽게 이해가 가진 않는군요…<br><img src="/../img/230331/%EB%82%98%EB%8F%84-%EB%82%B4%EA%B0%80-%EB%AD%94-%EC%86%8C%EB%A6%B4-%ED%95%98%EB%8A%94%EC%A7%80-%EB%AA%B0%EB%9D%BC-%EA%B7%B8%EB%83%A5-%EC%9E%98%EB%82%9C-%EC%B2%99-%ED%95%9C%EA%B1%B0%EC%95%BC.jpg" alt="."></p>
+<h1 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h1><p>몇몇 상황은 React의 훅으로 대체할 수 있습니다.</p>
+<p>위에서 구현했던 <code>withHover</code> HOC를 useHover 훅으로 대체해보면,</p>
+<ul>
+<li><p>고차 컴포넌트를 사용하는 대신 엘리먼트에 <code>mouseOver</code>, <code>mouseLeave</code>이벤트 핸들러 추가</p>
+</li>
+<li><p>HOC처럼 엘리먼트를 반환할 수 없으니, ref를 반환하여 이벤트 핸들러를 추가할 엘리먼트를 지정</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useHover.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; useState, useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">useHover</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [hovering, setHover] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">const</span> ref = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleMouseOver</span> = (<span class="params"></span>) =&gt; <span class="title function_">setHover</span>(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleMouseOut</span> = (<span class="params"></span>) =&gt; <span class="title function_">setHover</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> node = ref.<span class="property">current</span>;</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">      node.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mouseover&#x27;</span>, handleMouseOver);</span><br><span class="line">      node.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mouseout&#x27;</span>, handleMouseOut);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        node.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;mouseover&#x27;</span>, handleMouseOver);</span><br><span class="line">        node.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;mouseout&#x27;</span>, handleMouseOut);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [ref.<span class="property">current</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> [ref, hovering];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// withLoader.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">withLoader</span>(<span class="params">Element, url</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [data, setData] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">fetch</span>(url)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> res.<span class="title function_">json</span>())</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="title function_">setData</span>(data));</span><br><span class="line">    &#125;, []);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Element</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">data</span>=<span class="string">&#123;data&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> withLoader <span class="keyword">from</span> <span class="string">&#x27;./withLoader&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> useHover <span class="keyword">from</span> <span class="string">&#x27;./useHover&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">DogImages</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [hoverRef, hovering] = <span class="title function_">useHover</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;hoverRef&#125;</span> &#123;<span class="attr">...props</span>&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;hovering &amp;&amp; <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;hover&quot;</span>&gt;</span>Hovering!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.data.message.map((dog, index) =&gt; (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;dog&#125;</span> <span class="attr">alt</span>=<span class="string">&quot;Dog&quot;</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        ))&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withLoader</span>(</span><br><span class="line">  <span class="title class_">DogImages</span>,</span><br><span class="line">  <span class="string">&#x27;https://dog.ceo/api/breed/labrador/images/random/6&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>+) usehooks 라이브러리를 설치해서 <a target="_blank" rel="noopener" href="https://usehooks-ts.com/react-hook/use-hover">useHover</a> hook을 사용할 수도 있습니다.</p>
+<br />
+
+<h3 id="HOC-패턴-장점은"><a href="#HOC-패턴-장점은" class="headerlink" title="HOC 패턴 장점은?"></a>HOC 패턴 장점은?</h3><p>고차 컴포넌트를 사용하면 한 곳에 구현한 로직들을 여러 컴포넌트에서 재사용할 수 있다.</p>
+<h3 id="단점은요"><a href="#단점은요" class="headerlink" title="단점은요?"></a>단점은요?</h3><p>HOC가 반환하는 컴포넌트에 전달하는 props의 이름이 겹칠 수 있다.</p>
+<p>👉🏻 <a target="_blank" rel="noopener" href="https://patterns-dev-kr.github.io/design-patterns/hoc-pattern/#%EB%8B%A8%EC%A0%90">HOC패턴의 단점</a></p>
+<p>👉🏻 <a target="_blank" rel="noopener" href="https://yceffort.kr/2020/10/react-hooks-and-hocs">리액트의 Hooks과 HOC, HOC의 사용이 복잡해지는 경우</a></p>
+<br />
+
+<h2 id="그래서-HOC-패턴-언제-사용하는거죠"><a href="#그래서-HOC-패턴-언제-사용하는거죠" class="headerlink" title="그래서 HOC 패턴 언제 사용하는거죠?"></a>그래서 HOC 패턴 언제 사용하는거죠?</h2><ul>
+<li><p>앱 전반적으로 동일하며 커스터마이징 불가한 동작이 여러 컴포넌트에 필요한 경우</p>
+</li>
+<li><p>컴포넌트가 커스텀 로직 추가 없이 단독으로 동작할 수 있어야 하는 경우</p>
+</li>
+</ul>
+<br />
+
+<h2 id="Referrence"><a href="#Referrence" class="headerlink" title="Referrence"></a>Referrence</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://jjalbang.today/files/jjalbox/2021/06/20210623_60d2a03eba830.jpg">HOC 패턴</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://usehooks-ts.com/react-hook/use-hover">useHooks - useHover</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://yceffort.kr/2020/10/react-hooks-and-hocs">리액트의 Hooks과 HOC, HOC의 사용이 복잡해지는 경우</a></p>
+</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230402-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230330-2-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230330-3-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230330-3-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

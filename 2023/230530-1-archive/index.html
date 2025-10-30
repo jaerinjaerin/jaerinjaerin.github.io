@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>Type &#39;unknown&#39; is not assignable to type &#39;Restaurant[] | undefined&#39;. | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Error-Solution/">
+                            Error_Solution
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/TypeScript/">
+                            TypeScript
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Type &#39;unknown&#39; is not assignable to type &#39;Restaurant[] | undefined&#39;.
+            
+            
+        </div>
+        <span class="post-date">
+            May 30, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/error-solution.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>useFetch를 사용해서 데이터를 받아오고 그 데이터를 가지고 렌더링을 하려고 코드를 구현했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useFetch &#125; <span class="keyword">from</span> <span class="string">&#x27;usehooks-ts&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x27;/restaurants&#x27; endpoint로 식당 목록 받아오기</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">useFetchRestaurants</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">useFetch</span>(<span class="string">&#x27;http://localhost:9999/restaurants&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 App 컴포넌트에서 <code>const &#123; data &#125; = useFetchRestaurants()</code>로 불러서 데이터를 사용하려고 했는데요, data의 타입을 모른다는 에러를 확인했습니다.</p>
+<br />
+
+<p>이때 든 생각은 ‘data는 undefined일 수도 있고 배열일 수도 있겠구나!🤔’였습니다. 그래서 data에 Union으로 타입을 지정해줘야겠다!라는 생각을 했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; data &#125;: &#123; <span class="attr">data</span>: <span class="title class_">Restaurant</span>[] | <span class="literal">undefined</span> &#125; = <span class="title function_">useFetchRestaurants</span>();</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 작성해도 아래와 같은 오류가 발생했습니다.</p>
+<blockquote>
+<p>Type ‘State<unknown>‘ is not assignable to type ‘{ data: Restaurant[] | undefined; }’. Types of property ‘data’ are incompatible. Type ‘unknown’ is not assignable to type ‘Restaurant[] | undefined’.</p>
+</blockquote>
+<br />
+ 
+<p>도대체 이게 무슨 말인가 하고 살펴보니 data라는 변수는 unknown이라서 제가 지정한 타입을 할당할 수 없다는 것이었습니다. 그럼 어떻게 해야하는거지…? 기본 개념만 익힌 저에겐 너무 막막한 문제라고 생각이 들었고 Chat GPT에게 도움을 받아봤습니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">unknown 타입의 값을 확정적인 타입으로 변환하기 위해서는 타입 단언(Type Assertion)을 사용할 수 있습니다. 다음과 같이 코드를 수정해보세요</span></p>
+<p>라는 답변을 받았고,</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; data &#125;: &#123; <span class="attr">data</span>: <span class="title class_">Restaurant</span>[] | <span class="literal">undefined</span> &#125; = <span class="title function_">useFetchRestaurants</span>() <span class="keyword">as</span> &#123;</span><br><span class="line">  <span class="attr">data</span>: <span class="title class_">Restaurant</span>[] | <span class="literal">undefined</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 코드를 작성하면 에러 없이 동작하는 것을 확인했습니다.</p>
+<p>그런데 문득 ‘unknown은 가급적 사용하지 말라고 했는데, 저렇게 타입 단언을 한다는 건 unknown을 사용했다는 거 아닌가?’라는 생각이 들었습니다.</p>
+<br />
+
+<h3 id="✅-해결방법"><a href="#✅-해결방법" class="headerlink" title="✅ 해결방법"></a>✅ 해결방법</h3><p>usehooks-ts 공식문서에서 Usage를 살펴보니, useFetch를 할 때 타입을 지정해줘야 하는 것을 알게되었습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useFetch &#125; <span class="keyword">from</span> <span class="string">&#x27;usehooks-ts&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">`http://jsonplaceholder.typicode.com/posts`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Post</span> &#123;</span><br><span class="line">  <span class="attr">userId</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">title</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">body</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Component</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data, error &#125; = useFetch&lt;<span class="title class_">Post</span>[]&gt;(url); <span class="comment">// ✅ useFetch할 때 제네릭으로 타입을 알려줘야한다.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>There is an error.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (!data) <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;data[0].title&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 방식을 적용해서 코드를 수정해보면</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useFetch &#125; <span class="keyword">from</span> <span class="string">&#x27;usehooks-ts&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Restaurant</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Restaurant&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x27;/restaurants&#x27; endpoint로 식당 목록 받아오기</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">useFetchRestaurants</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data, error &#125; = useFetch&lt;<span class="title class_">Restaurant</span>[]&gt;(</span><br><span class="line">    <span class="string">&#x27;http://localhost:9999/restaurants&#x27;</span></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; data &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 되면</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="attr">data</span>: restaurants &#125; = <span class="title function_">useFetchRestaurants</span>();</span><br></pre></td></tr></table></figure>
+
+<p>사용하는 코드 내에서 아무런 반환값을 써주지 않아도 문제 없이 동작합니다 :)</p>
+<hr>
+<br />
+
+<p>타입스크립트는 아직 익숙하지 않아서 에러 메세지를 봐도 이 에러 메세지가 무엇을 의미하는지 이해하지 못하는 경우가 대부분입니다.. 오히려 좋은 점이라면 에러 메세지를 해결하면서 타입스크립트를 공부할 수 있다는 것이죠!</p>
+<br />
+
+<h2 id="🔨-Reference-Code"><a href="#🔨-Reference-Code" class="headerlink" title="🔨 Reference Code"></a>🔨 Reference Code</h2><p>이전에 제가 작성한 코드에서는 <code>return &#123;data&#125;</code>를 보냈었는데요, 이렇게 되면 data가 undefined으로 들어오거나 데이터를 담을 배열이 들어옵니다. 하지만 저는 지금 undefined가 필요가 없기 때문에 useFetch를 할 때 data가 undefined이면 빈 배열을 리턴하는 것이 낫다는 생각이 들었습니다.</p>
+<p>왜냐하면 데이터를 받아서 map으로 순회할 것이기 때문에 undefined가 들어오면 에러가 발생합니다. 하지만 빈 배열일 때는 아무 것도 렌더링을 시키지 않을 뿐 에러는 발생시키지 않습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Restaurants</span> &#123;</span><br><span class="line">  [<span class="attr">restaurants</span>: <span class="built_in">string</span>]: <span class="title class_">Restaurant</span>[];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">useFetchRestaurants</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data &#125; = useFetch&lt;<span class="title class_">Restaurants</span>&gt;(url);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!data) &#123;</span><br><span class="line">    <span class="keyword">return</span> [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> data.<span class="property">restaurants</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230605-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230530-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230530-1-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230530-1-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

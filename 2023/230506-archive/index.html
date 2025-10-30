@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>TypeScript Generic은 언제쓰는걸까? 🦁 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/TypeScript/">
+                            TypeScript
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                TypeScript Generic은 언제쓰는걸까? 🦁
+            
+            
+        </div>
+        <span class="post-date">
+            May 6, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/typescript.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>타입스크립트를 공부하던 중에 Generic이라는 개념에 대해서 배웠습니다. 언제 사용하는 건지 간단한 예시를 통해 정리를 해놓으려고 합니다.</p>
+<hr>
+<br />
+
+<h3 id="✅-Generic을-쓰는-이유가-뭘까"><a href="#✅-Generic을-쓰는-이유가-뭘까" class="headerlink" title="✅ Generic을 쓰는 이유가 뭘까?"></a>✅ Generic을 쓰는 이유가 뭘까?</h3><p>하나의 함수를 만든다고 가정해봅시다. 파라미터로 하나의 Array를 받을 건데, 이 배열의 각 요소들이 어떤 타입을 가지고 있을지는 모릅니다. 이럴 때 어떻게 해야할까요?</p>
+<p>한 가지 방법은 경우의 수를 모두 적어놓는 것입니다.<br>숫자로 이루어진 배열, 문자로 이루어진 배열, boolean으로 이루어진 배열이 들어올 것이라고 가정하고 타입을 생성합니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> somethingPrint = &#123;</span><br><span class="line">  (<span class="attr">arr</span>: <span class="built_in">number</span>[]): <span class="built_in">void</span></span><br><span class="line">  (<span class="attr">arr</span>: <span class="built_in">string</span>[]): <span class="built_in">void</span></span><br><span class="line">  (<span class="attr">arr</span>: <span class="built_in">boolean</span>[]): <span class="built_in">void</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">somethingPrint</span> = (<span class="params">arr</span>) =&gt; &#123;</span><br><span class="line">  arr.<span class="title function_">forEach</span>(<span class="function"><span class="params">i</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">somethingPrint</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="title function_">somethingPrint</span>([<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 사용하면 문제는 없습니다만, 만약 <code>somethingPrint([1, 2, &quot;a&quot;, &quot;b&quot;])</code>와 같이 문자와 숫자로 이뤄진 배열을 받게되는 순간 에러가 발생합니다. 쓰다보니 좋은 방법이 아니라는 생각이 듭니다.. 🤔</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">👉🏻 이럴 때 사용하는 것이 Generic!</span></p>
+<br />
+
+<h3 id="✅-Generic-사용방법"><a href="#✅-Generic-사용방법" class="headerlink" title="✅ Generic 사용방법"></a>✅ Generic 사용방법</h3><p>&lt;&gt;를 사용해서 Generic을 생성합니다. &lt;&gt; 안에 들어가는 명칭은 무엇이든 상관은 없으나, 외부 라이브러리들 타입 선언해놓은 것들을 보면 T, V를 많이 사용하는 것 같습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> somethingPrint = &#123;</span><br><span class="line">  &lt;<span class="title class_">TypePlaceholder</span>&gt;(<span class="attr">arr</span>: <span class="title class_">TypePlaceholder</span>[]): <span class="built_in">void</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">somethingPrint</span>: somethingPrint = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  arr.<span class="title function_">forEach</span>(<span class="function">(<span class="params">i</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(i));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">somethingPrint</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="title function_">somethingPrint</span>([<span class="string">&#x27;1,&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>]);</span><br><span class="line"><span class="title function_">somethingPrint</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>타입스크립트는 타입을 추론해서 생성하는 것을 확인할 수 있습니다.<br><img src="/../img/230506/23-05-07-1.png"></p>
+<br />
+
+<p>위 코드는 타입을 생성할 때 void로 리턴하는게 없다는 것을 명시했습니다..근데 만약에 무언가를 리턴하는 함수라면 어떻게 해야할까요?</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> somethingPrint = &#123;</span><br><span class="line">  &lt;<span class="title class_">TypePlaceholder</span>&gt;(<span class="attr">arr</span>: <span class="title class_">TypePlaceholder</span>[]): <span class="title class_">TypePlaceholder</span>; <span class="comment">// ✅ 리턴값의 타입을 명시</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> somethingPrint = &#123;</span><br><span class="line">  &lt;T&gt;(<span class="attr">arr</span>: T[]): T;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h3 id="✅-그래서-이거-언제-사용하는-걸까"><a href="#✅-그래서-이거-언제-사용하는-걸까" class="headerlink" title="✅ 그래서 이거 언제 사용하는 걸까?"></a>✅ 그래서 이거 언제 사용하는 걸까?</h3><p>하나의 Player 객체를 만들려고하는데 name이라는 프로퍼티는 필수적으로 만들예정이지만 extraInfo에는 어떤 프로퍼티가 들어올지 아직 모른다고 했을 때 Generic을 사용해서 타입을 정의해주면 됩니다. :)</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Player</span>&lt;T&gt; = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">extraInfo</span>: T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">leejaelll</span>:<span class="title class_">Player</span>&lt;&#123;<span class="attr">favFood</span>: <span class="built_in">string</span>&#125;&gt; =&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;leejaerin&#x27;</span>,</span><br><span class="line">  <span class="attr">extraInfo</span>: &#123;</span><br><span class="line">    <span class="attr">favFood</span>: <span class="string">&quot;pizza&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 🚧 동일하지만 다르게 쓸 수도 있음</span></span><br><span class="line"><span class="keyword">type</span> leejaelllPlayer = <span class="title class_">Player</span>&lt;&#123;<span class="attr">favFood</span>: <span class="built_in">string</span>&#125;&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">leejaelll</span>:leejaelllPlayer =&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;leejaerin&#x27;</span>,</span><br><span class="line">  <span class="attr">extraInfo</span>: &#123;</span><br><span class="line">    <span class="attr">favFood</span>: <span class="string">&quot;pizza&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230506-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230505-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230506-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230506-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>카멜케이스 문자 변환하기 📦 (\B 사용해보기) | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm-RegEx/">
+                            Algorithm_RegEx
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                카멜케이스 문자 변환하기 📦 (\B 사용해보기)
+            
+            
+        </div>
+        <span class="post-date">
+            Jun 10, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>카멜 케이스롤 표현한 문자를 대문자마다 공백을 추가한 문자로 변환하는 함수를 만들려고 했습니다.<br>예를 들면’MidnightBlue’ 👉🏻 ‘Midnight Blue’ 처럼요.</p>
+<br />
+
+<h2 id="🐥-정규표현식을-사용해보자"><a href="#🐥-정규표현식을-사용해보자" class="headerlink" title="🐥 정규표현식을 사용해보자!"></a>🐥 정규표현식을 사용해보자!</h2><p>우리가 바꾸고 싶은 것은 소문자와 대문자가 연결되는 부분에 공백을 추가하려는 것입니다. 이때 사용할 수 있는 것이 <code>\B</code> 입니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold"><code>\B</code>는 문자와 문자 사이의 경계, 비문자와 비문자 사이의 경계를 의미합니다.</span></p>
+<p>간단하게 예를 들어보면, ‘!-! abc’와 같은 문자열에서 비문자 사이에서 비문자(-)를 찾거나 문자 사이에서 문자(b)를 찾을 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;!-! abc&#x27;</span>.<span class="title function_">replace</span>(<span class="regexp">/\B-\B/g</span>, <span class="string">&#x27;!&#x27;</span>); <span class="comment">// &#x27;!!! abc&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;!-! abc&#x27;</span>.<span class="title function_">replace</span>(<span class="regexp">/\Bb\B/g</span>, <span class="string">&#x27;d&#x27;</span>); <span class="comment">// &#x27;!-! adc&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p>이 방법으로 문자와 문자 사이에서 대문자를 찾고, 공백을 추가해주면 될 것 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">replaceCamelwithSpaces</span>(<span class="params">colorName</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> colorName.<span class="title function_">replace</span>(<span class="regexp">/\B([A-Z])\B/g</span>, <span class="string">&#x27; $1&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="🚀-A-Z-를-괄호로-묶은-이유"><a href="#🚀-A-Z-를-괄호로-묶은-이유" class="headerlink" title="🚀 [A-Z]를 괄호로 묶은 이유"></a>🚀 [A-Z]를 괄호로 묶은 이유</h3><p>정규표현식에서 괄호로 묶게되면 그룹으로 캡쳐링이 가능해집니다. 정규식 패턴의 일부를 괄호 ()로 묶으면 캡처 그룹이 형성됩니다. 첫 번째 캡처 그룹은 ‘$1’, 두 번째 캡처 그룹은 ‘$2’ 등으로 참조되는 거죠.</p>
+<p>replace를 할 때, 기존의 대문자가 사라지면 안되기 때문에 캡쳐링을 해놓고 참조를 해야합니다.</p>
+<br />
+
+<p>정규표현식의 세계는 무궁무진한 것 같습니다..🤯</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p><a target="_blank" rel="noopener" href="https://choonse.com/2022/06/01/1033/">정규표현식 \b \B의 단어 경계(word boundary)</a></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230607-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230610-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230610-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

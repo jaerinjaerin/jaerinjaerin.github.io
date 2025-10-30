@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>Redux를 이용한 쇼핑몰 애플리케이션 만들기 - 트러블슈팅🔫 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/CodeStates/">
+                            CodeStates
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Trouble-Shooting/">
+                            Trouble_Shooting
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Redux를 이용한 쇼핑몰 애플리케이션 만들기 - 트러블슈팅🔫
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 26, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%9D%BC%EC%83%81.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>이번 주에는 리덕스에 대해서 공부하고 리덕스를 활용해서 이전에 만들었던 쇼핑몰 애플리케이션을 리팩토링하는 과제를 진행했습니다.</p>
+<p>우선 이 과제를 하면서 느꼈던 건 리덕스… 이놈 뭔데… 입니다. 너무 어렵더군요. 그래도 어떻게든 이해하고 과제를 하면서 성장해야하는 것이 코드스테이츠 수강생의 숙명 아니겠습니까.</p>
+<img src="https://leejaelll.github.io/img/photo/%ED%9E%98%EB%93%A6.jpeg" style="width:512px; height:auto">
+
+<br />
+
+<p>과제를 하면서 맞닥뜨렸던 오류를 남겨놓지 않으면 이후에 어떻게 문제를 해결했는지 분명 까먹을 것 같아서 기록하려고 합니다.</p>
+<br />
+
+<h2 id="1️⃣-삭제버튼을-눌렀을-때-Reducer-함수-코드에서의-오류"><a href="#1️⃣-삭제버튼을-눌렀을-때-Reducer-함수-코드에서의-오류" class="headerlink" title="1️⃣ 삭제버튼을 눌렀을 때 Reducer 함수 코드에서의 오류"></a>1️⃣ 삭제버튼을 눌렀을 때 Reducer 함수 코드에서의 오류</h2><p>삭제버튼을 누르면 <code>dispatch(removeFromCart(itemId))</code>가 실행되고 dispatch 객체는 Reducer 함수로 반환한 Action객체를 전달합니다.</p>
+<p>Action 객체는 다음과 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="variable constant_">REMOVE_FROM_CART</span>,</span><br><span class="line">  <span class="attr">payload</span>: &#123; itemId &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Reducer 함수는 action.type에 따라 state를 변경한 새로운 객체를 반환합니다.<br>state.cartItems에서 인자로 받은 &#96;action.payload.itemId’만 제거한 후 새로운 객체를 반환하면 되겠다라는 생각으로 코드를 구현했습니다.</p>
+<p><strong>오류 코드</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="attr">REMOVE_FROM_CART</span>:</span><br><span class="line">  <span class="keyword">const</span> <span class="variable constant_">ID</span> = action.<span class="property">payload</span>.<span class="property">itemId</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, state, &#123;</span><br><span class="line">    <span class="attr">cartItems</span>: state.<span class="property">cartItems</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> item.<span class="property">itemId</span> !== <span class="variable constant_">ID</span>);</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>cartItems에 바로 넣으면 반영을 못하는건가…? filter 함수는 새로운 배열을 반환하고 그 배열을 cartItems에 값으로 넣어주겠다는건데 왜 동작이 안되는걸까?🤔</p>
+<br />
+
+<p><strong>정상동작 코드</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="attr">REMOVE_FROM_CART</span>:</span><br><span class="line">  <span class="keyword">const</span> <span class="variable constant_">ID</span> = action.<span class="property">payload</span>.<span class="property">itemId</span>;</span><br><span class="line">  <span class="keyword">const</span> cartItems = state.<span class="property">cartItems</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> item.<span class="property">itemId</span> !== <span class="variable constant_">ID</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, state, &#123;</span><br><span class="line">    <span class="attr">cartItems</span>: cartItems,</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>여기서 의문점이 든 건 위 코드는 동작하지 않고 아래 코드는 정상적으로 동작한다는 것이었습니다.<br><br /></p>
+<p>이유를 찾기 위해서 제대로 동작하지 않았던 코드를 살려서 프로그램을 실행시켜보니…. 정상적으로 돌아갑니다…</p>
+<img src="https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small" style="width:512px; height:auto">
+
+<p>오류 코드를 제대로 기록해놓지 않아 정확히 어디서 오류가 났는지 찾지 못한 나… 오류와 원인을 찾기 위해선 코드와 오류메세지, 그리고 어떤 환경이었는지까지 기록을 해놔야한다는 것을 깨달았습니다.</p>
+<br />
+
+<h2 id="2️⃣-상품을-추가한-후-‘-x2F-shoppingcart’-페이지로-넘어갔을-때-렌더링되지-않는-오류"><a href="#2️⃣-상품을-추가한-후-‘-x2F-shoppingcart’-페이지로-넘어갔을-때-렌더링되지-않는-오류" class="headerlink" title="2️⃣ 상품을 추가한 후 ‘&#x2F;shoppingcart’ 페이지로 넘어갔을 때 렌더링되지 않는 오류"></a>2️⃣ 상품을 추가한 후 ‘&#x2F;shoppingcart’ 페이지로 넘어갔을 때 렌더링되지 않는 오류</h2><p>장바구니에 상품을 담고 장바구니 페이지로 넘어갔을 때 담은 장바구니 상품들이 렌더링되지 않는 오류가 발생했습니다.</p>
+<p><img src="/../img/230426/230426-7.gif"></p>
+<p>state에 값으로 무엇이 들어오는지 확인하기 위해 콘솔을 출력해보니</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ShoppingCart</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> state = <span class="title function_">useSelector</span>(<span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">itemReducer</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;shoppingcart가 렌더링되고 나서의 state&#x27;</span>, state);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/230426/230426-8.png"></p>
+<p>cartItems 배열에 처음 들어가있던 상품 3개를 제외하고 1개의 상품을 잘 추가해서 넣은 것 같지만..?</p>
+<br />
+
+<p><img src="/../img/230426/230426-9.png"><br>마지막에 넣은 객체의 상태가 이상한 것을 볼 수 있습니다.</p>
+<p>우선 객체를 만드는 곳부터 찾아서 하나씩 확인을 했습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">addToCart</span> = (<span class="params">itemId</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="variable constant_">ADD_TO_CART</span>,</span><br><span class="line">    <span class="attr">payload</span>: &#123;</span><br><span class="line">      itemId,</span><br><span class="line">      <span class="attr">quantity</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>addToCart 함수에서는 문제가 없으니, dispatch 함수가 Reducer 함수에게 Action 객체를 어떻게 보내는지 확인했습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">handleClick</span> = (<span class="params">item</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!cartItems.<span class="title function_">map</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> el.<span class="property">itemId</span>).<span class="title function_">includes</span>(item.<span class="property">id</span>)) &#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span> dispatch 함수를 호출하여 아이템 추가에 대한 액션을 전달하세요.</span></span><br><span class="line">    <span class="title function_">dispatch</span>(<span class="title function_">addToCart</span>());</span><br><span class="line">    <span class="title function_">dispatch</span>(<span class="title function_">notify</span>(<span class="string">`장바구니에 <span class="subst">$&#123;item.name&#125;</span>이(가) 추가되었습니다.`</span>));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">dispatch</span>(<span class="title function_">notify</span>(<span class="string">&#x27;이미 추가된 상품입니다.&#x27;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>앗..addToCart에 아무것도 넣어주지 않았군요..</p>
+<p>addToCart action creator는 itemId를 받아서 객체를 만들기 때문에 addToCart 함수에는 item.id를 넣어줌으로써 오류를 해결했습니다.</p>
+<br />
+
+<h2 id="3️⃣-에러는-아니지만-Reducer-함수-코드에-대한-고민"><a href="#3️⃣-에러는-아니지만-Reducer-함수-코드에-대한-고민" class="headerlink" title="3️⃣ 에러는 아니지만 Reducer 함수 코드에 대한 고민"></a>3️⃣ 에러는 아니지만 Reducer 함수 코드에 대한 고민</h2><p>고민을 하게 된 코드는 다음과 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="attr">SET_QUANTITY</span>:</span><br><span class="line">  <span class="keyword">let</span> idx = state.<span class="property">cartItems</span>.<span class="title function_">findIndex</span>(</span><br><span class="line">    <span class="function">(<span class="params">el</span>) =&gt;</span> el.<span class="property">itemId</span> === action.<span class="property">payload</span>.<span class="property">itemId</span></span><br><span class="line">  );</span><br><span class="line">  state.<span class="property">cartItems</span>[idx].<span class="property">quantity</span> = action.<span class="property">payload</span>.<span class="property">quantity</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, state, &#123; <span class="attr">cartItems</span>: [...state.<span class="property">cartItems</span>] &#125;);</span><br><span class="line"><span class="attr">default</span>:</span><br><span class="line">  <span class="keyword">return</span> state;</span><br></pre></td></tr></table></figure>
+
+<p>수량버튼을 누를 때마다 수량을 변경하는 코드입니다.<br>코드는 정상적으로 동작을 합니다만, Reducer 함수의 기본적 원칙을 벗어났다고 생각했습니다.</p>
+<blockquote>
+<p>바로 Reducer의 Immutability(불변성)입니다. Redux의 state 업데이트는 immutable한 방식으로 변경해야 한다는 것인데요. Redux의 장점 중 하나인 변경된 state를 로그로 남기기 위해서 꼭 필요한 작업입니다.</p>
+</blockquote>
+<p>하지만 제가 작성한 코드는 state.cartItems의 수량을 직접적으로 변경시키고 변경된 state를 새로운 객체로 반환합니다. 새로운 객체로 반환은 했지만 state를 직접 건들였기 때문에 immutable하지 못한 함수가 되었습니다.</p>
+<br />
+
+<p>immutable 하게 작성하기 위해선 cartItems[idx]를 기준으로 slice를 한 후 새로운 배열에 담는 방법이 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="attr">SET_QUANTITY</span>:</span><br><span class="line">  <span class="keyword">let</span> idx = state.<span class="property">cartItems</span>.<span class="title function_">findIndex</span>(<span class="function"><span class="params">el</span> =&gt;</span> el.<span class="property">itemId</span> === action.<span class="property">payload</span>.<span class="property">itemId</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, state, &#123;</span><br><span class="line">    <span class="attr">cartItems</span>: [...state.<span class="property">cartItems</span>.<span class="title function_">slice</span>(<span class="number">0</span>, idx), action.<span class="property">payload</span>,</span><br><span class="line">    ...state.<span class="property">cartItems</span>.<span class="title function_">slice</span>(idx + <span class="number">1</span>)]</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>트러블슈팅이라고 하기엔 너무 거창한 것 같고 오류 해결 일지가 딱 알맞는 단어인 것 같습니다.<br>기록을 하면서 내가 어디서 잘 못했고, 어떻게 해결했는지 다시 한 번 새겨넣을 수 있는 시간이 된 것 같습니다. 오류를 해결하는 과정을 계속해서 남겨놓으면 스스로에게 굉장히 도움이 될 것 같다는 생각이 들었습니다. :)</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230428-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230426-1-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230426-2-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230426-2-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>코드스테이츠 프론트엔드 11주차 주간회고 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Retrospective/">
+                            Retrospective
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CodeStates/">
+                            CodeStates
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                코드스테이츠 프론트엔드 11주차 주간회고
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 28, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="https://jjalbang.today/jjv3tH.jpg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>🦥 이번 주 요약 : 해본다. 토이 프로젝트를!</p>
+<h3 id="만만치-않은-리덕스"><a href="#만만치-않은-리덕스" class="headerlink" title="만만치 않은 리덕스"></a>만만치 않은 리덕스</h3><p>이번 주에는 상태관리 라이브러리인 리덕스의 사용법에 대해서 공부해보고, 쇼핑몰 애플리케이션의 상태를 리덕스로 구현해보는 실습을 진행했습니다. props로 넘겨주던 것들은 해당 컴포넌트에서 바로 state를 가져와서 쓰니 props로 넘겨주던 불편함은 사라졌지만 리덕스 사용법에 정신을 차리지 못했습니다.</p>
+<p>우선 리덕스에서 사용하는 개념적인 단어들에서부터 어려움을 느꼈던 것 같습니다. 그래도 코드스테이츠에서 설명해준 개념들이 처음 접해보는 사람들에게도 이해하기 쉽게 설명을 해주고 시각적인 자료까지 보여줘서 조금은 이해를 하지 않았나 싶습니다.</p>
+<p>리덕스 과제를 구현하면서 어려웠던 점들을 블로그에 기록했는데요, 이 과정에서 공부가 많이 되었습니다.</p>
+ <br />
+
+<h3 id="오랜만에-만난-웹-접근성"><a href="#오랜만에-만난-웹-접근성" class="headerlink" title="오랜만에 만난 웹 접근성"></a>오랜만에 만난 웹 접근성</h3><p>이전 제로베이스 커넥투에서 웹 접근성에 대해서 공부했던 적이 있는데 오랜만에 다시 한 번 더 공부할 수 있었습니다. 확실히 그 때 열심히 공부해놓은 것이 도움이 되었습니다. 확실히 커넥투에서 공부했던 것들이 도움이 많이 되는 것 같습니다.</p>
+<p>이전에도 모든 사람들을 위한 애플리케이션을 만드는 일은 굉장히 어려운 일이라고 생각했었는데, 그 생각은 변함없습니다. 공부를 하면서 느낀 점은 시멘틱 마크업의 사용방법에 대해서 더 자세하게 공부해야겠다입니다. aria-label과 같은 속성들을 최대한 사용하지 않고 가장 쉬운 방법이 시멘틱 마크업을 사용하는 거니까요!</p>
+<br />
+
+<h3 id="토이프로젝트-부제-내가-필요해서-만드는-기록지-애플리케이션"><a href="#토이프로젝트-부제-내가-필요해서-만드는-기록지-애플리케이션" class="headerlink" title="토이프로젝트, (부제: 내가 필요해서 만드는 기록지 애플리케이션)"></a>토이프로젝트, (부제: 내가 필요해서 만드는 기록지 애플리케이션)</h3><p>다음 주부터 농구 자체전을 할 예정인데요, 원래라면 경기에 같이 참여했겠지만 이번엔 참여하지 않기로 했습니다. 팀별, 선수별 기록지 애플리케이션을 만들고 싶었기 때문이죠.</p>
+<p>당장 다음 주 수요일부터 사용하려면 4일 안에 만들어야하기 때문에 가능할지는 모르겠습니다. 하지만 최소한의 기능만 구현해서 제 시간안에 구현해보는 것이 목표입니다. 기술은 리액트와 리덕스를 이용하려고합니다. 이왕 배운거 써보면서 연습해보면 좋을 것 같아서 간편한 recoil보단 리덕스를 사용해야겠다라고 생각했습니다. 팀 프로젝트를 해본 경험은 있지만 혼자서 프로젝트를 해본 적이 없어서 걱정이 되긴합니다. 할 수… 있겠죠..?</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230430-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230426-2-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230428-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230428-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

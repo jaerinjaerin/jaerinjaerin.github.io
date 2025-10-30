@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>리액트의 LifeCycle과 LifeCycle Method | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                리액트의 LifeCycle과 LifeCycle Method
+            
+            
+        </div>
+        <span class="post-date">
+            Apr 14, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230414/IMG_9412.jpg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>리액트의 생명주기와 생명주기 메서드에 대해서 공부해보겠습니다. 생명주기 메서드에 대해서 제대로 살펴보는건 처음인 것 같습니다. 매번 도망다니기 바빴는데 말이죠.</p>
+<h3 id="리액트-컴포넌트는-생명주기-Life-Cycle-가-있다"><a href="#리액트-컴포넌트는-생명주기-Life-Cycle-가-있다" class="headerlink" title="리액트 컴포넌트는 생명주기(Life Cycle)가 있다."></a>리액트 컴포넌트는 생명주기(Life Cycle)가 있다.</h3><p>리액트의 각 컴포넌트들은 <strong>라이프사이클 즉, 생명주기</strong>를 가지고 있습니다. 생명주기는 컴포넌트 생성부터 시작해서 업데이트가 되기도 하고 마지막엔 소멸되는 과정을 거치게 됩니다.</p>
+<br />
+
+<h3 id="변화하는-과정을-캐치해서-작업을-하고싶다"><a href="#변화하는-과정을-캐치해서-작업을-하고싶다" class="headerlink" title="변화하는 과정을 캐치해서 작업을 하고싶다."></a>변화하는 과정을 캐치해서 작업을 하고싶다.</h3><p>컴포넌트를 처음 렌더링하는 시점에 어떠한 작업을 처리해야하거나, 컴포넌트를 업데이트하기 전 후로 어떤 작업을 처리해야 할 수도 있습니다. 혹은 불필요한 업데이트를 방지해야 할 수도 있죠.</p>
+<p>이 과정에서 특정한 이벤트들이 발생하는데 이것을 <strong>생명주기 메서드(LifeCycle Method)</strong> 라고 합니다.</p>
+<p>모든 컴포넌트는 여러 종류의 “생명주기 메서드”를 가지며, 이 메서드를 오버라이딩하여 특정 시점에 코드가 실행되도록 설정할 수 있습니다.</p>
+<br />
+생명주기는 어떻게 생겼냐구요? 이렇게 생겼습니다.
+
+<p><img src="/../img/230414/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%201.png" alt="스크린샷 1.png"></p>
+<p>상대적으로 자주 사용되지 않는 메서드들까지 합치면 총 9가지입니다.</p>
+<p><img src="/../img/230414/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B72.png" alt="스크린샷.png"><br><em>출처: <a target="_blank" rel="noopener" href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</a></em></p>
+<h3 id="생명주기는-총-3가지-카테고리로-나뉜다"><a href="#생명주기는-총-3가지-카테고리로-나뉜다" class="headerlink" title="생명주기는 총 3가지 카테고리로 나뉜다."></a>생명주기는 총 3가지 카테고리로 나뉜다.</h3><p>생명주기는 생성될 때(Mount), 업데이트 할 때(Update), 제거할 때(Unmount) 카테고리로 나눕니다.</p>
+<p>🤔 <strong>그렇다면 마운트 되었다는 것은 무엇을 의미할까요?</strong></p>
+<p>DOM이 생성되고 나서 웹 브라우저에 나타나는 것을 마운트라고 합니다. 즉, 컴포넌트의 인스턴스가 생성되어 DOM 상에 삽입될 때를 의미합니다.</p>
+<p><strong>🤔 업데이트 되었다는 것은?</strong></p>
+<ul>
+<li>props가 바뀔 때</li>
+<li>state가 바뀔 때</li>
+<li>부모 컴포넌트가 리렌더링될 때</li>
+<li>this.forceUpdate로 강제로 렌더링 트리거할 때</li>
+</ul>
+<p>이러한 경우를 의미합니다.</p>
+<p><strong>🤔 마지막으로 언마운트 되었다는 것은?</strong></p>
+<p>마운트의 반대 과정으로 컴포넌트가 DOM에서 제거될 때를 언마운트라고 합니다.</p>
+<br />
+
+<p>자 이제 생명주기 메서드에 대해서 하나씩 살펴봅시다.</p>
+<img src="https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small" style="width:512px; height:auto">
+
+<br />
+
+<h3 id="생명주기-메서드-종류는-총-9가지다"><a href="#생명주기-메서드-종류는-총-9가지다" class="headerlink" title="생명주기 메서드 종류는 총 9가지다."></a>생명주기 메서드 종류는 총 9가지다.</h3><p>constructor, getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate, componentDidMount, componentDidUpdate, componentWillUnmount, componentDidCatch</p>
+<p>메서드 이름만 봐선 뭐하는 놈들인지 이해가 안가므로.. 접두사로 구분을 해보자면,</p>
+<ul>
+<li>Will 접두사가 붙은 메서드는 👉🏻 <strong>작동하기 전</strong>에 특정 작업을 실행</li>
+<li>Did 접두사가 붙은 메서드는 👉🏻 <strong>작동한 후</strong>에 작업을 실행</li>
+</ul>
+<p>우선 이렇게만 알아두고 넘어갑시다.</p>
+<br />
+
+<h3 id="마운트될-때-발생하는-생명주기-메서드"><a href="#마운트될-때-발생하는-생명주기-메서드" class="headerlink" title="마운트될 때 발생하는 생명주기 메서드"></a>마운트될 때 발생하는 생명주기 메서드</h3><ul>
+<li>constructor</li>
+<li>getDerivedStateFromProps</li>
+<li>render</li>
+<li>componentDidMount</li>
+</ul>
+<p><strong>constructor</strong></p>
+<p>: <code>constructor</code>는 컴포넌트의 생성자 메서드로, 컴포넌트가 만들어지면 가장 먼저 실행되는 메서드입니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">	<span class="variable language_">super</span>(props);</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;constructor&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>state를 초기화하는 작업이 없다면 constructor를 구현하지 않아도 됩니다.</p>
+<p>constructor를 사용하는 이유는 무엇일까요?</p>
+<ol>
+<li>this.state에 객체를 할당하여 지역 state를 초기화</li>
+<li>인스턴스에 이벤트 처리 메서드 바인딩</li>
+</ol>
+<p>보통 이 두가지 목적을 위하여 사용합니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3)"><em>🚧 중요한 건 constructor 내부에서 setState를 호출하면 안됩니다.</em></span></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="variable language_">super</span>(props);</span><br><span class="line">  <span class="comment">// 🚧 여기서 this.setState()를 호출하면 안됨</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">counter</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">handleClick</span> = <span class="variable language_">this</span>.<span class="property">handleClick</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>constructor는 this.state를 직접 할당할 수 있는 유일한 곳이기 때문이죠.</p>
+<p><strong>getDerivedStateFromProps</strong></p>
+<p>: props로 넘어온 것을 state로 만들고 싶을 때 사용합니다.</p>
+<ul>
+<li>만약 state가 갱신되었다면 변경된 객체를 반환</li>
+<li>변경된 state가 없다면 null을 반환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="title function_">getDerivedStateFromProps</span>(<span class="params">nextProps, prevState</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;getDerivedStateFromProps&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (nextProps.<span class="property">color</span> !== prevState.<span class="property">color</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">color</span>: nextProps.<span class="property">color</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>다른 메서드와 달리 <code>static</code> 을 필요로 하고, 이 메서드 안에서는 this를 조회할 수 없습니다. (static이니까요!) <code>getDerivedStateFromProps</code> 메서드는 마운트될 때와 업데이트될 때 render 메서드 이전에 매번 호출됩니다.</p>
+<p><strong>render</strong></p>
+<p>: 컴포넌트를 렌더링하는 메서드로 <strong>반드시 구현되어야 하는 유일한 메서드</strong>입니다.</p>
+<p><strong>componentDidMount</strong></p>
+<p>: 컴포넌트 첫 번째 렌더링을 마치고 나면 호출되는 메서드입니다.</p>
+<p>이 메서드가 호출되는 시점에는 우리가 만든 컴포넌트가 화면에 나타난 상태입니다. 이 단계에서는 axios, fetch 등을 사용해 외부에서 데이터를 불러오는 작업을 합니다.</p>
+<br />
+
+<h3 id="업데이트될-때-발생하는-생명주기"><a href="#업데이트될-때-발생하는-생명주기" class="headerlink" title="업데이트될 때 발생하는 생명주기"></a>업데이트될 때 발생하는 생명주기</h3><ul>
+<li>getDerivedStateFromProps</li>
+<li>shouldComponentUpdate</li>
+<li>render</li>
+<li>getSnapshotBeforeUpdate</li>
+<li>componentDidUpdate</li>
+</ul>
+<p><strong>getDerivedStateFromProps</strong></p>
+<p>: 마운트 될 때 발생했던 메서드로, 컴포넌트의 props와 state가 변경되었을 때도 이 메서드가 호출됩니다.</p>
+<p><strong>shouldComponentUpdate</strong></p>
+<p>: 컴포넌트가 리렌더링 할지 말지를 결정하는 메서드입니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">shouldComponentUpdate</span>(<span class="params">nextProps, nextState</span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;shouldComponentUpdate&quot;</span>, nextProps, nextState);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 숫자의 마지막 자리가 4면 리렌더링하지 않는다.</span></span><br><span class="line">	<span class="keyword">return</span> nextState.<span class="property">number</span> % <span class="number">10</span> !== <span class="number">4</span> <span class="comment">// 🐛 false를 반환하면 작업을 중지(리렌더링 방지)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>주로 최적화할 때 사용하는 메서드입니다. 👉🏻 React.memo의 역할과 비슷합니다.</p>
+<p><strong>render</strong></p>
+<p>: 생략!</p>
+<p><strong>getSnapshotBeforeUpdate</strong></p>
+<p>: 컴포넌트에 변화가 일어나기 직전의 DOM 상태를 가져와서 <span style="color:red; font-weight:700;">특정 값을 반환</span>하면 그 다음에 발생하게 되는 componentDidUpdate 함수에서 받아와서 사용할 수 있습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">getSnapshotBeforeUpdate</span>(<span class="params">prevProps, prevState</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;getSnapshotBeforeUpdate&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (prevProps.<span class="property">color</span> !== <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">color</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">myRef</span>.<span class="property">style</span>.<span class="property">color</span>; <span class="comment">// 특정 값 반환</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span>; <span class="comment">// 특정 값 반환</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>componentDidUpdate</strong></p>
+<p>: 리렌더링을 마치고 화면에 우리가 원하는 변화가 모두 반영되고 난 뒤 호출되는 메서드입니다.</p>
+<p><span style="color:red; font-weight:700;">3번째 파라미터로 getSnapshotBeforeUpdate에서 반환한 값</span> 을 조회할 수 있습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">componentDidUpdate</span>(<span class="params">prevProps, prevState, snapshot</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;componentDidUpdate&quot;</span>, prevProps, prevState);</span><br><span class="line">    <span class="keyword">if</span> (snapshot) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;업데이트 되기 직전 색상: &quot;</span>, snapshot);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p>아니 그래서.. <code>getSnapshotBeforeUpdate</code> 을 언제 어떻게 사용한다는 걸까요..?</p>
+<p><a target="_blank" rel="noopener" href="https://codesandbox.io/s/getsnapshotbeforeupdate-yeje-vpmle?fontsize=14">실제 사용사례</a>를 한 번 보고 넘어갑시다.</p>
+<p>Chrome에서는 이미 자체적으로 구현되어있는 기능인데요, 새로운 내용이 추가되었을 때 사용자의 스크롤 위치를 유지시키는 기능입니다.<br>하지만 Safari 브라우저를 포함한 일부 브라우저는 이 기능이 구현되어 있지 않아서 아래와 같이 작동하게 됩니다.</p>
+<p><img src="https://i.imgur.com/1POUOrQ.gif" alt="https://i.imgur.com/1POUOrQ.gif"></p>
+<p>내용이 추가된다 해도 제가 있던 위치 2에서 머물러야 할 때 <code>getSnapshotBeforeUpdate</code>를 활용하면 유지를 할 수 있게 됩니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./ScrollBox.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ScrollBox</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  id = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">array</span>: [<span class="number">1</span>],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  handleInsert = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">      <span class="attr">array</span>: [<span class="variable language_">this</span>.<span class="property">id</span>++, ...<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">array</span>],</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getSnapshotBeforeUpdate</span>(<span class="params">prevProps, prevState</span>) &#123;</span><br><span class="line">    <span class="comment">// DOM 업데이트가 일어나기 직전의 시점입니다.</span></span><br><span class="line">    <span class="comment">// 새 데이터가 상단에 추가되어도 스크롤바를 유지해보겠습니다.</span></span><br><span class="line">    <span class="comment">// scrollHeight 는 전 후를 비교해서 스크롤 위치를 설정하기 위함이고,</span></span><br><span class="line">    <span class="comment">// scrollTop 은, 이 기능이 크롬에 이미 구현이 되어있는데,</span></span><br><span class="line">    <span class="comment">// 이미 구현이 되어있다면 처리하지 않도록 하기 위함입니다.</span></span><br><span class="line">    <span class="keyword">if</span> (prevState.<span class="property">array</span> !== <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">array</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; scrollTop, scrollHeight &#125; = <span class="variable language_">this</span>.<span class="property">list</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 여기서 반환 하는 값은 componentDidMount 에서 snapshot 값으로 받아올 수 있습니다.</span></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        scrollTop,</span><br><span class="line">        scrollHeight,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidUpdate</span>(<span class="params">prevProps, prevState, snapshot</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(prevProps, prevState, snapshot);</span><br><span class="line">    <span class="keyword">if</span> (snapshot) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; scrollTop &#125; = <span class="variable language_">this</span>.<span class="property">list</span>;</span><br><span class="line">      <span class="keyword">if</span> (scrollTop !== snapshot.<span class="property">scrollTop</span>) <span class="keyword">return</span>; <span class="comment">// 기능이 이미 구현되어있다면 처리하지 않습니다.</span></span><br><span class="line">      <span class="keyword">const</span> diff = <span class="variable language_">this</span>.<span class="property">list</span>.<span class="property">scrollHeight</span> - snapshot.<span class="property">scrollHeight</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">list</span>.<span class="property">scrollTop</span> += diff;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> rows = <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">array</span>.<span class="title function_">map</span>(<span class="function">(<span class="params"><span class="built_in">number</span></span>) =&gt;</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;row&quot;</span> <span class="attr">key</span>=<span class="string">&#123;number&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;number&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    ));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">ref</span>=<span class="string">&#123;(ref)</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">            this.list = ref;</span></span><br><span class="line"><span class="language-xml">          &#125;&#125;</span></span><br><span class="line"><span class="language-xml">          className=&quot;list&quot;</span></span><br><span class="line"><span class="language-xml">        &gt;</span></span><br><span class="line"><span class="language-xml">          &#123;rows&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleInsert&#125;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ScrollBox</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/gS01iZ9.gif" alt="https://i.imgur.com/gS01iZ9.gif"></p>
+<p><code>getSnapshotBeforeUpdate</code> 는 사실 사용되는 일이 그렇게 많지 않습니다. 그냥 이런게 있다.. 정도만 알아두시면 충분합니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3)"><em>🚧 DOM 에 변화가 반영되기 직전에 DOM의 속성을 확인하고 싶을 때 이 생명주기 메서드를 사용하면 된다는 것을 알아두세요.</em></span></p>
+<br />
+
+<h3 id="언마운트될-때-발생하는-메서드"><a href="#언마운트될-때-발생하는-메서드" class="headerlink" title="언마운트될 때 발생하는 메서드"></a>언마운트될 때 발생하는 메서드</h3><p>언마운트에 관련된 생명주기 메서드는 <code>componentWillUnmount</code> 하나입니다.</p>
+<p><strong>componentWillUnmount</strong></p>
+<p>: 컴포넌트가 화면에서 사라지기 직전에 호출됩니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;componentWillUnmount&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서는 주로 DOM에 직접 등록했었던 이벤트를 제거하고, 만약에 <code>setTimeout</code><br> 을 걸은것이 있다면 <code>clearTimeout</code> 을 통하여 제거를 합니다.</p>
+<p>마지막으로!</p>
+<p><strong>componentDidCatch</strong></p>
+<p>: 렌더링 도중에 에러가 발생했을 때 애플리케이션이 먹통되지 않고 오류 UI를 보여줄 수 있도록 만들 수 있습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">componentDidCatch</span>(<span class="params">error, info</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">    <span class="attr">error</span>: <span class="literal">true</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// .. 에러시 보여줄 작업</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>error</code> 파라미터 : 어떤 에러가 발생했는지에 대한 정보</li>
+<li><code>info</code> 파라미터 : 어디에 있는 코드에서 오류가 발생했는지에 대한 정보</li>
+</ul>
+<p>이 메서드를 사용할 때는 컴포넌트 자신에게 발생하는 에러를 잡아낼 수 없고, 자신의 this.prop.children으로 전달되는 컴포넌트에서 발생하는 에러만 잡아낼 수 있습니다.</p>
+<br />
+
+<h3 id="하나의-예제를-가져와보았읍니다"><a href="#하나의-예제를-가져와보았읍니다" class="headerlink" title="하나의 예제를 가져와보았읍니다."></a>하나의 예제를 가져와보았읍니다.</h3><p><img src="/../img/230414/ezgif.com-crop.gif" alt="ezgif.com-crop.gif"></p>
+<ul>
+<li><code>&quot;색상 랜덤으로 변경시켜버리기&quot;</code> 버튼을 누르면 숫자의 색상이 변경된다.</li>
+<li><code>&quot;토글버튼으로 나타났다 사라졌다&quot;</code> 버튼을 누르면 컴포넌트가 사라지거나 나타난다.</li>
+<li><code>&quot;숫자 증가&quot;</code> 버튼을 누르면 숫자가 1씩 더해진다.</li>
+</ul>
+<p>먼저 기능 구현해보기</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./styles.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 랜덤 색상 만드는 함수</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getRandomColor</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;#&#x27;</span> + <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">16777215</span>).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [color, setColor] = <span class="title function_">useState</span>(<span class="string">&#x27;#000000&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [toggle, setToggle] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleRandomColor</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setColor</span>(<span class="title function_">getRandomColor</span>());</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>코드를 구현해보자ㅏㅏㅏㅏ<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;handleRandomColor&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        색상 랜덤으로 변경시켜버리기</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setToggle((toggle) =&gt; !toggle)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">        토글버튼으로 나타났다 사라졌다</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      &#123;toggle &amp;&amp; <span class="tag">&lt;<span class="name">Sample</span> <span class="attr">color</span>=<span class="string">&#123;color&#125;</span> <span class="attr">count</span>=<span class="string">&#123;count&#125;</span> <span class="attr">setCount</span>=<span class="string">&#123;setCount&#125;</span> /&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Sample</span>(<span class="params">&#123; color &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> <span class="attr">color</span> &#125;&#125;&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount((count) =&gt; count + 1)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">        숫자 증가!!</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>저는 먼저 setState 훅을 사용해 구현을 해보았습니다.</p>
+<br />
+
+<h3 id="이제-클래스형-컴포넌트로-구현하면…"><a href="#이제-클래스형-컴포넌트로-구현하면…" class="headerlink" title="이제 클래스형 컴포넌트로 구현하면…"></a>이제 클래스형 컴포넌트로 구현하면…</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">LifeCycleSample</span> <span class="keyword">from</span> <span class="string">&#x27;./LifeCycleSample&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 랜덤 색상을 생성합니다</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getRandomColor</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;#&#x27;</span> + <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">16777215</span>).<span class="title function_">toString</span>(<span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [color, setColor] = <span class="title function_">useState</span>(<span class="string">&#x27;#000000&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [visible, setVisible] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">onClick</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setColor</span>(<span class="title function_">getRandomColor</span>());</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">onToggle</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setVisible</span>(!visible);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;onClick&#125;</span>&gt;</span>랜덤 색상<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;onToggle&#125;</span>&gt;</span>토글<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;visible &amp;&amp; <span class="tag">&lt;<span class="name">LifeCycleSample</span> <span class="attr">color</span>=<span class="string">&#123;color&#125;</span> /&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>);</span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, rootElement);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LifeCycleSample</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">number</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">color</span>: <span class="literal">null</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  myRef = <span class="literal">null</span>; <span class="comment">// ref 를 설정 할 부분</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">getDerivedStateFromProps</span>(<span class="params">nextProps, prevState</span>) &#123;</span><br><span class="line">    <span class="comment">// 상태가 변경되면 변경된 객체를 반환하는 메서드</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getDerivedStateFromProps&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (nextProps.<span class="property">color</span> !== prevState.<span class="property">color</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">color</span>: nextProps.<span class="property">color</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 마운트되고 화면에 표시된 이후에 실행</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;componentDidMount&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">shouldComponentUpdate</span>(<span class="params">nextProps, nextState</span>) &#123;</span><br><span class="line">    <span class="comment">// 리렌더링 여부를 결정하는 메서드</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;shouldComponentUpdate&#x27;</span>, nextProps, nextState);</span><br><span class="line">    <span class="comment">// 숫자의 마지막 자리가 4면 리렌더링하지 않습니다</span></span><br><span class="line">    <span class="keyword">return</span> nextState.<span class="property">number</span> % <span class="number">10</span> !== <span class="number">4</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;componentWillUnmount&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleClick = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">      <span class="attr">number</span>: <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">number</span> + <span class="number">1</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getSnapshotBeforeUpdate</span>(<span class="params">prevProps, prevState</span>) &#123;</span><br><span class="line">    <span class="comment">// 변화가 일어나기 직전의 DOM 상태를 가져와서 특정 값 반환</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getSnapshotBeforeUpdate&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (prevProps.<span class="property">color</span> !== <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">color</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">myRef</span>.<span class="property">style</span>.<span class="property">color</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidUpdate</span>(<span class="params">prevProps, prevState, snapshot</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;componentDidUpdate&#x27;</span>, prevProps, prevState);</span><br><span class="line">    <span class="keyword">if</span> (snapshot) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;업데이트 되기 직전 색상: &#x27;</span>, snapshot);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;render&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> style = &#123;</span><br><span class="line">      <span class="attr">color</span>: <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">color</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#123;style&#125;</span> <span class="attr">ref</span>=<span class="string">&#123;(ref)</span> =&gt;</span> (this.myRef = ref)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">          &#123;this.state.number&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>color: &#123;this.state.color&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span>더하기<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">LifeCycleSample</span>;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://codesandbox.io/s/currying-bash-mrkjb?fontsize=14&file=/src/LifeCycleSample.js:0-1675">currying-bash-mrkjb - CodeSandbox</a></p>
+<br />
+
+<p><img src="/../img/230414/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.png" alt="."><br>어라…?<br><img src="https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small" style="width:512px; height:auto"></p>
+<p>그럼 클래스형 컴포넌트가 아닌 함수형 컴포넌트에서는 어떻게 생명주기를 파악할 수 있을까요?</p>
+<h3 id="클래스형-컴포넌트와-함수형-컴포넌트의-비교"><a href="#클래스형-컴포넌트와-함수형-컴포넌트의-비교" class="headerlink" title="클래스형 컴포넌트와 함수형 컴포넌트의 비교"></a>클래스형 컴포넌트와 함수형 컴포넌트의 비교</h3><table>
+<thead>
+<tr>
+<th>분류</th>
+<th>클래스형 컴포넌트</th>
+<th>함수형 컴포넌트</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mounting</td>
+<td>constructor()</td>
+<td>함수형 컴포넌트 내부</td>
+</tr>
+<tr>
+<td>Mounting</td>
+<td>render()</td>
+<td>return()</td>
+</tr>
+<tr>
+<td>Mounting</td>
+<td>ComponenDidMount()</td>
+<td>useEffect()</td>
+</tr>
+<tr>
+<td>Updating</td>
+<td>componentDidUpdate()</td>
+<td>useEffect()</td>
+</tr>
+<tr>
+<td>UnMounting</td>
+<td>componentWillUnmount()</td>
+<td>useEffect()</td>
+</tr>
+</tbody></table>
+<br />
+
+<blockquote>
+<p>결론은 클래스형 컴포넌트 라이프사이클 메서드는 이런 것들이 있구나 정도로만 알고 넘어가고, useEffect에 대해서 자세히 알아두면 좋을 것 같다!</p>
+</blockquote>
+<hr>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.zerocho.com/category/React/post/579b5ec26958781500ed9955">React의 생명 주기(Life Cycle)</a></li>
+<li><a target="_blank" rel="noopener" href="https://react.vlpt.us/basic/25-lifecycle.html">LifeCycle Method</a></li>
+<li><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/react-component.html">React.Component</a></li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230414-1archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230411-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230414-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230414-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

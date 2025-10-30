@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>State와 Props를 이용해서 메뉴 검색기능 구현하기 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Megatera/">
+                            Megatera
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                State와 Props를 이용해서 메뉴 검색기능 구현하기
+            
+            
+        </div>
+        <span class="post-date">
+            May 24, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230524/23-05-24-1.jpeg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>메뉴판을 만들고, 식당 이름을 검색했을 때 검색 결과에 해당하는 식당 정보만 보여주는 기능을 구현하려고 했습니다.</p>
+<h2 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h2><p>요구사항은 다음과 같습니다.</p>
+<ul>
+<li>사용자는 식당 이름, 종류, 메뉴가 보이는 식당 목록을 볼 수 있다.</li>
+<li>사용자는 식당 이름을 입력하여 이름이 (부분)일치하는 식당 목록을 골라 볼 수 있다.</li>
+<li>사용자는 식당 종류 버튼을 눌러서 종류가 일치하는 식당 목록만 골라 볼 수 있다.</li>
+<li>사용자는 입력한 식당 이름과 선택한 종류가 모두 일치하는 식당 목록만 골라 볼 수 있다.</li>
+</ul>
+<p>구현해야할 것들을 생각해보면,</p>
+<ul>
+<li>식당목록, 식당 카테고리</li>
+<li>사용자가 검색창에 식당이름을 검색했을 때 → 이름이 일치하는 식당 목록만 보여주기</li>
+<li>식당 카테고리를 클릭하면 일치하는 식당 목록만 보여주기</li>
+<li>입력한 식당 이름과 선택한 카테고리가 모두 일치하는 식당 목록만 보여주기</li>
+</ul>
+<p>이 정도가 될 것 같습니다. <a target="_blank" rel="noopener" href="https://seed2whale.github.io/frontend-survival-week03-sample/">👉🏻 결과물 미리보기</a></p>
+<h3 id="Restaurant-json-확인하기"><a href="#Restaurant-json-확인하기" class="headerlink" title="Restaurant.json 확인하기"></a>Restaurant.json 확인하기</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;restaurants&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">      <span class="string">&quot;category&quot;</span>: <span class="string">&quot;중식&quot;</span>,</span><br><span class="line">      <span class="string">&quot;name&quot;</span>: <span class="string">&quot;메가반점&quot;</span>,</span><br><span class="line">      <span class="string">&quot;menu&quot;</span>: [</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;짜장면&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">8000</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;2&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;짬뽕&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">8000</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;3&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;차돌짬뽕&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">9000</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;4&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;탕수육&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">14000</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;id&quot;</span>: <span class="string">&quot;2&quot;</span>,</span><br><span class="line">      <span class="string">&quot;category&quot;</span>: <span class="string">&quot;한식&quot;</span>,</span><br><span class="line">      <span class="string">&quot;name&quot;</span>: <span class="string">&quot;메리김밥&quot;</span>,</span><br><span class="line">      <span class="string">&quot;menu&quot;</span>: [</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;5&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;김밥&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">3500</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;6&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;참치김밥&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">4500</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;7&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;제육김밥&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">5000</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;8&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;훈제오리김밥&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">5500</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;9&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;컵라면&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">2000</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>restaurants는 각 식당 객체를 요소로 가지고 있는 배열입니다.</p>
+<p>즉, 하나의 식당 객체를 <code>Restaurant</code>라고 하면 restaurants는 <code>Restaurant[]</code>이 되는거죠!</p>
+<p>Restaurant 타입 지정하기</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;category&quot;</span>: <span class="string">&quot;중식&quot;</span>,</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;메가반점&quot;</span>,</span><br><span class="line">  <span class="string">&quot;menu&quot;</span>: [</span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;짜장면&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">8000</span>&#125;, <span class="comment">// 👉🏻 여기도 하나의 타입을 지정해서 import 하기</span></span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;2&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;짬뽕&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">8000</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;3&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;차돌짬뽕&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">9000</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;4&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;탕수육&quot;</span>, <span class="string">&quot;price&quot;</span>: <span class="number">14000</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Restaurant Type</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Food</span> <span class="keyword">from</span> <span class="string">&#x27;./Food&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Restaurant</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>,</span><br><span class="line">  <span class="attr">category</span>: <span class="built_in">string</span>,</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>,</span><br><span class="line">  <span class="attr">menu</span>: <span class="title class_">Food</span>[]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Restaurant</span>;</span><br><span class="line">=====================================================</span><br><span class="line"></span><br><span class="line"><span class="comment">// Food Type</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Food</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Food</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="main-tsx"><a href="#main-tsx" class="headerlink" title="main.tsx"></a>main.tsx</h3><p>main.tsx에서는 index.html에 있는 <code>id=”root”</code> 에 만든 컴포넌트를 렌더링해야 합니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import ReactDOM from &#x27;react-dom/client&#x27;;</span><br><span class="line">import App from &#x27;./App&#x27;;</span><br><span class="line"></span><br><span class="line">function main() &#123;</span><br><span class="line">  const element = document.getElementById(&#x27;root&#x27;);</span><br><span class="line"></span><br><span class="line">  if (element) &#123;</span><br><span class="line">    const root = ReactDOM.createRoot(element);</span><br><span class="line">    root.render(&lt;App /&gt;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main();</span><br></pre></td></tr></table></figure>
+
+<h3 id="컴포넌트-구조-생각해보기"><a href="#컴포넌트-구조-생각해보기" class="headerlink" title="컴포넌트 구조 생각해보기"></a>컴포넌트 구조 생각해보기</h3><p><img src="/../img/230524/23-05-24-2.png" alt="스크린샷.png"></p>
+<h3 id="App-tsx"><a href="#App-tsx" class="headerlink" title="App.tsx"></a>App.tsx</h3><p>우선 데이터가 필요하니 restauants 데이터를 받아와서 전체적인 구조를 App.tsx에 만들어보도록 하겠습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; restaurants &#125; <span class="keyword">from</span> <span class="string">&#x27;../restaurants.json&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 카테고리만 배열로 생성</span></span><br><span class="line"><span class="keyword">const</span> categories = [</span><br><span class="line">  <span class="string">&#x27;전체&#x27;</span>,</span><br><span class="line">  ...<span class="keyword">new</span> <span class="title class_">Set</span>(restaurants.<span class="title function_">map</span>(<span class="function">(<span class="params">restaurant</span>) =&gt;</span> restaurant.<span class="property">category</span>)),</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>오늘의 메뉴<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&quot;search&quot;</span>&gt;</span>검색<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;search&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;식당이름&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;categories.map((category) =&gt; (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">button</span> <span class="attr">key</span>=<span class="string">&#123;category&#125;</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;category&#125;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        ))&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>식당이름<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>종류<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>메뉴<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;restaurants.map((restaurant) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">            const &#123; id, name, category, menu &#125; = restaurant;</span></span><br><span class="line"><span class="language-xml">            return (</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">tr</span> <span class="attr">key</span>=<span class="string">&#123;id&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;name&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;category&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;menu.map((item) =&gt; (</span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                        &#123;item.name&#125;(&#123;item.price&#125;</span></span><br><span class="line"><span class="language-xml">                        원)</span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    ))&#125;</span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            );</span></span><br><span class="line"><span class="language-xml">          &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Divide-Component"><a href="#Divide-Component" class="headerlink" title="Divide Component"></a>Divide Component</h2><p>컴포넌트 분리하면서 기능 구현하기! 🚀</p>
+<h3 id="✅-SearchBar-Component-amp-RestaurantTable-Component"><a href="#✅-SearchBar-Component-amp-RestaurantTable-Component" class="headerlink" title="✅ SearchBar Component &amp; RestaurantTable Component"></a>✅ SearchBar Component &amp; RestaurantTable Component</h3><p>크게 두 개의 컴포넌트로 나눌 수 있을 것 같은데요, 검색하는 기능이 있는 SearchBar, 식당 정보를 보여주는 RestaurantTable 컴포넌트 두 개로 나눠보겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>오늘의 메뉴<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">SearchBar</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">RestaurantTable</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>input창에 텍스트를 입력했을 때 그리고 카테고리 버튼을 눌렀을 때 정보에 맞게 식당이 바뀌어야하므로 텍스트에 대한 상태와 카테고리에 대한 상태는 App 컴포넌트가 가지고 있어야 할 것 같습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [filterText, setFilterText] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> [filterCategory, setFilterCategory] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;전체&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>카테고리만 배열로 만드는 로직은 utils 폴더로 이동시키도록 하겠습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/selectCategories.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Restaurant</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Restaurant&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">selectCategories</span>(<span class="params">restaurants: Restaurant[]</span>): <span class="built_in">string</span>[] &#123;</span><br><span class="line">  <span class="keyword">return</span> [...<span class="keyword">new</span> <span class="title class_">Set</span>(restaurants.<span class="title function_">map</span>(<span class="function">(<span class="params">restaurant</span>) =&gt;</span> restaurant.<span class="property">category</span>))];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SeachBar 컴포넌트에 넘겨줘야할 것들이 뭐가 있을까요? 🤔</strong></p>
+<ul>
+<li>카테고리 배열 <code>categories</code></li>
+<li>input에 입력한 텍스트와 텍스트 상태를 변경하는 함수 <code>filterText</code>, <code>setFilterText</code></li>
+<li>카테고리 버튼을 누를 때 카테고리를 변경해야하므로 <code>setFilterCategory</code></li>
+</ul>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">SearchBar</span></span><br><span class="line">  categories=&#123;categories&#125;</span><br><span class="line">  filterText=&#123;filterText&#125;</span><br><span class="line">  setFilterText=&#123;setFilterText&#125;</span><br><span class="line">  setFilterCategory=&#123;setFilterCategory&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>SearchBar Component</strong></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SearchBarProps</span> = &#123;</span><br><span class="line">  <span class="attr">categories</span>: <span class="built_in">string</span>[];</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">setFilterText</span>: <span class="function">(<span class="params">text: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line">  <span class="attr">setFilterCategory</span>: <span class="function">(<span class="params">text: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">SearchBar</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  categories,</span></span><br><span class="line"><span class="params">  filterText,</span></span><br><span class="line"><span class="params">  setFilterText,</span></span><br><span class="line"><span class="params">  setFilterCategory,</span></span><br><span class="line"><span class="params">&#125;: SearchBarProps</span>) &#123;</span><br><span class="line">  <span class="comment">// 🚧 event를 받아서 event.target.value를 사용하려면 이벤트 유형을 정의해야 한다.</span></span><br><span class="line">  <span class="comment">// TypeScript에 이벤트 객체가 ChangeEvent유형이고 대상 요소가 &lt;Input&gt;요소임을 알려줌</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setFilterText</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="string">&#x27;input-search&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&#123;id&#125;</span>&gt;</span>검색<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">id</span>=<span class="string">&#123;id&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;식당이름&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;filterText&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;[&#x27;전체&#x27;, ...categories].map((category: string) =&gt; (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;category&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setFilterCategory(category)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">                &#123;category&#125;</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ))&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>RestaurantTable Component</strong></p>
+<p>RestaurantTable 컴포넌트는 reataurants를 props로 받아서 렌더링합니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">RestaurantTable</span> restaurants=&#123;restaurants&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>그런데 여기서 restaurants를 그대로 받는게 아니라 input값과 일치하는 필터링된 배열을 props로 받아야하는데요. 어떻게 기능을 구현해야할까요?</p>
+<ul>
+<li>filterText를 받아서 filterText과 식당이름이 일치하는 배열을 반환한다.</li>
+<li>배열은 filterCategory에 해당하는 배열로 비교해야한다.</li>
+</ul>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/filterRestaurants.ts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable implicit-arrow-linebreak */</span></span><br><span class="line"><span class="comment">/* eslint-disable indent */</span></span><br><span class="line"><span class="comment">/* eslint-disable operator-linebreak */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Restaurant</span> <span class="keyword">from</span> <span class="string">&#x27;../types/Restaurant&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> filterRestaurantsProps = &#123;</span><br><span class="line">  <span class="attr">filterText</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">filterCategory</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">filterRestaurants</span>(<span class="params"></span></span><br><span class="line"><span class="params">  restaurants: Restaurant[],</span></span><br><span class="line"><span class="params">  &#123; filterText, filterCategory &#125;: filterRestaurantsProps</span></span><br><span class="line"><span class="params"></span>): <span class="title class_">Restaurant</span>[] &#123;</span><br><span class="line">  <span class="comment">// 🚧 category에 맞는 restaurants 배열</span></span><br><span class="line">  <span class="keyword">const</span> filteredRestaurants =</span><br><span class="line">    filterCategory === <span class="string">&#x27;전체&#x27;</span></span><br><span class="line">      ? restaurants</span><br><span class="line">      : restaurants.<span class="title function_">filter</span>(</span><br><span class="line">          <span class="function">(<span class="params">restaurant</span>) =&gt;</span> restaurant.<span class="property">category</span> === filterCategory</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">normalize</span> = (<span class="params">text: <span class="built_in">string</span></span>) =&gt; text.<span class="title function_">trim</span>().<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> query = <span class="title function_">normalize</span>(filterText);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!query) &#123;</span><br><span class="line">    <span class="keyword">return</span> filteredRestaurants;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">contains</span> = (<span class="params">restaurant: Restaurant</span>) =&gt;</span><br><span class="line">    <span class="title function_">normalize</span>(restaurant.<span class="property">name</span>).<span class="title function_">includes</span>(query);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> filteredRestaurants.<span class="title function_">filter</span>(contains);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이제 E2E 테스트를 실행시켜보면?</p>
+<p><img src="/../img/230524/23-05-24-03.png" alt="스크린샷.png"></p>
+<p>모두 통과한것을 볼 수 있습니다.😎</p>
+<p>3주차를 복습하면서 헷갈렸던 state와 props에 대해서 다시 공부할 수 있었고 utils 함수를 만드는 시기와 방법에 대해서도 이해할 수 있었습니다. 가장 헷갈렸던 카테고리가 달라진 배열에 input 값을 어떻게 필터링할까? 에 대한 문제를 이해할 수 있는 시간이었습니다. (역시 복습 매우 중요하다!)</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230525-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230521-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230524-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230524-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

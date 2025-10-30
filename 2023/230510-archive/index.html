@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>유효한 괄호쌍 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm/">
+                            Algorithm
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/Algorithm-Stack/">
+                            Algorithm_Stack
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CodeStates/">
+                            CodeStates
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                유효한 괄호쌍
+            
+            
+        </div>
+        <span class="post-date">
+            May 10, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/algorithm.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>이번 주부터 자료구조를 배우는데요, 오늘은 Stack과 Queue를 배웠습니다. 알고리즘 연습문제를 풀면서 겪었던 오늘의 시행착오를 적어보려고 합니다.🦁</p>
+<hr>
+<br />
+
+<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>입력된 괄호 값들이 모두 쌍이 맞게 올바른지를 판단해 모두 쌍이 맞으면 true 그렇지 않으면 false를 출력하세요.</p>
+<p>입력된 괄호 값들이 유효한 경우들은 다음에 해당합니다.</p>
+<ol>
+<li>열린 괄호는 같은 타입의 닫힌 괄호로 닫혀있어야 한다.</li>
+<li>열린 괄호는 올바른 순서대로 닫혀야만 한다.</li>
+<li>모든 닫힌 괄호는 그에 상응하는 같은 타입의 열린 괄호를 갖고 있다.</li>
+</ol>
+<p>입력값을 통해 들어오는 괄호는 ()[]{}로만 이루어져 있습니다.</p>
+<h2 id="실패-코드"><a href="#실패-코드" class="headerlink" title="실패 코드"></a>실패 코드</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">isValid</span> = (<span class="params">str</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (str.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> x <span class="keyword">of</span> str) &#123;</span><br><span class="line">    <span class="keyword">if</span> (stack.<span class="property">length</span> === <span class="number">0</span>) stack.<span class="title function_">push</span>(x);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        (stack[<span class="number">0</span>] === <span class="string">&#x27;[&#x27;</span> &amp;&amp; x === <span class="string">&#x27;]&#x27;</span>) ||</span><br><span class="line">        (stack[<span class="number">0</span>] === <span class="string">&#x27;&#123;&#x27;</span> &amp;&amp; x === <span class="string">&#x27;&#125;&#x27;</span>) ||</span><br><span class="line">        (stack[<span class="number">0</span>] === <span class="string">&#x27;(&#x27;</span> &amp;&amp; x === <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">      ) &#123;</span><br><span class="line">        stack.<span class="title function_">pop</span>();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        stack.<span class="title function_">push</span>(x);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> stack.<span class="property">length</span> === <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>실행결과를 보면 1개의 테스트 케이스가 실패한 것을 볼 수 있습니다.<br><img src="/../img/230510/23-05-10-1.png"></p>
+<h3 id="🫥-무엇이-잘못되었을까"><a href="#🫥-무엇이-잘못되었을까" class="headerlink" title="🫥 무엇이 잘못되었을까?"></a>🫥 무엇이 잘못되었을까?</h3><p><img src="/../img/230510/23-05-10-2.png"></p>
+<p>테스트 케이스를 살펴보니 중첩된 괄호의 경우를 생각하지 못했습니다. 무조건 여는 괄호 다음엔 닫는 괄호가 나온다는 생각 때문에 요소를 비교할 때 stack[0]로만 제한을 두고 있습니다. 하지만 여는 괄호 다음에 여는괄호가 나올 수도 있기 때문에 0번째로만 비교해서는 안됩니다.</p>
+<br />
+
+<h2 id="통과-코드"><a href="#통과-코드" class="headerlink" title="통과 코드"></a>통과 코드</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">isValid</span> = (<span class="params">str</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ✅ 빈 문자열이면 false로 리턴</span></span><br><span class="line">  <span class="keyword">if</span> (str.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="comment">// 🚧 빈 배열이면 stack에 push 하고 다음 반복문으로 넘어갑니다.</span></span><br><span class="line">    <span class="keyword">if</span> (stack.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">      stack.<span class="title function_">push</span>(str[i]);</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 🚧 stack의 마지막 요소와 str[i]가 같으면 stack에서 제거합니다.</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      (stack[stack.<span class="property">length</span> - <span class="number">1</span>] === <span class="string">&#x27;[&#x27;</span> &amp;&amp; str[i] === <span class="string">&#x27;]&#x27;</span>) ||</span><br><span class="line">      (stack[stack.<span class="property">length</span> - <span class="number">1</span>] === <span class="string">&#x27;(&#x27;</span> &amp;&amp; str[i] === <span class="string">&#x27;)&#x27;</span>) ||</span><br><span class="line">      (stack[stack.<span class="property">length</span> - <span class="number">1</span>] === <span class="string">&#x27;&#123;&#x27;</span> &amp;&amp; str[i] === <span class="string">&#x27;&#125;&#x27;</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line">      stack.<span class="title function_">pop</span>();</span><br><span class="line">      <span class="comment">// 🚧 다르다면 stack에 push합니다.</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      stack.<span class="title function_">push</span>(str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ✅ 순회 후 stack이 빈 배열이라면 유효한 괄호쌍이므로 true를 반환합니다.</span></span><br><span class="line">  <span class="keyword">return</span> stack.<span class="property">length</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h2 id="Reference-코드"><a href="#Reference-코드" class="headerlink" title="Reference 코드"></a>Reference 코드</h2><p>Reference Code의 Pseudo code는 다음과 같습니다.</p>
+<ul>
+<li>최초 입력값이 빈 값이라면 유효하지 않은 괄호쌍으로 간주한다.</li>
+<li>각각의 여는 괄호에 알맞는 닫는 괄호를 매칭시키기 위한 괄호맵을 생성한다.</li>
+<li>str.length만큼 순회한다.<ul>
+<li>여는 괄호라면 stack에 push한다.</li>
+<li>닫는괄호면 stack의 가장 마지막 요소와 그 요소에 대응하는 값을 비교한다.<ul>
+<li>같다면 stack에서 pop한다.</li>
+<li>다르다면 false를 리턴한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>stack이 빈 배열이라면 true를 반환하고 아니라면 false를 반환한다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">isValid</span> = (<span class="params">str</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (str.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 각각의 여는 괄호에 알맞는 닫는 괄호를 매칭시키기 위한 괄호맵 생성.</span></span><br><span class="line">  <span class="keyword">const</span> braketsMap = &#123;</span><br><span class="line">    <span class="string">&#x27;(&#x27;</span>: <span class="string">&#x27;)&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;[&#x27;</span>: <span class="string">&#x27;]&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;&#123;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> arr = str.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> stack = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.<span class="property">length</span>; ++i) &#123;</span><br><span class="line">    <span class="comment">// 1. 여는 괄호 -&gt; stack에 push해야 하는 케이스</span></span><br><span class="line">    <span class="keyword">if</span> (arr[i] === <span class="string">&#x27;(&#x27;</span> || arr[i] === <span class="string">&#x27;[&#x27;</span> || arr[i] === <span class="string">&#x27;&#123;&#x27;</span>) &#123;</span><br><span class="line">      stack.<span class="title function_">push</span>(arr[i]);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 2. 닫는 괄호 -&gt; stack에서 pop해야 하는 케이스</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 먼저 현재 stack의 가장 위에 위치한 괄호를 확인하고</span></span><br><span class="line">      <span class="keyword">const</span> lastElementOfStack = stack[stack.<span class="property">length</span> - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 지금 처리해야하는 닫힌 괄호인 arr[i]의 짝과 맞는지를 확인 후 맞지 않다면 false를 리턴하고 로직 전체를 종료</span></span><br><span class="line">      <span class="keyword">if</span> (braketsMap[lastElementOfStack] !== arr[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 짝이 맞다면 현재 stack의 가장 위에 위치한 괄호를 pop시켜서 stack에서 제거해줌</span></span><br><span class="line">      stack.<span class="title function_">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> stack.<span class="property">length</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>👉🏻 대응하는 값들을 객체로 선언하는 방법이 인상적이었습니다. 저렇게 객체를 만들어놓으면 if문 안에 조건을 여러 개 쓰지 않아도 되는 장점이 있는 것 같습니다. :)</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230510-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230509-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230510-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230510-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

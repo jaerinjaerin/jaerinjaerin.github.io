@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>useCallback은 무엇이고, useMemo와의 차이는 무엇일까? 🏖️ | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/React/">
+                            React
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/React-Hooks/">
+                            React_Hooks
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                useCallback은 무엇이고, useMemo와의 차이는 무엇일까? 🏖️
+            
+            
+        </div>
+        <span class="post-date">
+            May 19, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/230519/23-05-19-4.jpeg" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h2><p>useCallback은 리렌더링 사이에 함수 정의를 캐시할 수 있는 React Hook입니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cachedFn = <span class="title function_">useCallback</span>(fn, dependencies);</span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="keyword">import</span> &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Calculator</span>(<span class="params">&#123; x, y &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> add = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> x + y, [x, y]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;add()&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<h2 id="useCallback-언제-사용하나요"><a href="#useCallback-언제-사용하나요" class="headerlink" title="useCallback, 언제 사용하나요?"></a>useCallback, 언제 사용하나요?</h2><h3 id="🐢-컴포넌트-리렌더링을-건너뛰고싶을-때-사용합니다"><a href="#🐢-컴포넌트-리렌더링을-건너뛰고싶을-때-사용합니다" class="headerlink" title="🐢 컴포넌트 리렌더링을 건너뛰고싶을 때 사용합니다."></a>🐢 컴포넌트 리렌더링을 건너뛰고싶을 때 사용합니다.</h3><p>하위 컴포넌트에 함수를 전달할 때 전달하는 함수를 캐싱해야 할 때가 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ProductPage</span>(<span class="params">&#123; productId, referrer, theme &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> handleSubmit = <span class="title function_">useCallback</span>(<span class="function">(<span class="params">orderDetails</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">post</span>(<span class="string">&#x27;/product/&#x27;</span> + productId + <span class="string">&#x27;/buy&#x27;</span>, &#123;</span><br><span class="line">      referrer,</span><br><span class="line">      orderDetails,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;, [productId, referrer]);</span><br><span class="line">  <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>useCallback을 사용하려면 두 가지를 전달해야합니다.</p>
+<ol>
+<li>리렌더링 사이에 캐시하려는 함수</li>
+<li>함수 내부에서 사용되는 모든 값을 포함한 dependencies List</li>
+</ol>
+<p>처음 초기 렌더링에서 useCallback에서 returned function은 전달한 함수가 됩니다.</p>
+<p>다음 렌더링에서 React는 종속성을 이전 렌더링에서 전달한 종속성과 비교합니다.<br>👉🏻 종속성 중 변경된 것이 없다면(Object.is와 비교했을 때), useCallback은 이전과 동일한 함수를 반환합니다. 그렇지 않으면 useCallback은 이 렌더링에서 전달한 함수를 반환합니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">다시 말해, useCallback은 종속성이 변경될 때까지 리렌더링 사이에 함수를 캐시합니다.</span></p>
+<p>ProductPage에서 ShippingForm 컴포넌트로 handleSubmit 함수를 전달한다고 가정해 보겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ProductPage</span>(<span class="params">&#123; productId, referrer, theme &#125;</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ShippingForm</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span> /&gt;</span> // 🚧 ShippingForm 컴포넌트에서 memo 최적화를 했다고 가정</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p><strong>JavaScript에서 함수는 객체입니다.</strong></p>
+<p>JavaScript에서 함수 () {} 또는 () &#x3D;&gt; {}는 {} 객체 리터럴이 항상 새 객체를 생성하는 것과 유사하게 항상 다른 함수를 생성합니다. 일반적으로는 문제가 되지 않지만 ShippingForm props는 동일하지 않기 때문에 memo 최적화가 작동하지 않습니다. 이 때 useCallback이 유용합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ProductPage</span>(<span class="params">&#123; productId, referrer, theme &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> handleSubmit = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">(<span class="params">orderDetails</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">post</span>(<span class="string">&#x27;/product/&#x27;</span> + productId + <span class="string">&#x27;/buy&#x27;</span>, &#123;</span><br><span class="line">        referrer,</span><br><span class="line">        orderDetails,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    [productId, referrer]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ShippingForm</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>👉🏻 handleSubmit을 useCallback으로 감싸면 의존성이 변경될 때까지 재렌더링 간에 동일한 함수가 되도록 할 수 있습니다.</p>
+<br />
+
+<h2 id="useCallback을-이용하여-앱-최적화하기"><a href="#useCallback을-이용하여-앱-최적화하기" class="headerlink" title="useCallback을 이용하여 앱 최적화하기"></a>useCallback을 이용하여 앱 최적화하기</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [input, setInput] = <span class="title function_">useState</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">const</span> [light, setLight] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> theme = &#123;</span><br><span class="line">    <span class="attr">backgroundColor</span>: light ? <span class="string">&#x27;White&#x27;</span> : <span class="string">&#x27;grey&#x27;</span>,</span><br><span class="line">    <span class="attr">color</span>: light ? <span class="string">&#x27;grey&#x27;</span> : <span class="string">&#x27;white&#x27;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">getItems</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [input + <span class="number">10</span>, input + <span class="number">100</span>];</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">event</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">Number</span>(event.<span class="property">target</span>.<span class="property">value</span>)) &#123;</span><br><span class="line">      <span class="title function_">setInput</span>(<span class="title class_">Number</span>(event.<span class="property">target</span>.<span class="property">value</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;number&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;input&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;input&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&#123;(light</span> ? &#x27;<span class="attr">light</span>&#x27; <span class="attr">:</span> &#x27;<span class="attr">dark</span>&#x27;) + &#x27; <span class="attr">button</span>&#x27;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setLight((prevLight) =&gt; !prevLight)&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        &#123;light ? &#x27;dark mode&#x27; : &#x27;light mode&#x27;&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">List</span> <span class="attr">getItems</span>=<span class="string">&#123;getItems&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br />
+
+<p>List 컴포넌트에서는 getItems 함수를 전달받아서 useEffect 내에서 실행시킨 후 items에 배열을 저장합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// List.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">List</span>(<span class="params">&#123; getItems &#125;</span>) &#123;</span><br><span class="line">  <span class="comment">/* Initial state of the items */</span></span><br><span class="line">  <span class="keyword">const</span> [items, setItems] = <span class="title function_">useState</span>([]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* This hook sets the value of items if </span></span><br><span class="line"><span class="comment">     getItems object changes */</span></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;아이템을 가져옵니다.&#x27;</span>);</span><br><span class="line">    <span class="title function_">setItems</span>(<span class="title function_">getItems</span>());</span><br><span class="line">  &#125;, [getItems]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Maps the items to a list */</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;items.map((item) =&gt; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item&#125;</span>&gt;</span>&#123;item&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      ))&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">List</span>;</span><br></pre></td></tr></table></figure>
+
+<p>List 컴포넌트의 리렌더링은 App 컴포넌트의 state 상태가 변경될 때마다 계속해서 발생합니다. useEffect 내 <code>console.log(&#39;아이템을 가져옵니다.&#39;)</code>가 언제 출력되는지 확인해보면</p>
+<ul>
+<li>App 컴포넌트의 input 값이 변경되었을 때</li>
+<li>App 컴포넌트의 light 값이 변경되었을 때</li>
+</ul>
+<p>두 가지 경우에 출력되는 것을 볼 수 있습니다. 즉, 현재는 <code>button</code> dark mode을 눌러도 getItems의 함수가 동작한다는거죠. 버튼을 누를 땐, List 컴포넌트가 리렌더링되면서 getItems 함수도 새로운 함수 객체로 생성되었기 때문에 새롭게 호출이 됩니다.</p>
+<p><img src="/../img/230519/23-05-19-6.png"></p>
+<br />
+
+<h3 style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">useCallback을 사용해 최적화를 시켜봅시다!</h3>
+
+<p>정의된 함수에 useCallback을 사용해야하니, getItems가 정의된 곳을 찾아갑니다. 그리고 input의 값이 변경되지 않는다면 새로운 함수를 만들지 않도록 useCallback으로 래핑합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getItems = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> [input + <span class="number">10</span>, input + <span class="number">100</span>];</span><br><span class="line">&#125;, [input]);</span><br></pre></td></tr></table></figure>
+
+<p>getItems를 useCallback으로 래핑함으로써 버튼을 클릭했을 때에는 getItems를 이전 메모리에 캐싱되어 있던 getItems 함수 객체를 사용하도록 만들어서 최적화를 했습니다.</p>
+<br />
+
+<h2 id="useCallback은-useMemo와-어떤-차이점이-있을까요"><a href="#useCallback은-useMemo와-어떤-차이점이-있을까요" class="headerlink" title="useCallback은 useMemo와 어떤 차이점이 있을까요?"></a>useCallback은 useMemo와 어떤 차이점이 있을까요?</h2><h3 id="✅-useMemo는-함수-호출-결과를-캐시합니다"><a href="#✅-useMemo는-함수-호출-결과를-캐시합니다" class="headerlink" title="✅ useMemo는 함수 호출 결과를 캐시합니다."></a>✅ useMemo는 함수 호출 결과를 캐시합니다.</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> requirements = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Calls your function and caches its result</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">computeRequirements</span>(product);</span><br><span class="line">&#125;, [product]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이 예제에서는 제품이 변경되지 않는 한 변경되지 않도록 computeRequirements(product)를 호출한 결과를 캐시합니다.</li>
+<li>이를 통해 불필요하게 ShippingForm을 다시 렌더링하지 않고도 요구사항 객체를 전달할 수 있습니다.</li>
+<li>필요한 경우 React는 렌더링 중에 전달한 함수를 호출하여 결과를 계산합니다.</li>
+</ul>
+<h3 id="✅-useCallback은-함수-자체를-캐시합니다"><a href="#✅-useCallback은-함수-자체를-캐시합니다" class="headerlink" title="✅ useCallback은 함수 자체를 캐시합니다."></a>✅ useCallback은 함수 자체를 캐시합니다.</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleSubmit = <span class="title function_">useCallback</span>(</span><br><span class="line">  <span class="function">(<span class="params">orderDetails</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Caches your function itself</span></span><br><span class="line">    <span class="title function_">post</span>(<span class="string">&#x27;/product/&#x27;</span> + productId + <span class="string">&#x27;/buy&#x27;</span>, &#123;</span><br><span class="line">      referrer,</span><br><span class="line">      orderDetails,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  [productId, referrer]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useMemo와 달리 사용자가 제공한 함수를 호출하지 않습니다.</li>
+<li>대신 제공한 함수를 캐시에 저장하여 productId나 referrer가 변경되지 않는 한 handleSubmit 자체가 변경되지 않도록 합니다.</li>
+<li>이렇게 하면 불필요하게 ShippingForm을 다시 렌더링하지 않고도 handleSubmit 함수를 전달할 수 있습니다. 사용자가 양식을 제출할 때까지 코드가 실행되지 않습니다.</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230519-2-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230519-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230519-1-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230519-1-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

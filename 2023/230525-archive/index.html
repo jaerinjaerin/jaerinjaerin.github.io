@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>라이브러리와 프레임워크의 차이는 무엇인가요? | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/Tech-Interview/">
+                            Tech_Interview
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                라이브러리와 프레임워크의 차이는 무엇인가요?
+            
+            
+        </div>
+        <span class="post-date">
+            May 25, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="/../img/photo/tech-interview.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p><em>‘아.. 머리로는 아는데 설명을 못하겠다..’</em></p>
+<blockquote>
+<p>머리로는 아는데 말로 표현을 못한다는 건 정리가 안된 상태로 어렴풋이 알고 있는겁니다. 다시 말해서, 진짜로 알고 있는게 아닌거죠. 문제는 아는데 말로 표현을 못할 뿐이라며 합리화를 하고 공부를 하지 않습니다. 이렇게 연차가 쌓이고 경력이 쌓여도 실력이 늘지 않습니다.</p>
+</blockquote>
+<p>최근에 읽은 글 중에 한 부분인데 마치 저를 설명하고 있는 것 같아 스스로에게 다시 한 번 상기시키기 위해 가져와봤습니다. 설명할 수 있어야 내 것이 된다는 것 잊지 말자구요!</p>
+<hr>
+<br />
+
+<h2 id="💡-라이브러리-vs-프레임워크"><a href="#💡-라이브러리-vs-프레임워크" class="headerlink" title="💡 라이브러리 vs 프레임워크"></a>💡 라이브러리 vs 프레임워크</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>Framework</th>
+<th>Library</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>정의</td>
+<td>애플리케이션 구축을 위한 구조 및 미리 정의된 규칙 집합을 제공하는 소프트웨어 프레임워크</td>
+<td>일반적인 작업을 수행하는 데 재사용할 수 있는 미리 작성된 코드 또는 함수 모음</td>
+</tr>
+<tr>
+<td>IoC(제어의 역전)</td>
+<td>일반적으로 프레임워크가 애플리케이션의 흐름을 제어하는 ​​<strong>제어 역전 원칙</strong>을 따릅니다.</td>
+<td>애플리케이션의 흐름을 제어할 수 없습니다. 개발자가 필요할 때 사용합니다.</td>
+</tr>
+<tr>
+<td>코드 구조</td>
+<td>종종 특정 디자인 패턴을 포함하여 애플리케이션 개발을 위한 완전한 구조 및 아키텍처를 제공합니다.</td>
+<td>특정 구조나 아키텍처를 부과하지 않기 때문에 코드를 <strong>보다 유연하게</strong> 구성할 수 있습니다.</td>
+</tr>
+<tr>
+<td>확장성</td>
+<td>기본 제공 도구 및 유틸리티와 함께 ​​다양한 기능을 제공하는 경우가 많습니다.</td>
+<td>필요에 따라 개발자가 사용할 수 있는 특정 기능 또는 도구를 제공합니다.</td>
+</tr>
+<tr>
+<td>학습 곡선(Learning Curve)</td>
+<td>이해해야 할 프레임워크별 개념, 규칙 및 추상화로 인해 러닝커브가 더 가팔라질 수 있습니다.</td>
+<td>일반적으로 특정 작업이나 기능에 초점을 맞추므로 러닝커브가 더 작습니다.</td>
+</tr>
+<tr>
+<td>유연성</td>
+<td>개발자의 자유를 제한할 수 있는 특정 규칙 및 규칙을 시행하므로 유연성이 떨어질 수 있습니다.</td>
+<td>개발자가 라이브러리를 사용하는 방법과 시기에 대해 더 많은 제어 권한을 가지므로 더 많은 유연성을 제공합니다.</td>
+</tr>
+<tr>
+<td>예</td>
+<td>프레임워크의 예로는 Angular, Django 등이 있습니다.</td>
+<td>라이브러리의 예로는 Axios, Lodash가 있습니다.</td>
+</tr>
+</tbody></table>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230528-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230524-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230525-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230525-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="leejaelll">
+
+
+    <meta name="subtitle" content="by Leejaelll">
+
+
+
+
+
+
+<title>TypeScript tsconfig.ts 분석해보기 🐻 | LEE_PLAY</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/frame.js"></script>
+    
+
+
+
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            LEE_PLAY
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">Tag</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/CodeStates/">
+                            CodeStates
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/TypeScript/">
+                            TypeScript
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                TypeScript tsconfig.ts 분석해보기 🐻
+            
+            
+        </div>
+        <span class="post-date">
+            May 30, 2023
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <img src="https://leejaelll.github.io/img/photo/typescript.png" alt="featured_image">
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>타입스크립트를 설치하면 우리는 타입스크립트를 사용하기 위해 config 파일에 여러 내용들을 설정해줘야 합니다. 자주 사용하는 설정들엔 어떤 것들이 있는지 정리해봤습니다.</p>
+<hr>
+<br />
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es6&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;esnext&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;dom&quot;</span><span class="punctuation">,</span> <span class="string">&quot;esnext&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;esModuleInterop&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;allowJs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;moduleResolution&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;resolveJsonModule&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./src&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;@/*&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;*&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<br />
+
+<ul>
+<li><strong>include</strong>: 타입스크립트 파일이 어디에 위치하는지를 지정합니다. src 디렉토리와 그 하위 디렉토리에 있는 모든 TypeScript 파일을 포함하려면 <code>[&quot;src&quot;]</code> 혹은 <code>[&quot;src/**/*]</code>로 작성할 수 있습니다.</li>
+<li><strong>compilerOptions</strong>: TypeScript 컴파일러에 대한 다양한 옵션 및 설정을 구성하는 데 사용됩니다.<ul>
+<li><strong>target</strong>: 컴파일되어야 하는 ECMAScript 대상 버전을 지정합니다.</li>
+<li><strong>module</strong>: 생성된 JavaScript 코드에 사용할 모듈 시스템을 지정합니다. 일반적인 옵션에는 “commonjs”, “amd”, “es2015”, “es2020” 등이 있습니다.</li>
+<li><strong>outDir</strong>: 컴파일된 JavaScript 파일의 출력 디렉토리를 지정합니다. 컴파일된 자바스크립트 파일은 dist폴더 내에 존재하게 됩니다.</li>
+<li><strong>strict</strong>: 엄격한 유형 검사 옵션을 활성화합니다. 일반적인 실수를 포착하고 더 엄격한 유형 규칙을 적용하는 데 도움이 됩니다.</li>
+<li><strong>esModuleInterop</strong>: CommonJS와 ES 모듈 간의 상호 운용성을 활성화하여 다른 모듈 시스템의 라이브러리와 모듈을 더 쉽게 사용할 수 있습니다.</li>
+<li><strong>sourceMap</strong>: 컴파일된 JavaScript 파일과 함께 소스 맵 파일을 생성합니다. 소스 맵을 사용하면 컴파일된 코드를 원본 TypeScript 코드에 다시 매핑하여 더 쉽게 디버깅할 수 있습니다.</li>
+<li><strong>resolveJsonModule</strong>: ‘true’로 설정하면 TypeScript 컴파일러가 JSON 파일을 TypeScript 코드의 모듈로 확인하고 가져올 수 있습니다.</li>
+<li><strong>jsx</strong>: “jsx”: “react”를 설정하면 React 자체에서 제공하는 JSX 변환을 사용하고 싶다는 뜻입니다.</li>
+<li><strong>lib</strong>: TypeScript 코드의 대상 플랫폼 또는 환경을 지정해야 합니다. <code>&quot;lib&quot;: [&quot;dom&quot;, &quot;esnext&quot;]</code>로 작성하면 DOM API에 접근할 수 있습니다.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<br />
+
+<h3 id="🚀-esModuleInterop"><a href="#🚀-esModuleInterop" class="headerlink" title="🚀 esModuleInterop"></a>🚀 esModuleInterop</h3><p>NodeJS 패키지 중 하나인 Crypto를 사용할 때 <code>import crypto from &#39;crypto&#39;</code>로 import를 하게 되면</p>
+<blockquote>
+<p>Module ‘“crypto”‘ has no default export.</p>
+</blockquote>
+<p>라는 오류가 발생합니다.</p>
+<p>crypto는 default export가 없다는 이야기인데 crypto의 기본 동작이 ESModule이 아니기 때문입니다. 이것을 해결하기 위한 첫 번째 방법은 <code>import * as crypto from &#39;crypto&#39;</code>입니다. 하지만 이렇게 쓰고 싶지 않다면 이때는 tsconfig.json에서 옵션을 설정해야 합니다.</p>
+<p><span style="background-color: rgba(153, 219, 218, 0.3); font-style: italic; font-weight: bold">👉🏻 이 때 사용하는 것이 esModuleInterop</span></p>
+<p>tsconfig.json 파일에서 <code>&quot;esModuleInterop&quot;: true</code>로 옵션을 설정하면 ESModule의 구문을 사용할 수 있습니다.</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2023/230530-1-archive/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2023/230528-archive/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://leejaelll.github.io/2023/230530-archive/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/230530-archive/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leejaelll.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="/js/search.js"></script>
+    
+    
+
+  </body>
+</html>
