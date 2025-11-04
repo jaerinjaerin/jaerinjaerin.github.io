@@ -73,15 +73,14 @@ REST API와 GraphQL 둘 다 JSON 형태로 돌려주고 형태는 이런 식
 
 ```jsx
 <div className='search-bar'>
-  {' '}
   <div>
-    {' '}
-    <input type='text' placeholder='Search...' />{' '}
-  </div> <div>
-    {' '}
-    <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+    <input type='text' placeholder='Search...' />
+  </div>
+  <div>
+    <input type='checkbox' id='only-stock' />
+    <label htmlFor='only-stock'>
       Only Show products in stock
-    </label>{' '}
+    </label>
   </div>
 </div>
 ```
@@ -90,25 +89,24 @@ REST API와 GraphQL 둘 다 JSON 형태로 돌려주고 형태는 이런 식
 
 ```jsx
 <table className='products-tables'>
-  {' '}
   <thead>
-    {' '}
     <tr>
-      {' '}
-      <th>Name</th> <th>Price</th>{' '}
-    </tr>{' '}
-  </thead> <tbody>
-    {' '}
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
-      {' '}
-      <td colSpan={2}>카테고리</td>{' '}
-    </tr> <tr>
-      {' '}
-      <td>Apple</td> <td>$1</td>{' '}
-    </tr> <tr>
-      {' '}
-      <td>Dragonfruit</td> <td>$2</td>{' '}
-    </tr>{' '}
+      <td colSpan={2}>카테고리</td>
+    </tr>
+    <tr>
+      <td>Apple</td>
+      <td>$1</td>
+    </tr>
+    <tr>
+      <td>Dragonfruit</td>
+      <td>$2</td>
+    </tr>
   </tbody>
 </table>
 ```
@@ -117,29 +115,27 @@ REST API와 GraphQL 둘 다 JSON 형태로 돌려주고 형태는 이런 식
 
 ```jsx
 <table className='products-tables'>
-  {' '}
   <thead>
-    {' '}
     <tr>
-      {' '}
-      <th>Name</th> <th>Price</th>{' '}
-    </tr>{' '}
-  </thead> <tbody>
-    {' '}
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
-      {' '}
-      <td colSpan={2}>{products[0].category}</td>{' '}
-    </tr> {products.map((product) => (
+      <td colSpan={2}>{products[0].category}</td>
+    </tr>
+    {products.map((product) => (
       <tr>
-        {' '}
-        <td>{product.name}</td> <td>{product.price}</td>{' '}
+        <td>{product.name}</td>
+        <td>{product.price}</td>
       </tr>
-    ))}{' '}
+    ))}
   </tbody>
 </table>
 ```
 
-![.](/images/content/thinking-in-react-react-component/1.png)
+![.](/images/content/thinking-in-react-component/1.png)
 
 `‘key’ prop` 이 필요한 이유무언가 변경되었을 때 각각을 구분할 수 있는 것이 key의 역할. 그렇기 때문에 key는 unique해야 한다.
 
@@ -147,8 +143,8 @@ REST API와 GraphQL 둘 다 JSON 형태로 돌려주고 형태는 이런 식
 {
   products.map((product) => (
     <tr key={product.name}>
-      {' '}
-      <td>{product.name}</td> <td>{product.price}</td>{' '}
+      <td>{product.name}</td>
+      <td>{product.price}</td>
     </tr>
   ));
 }
@@ -162,12 +158,53 @@ acc가 category를 갖고 있으면 추가X
 category를 갖고 있지 않다면 추가하기
 
 ```jsx
-export default function App() {  const categories = products.reduce(    (acc, product) =>      acc.includes(product.category) ? acc : [...acc, product.category],    []  );  // 생략...  <table className="products-tables">    <thead>      <tr>        <th>Name</th>        <th>Price</th>      </tr>    </thead>    <tbody>      <tr>        <td colSpan={2}>{categories[0]}</td>      </tr>      {products        .filter((product) => product.category === categories[0])        .map((product) => (          <tr key={product.name}>            <td>{product.name}</td>            <td>{product.price}</td>          </tr>        ))}      <tr>        <td colSpan={2}>{categories[1]}</td>      </tr>      {products        .filter((product) => product.category === categories[1])        .map((product) => (          <tr key={product.name}>            <td>{product.name}</td>            <td>{product.price}</td>          </tr>        ))}    </tbody>  </table>;}
+export default function App() {
+  const categories = products.reduce(
+    (acc, product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+
+  // 생략...
+
+  <table className="products-tables">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colSpan={2}>{categories[0]}</td>
+      </tr>
+      {products
+        .filter((product) => product.category === categories[0])
+        .map((product) => (
+          <tr key={product.name}>
+            <td>{product.name}</td>
+            <td>{product.price}</td>
+          </tr>
+        ))}
+      <tr>
+        <td colSpan={2}>{categories[1]}</td>
+      </tr>
+      {products
+        .filter((product) => product.category === categories[1])
+        .map((product) => (
+          <tr key={product.name}>
+            <td>{product.name}</td>
+            <td>{product.price}</td>
+          </tr>
+        ))}
+    </tbody>
+  </table>;
+}
 ```
 
 코드에 빨간 줄이 가있는 이유
 
-![스크린샷 2023-03-22 오전 12.12.08.png](/images/content/thinking-in-react-react-component/2.png)
+![스크린샷 2023-03-22 오전 12.12.08.png](/images/content/thinking-in-react-component/2.png)
 
 <Callout>
 Type 'string[]' is missing the following properties from type `{ category: string; price: string; stocked: boolean; name: string; }`: category, price, stocked, name
@@ -179,7 +216,11 @@ Type 'string[]' is missing the following properties from type `{ category: strin
 : 기본 값을 설정할 때 타입 지정
 
 ```jsx
-const categories = products.reduce(  (acc, product) => (acc.includes(product.category) ? acc : [...acc, product.category]),  [] as string[]);
+const categories = products.reduce(
+  (acc, product) =>
+    acc.includes(product.category) ? acc : [...acc, product.category],
+  [] as string[]
+);
 ```
 
 2️⃣ 두 번째 해결 방법
@@ -197,7 +238,37 @@ const categories = products.reduce(
 : Type or Interface
 
 ```jsx
-interface Product {	category: string;	price: string;	stocked: boolean;	name: string;}const products: Product[] = [  {    category: 'Fruits',    price: '$1',    stocked: true,    name: 'Apple',  },  {    category: 'Fruits',    price: '$1',    stocked: true,    name: 'Dragonfruit',  },  ...];export default function App() {  const categories = products.reduce(    (acc: string[], product: Product) => (acc.includes(product.category) ? acc : [...acc, product.category]),    []  );...}
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
+
+const products: Product[] = [
+  {
+    category: 'Fruits',
+    price: '$1',
+    stocked: true,
+    name: 'Apple',
+  },
+  {
+    category: 'Fruits',
+    price: '$1',
+    stocked: true,
+    name: 'Dragonfruit',
+  },
+  ...
+];
+
+export default function App() {
+  const categories = products.reduce(
+    (acc: string[], product: Product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+  ...
+}
 ```
 
 가장 좋은 방법은 interface.
@@ -237,51 +308,49 @@ export default function App() {
   console.log(categories);
   return (
     <div className='filterable-product-table'>
-      {' '}
       <div className='seach-bar'>
-        {' '}
         <div>
-          {' '}
-          <input type='text' placeholder='Search...' />{' '}
-        </div> <div>
-          {' '}
-          <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+          <input type='text' placeholder='Search...' />
+        </div>
+        <div>
+          <input type='checkbox' id='only-stock' />
+          <label htmlFor='only-stock'>
             Only Show products in stock
-          </label>{' '}
-        </div>{' '}
-      </div> <table className='product-table'>
-        {' '}
+          </label>
+        </div>
+      </div>
+      <table className='product-table'>
         <thead>
-          {' '}
           <tr>
-            {' '}
-            <th>Name</th> <th>Price</th>{' '}
-          </tr>{' '}
-        </thead> <tbody>
-          {' '}
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
           <tr>
-            {' '}
-            <td colSpan={2}>{products[0].category}</td>{' '}
-          </tr> {products
+            <td colSpan={2}>{products[0].category}</td>
+          </tr>
+          {products
             .filter((product) => product.category === categories[0])
             .map((product) => (
               <tr key={product.name}>
-                {' '}
-                <td>{product.name}</td> <td>{product.price}</td>{' '}
+                <td>{product.name}</td>
+                <td>{product.price}</td>
               </tr>
-            ))} <tr>
-            {' '}
-            <td colSpan={2}>{categories[1]}</td>{' '}
-          </tr> {products
+            ))}
+          <tr>
+            <td colSpan={2}>{categories[1]}</td>
+          </tr>
+          {products
             .filter((product) => product.category === categories[1])
             .map((product) => (
               <tr key={product.name}>
-                {' '}
-                <td>{product.name}</td> <td>{product.price}</td>{' '}
+                <td>{product.name}</td>
+                <td>{product.price}</td>
               </tr>
-            ))}{' '}
-        </tbody>{' '}
-      </table>{' '}
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -294,7 +363,6 @@ export default function App() {
 
 ```jsx
 <tr>
-  {' '}
   <td colSpan={2}>{categories[1]}</td>
 </tr>;
 {
@@ -302,12 +370,13 @@ export default function App() {
     .filter((product) => product.category === categories[1])
     .map((product) => (
       <tr key={product.name}>
-        {' '}
-        <td>{product.name}</td> <td>{product.price}</td>{' '}
+        <td>{product.name}</td>
+        <td>{product.price}</td>
       </tr>
     ));
 }
-/* ------------------------------------------------------------------------ */ function ProductInCategory({
+/* ------------------------------------------------------------------------ */
+function ProductInCategory({
   category,
   products,
 }: ProductsInCategoryProps) {
@@ -316,16 +385,15 @@ export default function App() {
   );
   return (
     <>
-      {' '}
       <tr>
-        {' '}
-        <td colSpan={2}>{products[0].category}</td>{' '}
-      </tr> {productsInCategory.map((product) => (
+        <td colSpan={2}>{products[0].category}</td>
+      </tr>
+      {productsInCategory.map((product) => (
         <tr key={product.name}>
-          {' '}
-          <td>{product.name}</td> <td>{product.price}</td>{' '}
+          <td>{product.name}</td>
+          <td>{product.price}</td>
         </tr>
-      ))}{' '}
+      ))}
     </>
   );
 }
@@ -339,19 +407,18 @@ export default function App() {
 
 ```jsx
 <table className='product-table'>
-  {' '}
   <thead>
-    {' '}
     <tr>
-      {' '}
-      <th>Name</th> <th>Price</th>{' '}
-    </tr>{' '}
-  </thead> <tbody>
-    {' '}
-    <ProductInCategory category={categories[0]} products={products} /> <ProductInCategory
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ProductInCategory category={categories[0]} products={products} />
+    <ProductInCategory
       category={categories[1]}
       products={products}
-    />{' '}
+    />
   </tbody>
 </table>
 ```
@@ -368,7 +435,7 @@ ProductInCategory 컴포넌트가 반복되고 있으므로 map 함수를 사용
 
 ### ProductInCategory 컴포넌트 외부로 추출하기
 
-![스크린샷 2023-03-23 오전 10.08.32.png](/images/content/thinking-in-react-react-component/3.png)
+![스크린샷 2023-03-23 오전 10.08.32.png](/images/content/thinking-in-react-component/3.png)
 
 👉🏻 type이 없다는 오류
 이전에 썼던 interface Product는 App에서도 쓰고 있고, ProductInCategory 컴포넌트에서도 사용해야 한다.
@@ -386,15 +453,15 @@ export default Product;
 
 ProductInCategory에 있는 product.name과 product.price도 컴포넌트로 처리할 수 있다.
 
-![스크린샷 2023-03-23 오전 10.26.06.png](/images/content/thinking-in-react-react-component/4.png)
+![스크린샷 2023-03-23 오전 10.26.06.png](/images/content/thinking-in-react-component/4.png)
 
 ```jsx
 import Product from '../types/Product';
 export default function ProductRow({ product }: { product: Product }) {
   return (
     <tr>
-      {' '}
-      <td>{product.name}</td> <td>{product.price}</td>{' '}
+      <td>{product.name}</td>
+      <td>{product.price}</td>
     </tr>
   );
 }
@@ -407,8 +474,8 @@ type ProductRowProps = { product: Product };
 export default function ProductRow({ product }: ProductRowProps) {
   return (
     <tr>
-      {' '}
-      <td>{product.name}</td> <td>{product.price}</td>{' '}
+      <td>{product.name}</td>
+      <td>{product.price}</td>
     </tr>
   );
 }
@@ -418,15 +485,15 @@ export default function ProductRow({ product }: ProductRowProps) {
 
 ```jsx
 <Category category={category} />;
-/* ------------------------------------------------------------------------ */ export default function Category({
+/* ------------------------------------------------------------------------ */
+export default function Category({
   category,
 }: {
   category: string,
 }) {
   return (
     <tr>
-      {' '}
-      <td colSpan={2}>{category}</td>{' '}
+      <td colSpan={2}>{category}</td>
     </tr>
   );
 }
@@ -438,7 +505,7 @@ export default function ProductRow({ product }: ProductRowProps) {
 
 ### ProductTable 컴포넌트 만들기
 
-![스크린샷 2023-03-23 오전 10.59.45.png](/images/content/thinking-in-react-react-component/5.png)
+![스크린샷 2023-03-23 오전 10.59.45.png](/images/content/thinking-in-react-component/5.png)
 
 `.filterable-product-table` 부분에선 category를 쓰고 있지 않으니 categories를 ProductTable 컴포넌트 안으로 넣는다.
 
@@ -451,23 +518,21 @@ function ProductTable({ products }: { products: Product[] }) {
   );
   return (
     <table className='product-table'>
-      {' '}
       <thead>
-        {' '}
         <tr>
-          {' '}
-          <th>Name</th> <th>Price</th>{' '}
-        </tr>{' '}
-      </thead> <tbody>
-        {' '}
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
         {categories.map((category) => (
           <ProductInCategory
             key={category}
             category={category}
             products={products}
           />
-        ))}{' '}
-      </tbody>{' '}
+        ))}
+      </tbody>
     </table>
   );
 }
@@ -476,7 +541,23 @@ function ProductTable({ products }: { products: Product[] }) {
 ### products.filter() 함수 부분을 따로 추출하는 예제:
 
 ```jsx
-export default function ProductInCategory({  category,  products,}: ProductsInCategoryProps) {  const productsInCategory = products.filter(    (product) => product.category === category  ); // -> 이 부분을 따로 추출하기  return (    <>      <Category category={category} />      {productsInCategory.map((product) => (        <ProductCategoryRow key={product.name} product={product} />      ))}    </>  );}
+export default function ProductInCategory({
+  category,
+  products,
+}: ProductsInCategoryProps) {
+  const productsInCategory = products.filter(
+    (product) => product.category === category
+  ); // -> 이 부분을 따로 추출하기
+
+  return (
+    <>
+      <Category category={category} />
+      {productsInCategory.map((product) => (
+        <ProductCategoryRow key={product.name} product={product} />
+      ))}
+    </>
+  );
+}
 ```
 
 utils > select.ts 생성
@@ -488,7 +569,13 @@ export default function select(items: any[], field: string, value: any) {
 ```
 
 ```jsx
-const productsInCategory = products.filter(  (product) => product.category === category);⬇️const productsInCategory = selectProducts(products, 'category', category);
+const productsInCategory = products.filter(
+  (product) => product.category === category
+);
+
+⬇️
+
+const productsInCategory = selectProducts(products, 'category', category);
 ```
 
 ### SearchBar 컴포넌트 추출
@@ -497,16 +584,15 @@ const productsInCategory = products.filter(  (product) => product.category === c
 export default function SearchBar() {
   return (
     <div className='seach-bar'>
-      {' '}
       <div>
-        {' '}
-        <input type='text' placeholder='Search...' />{' '}
-      </div> <div>
-        {' '}
-        <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+        <input type='text' placeholder='Search...' />
+      </div>
+      <div>
+        <input type='checkbox' id='only-stock' />
+        <label htmlFor='only-stock'>
           Only Show products in stock
-        </label>{' '}
-      </div>{' '}
+        </label>
+      </div>
     </div>
   );
 }
@@ -524,8 +610,8 @@ export default function FilterableProductTable({
 }: FilterableProductTableProps) {
   return (
     <div>
-      {' '}
-      <SearchBar /> <ProductTable products={products} />{' '}
+      <SearchBar />
+      <ProductTable products={products} />
     </div>
   );
 }
@@ -533,7 +619,7 @@ export default function FilterableProductTable({
 
 App 컴포넌트가 굉장히 깔끔해진 것을 볼 수 있다.
 
-![스크린샷 2023-03-23 오후 9.54.44.png](/images/content/thinking-in-react-react-component/6.png)
+![스크린샷 2023-03-23 오후 9.54.44.png](/images/content/thinking-in-react-component/6.png)
 
 <Callout>🔥 Props를 개별적으로 넘겨줄 수 있는 방법도 있다.</Callout>
 
@@ -542,22 +628,23 @@ App 컴포넌트가 굉장히 깔끔해진 것을 볼 수 있다.
 ```jsx
 return (
   <>
-    {' '}
-    <Category category={category} /> {productsInCategory.map((product) => (
+    <Category category={category} />
+    {productsInCategory.map((product) => (
       <ProductCategoryRow key={product.name} product={product} />
-    ))}{' '}
+    ))}
   </>
 );
-/* ------------------------------------------------------------------------ */ return (
+/* ------------------------------------------------------------------------ */
+return (
   <>
-    {' '}
-    <Category category={category} /> {productsInCategory.map((product) => (
+    <Category category={category} />
+    {productsInCategory.map((product) => (
       <ProductCategoryRow
         key={product.name}
         name={product.name}
         price={product.price}
       />
-    ))}{' '}
+    ))}
   </>
 );
 ```
@@ -567,20 +654,40 @@ return (
 
 ### CheckBoxField 컴포넌트 추출하기
 
-```text
-function CheckBoxField({ label }: { label: string }) {  const id = `checkbox-${label}`.replace(/ /g, '-').toLowerCase();  return (    <div>      <input type="checkbox" id={id} />      <label htmlFor={id}>{label}</label>    </div>  );}export default function SearchBar() {  return (    <div className="seach-bar">      <div>        <input type="text" placeholder="Search..." />      </div>      <CheckBoxField label="Only Show products in stock" />    </div>  );}
+```jsx
+function CheckBoxField({ label }: { label: string }) {
+  const id = `checkbox-${label}`.replace(/ /g, '-').toLowerCase();
+
+  return (
+    <div>
+      <input type="checkbox" id={id} />
+      <label htmlFor={id}>{label}</label>
+    </div>
+  );
+}
+
+export default function SearchBar() {
+  return (
+    <div className="seach-bar">
+      <div>
+        <input type="text" placeholder="Search..." />
+      </div>
+      <CheckBoxField label="Only Show products in stock" />
+    </div>
+  );
+}
 ```
 
-`const id = `checkbox-${label}`.replace(/ /g, '-').toLowerCase();` 와 같은 코드는 React에선 useRef를 사용한다.
+위의 `const id = ...` 코드처럼 동적으로 생성되는 값은 React에서 useRef를 사용한다.
 
 ```jsx
 const id = useRef(`checkbox-${label}`.replace(/ /g, '-').toLowerCase());
 return (
   <div>
-    {' '}
-    <input type='checkbox' id={id.current} /> <label htmlFor={id.current}>
+    <input type='checkbox' id={id.current} />
+    <label htmlFor={id.current}>
       {label}
-    </label>{' '}
+    </label>
   </div>
 );
 ```
