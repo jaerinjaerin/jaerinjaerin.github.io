@@ -4,20 +4,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { CategoryData } from '@/types';
 import { usePathname, useRouter } from 'next/navigation';
-
-const CATEGORY_ICON_MAP: Record<string, string> = {
-  All: 'color.png',
-  'Next.js': 'music.png',
-  Typescript: 'key.png',
-  JavaScript: 'rocket.png',
-  Algorithm: 'target.png',
-  HTML: 'notebook.png',
-  CSS: 'tool.png',
-  Retrospective: 'megaphone.png',
-  Develop: 'brush.png',
-  Life: 'tool.png',
-  // Add other category-icon mappings here
-};
+import { CATEGORY_ICON_MAP } from '@/constants/icon';
 
 interface CategoryFilterProps extends CategoryData {
   isMobile?: boolean;

@@ -1,0 +1,155 @@
+---
+title: 'useRef의 개념과 사용방법 🚀'
+date: 2023-05-21
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+## useRef
+
+useRef는 렌더링에 필요하지 않은 값을 참조하고 싶을 때 사용하는 React Hook입니다.
+렌더링에 필요하지 않은 값이 무엇을 의미하는걸까요?상태 값이 변하면 리렌더링을 하는 useState와 달리, useRef는 리렌더링을 하지 않습니다. 값은 변경하지만 렌더링은 다시 하지 않는거죠.
+
+```jsx
+const inputRef = useRef(initialValue);
+```
+
+useRef는 하나의 parameter를 받습니다. 참조할 객체의 프로퍼티를 설정할 초기 값입니다. initialValue는 초기 렌더링 이후에는 무시됩니다.
+
+### 🛵 useRef는 무엇을 반환할까요?
+
+useRef는 current라는 프로퍼티를 가진 하나의 객체를 반환합니다. 처음에는 useRef에 전달한 initialValue가 current의 값이 됩니다.
+![](/images/content/understanding-useref/1.png)
+
+만든 inputRef는 JSX 노드에 ref 어트리뷰트 값으로 할당하면 inputRef.current의 값은 input 노드가 됩니다.
+
+```jsx
+export default function App() {
+  const inputRef = useRef(null);
+  const handleClick = (e) => {
+    console.log(inputRef.current.value);
+  };
+  return (
+    <div className='App'>
+      {' '}
+      <input ref={inputRef} /> <button onClick={handleClick}>Click</button>{' '}
+    </div>
+  );
+}
+```
+
+👉🏻버튼을 클릭했을 때 input.current.value의 값은 input에 입력한 값
+
+## useRef, 언제 사용하는걸까?
+
+### 🛵 Referencing a value with a ref
+
+ref로 값을 참조하고 싶을 때 사용합니다.current 프로퍼티를 변경하여 정보를 저장하고 나중에 읽을 수 있는데요, state와 비슷하다고 생각할 수 있지만 다른 점이 있습니다.
+참조를 변경해도 리렌더링이 발생하지 않는다.
+즉, ref는 시각적 출력에 영향을 주지 않는 정보를 저장하는데 유용합니다. 예를 들어, interval ID를 저장했다가 나중에 검색해야하는 경우 ref에 넣어놓을 수 있습니다. ref 안에 값을 변경하려면 current 프로퍼티를 조작하면 됩니다.
+
+**Click counter 만들기**useRef를 사용하여 버튼을 클릭했을 때 몇 번 클릭했는지 추적하는 컴포넌트를 만들어보겠습니다.
+
+```jsx
+import { useRef } from 'react';
+export default function Counter() {
+  let ref = useRef(0);
+  const handleClick = () => {
+    ref.current = ref.current + 1;
+    console.log(`You clicked ${ref.current} times`);
+  };
+  return <button onClick={handleClick}>Click me!</button>;
+}
+```
+
+👉🏻 만약 클릭한 횟수를 화면에 출력해야한다면? state를 사용해야합니다.
+
+**StopWatch 만들기**
+여기서는 state와 ref를 같이 써야하는데요, 무엇이 state여야 하고, 무엇이 ref여야 할까요?
+startTime과 now는 모두 렌더링에 사용되므로 state입니다. 버튼을 누를 때 간격을 멈출 수 있도록 만들 intervalId는 렌더링에 사용되지 않으므로 ref에 넣어 사용합니다.
+
+```jsx
+import { useState, useRef } from 'react';export default function StopWatch() {  const [startTime, setStartTime] = useState(null);  const [now, setNow] = useState(null);  const intervalRef = useRef(null);  const handleStartClick = () => {    setStartTime(Date.now());    setNow(Date.now());    clearInterval(intervalRef.current); // ✅ 새 인터벌을 시작하기 전에 이전에 실행 중인 인터벌 지우기    intervalRef.current = setInterval(() => {      setNow(Date.now());    }, 10);  };  const handleStopClick = () => {    clearInterval(intervalRef.current);  };  let secondsPassed = 0;  if (startTime != null && now != null) {    secondsPassed = (now - startTime) / 1000;  }  return (    <>      <h1> TimePassed: {secondsPassed.toFixed(3)} </h1>      <button onClick={handleStartClick}>Start</button>      <button onClick={handleStopClick}>Stop</button>    </>  );}
+```
+
+### 🛵 Manipulating the DOM with a ref
+
+DOM을 조작하려고 할 때 ref를 사용합니다.
+
+1. ref 객체를 null으로 초기화합니다.
+
+```jsx
+const inputRef = useRef(null);
+```
+
+1. ref 객체를 ref 어트리뷰트로 조작하려는 DOM 노드의 JSX에 전달합니다.
+
+```jsx
+// ...return <input ref={inputRef} />;
+```
+
+1. React가 DOM 노드를 생성하고 화면에 배치하면 React는 ref 객체의 현재 프로퍼티를 해당 DOM 노드로 설정합니다. 이제 input의 DOM 노드에 접근하여 focus()와 같은 메서드를 호출할 수 있습니다.
+
+```jsx
+function handleClick() {
+  inputRef.current.focus();
+}
+```
+
+React는 노드가 화면에서 제거되면 현재 프로퍼티를 다시 null로 설정합니다.
+
+**view에서 이미지 스크롤하기**
+버튼을 클릭하면 이미지가 스크롤되는 기능을 구현하려고 합니다.
+
+![](/images/content/understanding-useref/2.gif)
+
+useRef는 이미지 리스트를 감싸고 있는 ul에 주고 버튼을 클릭할 때 querySelectorAll을 사용하여 스크롤하려고 하는 이미지를 찾으면 될 것 같습니다.
+
+```jsx
+import { useRef } from 'react';
+export default function CatFriends() {
+  const listRef = useRef(null);
+  const scrollToIndex = (index) => {
+    const listNode = listRef.current;
+    const imgNode = [...listNode.querySelectorAll('li > img')][index];
+    imgNode.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
+  };
+  return (
+    <>
+      {' '}
+      <nav>
+        {' '}
+        <button onClick={() => scrollToIndex(0)}>Tom</button> <button
+          onClick={() => scrollToIndex(1)}
+        >
+          Maru
+        </button> <button onClick={() => scrollToIndex(2)}>
+          Jellylorum
+        </button>{' '}
+      </nav> <div>
+        {' '}
+        <ul ref={listRef}>
+          {' '}
+          <li>
+            {' '}
+            <img src='https://placekitten.com/g/200/200' alt='Tom' />{' '}
+          </li> <li>
+            {' '}
+            <img src='https://placekitten.com/g/300/200' alt='Maru' />{' '}
+          </li> <li>
+            {' '}
+            <img
+              src='https://placekitten.com/g/250/200'
+              alt='Jellylorum'
+            />{' '}
+          </li>{' '}
+        </ul>{' '}
+      </div>{' '}
+    </>
+  );
+}
+```

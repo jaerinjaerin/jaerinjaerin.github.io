@@ -1,0 +1,115 @@
+---
+title: 'Queue 구현하기'
+date: 2023-03-30
+tags: ['Algorithm']
+thumbnail: /thumbnails/queue-implementation.png
+---
+
+## Array로 구현하는 방법
+
+```js
+class Queue {
+  constructor() {
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+  enqueue(value) {
+    const value = (this.queue[this.rear++] = value);
+  }
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front -= 1;
+    return value;
+  }
+  peek() {
+    return this.queue[this.front];
+  }
+  size() {
+    return this.rear - this.front;
+  }
+}
+```
+
+## list로 구현하는 방법
+
+```js
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+class Queue {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+  enqueue(newValue) {
+    this.newNode = new Node(newValue);
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.size += 1;
+    return value;
+  }
+  dequeue() {
+    const value = this.head.value;
+    this.head = this.head.next;
+    this.size = -1;
+    return value;
+  }
+  peek() {
+    return this.head.value;
+  }
+}
+```
+
+### Shift 함수는 쓰지말자!
+
+shift 메서드를 사용하게 되면 배열의 index를 하나씩 당겨서 다시 정리해야하기 때문에 시간복잡도가 증가한다.
+
+## Circluar Queue
+
+Front와 Rear가 이어져있는 Queue
+Circluar Queue는 Linked List로 구현했을 때 이점이 없다.
+
+```js
+class Queue {
+  constructor(maxSize) {
+    this.maxSize = maxSize;
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+    this.size = 0;
+  }
+  enqueue(value) {
+    if (this.isFull()) {
+      console.log('Queue is full');
+      return;
+    }
+    this.queue[this.rear] = value;
+    this.rear = (this.rear + 1) % this.maxSize;
+    this.size += 1;
+  }
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front = (this.front + 1) % this.maxSize;
+    this.size -= 1;
+    return value;
+  }
+  isFull() {
+    return this.size === this.maxSize;
+  }
+  peek() {
+    return this.queue[this.front];
+  }
+}
+```

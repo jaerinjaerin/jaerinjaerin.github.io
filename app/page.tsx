@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { HomePageClient } from '@/components/home/home-client';
 import { blog } from '@/.source';
 import { BlogData } from '@/types';
+import { SsgoiTransition } from '@ssgoi/react';
 
 export default function HomePage() {
   // 정적 빌드를 위한 블로그 포스트 데이터
@@ -34,10 +35,12 @@ export default function HomePage() {
   ];
 
   return (
-    <section className='mx-auto w-full max-w-[1200px] px-4 mt-10 flex gap-5 md:gap-8 font-pretendard overflow-visible'>
-      <Suspense fallback={<div>Loading...</div>}>
-        <HomePageClient allPosts={sortedBlogs} allTags={allTags} />
-      </Suspense>
-    </section>
+    <SsgoiTransition id='/'>
+      <section className='mx-auto w-full max-w-[1200px] px-4 mt-10 flex gap-5 md:gap-8 font-pretendard overflow-visible'>
+        <Suspense fallback={<div>Loading...</div>}>
+          <HomePageClient allPosts={sortedBlogs} allTags={allTags} />
+        </Suspense>
+      </section>
+    </SsgoiTransition>
   );
 }

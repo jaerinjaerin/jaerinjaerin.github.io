@@ -1,0 +1,338 @@
+---
+title: 'REST API가 무엇인가 (부제: 그런 REST API로 괜찮은가)'
+description: 'REST API가 무엇인가 (부제: 그런 REST API로 괜찮은가)'
+date: 2023-03-29
+tags: ['Develop']
+thumbnail: /thumbnails/what-is-rest-api.jpg
+---
+
+## REST API가 어떤 배경에서 나온건지부터 알아보자
+
+### WEB (1991) - 어떻게 인터넷에서 정보를 공유할 것인가?
+
+정보들을 하이퍼텍스트로 연결한다!
+
+- 표현형식: HTML
+- 식별자: URI
+- 전송방법: HTTP
+
+### HTTP/1.0 (1994-1996)
+
+이미 HTTP는 W3C의 전송 프로토콜로 이용이 되고 있었고, 웹은 급속도로 성장중인 시점
+당시 대학원생이었던 Roy T.Fielding은 HTTP를 정립하고 명서에 기능을 더하고 고쳐야하는 상황에 모이게 됨
+💬 기존에 이미 구축되어있는 웹을 망가뜨리지 않고 HTTP를 개선할 수 있을까?
+해결책: HTTP Object Model
+
+### REST (1998)
+
+Roy T.Fielding, Microsoft Research에서 발표
+
+### REST (2000)
+
+Roy T.Fielding, 2년 뒤에 박사 논문으로 발표
+
+- 우리가 알고 있는 REST를 정의하고 있는 논문
+- “Architectural Styles and the Design of Network-based Software Architectures”
+
+#### 한편.. 인터넷 상에 API라는 것이 만들어지기 시작했다.
+
+### XML-RPC (1998)
+
+by Microsoft
+이후에 SOAP이라는 이름으로 바뀜
+
+### Salesforce API (2000. 02)
+
+Salesforce라는 회사에서 API를 공개
+
+- 인터넷에서 최초로 공개된 API
+- 당시에 SOAP을 사용해서 API를 만듦
+- 너무 복잡에서 장사가 잘 안됨
+
+### flickr API (2004. 08)
+
+- 다양한 형태로 API를 만듦
+- SOAP 형태 + REST 형태 (사실 REST는 2000년에 나왔지만 사람들은 새롭게 느낌)
+
+사람들이 느끼는 SOAP과 REST 형태
+SOAP
+
+- 복잡하다
+- 규칙이 많다
+- 어렵다
+
+REST
+
+- 단순하다
+- 규칙이 적다
+- 쉽다
+
+#### 결국
+
+- 2006년, AWS가 자사 API 사용량의 85%가 REST임을 밝힘
+- 2010년, Salesforce.com도 REST API 추가
+
+#### REST의 승리로 해피엔딩인줄 알았는데..
+
+### CMIS (2008)
+
+- CMS를 위한 표준
+- EMC, IBM, Microsoft 등이 함께 작업
+- REST 바인딩 지원
+
+하지만 Roy T.Fielding은 ‘CMIS에는 REST가 없다’라고 말함
+
+### Microsoft REST API Guidlines (2016)
+
+- url은 `https://{serviceRoot}/{collection}/{id}` 형식이어야 한다.
+- GET, PUT, DELETE, POST, PATCH, HEAD, OPTIONS를 지원해야 한다.
+- API 버저닝은 Major.minor로 하고 uri에 버전 정보를 포함시킨다.
+
+사람들이 보기엔 합리적인 이야기처럼 보임.
+하지만 Roy T.Fielding은 ‘이건 REST API가 아님, HTTP API라고 해야함’이라고 말함
+
+#### ‘REST API는 반드시 HyperText-driven이어야 한다’
+
+#### ‘REST API를 위한 최고의 버저닝 전략은 버저닝을 하지 않는 것’
+
+사람들이 알고있던 REST하고 REST를 만들었던 Roy T.Fielding이 말하는 REST와의 차이가 점점 생기는 것 같은데? 문제가 무엇일까? REST API를 따져보자
+
+## REST API
+
+REST 아키텍쳐 스타일을 따른 API
+
+## REST
+
+분산 하이퍼미디어 시스템(웹)을 위한 아키텍쳐 스타일
+
+### 아키텍쳐 스타일
+
+제약 조건의 집합
+(사실 REST는 아키텍쳐 스타일이면서 동시에 하이브리드 아키텍쳐 스타일이라고 말한다. 아키텍쳐 스타일인데 동시에 아키텍쳐 스타일의 집합이기 때문) 👉🏻 무슨말?
+
+#### REST를 구성하는 스타일
+
+- client-server
+- stateless
+- cache
+- uiform interface
+- layered system
+- code-on-demand (optional) ➡️ 서버에서 코드를 클라이언트한테 보내서 실행할 수 있어야한다.(자바스크립트)
+
+HTTP API만 지켜도 대부분의 아키텍쳐 스타일을 지킬 수 있지만 uinform interface를 잘 지키지 못함
+
+### Uniform Interface의 제약 조건
+
+- 리소스가 URI로 식별되면 된다.
+- 리소스를 만들거나 업데이트하거나 삭제할 때 HTTP 메세지에 표현을 담아서 전송을 해야한다.
+- self-descriptive messages
+- hypermedia as the engine of application state (HATEOAS)
+
+👉🏻 나머지 두 개는 거의 지켜지지 못한다.
+
+#### self-descriptive messages
+
+메세지는 스스로를 설명해야 한다.
+이 HTTP 요청 메세지는 뭔가 빠져있어서 self-descriptive하지 못하다.
+
+```text
+GET / HTTP / 1.1;
+```
+
+목적지가 빠져있음
+목적지를 추가하면? self-descriptive 함
+
+```text
+GET / HTTP / 1.1;HOST: www.example.org;
+```
+
+아래는 왜 self-descriptive 하지 못할까?
+
+```text
+HTTP/1.1 200 OK[ { "op": "remove", "path": "/a/b/c" } ]
+```
+
+클라이언트가 이 응답을 받고 해석해야하는데 어떤 문법으로 작성되었는지 모르기 때문에 self-descriptive하지 못하다고 말함
+우선 Content-Type이 반드시 들어가야 한다.
+
+```text
+HTTP/1.1 200 OKContent-Type: application/json[ { "op": "remove", "path": "/a/b/c" } ]
+```
+
+```text
+HTTP/1.1 200 OKContent-Type: application/json.patch+json[ { "op": "remove", "path": "/a/b/c" } ]
+```
+
+#### HATEOAS
+
+애플리케이션 상태는 Hyperlink를 이용해 전이되어야 한다.
+하나의 게시판 애플리케이션을 떠올려보자.
+글 목록 보기를 클릭하면 글 목록이 있는 페이지가 보여지고, 글 쓰기 버튼을 누르면 글 쓰기 페이지, 저장 버튼을 누르면 글 저장완료 안내 페이지가 나온다.
+이것을 `애플리케이션 상태의 전이`라고 하는데 이 상태의 전이 마다 해당 페이지에 있던 링크를 따라가기 때문에 HATEOAS가 된다고 말할 수 있다.
+
+### 왜 Uniform Interface를 해야하는가?
+
+#### 독립적 진화를 하기 위해서
+
+- 서버와 클라이언트가 각각 독립적으로 진화한다.
+- 서버의 기능이 변경되어도 클라이언트를 업데이트할 필요가 없다.
+- 이것이 바로 REST를 만들게 된 계기: “How do I imporve HTTP without breaking the Web”
+
+### 실제로 REST가 잘 지켜지고 있는가?
+
+잘 지켜지고 있는 사례로는 웹이 있다.
+
+#### 웹
+
+- 웹페이지를 변경했다고 브라우저를 업데이트할 필요는 없다.
+- 웹 브라우저를 업데이트했다고 웹 페이지를 변경할 필요도 없다.
+- HTTP 명세가 변경되어도 웹은 잘 동작한다.
+- HTML 명세가 변경되어도 웹은 잘 동작한다.
+
+#### 이건 진짜 피땀흘려 노력한 결과다.
+
+- HTML5 첫 초안에서 권고안 나오는데까지 6년
+- HTTP/1.1 명세 개정판 작업하는데 7년
+
+#### 왜 이렇게 오래걸림? 상호운용성에 대한 집착
+
+하위 호환성을 지키기 위해 수정할 수 없는 것들
+
+- Referer 오타지만 못 고침
+- charset 잘못 지은 이름이지만 못 고침
+- HTTP 상태 코드 416 포기
+- HTTP/0.9 아직도 지원함(크롬, 파이어폭스)
+
+그런 노력이 없으면? 웹도 지원하지 않는다는 경고창을 볼 수 있다.
+
+#### REST가 웹의 독립적 진화에 도움을 주었나?
+
+- HTTP에 지속적으로 영향을 줌
+- HOST 헤더 추가
+- 길이 제한을 다루는 방법이 명시
+- URI에서 리소스의 정의가 추상적으로 변경됨: “식별하고자 하는 무언가”
+- 기타 HTTP와 URI에 많은 영향을 줌
+
+## 그럼 REST는 성공했는가
+
+- REST는 웹의 독립적 진화를 위해 만들어졌다.
+- 웹은 독립적으로 진화하고 있다.
+
+그럼 성공!
+
+### 그런데 REST API는?
+
+- REST API는 REST 아키텍쳐 스타일을 따라야한다.
+- 오늘날 스스로 REST API라고 하는 API들이 REST 아키텍쳐 스타일을 따르지 않는다.
+
+### REST API도 제약 조건들을 다 지켜야 하는가?
+
+꼭 다 지켜야 하는건가? 👉🏻 로이 필딩: 지켜야 함 ㅇㅅㅇ
+SOAP이 규칙이 어렵고 REST는 쉬운 줄 알았는데 REST도 어려운거였네?
+
+## 꼭 REST API여야 하는건가?
+
+로이 필딩: 꼭 지켜야 하는 것은 아님. 시스템 전체를 통제할 수 있다고 생각하거나, 진화에 관심이 없다면 REST에 대해 따지느라 시간을 낭비하지 마라.
+
+### 그럼 이제 어떻게 할까?
+
+1. REST API를 구현하고 REST API라고 부른다.
+2. REST API 구현을 포기하고 HTTP API라고 부른다.
+3. REST API가 아니지만 REST API라고 부른다.
+
+당신의 선택은?
+현재 상태는 3번이 대부분이다.
+
+### 도전, REST API를 구현해보자.
+
+#### 일단 왜 API는 REST가 잘 안되는걸까?
+
+일반적인 웹과 비교를 해보면 웹은 기계와 사람이 커뮤니케이션하는 것이지만 API는 기계와 기계가 커뮤니케이션을 한다.
+그러므로 Media Type 또한 웹 페이지는 HTML을 사용하지만 API는 JSON을 사용한다.
+
+![스크린샷.png](/images/content/what-is-rest-api.png)
+
+```text
+GET /todos HTTP/1.1Host: example.orgHTTP/1.1 200 OKContent-Type: application/json[	{"id":1, "title": "집에 가기"},	{"id":2, "title": "밥 먹기"},]
+```
+
+#### Self-descriptive
+
+1. 응답 메세지의 Content-Type을 보고 media type을 확인
+2. HTTP 명세에 media type은 IANA에 등록되어 있다고 하므로 application/json의 설명을 찾음
+3. 명세에 json 문서를 파싱하는 방법이 명시되어 있으므로 성공적으로 파싱. 하지만 “id”가 무엇을 의미하고, “title”이 무엇을 의미하는지 알 방법이 없음
+
+#### HATEOAS
+
+다음 상태로 전이할 링크가 없다.
+
+### Self-decriptive와 HATEOAS가 독립적 진화에 어떻게 도움이 된다는 걸까?
+
+- 서버나 클라이언트가 변경되더라도 오고가는 메세지는 언제나 해석이 가능하다.
+- 어디서 어디로 전이가 가능한지 미리 결정되지 않는다. 어떤 상태로 전이가 완료되고 나서 전이될 수 있는 상태가 결정된다. 즉, 링크를 마음대로 바꿀 수 있다. ‘
+
+## 그럼 REST API로 고쳐보자
+
+### Self-descriptive
+
+#### 방법 1. Media type
+
+1. 미디어 타입을 하나 정의한다.
+2. 미디어 타입 문서를 작성한다. 이 문서에 id가 뭐고 title이 뭔지 의미를 정의한다.
+3. IANA에 미디어 타입을 등록한다. 이 때 만든 문서를 미디어 타입의 명세로 등록한다.
+
+```text
+GET /todos HTTP/1.1Host: example.orgHTTP/1.1 200 OK**Content-Type: appliacation/vnd.todos+json**[	{"id":1, "title": "집에 가기"},	{"id":2, "title": "밥 먹기"},]
+```
+
+단점: 매번 media type을 정의해야한다.
+
+#### 방법 2. Profile
+
+1. id가 뭐고 title이 뭔지 의미를 정의한 명세를 작성한다.
+2. Link 헤더에 profile relation으로 해당 명세를 링크한다.
+3. 이제 메시지를 보는 사람은 명세를 찾아갈 수 있으므로 이 문서의 의미를 온전히 해석할 수 있다.
+
+```text
+GET /todos HTTP/1.1Host: example.orgHTTP/1.1 200 OKContent-Type: appliacation/jsonLink: <https://example.org/docs/todos> rel="profile"[	{"id":1, "title": "집에 가기"},	{"id":2, "title": "밥 먹기"},]
+```
+
+단점: Content negotiation을 할 수 없다. (링크로 만들어놨기 때문)
+
+### HATEOAS
+
+#### 방법1. data로
+
+data에 다양한 방법으로 하이퍼링크를 표현한다.
+
+```text
+GET /todos HTTP/1.1Host: example.orgHTTP/1.1 200 OKContent-Type: appliacation/jsonLink: <https://example.org/docs/todos> rel="profile"[	{"link" : "https://example.org/todos/", "title": "집에 가기"},	{"id":2, "title": "밥 먹기"},]
+```
+
+단점: 링크를 표현하는 방법을 직접 정의해야한다.
+
+#### 방법2. HTTP 헤더로
+
+Link, Location을 추가로 넣어준다.
+
+```text
+POST /todos HTTP/1.1Content-Type: appliacation/json{	"title": "점심 약속"}HTTP/1.1 204 No ContentLocation: /todos/1
+```
+
+### 정리
+
+- 오늘날의 대부분 “REST API”는 사실 REST를 따르고 있지 않다.
+- REST 제약 조건 중에서 Self-descriptive와 HATEOAS를 잘 만족하지 못한다.
+- REST는 긴 수년간 진화하는 웹 애플리케이션을 위한 것
+- REST를 따를 것인지는 API를 설계하는 이들이 스스로 판단하여 결정해야 한다.
+- REST를 따르겠다면 Self-descriptive와 HATEOAS를 만족시켜야 한다.
+- 따르지 않겠다면 REST API를 뭐라고 부를지 결정하자.
+
+### Review
+
+5년 전 컨퍼런스 영상이지만 이것만큼 REST API에 대해 잘 설명해주는 영상이 없는 것 같아 영상을 보면서 스스로 정리해보는 시간을 가졌다.
+REST가 무엇인지 그래서 오늘날의 REST API는 REST한지에 대해서 다시 한 번 생각해보는 시간을 가지게 되었다.
+
+### Referrence
+
+[그런 REST API로 괜찮은가](https://www.youtube.com/watch?v=RP_f5dMoHFc)

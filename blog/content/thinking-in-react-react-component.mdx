@@ -1,0 +1,586 @@
+---
+title: 'Thinking in React - React Component🚀'
+date: 2023-03-26
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## React Component
+
+**Step 1: Break the UI into a component hierarchy**
+**Step 2: Build a static version in React**
+리액트로 컴포넌트를 만들기 전에 가지고 있어야 하는 것 → JSON API & mockup
+데이터 → 백엔드에서 JSON 형태로 데이터를 돌려주는 API를 제공한다고 가정
+
+- 대부분은 REST API 또는 GraphQL
+
+### REST API
+
+- fetch API를 이용해서 GET, POST, PUT/PATCH, DELETE 요청 (CRUD 구현) ⇒ Resource 중심
+
+### GraphQL
+
+- Graph 자료구조를 이용
+- Query에서 얻고자 하는 것을 지정
+  포스트만 가져올건지, 포스트에 딸려있는 댓글까지 가져올건지
+- Query(Read), Mutation(Command: Create, Update, Delete), Subscription(이벤트를 인지하는 용도)
+
+REST API와 GraphQL 둘 다 JSON 형태로 돌려주고 형태는 이런 식
+
+```jsx
+[
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Dragonfruit' },
+  { category: 'Fruits', price: '$2', stocked: false, name: 'Passionfruit' },
+  { category: 'Vegetables', price: '$2', stocked: true, name: 'Spinach' },
+  { category: 'Vegetables', price: '$4', stocked: false, name: 'Pumpkin' },
+  { category: 'Vegetables', price: '$1', stocked: true, name: 'Peas' },
+];
+```
+
+- 실제 JSON에는 key로 사용할 수 있는 것들을 넣어준다.
+- F/E는 이런 데이터를 사용자가 볼 수 있도록 UI를 구성.
+- React는 선언형으로 UI를 구성할 수 있다. (DSL을 사용, HTML과 유사한 모양)
+
+### 컴포넌트 계층 구조
+
+- React의 강력한 특징 중 하나
+- Component-Based
+- 간단한 컴포넌트의 조립으로 복잡한 UI를 구성한다.
+  반대로 말하면 컴포넌트 하나하나는 복잡하지 않아야 한다.
+
+### 간단한 컴포넌트의 기준은?
+
+- SRP(단일 책임 원칙)
+- CSS → 이미 알고 있는 기준을 재활용.
+- Design’s Layer
+- Information Architecture (JSON Schema의 영향) → 실제로 엄청 많이 쓰게 됨. 자연스러운 SRP를 위해서 사실상 강제됨.
+
+`작은 컴포넌트 = 부품`을 만들어서 조립. 조합은 가지수를 폭발적으로 늘릴 수 있는 가장 전형적인 방법.
+
+<Callout>
+  Atomic Design은 우리가 잘 알고 있는 계층형 구조를 몇 가지 카테고리로 묶은
+  방법.
+</Callout>
+
+![https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png](https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png)
+
+## Build a static version in React (정적인 것 먼저 만들기)
+
+- 검색, 체크박스
+
+```jsx
+<div className='search-bar'>
+  {' '}
+  <div>
+    {' '}
+    <input type='text' placeholder='Search...' />{' '}
+  </div> <div>
+    {' '}
+    <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+      Only Show products in stock
+    </label>{' '}
+  </div>
+</div>
+```
+
+- 테이블
+
+```jsx
+<table className='products-tables'>
+  {' '}
+  <thead>
+    {' '}
+    <tr>
+      {' '}
+      <th>Name</th> <th>Price</th>{' '}
+    </tr>{' '}
+  </thead> <tbody>
+    {' '}
+    <tr>
+      {' '}
+      <td colSpan={2}>카테고리</td>{' '}
+    </tr> <tr>
+      {' '}
+      <td>Apple</td> <td>$1</td>{' '}
+    </tr> <tr>
+      {' '}
+      <td>Dragonfruit</td> <td>$2</td>{' '}
+    </tr>{' '}
+  </tbody>
+</table>
+```
+
+### 🚀 실제 데이터로 화면에 렌더링하기
+
+```jsx
+<table className='products-tables'>
+  {' '}
+  <thead>
+    {' '}
+    <tr>
+      {' '}
+      <th>Name</th> <th>Price</th>{' '}
+    </tr>{' '}
+  </thead> <tbody>
+    {' '}
+    <tr>
+      {' '}
+      <td colSpan={2}>{products[0].category}</td>{' '}
+    </tr> {products.map((product) => (
+      <tr>
+        {' '}
+        <td>{product.name}</td> <td>{product.price}</td>{' '}
+      </tr>
+    ))}{' '}
+  </tbody>
+</table>
+```
+
+![.](/images/content/thinking-in-react-react-component/1.png)
+
+`‘key’ prop` 이 필요한 이유무언가 변경되었을 때 각각을 구분할 수 있는 것이 key의 역할. 그렇기 때문에 key는 unique해야 한다.
+
+```jsx
+{
+  products.map((product) => (
+    <tr key={product.name}>
+      {' '}
+      <td>{product.name}</td> <td>{product.price}</td>{' '}
+    </tr>
+  ));
+}
+```
+
+카테고리가 2개이기 때문에 카테고리에 맞게 상품 리스트가 보여야 한다.
+
+- 카테고리만 가지고 있는 배열을 하나 만들기 (reduce 함수 사용)
+
+acc가 category를 갖고 있으면 추가X
+category를 갖고 있지 않다면 추가하기
+
+```jsx
+export default function App() {  const categories = products.reduce(    (acc, product) =>      acc.includes(product.category) ? acc : [...acc, product.category],    []  );  // 생략...  <table className="products-tables">    <thead>      <tr>        <th>Name</th>        <th>Price</th>      </tr>    </thead>    <tbody>      <tr>        <td colSpan={2}>{categories[0]}</td>      </tr>      {products        .filter((product) => product.category === categories[0])        .map((product) => (          <tr key={product.name}>            <td>{product.name}</td>            <td>{product.price}</td>          </tr>        ))}      <tr>        <td colSpan={2}>{categories[1]}</td>      </tr>      {products        .filter((product) => product.category === categories[1])        .map((product) => (          <tr key={product.name}>            <td>{product.name}</td>            <td>{product.price}</td>          </tr>        ))}    </tbody>  </table>;}
+```
+
+코드에 빨간 줄이 가있는 이유
+
+![스크린샷 2023-03-22 오전 12.12.08.png](/images/content/thinking-in-react-react-component/2.png)
+
+<Callout>
+Type 'string[]' is missing the following properties from type `{ category: string; price: string; stocked: boolean; name: string; }`: category, price, stocked, name
+</Callout>
+
+👉🏻 타입이 없다는 얘기
+
+1️⃣ 첫 번째 해결 방법
+: 기본 값을 설정할 때 타입 지정
+
+```jsx
+const categories = products.reduce(  (acc, product) => (acc.includes(product.category) ? acc : [...acc, product.category]),  [] as string[]);
+```
+
+2️⃣ 두 번째 해결 방법
+: 매개변수에서 타입 지정
+
+```jsx
+const categories = products.reduce(
+  (acc: string[], product) =>
+    acc.includes(product.category) ? acc : [...acc, product.category],
+  []
+);
+```
+
+3️⃣ 세 번째 해결 방법
+: Type or Interface
+
+```jsx
+interface Product {	category: string;	price: string;	stocked: boolean;	name: string;}const products: Product[] = [  {    category: 'Fruits',    price: '$1',    stocked: true,    name: 'Apple',  },  {    category: 'Fruits',    price: '$1',    stocked: true,    name: 'Dragonfruit',  },  ...];export default function App() {  const categories = products.reduce(    (acc: string[], product: Product) => (acc.includes(product.category) ? acc : [...acc, product.category]),    []  );...}
+```
+
+가장 좋은 방법은 interface.
+products에서 name 하나가 빠져있는 상황일 때 오류를 발생시킨다.
+
+## Extract Fuction
+
+<Callout>Extract Function</Callout>
+
+<Callout>Inline Function</Callout>
+
+아주 흔히 쓰이는 SRP를 위한 수단. 변화의 크기(영향 범위)를 제약한다.
+일단 길게 코드를 작성하고, 적절히 자를 수 있는 부분이 보일 때 “함수로 추출”한다. 또는 코드를 작성하기 어려운 상황에 직면했을 때 함수로 추출. 바로 다른 파일을 만들어야 한다고 생각하지 않아도 됨. 컴포넌트 나누는 기준이 애매하면 다시 하나의 컴포넌트로 합쳤다가(Inline Method) 다시 나눠줘도 된다.
+현재 App.tsx는 너무 많은 일을 하고 있다.
+
+```jsx
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
+const products: Product[] = [
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },
+  { category: 'Fruits', price: '$1', stocked: true, name: 'Dragonfruit' },
+  { category: 'Fruits', price: '$2', stocked: false, name: 'Passionfruit' },
+  { category: 'Vegetables', price: '$2', stocked: true, name: 'Spinach' },
+  { category: 'Vegetables', price: '$4', stocked: false, name: 'Pumpkin' },
+  { category: 'Vegetables', price: '$1', stocked: true, name: 'Peas' },
+];
+export default function App() {
+  const categories = products.reduce(
+    (acc: string[], product: Product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+  console.log(categories);
+  return (
+    <div className='filterable-product-table'>
+      {' '}
+      <div className='seach-bar'>
+        {' '}
+        <div>
+          {' '}
+          <input type='text' placeholder='Search...' />{' '}
+        </div> <div>
+          {' '}
+          <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+            Only Show products in stock
+          </label>{' '}
+        </div>{' '}
+      </div> <table className='product-table'>
+        {' '}
+        <thead>
+          {' '}
+          <tr>
+            {' '}
+            <th>Name</th> <th>Price</th>{' '}
+          </tr>{' '}
+        </thead> <tbody>
+          {' '}
+          <tr>
+            {' '}
+            <td colSpan={2}>{products[0].category}</td>{' '}
+          </tr> {products
+            .filter((product) => product.category === categories[0])
+            .map((product) => (
+              <tr key={product.name}>
+                {' '}
+                <td>{product.name}</td> <td>{product.price}</td>{' '}
+              </tr>
+            ))} <tr>
+            {' '}
+            <td colSpan={2}>{categories[1]}</td>{' '}
+          </tr> {products
+            .filter((product) => product.category === categories[1])
+            .map((product) => (
+              <tr key={product.name}>
+                {' '}
+                <td>{product.name}</td> <td>{product.price}</td>{' '}
+              </tr>
+            ))}{' '}
+        </tbody>{' '}
+      </table>{' '}
+    </div>
+  );
+}
+```
+
+- SRP 원칙을 위반하고 있는 상태.
+- 재사용할 수 있도록 컴포넌트 분리하기
+
+### 🚀 분리할 컴포넌트 👉🏻 상품이름, 가격을 나타내는 부분
+
+```jsx
+<tr>
+  {' '}
+  <td colSpan={2}>{categories[1]}</td>
+</tr>;
+{
+  products
+    .filter((product) => product.category === categories[1])
+    .map((product) => (
+      <tr key={product.name}>
+        {' '}
+        <td>{product.name}</td> <td>{product.price}</td>{' '}
+      </tr>
+    ));
+}
+/* ------------------------------------------------------------------------ */ function ProductInCategory({
+  category,
+  products,
+}: ProductsInCategoryProps) {
+  const productsInCategory = products.filter(
+    (product) => product.category === category
+  );
+  return (
+    <>
+      {' '}
+      <tr>
+        {' '}
+        <td colSpan={2}>{products[0].category}</td>{' '}
+      </tr> {productsInCategory.map((product) => (
+        <tr key={product.name}>
+          {' '}
+          <td>{product.name}</td> <td>{product.price}</td>{' '}
+        </tr>
+      ))}{' '}
+    </>
+  );
+}
+```
+
+컴포넌트를 사용하려면?
+
+```jsx
+<ProductInCategory category={categories[0]} products={products} />
+```
+
+```jsx
+<table className='product-table'>
+  {' '}
+  <thead>
+    {' '}
+    <tr>
+      {' '}
+      <th>Name</th> <th>Price</th>{' '}
+    </tr>{' '}
+  </thead> <tbody>
+    {' '}
+    <ProductInCategory category={categories[0]} products={products} /> <ProductInCategory
+      category={categories[1]}
+      products={products}
+    />{' '}
+  </tbody>
+</table>
+```
+
+ProductInCategory 컴포넌트가 반복되고 있으므로 map 함수를 사용한다.
+
+```jsx
+{
+  categories.map((category) => (
+    <ProductInCategory key={category} category={category} products={products} />
+  ));
+}
+```
+
+### ProductInCategory 컴포넌트 외부로 추출하기
+
+![스크린샷 2023-03-23 오전 10.08.32.png](/images/content/thinking-in-react-react-component/3.png)
+
+👉🏻 type이 없다는 오류
+이전에 썼던 interface Product는 App에서도 쓰고 있고, ProductInCategory 컴포넌트에서도 사용해야 한다.
+이때 여러 타입을 관리할 수 있도록 types라는 폴더에 넣어놓는다.
+
+```jsx
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
+export default Product;
+```
+
+ProductInCategory에 있는 product.name과 product.price도 컴포넌트로 처리할 수 있다.
+
+![스크린샷 2023-03-23 오전 10.26.06.png](/images/content/thinking-in-react-react-component/4.png)
+
+```jsx
+import Product from '../types/Product';
+export default function ProductRow({ product }: { product: Product }) {
+  return (
+    <tr>
+      {' '}
+      <td>{product.name}</td> <td>{product.price}</td>{' '}
+    </tr>
+  );
+}
+```
+
+`{ product: Product }` 이 부분도 따로 빼주기
+
+```jsx
+type ProductRowProps = { product: Product };
+export default function ProductRow({ product }: ProductRowProps) {
+  return (
+    <tr>
+      {' '}
+      <td>{product.name}</td> <td>{product.price}</td>{' '}
+    </tr>
+  );
+}
+```
+
+### Category 컴포넌트 만들기 👉🏻 상품 카테고리 정보를 가지고 있는 컴포넌트
+
+```jsx
+<Category category={category} />;
+/* ------------------------------------------------------------------------ */ export default function Category({
+  category,
+}: {
+  category: string,
+}) {
+  return (
+    <tr>
+      {' '}
+      <td colSpan={2}>{category}</td>{' '}
+    </tr>
+  );
+}
+```
+
++) 우리가 데이터를 한 번 정리할 수 있다면 다른 방식으로 컴포넌트를 만들 수 있다.데이터를 받아온 그대로 사용하고 있는데 데이터를 가공해서 사용할 수 있다.
+
+- category가 products를 가지고 있게 되면?
+
+### ProductTable 컴포넌트 만들기
+
+![스크린샷 2023-03-23 오전 10.59.45.png](/images/content/thinking-in-react-react-component/5.png)
+
+`.filterable-product-table` 부분에선 category를 쓰고 있지 않으니 categories를 ProductTable 컴포넌트 안으로 넣는다.
+
+```jsx
+function ProductTable({ products }: { products: Product[] }) {
+  const categories = products.reduce(
+    (acc: string[], product: Product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+  return (
+    <table className='product-table'>
+      {' '}
+      <thead>
+        {' '}
+        <tr>
+          {' '}
+          <th>Name</th> <th>Price</th>{' '}
+        </tr>{' '}
+      </thead> <tbody>
+        {' '}
+        {categories.map((category) => (
+          <ProductInCategory
+            key={category}
+            category={category}
+            products={products}
+          />
+        ))}{' '}
+      </tbody>{' '}
+    </table>
+  );
+}
+```
+
+### products.filter() 함수 부분을 따로 추출하는 예제:
+
+```jsx
+export default function ProductInCategory({  category,  products,}: ProductsInCategoryProps) {  const productsInCategory = products.filter(    (product) => product.category === category  ); // -> 이 부분을 따로 추출하기  return (    <>      <Category category={category} />      {productsInCategory.map((product) => (        <ProductCategoryRow key={product.name} product={product} />      ))}    </>  );}
+```
+
+utils > select.ts 생성
+
+```jsx
+export default function select(items: any[], field: string, value: any) {
+  return items.filter((item) => item[field] === value);
+}
+```
+
+```jsx
+const productsInCategory = products.filter(  (product) => product.category === category);⬇️const productsInCategory = selectProducts(products, 'category', category);
+```
+
+### SearchBar 컴포넌트 추출
+
+```jsx
+export default function SearchBar() {
+  return (
+    <div className='seach-bar'>
+      {' '}
+      <div>
+        {' '}
+        <input type='text' placeholder='Search...' />{' '}
+      </div> <div>
+        {' '}
+        <input type='checkbox' id='only-stock' /> <label htmlFor='only-stock'>
+          Only Show products in stock
+        </label>{' '}
+      </div>{' '}
+    </div>
+  );
+}
+```
+
+### FilterableProductTable 컴포넌트 추출
+
+```jsx
+import ProductTable from './ProductTable';
+import SearchBar from './SearchBar';
+import Product from '../types/Product';
+type FilterableProductTableProps = { products: Product[] };
+export default function FilterableProductTable({
+  products,
+}: FilterableProductTableProps) {
+  return (
+    <div>
+      {' '}
+      <SearchBar /> <ProductTable products={products} />{' '}
+    </div>
+  );
+}
+```
+
+App 컴포넌트가 굉장히 깔끔해진 것을 볼 수 있다.
+
+![스크린샷 2023-03-23 오후 9.54.44.png](/images/content/thinking-in-react-react-component/6.png)
+
+<Callout>🔥 Props를 개별적으로 넘겨줄 수 있는 방법도 있다.</Callout>
+
+예를 들어, `ProductInCategory` 컴포넌트에서 `product={product}` 로 넘겨주는 것이 아니라 개별적으로 넘겨줄 수도 있다.
+
+```jsx
+return (
+  <>
+    {' '}
+    <Category category={category} /> {productsInCategory.map((product) => (
+      <ProductCategoryRow key={product.name} product={product} />
+    ))}{' '}
+  </>
+);
+/* ------------------------------------------------------------------------ */ return (
+  <>
+    {' '}
+    <Category category={category} /> {productsInCategory.map((product) => (
+      <ProductCategoryRow
+        key={product.name}
+        name={product.name}
+        price={product.price}
+      />
+    ))}{' '}
+  </>
+);
+```
+
+하지만 typeScript를 사용할 땐 전체를 넘겨주는 것이 더 강력하기 때문에 추천한다.
+예를 들어 products 요소에 isStocked라는 속성이 하나 더 추가된다고 가정해보자. 이때 props를 개별적으로 넘겨줬다면 interface 뿐만 아니라 props도 수정을 해야하는 번거로움이 생긴다.
+
+### CheckBoxField 컴포넌트 추출하기
+
+```text
+function CheckBoxField({ label }: { label: string }) {  const id = `checkbox-${label}`.replace(/ /g, '-').toLowerCase();  return (    <div>      <input type="checkbox" id={id} />      <label htmlFor={id}>{label}</label>    </div>  );}export default function SearchBar() {  return (    <div className="seach-bar">      <div>        <input type="text" placeholder="Search..." />      </div>      <CheckBoxField label="Only Show products in stock" />    </div>  );}
+```
+
+`const id = `checkbox-${label}`.replace(/ /g, '-').toLowerCase();` 와 같은 코드는 React에선 useRef를 사용한다.
+
+```jsx
+const id = useRef(`checkbox-${label}`.replace(/ /g, '-').toLowerCase());
+return (
+  <div>
+    {' '}
+    <input type='checkbox' id={id.current} /> <label htmlFor={id.current}>
+      {label}
+    </label>{' '}
+  </div>
+);
+```

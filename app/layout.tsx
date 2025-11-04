@@ -6,6 +6,7 @@ import { Header } from '@/components/header/header';
 import { Footer } from '@/components/footer';
 import { siteConfig } from '@/lib/site';
 import { metadataKeywords } from './metadata';
+import { SsgoiProvider } from '@/components/providers/ssgoi-provider';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -45,18 +46,20 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} ${waguri.variable} antialiased flex min-h-screen flex-col font-pretendard`}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className='mt-[40px] flex flex-1 flex-col sm:mt-[64px]'>
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+        <SsgoiProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main className='mt-[40px] flex flex-1 flex-col sm:mt-[64px] relative'>
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </SsgoiProvider>
       </body>
     </html>
   );

@@ -1,0 +1,169 @@
+---
+title: 격자판 최대합
+description: N*N 격자판에서 각 행의 합, 각 열의 합, 두 대각선의 합 중 가장 큰 합을 구하는 알고리즘 문제
+date: 2025-10-06
+tags: ['Algorithm']
+thumbnail: /thumbnails/js-algorithm.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 문제
+
+5\*5 격자판에 아래와 같이 숫자가 적혀있습니다.
+
+![격자판 예시](/images/content/grid-max-sum.jpg)
+
+N\*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선의 합 중 가장 큰 합을 출력합니다.
+
+### 입력설명
+
+첫 줄에 자연수 N이 주어진다.(`1<=N<=50`)
+두 번째 줄부터 N줄에 걸쳐 각 줄에 N개의 자연수가 주어진다. 각 자연수는 100을 넘지 않는다.
+
+### 출력설명
+
+최대합을 출력한다.
+
+### 입력예제
+
+```tsx
+let arr = [
+  [10, 13, 10, 12, 15],
+  [12, 39, 30, 23, 11],
+  [11, 25, 50, 53, 15],
+  [19, 27, 29, 37, 27],
+  [19, 13, 30, 13, 19],
+];
+
+solution(5, arr);
+```
+
+### 출력예제
+
+155
+
+## 나의 풀이
+
+<Steps>
+
+<Step>
+
+### 변수 선언
+
+합계를 담을 변수와 최대값을 담을 변수를 선언합니다.
+
+```tsx
+// 가로행 합게를 담을 변수
+let rowSum = 0;
+// 세로열 합계를 담을 변수
+let colSum = 0;
+// 최대값을 담을 변수
+let maxSum = 0;
+```
+
+</Step>
+
+<Step>
+
+### 가로/세로 합 구하기
+
+가로의 합을 구하려면 (0, 1), (0, 2), (0, 3), …, (0, arr[arr.length - 1]) 의 합을 계산합니다.
+
+세로의 합을 구하려면 (1, 0), (2, 0), (3, 0), …, (arr[arr.length - 1], 0) 의 합을 계산합니다.
+
+```tsx
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    rowSum += arr[i][j];
+    colSum += arr[j][i];
+
+    // j가 n-1 이면 한 줄의 합계를 끝낸것. maxNum과 비교 후 sum이크면 maxSum에 할당 후 초기화
+    if (j === n - 1) {
+      maxSum = Math.max(rowSum, colSum, maxSum);
+      rowSum = 0;
+      colSum = 0;
+    }
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+### 대각선의 합 구하기
+
+대각선의 합은 (0, 0), (1, 1), (2, 2), … , (arr[arr.length - 1], arr[arr.length - 1]) 의 합으로 계산합니다.
+
+```tsx
+let 첫번째_대각선의합 = 0;
+for (let i = 0; i < n; i++) {
+  첫번째_대각선의합 += arr[i][i];
+}
+
+let 두번째_대각선의합 = 0;
+for (let i = 0; i < n; i++) {
+  const j = Math.abs(n - i - 1);
+  두번쨰_대각선의합 += arr[i][j];
+}
+```
+
+</Step>
+
+<Step>
+
+### 최대값 반환
+
+모든 합계 중에서 최대값을 반환합니다.
+
+```tsx
+return Math.max(maxSum, 첫번째_대각선의합, 두번째_대각선의합);
+```
+
+</Step>
+
+</Steps>
+
+## Solution
+
+```tsx
+let 행의합 = 0;
+let 열의합 = 0;
+let maxSum = 0;
+
+// 행의 합, 열의 합을 구하는 로직
+for (let i = 0; i < n; i++) {
+  // 한 줄이 끝나면 변수를 초기화시켜야함
+  행의합 = 0;
+  열의합 = 0;
+  for (let j = 0; j < n; j++) {
+    행의합 += arr[i][j];
+    열의합 += arr[j][i];
+  }
+
+  maxSum = Math.max(maxSum, 행의합, 열의합);
+}
+
+// 행의합, 열의합을 초기화
+행의합 = 0;
+열의합 = 0;
+
+// 대각선의 합을 구하는 로직
+for (let i = 0; i < n; i++) {
+  행의합 += arr[i][i]; // 왼쪽 상단에서 오른쪽 하단으로 내려가는 대각선의 합
+  열의합 += arr[i][n - i - 1]; // 오른쪽 상단에서 왼쪽 하단으로 내려가는 대각선의 합
+}
+
+maxSum = Math.max(maxSum, 행의합, 열의합);
+return answer;
+```
+
+---
+
+<Callout type='info'>
+  양 대각선의 합을 구하는 부분을 각각 다른 for문으로 돌렸는데 생각해보니까 한
+  개의 반복문으로 작업해도 되는 문제였습니다. 2차원 배열의 좌표값 규칙만 잘
+  생각한다면 어렵지 않은 문제였던 것 같습니다.
+</Callout>

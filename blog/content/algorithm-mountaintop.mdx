@@ -1,0 +1,216 @@
+---
+title: 봉우리
+description: 격자판에서 상하좌우보다 큰 숫자인 봉우리를 찾는 알고리즘 문제
+date: 2025-10-07
+tags: ['Algorithm']
+thumbnail: /thumbnails/js-algorithm.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 문제
+
+지도 정보가 N\*N 격자판에 주어집니다. 각 격자에는 그 지역의 높이가 쓰여있습니다. 각 격자판의 숫자 중 자신의 상하좌우 숫자보다 큰 숫자는 봉우리 지역입니다. 봉우리 지역이 몇 개 있는 지 알아내는 프로그램을 작성하세요.
+
+격자의 가장자리는 0으로 초기화 되었다고 가정한다. 만약 N=5 이고, 격자판의 숫자가 다음과 같다면 봉우리의 개수는 10개입니다.
+
+![봉우리 예시](/images/content/algorithm-mountaintop/1.png)
+
+### 입력설명
+
+첫 줄에 자연수 N이 주어진다.(`1<=N<=50`)
+
+두 번째 줄부터 N줄에 걸쳐 각 줄에 N개의 자연수가 주어진다. 각 자연수는 100을 넘지 않는다.
+
+### 출력설명
+
+봉우리의 개수를 출력한다.
+
+### 입력예제
+
+```tsx
+let arr = [
+  [5, 3, 7, 2, 3],
+  [3, 7, 1, 6, 1],
+  [7, 2, 5, 3, 4],
+  [4, 3, 6, 4, 1],
+  [8, 7, 3, 5, 2],
+];
+```
+
+### 출력예제
+
+10
+
+## 나의 풀이
+
+<Steps>
+
+<Step>
+
+### 상하좌우 좌표 파악하기
+
+특정 위치(0, 0) 좌표의 값을 기준으로 상하좌우 숫자를 비교합니다. 상하좌우의 좌표를 먼저 확인해보면:
+
+![상하좌우 좌표](/images/content/algorithm-mountaintop/2.png)
+
+즉, i와 j를 이용해 좌표의 값을 나타내보면 다음과 같습니다.
+
+![좌표 표현](/images/content/algorithm-mountaintop/3.png)
+
+</Step>
+
+<Step>
+
+### 예외 조건 정의하기
+
+예외조건을 정해줘야 합니다.
+
+1. `if(i - 1 < 0 || j - 1 < 0)` 이라면 해당 좌표의 값은 0이다.
+2. `if(j + 1 >= n || i + 1 >= n)` 이라면 해당 좌표의 값은 0이다.
+
+</Step>
+
+<Step>
+
+### 첫 번째 시도 (문제 발생)
+
+```tsx
+let peakCount = 0; // 봉우리 개수를 담을 배열
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    let maxNumber = Math.max(
+      arr[i][j],
+      arr[i - 1][j] ?? 0,
+      arr[i + 1][j] ?? 0,
+      arr[i][j - 1] ?? 0,
+      arr[i][j + 1] ?? 0
+    );
+    if (maxNumber === arr[i][j]) {
+      peakCount++;
+    }
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+### 문제점 발견
+
+제 풀이에는 두 가지 문제가 발생합니다.
+
+**1. Math.max를 사용하면 같은 값이 있을 때 잘못 판단한다.**
+
+예를 들어:
+
+- `arr[i][j] = 5`
+- `arr[i][j+1] = 5` (오른쪽도 5)
+
+이 경우, maxNumber는 5가 되고 주변의 5를 가진 값도 봉우리로 카운트됩니다.
+
+**2. 배열 인덱스 접근 오류**
+
+- `arr[i-1][j]` 라고 가정할 때 i가 0인 경우 `arr[-1]`은 `undefined`
+- `undefined[j]`를 먼저 평가하려고 하면서 **에러 발생**
+
+</Step>
+
+<Step>
+
+### Optional chaining을 사용한 개선
+
+만약 undefined로 없는 값일 때 0 처리를 하고 싶다면 **Optional chaining**을 사용하면 됩니다.
+
+```tsx
+let peakCount = 0;
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    let c = arr[i][j];
+    if (
+      c > (arr[i - 1]?.[j] ?? 0) &&
+      c > (arr[i + 1]?.[j] ?? 0) &&
+      c > (arr[i]?.[j - 1] ?? 0) &&
+      c > (arr[i]?.[j + 1] ?? 0)
+    ) {
+      peakCount++;
+    }
+  }
+}
+```
+
+</Step>
+
+</Steps>
+
+## Solution
+
+좌표의 상하좌우로 움직일 배열을 먼저 선언합니다.
+
+```tsx
+let peakCount = 0;
+const dx = [-1, 1, 0, 0]; // 상, 하, 좌, 우
+const dy = [0, 0, -1, 1];
+```
+
+i와 j의 이중 for문을 작성합니다.
+
+```tsx
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    for (let k = 0; k < 4; k++) {
+      let nx = i + dx[k]; // 행좌표
+      let ny = j + dy[k]; // 열좌표
+    }
+  }
+}
+```
+
+nx와 ny는 특정 좌표 기준 상하좌우를 순회합니다.
+
+봉우리인지 확인하는 플래그를 하나 선언합니다.
+
+```tsx
+let isPeak = true;
+
+for (let k = 0; k < 4; k++) {
+  let nx = i + dx[k]; // 행좌표
+  let ny = j + dy[k]; // 열좌표
+
+  if (nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx][ny] >= arr[i][j]) {
+    isPeak = false;
+    break;
+  }
+}
+
+if (isPeak) peakCount++;
+```
+
+---
+
+<Callout type="info">
+제가 푼 풀이와 solution 풀이 모두 이중 for문인데 둘 중 어떤게 효과적일까? 생각해봤습니다. 시간 복잡도로는 O(N²)으로 동일합니다. 하지만 제가 작성한 코드는 각 셀마다 항상 4개 조건을 모두 평가합니다. 즉 early return이 없다는 것이죠.
+
+dx/dy 배열을 사용하면 각 셀마다 최대 4번 검사하지만 break로 조기 종료가 가능합니다.
+
+```tsx
+// 예: arr[i][j] = 3, 위쪽이 5인 경우
+
+// 코드 1: 4개 조건 모두 평가
+3 > 5 && 3 > 0 && 3 > 0 && 3 > 0;
+// ↑ false 확인 후 나머지는 평가 안 함 (short-circuit)
+
+// 코드 2: 첫 번째에서 break
+if (3 <= 5) {
+  isPeak = false;
+  break;
+} // 즉시 종료 ✓
+```
+
+이차원 배열문제에서 상하좌우를 탐색해야한다 라는 생각이 들면 dx, dy 패턴을 바로 떠올리도록 문제를 자주 봐야할것 같습니다.
+
+</Callout>

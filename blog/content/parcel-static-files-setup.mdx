@@ -1,0 +1,66 @@
+---
+title: 'Parcel 환경에서 static 파일 연결하는 방법 🐻'
+date: 2023-05-09
+tags: ['Develop']
+thumbnail: /thumbnails/default.png
+---
+
+📝 images 폴더에있는 이미지를 src 속성에 넣으면 보여줘야하는거 아닌가?
+
+```jsx
+import Greeting from './Greeting';
+export default function App() {
+  return (
+    <div>
+      {' '}
+      <Greeting name='leejaelll' /> <p>App component</p> <img
+        src='images/23-05-02-1.png'
+        alt='.'
+      />{' '}
+    </div>
+  );
+}
+```
+
+결과는 엑박..ʕ·ᴥ·ʔ
+![](/images/content/parcel-static-files-setup/1.png)
+
+### 🐻 Parcel은 정적파일을 serving 할 수 있는 패키지를 제공한다.
+
+### 패키지 설치
+
+```jsx
+npm install -D parcel-plugin-static-files-copy
+```
+
+### .parcelrc 생성
+
+```jsx
+{  "extends": ["@parcel/config-default"],  "reporters":  ["...", "parcel-reporter-static-files-copy"]}
+```
+
+이렇게 하면 static 폴더의 파일을 정적 파일로 Serving할 수 있습니다.🛵
+
+### static 폴더 생성
+
+패키지 설치 후 static 폴더를 생성해줍니다.
+`static > images > 23-05-02-1.png`
+
+```jsx
+import Greeting from './Greeting';
+export default function App() {
+  return (
+    <div>
+      {' '}
+      <Greeting name='leejaelll' /> <p>App component</p> <img
+        src='images/23-05-02-1.png'
+        alt='.'
+      />{' '}
+    </div>
+  );
+}
+```
+
+![](/images/content/parcel-static-files-setup/2.png)
+
+결과를 보면 정상적으로 동작하는 것을 확인할 수 있습니다!

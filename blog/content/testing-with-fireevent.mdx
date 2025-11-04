@@ -1,0 +1,108 @@
+---
+title: '테스트 코드 작성 연습하기 🐻 (fireEvent)'
+date: 2023-06-07
+tags: ['Develop']
+thumbnail: /thumbnails/default.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+체크박스가 체크되기 전에는 버튼이 활성화되어 있고, 체크박스에 체크가 되면 버튼을 비활성화시키려고 합니다.
+테스트에서 체크박스가 체크되게끔 업데이트하려면 어떻게 해야 할까요?
+버튼에서와 동일한 방법을 사용하면 됩니다. `fireEvent.click`을 사용해 체크박스를 클릭하는 거죠.
+그리고 테스트 내에서는 이 과정을 두 번 거칠 텐데요,
+
+1. 체크박스에 체크를 하고 버튼 비활성화 여부를 확인한 뒤,
+2. 클릭 이후 체크박스의 체크가 해제되면 버튼이 다시 활성화되는지의 여부를 확인해야합니다.
+
+### 🐥 테스트 코드 작성
+
+```text
+test('체크박스를 클릭하면 버튼이 비활성화 되어야 하고, 다시 클릭하면 버튼이 활성화되어야 한다.', () => {
+  render(<App />);
+  const colorButton = screen.getByRole('button');
+  const checkbox = screen.getByRole('checkbox');
+  fireEvent.click(checkbox);
+  expect(colorButton).toBeDisabled();
+  fireEvent.click(checkbox);
+  expect(colorButton).toBeEnabled();
+});
+```
+
+두 클릭 이벤트 사이에 체크박스를 재정의할 필요가 없습니다. 한 번 정의하면 DOM에서 요소가 사라지지 않는 한 그대로 있기 때문이죠.
+
+```text
+import './App.css';
+import { useState } from 'react';
+
+function App() {
+  const [buttonColor, setButtonColor] = useState('red');
+  const [disabled, setDisabled] = useState(false);
+  const newButtonColor = buttonColor === 'red' ? 'blue' : 'red';
+
+  return (
+    <div>
+      <button
+        style={{ backgroundColor: buttonColor }}
+        onClick={() => setButtonColor(newButtonColor)}
+        disabled={disabled}
+      >
+        Change to {newButtonColor}
+      </button>
+      <input
+        type="checkbox"
+        onChange={(e) => setDisabled(e.target.checked)}
+        defaultChecked={disabled}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### 🚧 Code Refactoring
+
+현재 테스트 코드에서는 `const checkbox = screen.getByRole('checkbox');` 로 checkbox를 확인하는데요, 체크박스가 여러 개 존재하는 경우 문제가 생기게 됩니다. 이때 사용하는 것이 **getByRole의 name 옵션**입니다.
+
+```text
+test('체크박스를 클릭하면 버튼이 비활성화 되어야 하고, 다시 클릭하면 버튼이 활성화되어야 한다.', () => {
+  render(<App />);
+  const colorButton = screen.getByRole('button', { name: 'Disable button' });
+  const checkbox = screen.getByRole('checkbox');
+  fireEvent.click(checkbox);
+  expect(colorButton).toBeDisabled();
+  fireEvent.click(checkbox);
+  expect(colorButton).toBeEnabled();
+});
+```
+
+테스트를 실행하면 아래와 같은 오류가 발생합니다.
+
+<Callout>
+  TestingLibraryElementError: Unable to find an accessible element with the role
+  “checkbox” and name “Disable button”
+</Callout>
+
+체크박스이면서 name이 Disable button이라는 요소를 찾을 수 없다고 하는데요, 이를 해결하기 위해선 label을 만들어주면 됩니다.
+
+```text
+<div>
+  <button
+    style={{ backgroundColor: buttonColor }}
+    onClick={() => setButtonColor(newButtonColor)}
+    disabled={disabled}
+  >
+    Change to {newButtonColor}
+  </button>
+  <input
+    type="checkbox"
+    id="enable-button-checkbox" // 🚧 input에 id
+    onChange={(e) => setDisabled(e.target.checked)}
+    defaultChecked={disabled}
+  />
+  <label htmlFor="enable-button-checkbox">Disable button</label> // 🚧 label에 동일한 id값
+</div>
+```
+
+테스팅 라이브러리는 똑똑해서 체크박스 역할을 하고 이 이름을 갖는 요소가 라벨이 결합된 요소라는 걸 압니다! :)

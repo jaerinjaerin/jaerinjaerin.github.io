@@ -1,0 +1,66 @@
+---
+title: '브라우저 렌더링 과정'
+date: 2023-04-26
+tags: ['Develop']
+thumbnail: /thumbnails/tech-interview.png
+---
+
+지금 당장 브라우저 렌더링 과정에 대해서 설명해보라고 한다면 문장으로는 하나도 대답하지 못할 것 같습니다. 왜냐하면 생각나는 것들이 키워드 몇 개밖에 되지 않기 때문이죠.
+지금 생각나는 키워드들을 말해보자면, DOM, CSSOM, 자바스크립트 엔진 정도..? 되는 것 같습니다.
+
+## ✅ 브라우저 렌더링 과정
+
+브라우저가 화면에 요소를 렌더링할 때, 웹킷(Webkit)이나 게코(Geako) 등과 같은 렌더링 엔진을 사용합니다. 렌더링 엔진이 HTML, CSS, JavaScript로 렌더링할 때 CRP(Critical Rendering Path)라는 프로세스를 사용하며 다음 단계들로 이뤄집니다.
+
+1. HTML 파싱 후, DOM 트리 생성
+2. CSS 파싱 후, CSSOM 트리 생성
+3. JavaScript 실행(🚧 HTML 중간에 script가 있다면 HTML 파싱이 중단)
+4. DOM과 CSSOM을 조합하여 렌더트리 생성(🚧 display:none과 같이 화면에서 보이지도 않고 공간을 차지하지 않는 것은 렌더트리로 구축되지 않는다.)
+5. 뷰포트 기반으로 렌더트리의 각 노드가 가지는 정확한 위치와 크기 계산
+6. 계산한 위키와 크기를 기반으로 화면에 그린다.
+
+실제로 크롬 개발자 도구를 통해 코드를 어떻게 렌더링하는지 살펴보았습니다.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>테스트</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+```css
+body {
+  background-color: red;
+}
+div {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}
+```
+
+```js
+document.querySelector('div').addEventListener('click', () => {
+  console.log('Click div');
+});
+```
+
+![](/images/content/browser-rendering-process.png)
+
+위 로그를 보면 알 수 있는 것처럼 위에서 언급한 CRP가 진행됩니다.
+
+- Parse HTML을 통해 HTML 파싱 후, DOM 트리 구축
+- Parse Stylesheet를 통해 CSS 파싱 후, CSSOM 트리 구축
+- Evaluate Script를 통해 Javascript 실행
+- 렌더트리 구축
+- Layout을 통해 뷰포트 기준으로 렌더트리 노드들의 각 크기/위치 계산
+- Paint를 통해 Layout에서 계산한 값들로 각 요소를 화면에 그림

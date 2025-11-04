@@ -1,0 +1,141 @@
+---
+title: '컴포넌트 합성(Compoistion) 사용법 알려드립니다. 🚗'
+description: '컴포넌트 합성(Compoistion) 사용법 알려드립니다. 🚗'
+date: 2023-03-30
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# Composition vs Inheritance
+
+🚀 리액트에서 컴포넌트를 어떻게 구성해서 사용하는지 **두 가지 방법**에 대해 비교하면서 공부하기
+
+## Composition
+
+: 여러 개의 컴포넌트를 합쳐서 새로운 컴포넌트를 만드는 것을 의미
+👉🏻 구성이라는 뜻 보단 합성이라는 뜻에 가까움
+
+![스크린샷.png](/images/content/react-component-composition-guide/1.png)
+
+A라는 컴포넌트와 B라는 컴포넌트가 반복된다. 하나의 페이지 자체도
+페이지 자체도 컴포넌트로 구성되어있다.
+결국 컴포넌트 A와 컴포넌트 B를 합쳐 페이지 컴포넌트를 만든 것.
+👉🏻 즉, Composition을 사용
+
+리액트로 개발하다보면 여러개의 컴포넌트를 합쳐서 새로운 컴포넌트를 만드는 일이 많다. 그래서 합성은 리액트 전반에 걸쳐 많이 사용함
+composition이라고 해서 무작정 컴포넌트를 여러개 붙이는 것이 아니라 어떻게 컴포넌트를 조합할 것인가?에 대한 고민이 필요하다.
+
+## Composition에도 사용기법이 있다.
+
+### Containment
+
+방지, 견제라는 뜻. 하지만 여기에서는 contain(담다, 포함하다)의 의미를 가지고 있음
+
+<Callout>하위 컴포넌트를 포함하는 형태의 합성 방법</Callout>
+
+보통 Sidebar나 Dialog 같은 박스 형태의 컴포넌트는 자신의 하위 컴포넌트를 미리 알 수 없다.
+예를 들어 2개의 쇼핑몰 사이트를 만들어야 하는데 동일한 Sidebar 컴포넌트를 사용하는 쇼핑몰이 있다고 가정해보자. 의류 쇼핑몰에는 의류와 관련된 메뉴가 8개 있고, 다른 쇼핑몰에는 식료품과 관련된 메뉴가 10개 있다.
+Sidebar 컴포넌트: 뭐가 올지 나는 모르는데? ㅇㅅㅇ
+해당 컴포넌트를 사용하는 개발자가 어떤 것을 넣느냐에 따라 하위 컴포넌트가 달라지기 때문이다. 그렇기 때문에 Containment 방법을 사용하여 Composition을 사용한다.
+
+**Containment를 사용하는 방법**
+: 리액트 컴포넌트 props에 기본적으로 들어있는 children 속성을 사용
+children prop을 사용한 FancyBorder 컴포넌트 예시:
+
+```text
+function FancyBorder(props) {  return (    <div className={'FancyBorder FancyBorder-' + props.color}>      {props.children}    </div>  );}
+```
+
+`props.children` 을 사용하면 해당 컴포넌트의 하위 컴포넌트가 children이라는 prop으로 들어오게 된다. (리액트에서 기본적으로 제공)
+React.createElement 문법을 생각해보면 세 번째로 들어가는 파라미터가 children이 들어간다.
+
+```text
+React.createElement(type, [props], [...children]);
+```
+
+💬 배열로 들어가는 이유는?
+
+    여러개의 하위 컴포넌트를 가질 수 있기 때문
+
+FancyBorder 컴포넌트 활용 예제:
+
+```text
+function WelcomeDialog(props) {  return (    <FancyBorder color="blue">      <h1 className="Dialog-title">어서오세요</h1>      <p className="Dialog-message">사이트에 방문하신 것을 환영합니다!</p>    </FancyBorder>  );}
+```
+
+- `WelcomeDialog`는 `FancyBorder` 컴포넌트를 사용
+- FancyBorder 컴포넌트로 감싸진 부분 안에는 h1, p 태그로 구성
+
+이 두개의 태그는 FancyBorder의 children이라는 이름의 props로 전달됨. 결과적으로 파란색 테두리로 모두 감싸지는 결과가 나옴
+
+### 그렇다면 여러 개의 children 집합이 필요한 경우는 어떻게 할까?
+
+이런 경우는 별도로 props를 정의해서 각각 원하는 컴포넌트를 넣어주면 된다.
+
+```text
+function SplitPane(props) {  return (    <div className="splitPane">      <div className="splitPane-left">        <p> {props.left} </p>      </div>      <div className="splitPane-right">        <p> {props.right} </p>      </div>    </div>  );}function App() {  return <SplitPane left={<Contacts />} right={<Chats />} />;}
+```
+
+- 화면의 왼쪽과 오른쪽을 분할해서 보여주는 SplitPane 컴포넌트
+- 여기서는 left, right라는 props를 정의하고 각각 다른 컴포넌트를 전달
+- SplitPane에서는 left, right를 props로 전달받게 되고 각각 화면의 왼쪽과 오른쪽에 컴포넌트를 렌더링한다.
+
+props.children이나 직접 정의한 props를 이용하여 하위 컴포넌트를 포함하는 형태로 합성하는 방법을 Containment
+
+## Specialization
+
+전문화, 특수화를 의미
+어떤 개념인지 잘 와닿지 않으니 예를 들어보면,
+
+### ‘WelcomDialog는 Dialog의 특별한 케이스다.’
+
+- Dialog는 범용적인 의미를 가지고 있음. 👉🏻 모든 종류의 Dialog를 다 포함할 수 있는 개념
+- 반면 WelcomDialog은 누군가를 반기기위한 Dialog
+
+### 이처럼 범용적인 개념을 구별이 되게 구체화하는 것
+
+기존의 객체 지향 언어에서는 상속을 사용하여 Specialization을 구현
+리액트에서는 합성을 사용하여 Specialization을 구현한다.
+
+```text
+function Dialog(props) {  return (    <FancyBorder color="blue">      <h1 className="Dialog-title">{props.title}</h1>      <p className="Dialog-message">{props.message}</p>    </FancyBorder>  );}function WelcomeDialog(props) {  return (    <Dialog title="어서오세요" message="사이트에 방문하신 것을 환영합니다." />  );}
+```
+
+- Dialog 컴포넌트를 사용하는 WelcomDialog 컴포넌트
+- Dialog 컴포넌트는 title과 message라는 두 가지 props를 가지고 있음
+- props는 각각 제목과 메세지를 의미하는데 이 제목과 메세지를 어떻게 사용하느냐에 따라서 인삿말 Dialog가 될 수도 있고 경고 Dialog가 될 수도 있다. (용도에 따라 다르게 쓸 수 있는 Dialog 컴포넌트를 만든거구나)
+
+Specialization은 범용적으로 사용할 수 있는 컴포넌트를 만들어 놓고 이를 특수화 시켜서 컴포넌트를 사용하는 composition 방법
+
+## Containment와 Specialization을 같이 사용하려면?
+
+Containment를 위해서 props.children을 사용하고 Specialization을 위해 직접 정의한 props를 사용하면 되겠다!
+
+```text
+function Dialog(props) { return (  <FancyBorder color="blue">   <h1 className="Dialog-title">    {props.title}   </h1>   <p className="Dialog-message">    {props.message}   </p>   {props.children} // <- containment를 위해  </FancyBorder> )}
+```
+
+```text
+function SignUpDialog(props) {  const [nickname, setNickname] = useState('');  const handleChange = (event) => {    setNickname(event.target.value);  };  return (    <Dialog title="화성 탐사 프로그램" message="닉네임을 알려주세요">      <input value={nickName} onChange={handleChane} />      <button onClick={handleClick}> 가입하기 </button>    </Dialog>  );}
+```
+
+![.](/images/content/react-component-composition-guide/2.png)
+
+이러한 형태로 specialization과 Containment를 동시에 사용할 수 있다.
+
+## Inheritance
+
+일상생활에서 상속이란 단어는 부모가 자식에게 재산을 물려줄 때 사용
+컴퓨터 프로그래밍에서의 상속은 객체지향 프로그래밍에서 나온 용어.
+부모 클래스를 상속받아서 자식 클래스를 만든다는 개념으로 자식 클래스는 부모 클래스가 가진 변수나 함수 속성을 갖게 된다.
+리액트에서는 다른 컴포넌트로부터 상속을 받아서 새로운 컴포넌트를 만드는 것을 고려해볼 수 있지만 추천X
+
+## 결론은…
+
+복잡한 컴포넌트를 쪼개서 여러 개의 컴포넌트로 만들고 만든 컴포넌트를 조합해서 새로운 컴포넌트를 만들자!
+
+# Reference
+
+[합성 (Composition) vs 상속 (Inheritance) – React](https://ko.reactjs.org/docs/composition-vs-inheritance.html)

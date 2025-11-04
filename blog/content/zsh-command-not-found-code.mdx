@@ -1,0 +1,24 @@
+---
+title: 'zsh: command not found: code'
+date: 2023-04-25
+tags: ['Error']
+thumbnail: /thumbnails/default.png
+---
+
+# 💡 zsh: command not found: code
+
+### [ 에러 환경 ]
+
+- iterm에서 `code .` 명령어를 입력했을 때 나타나는 오류
+
+![](/images/content/zsh-command-not-found-code.png)
+
+### [ 해결 방법 ]
+
+1. bin 디렉토리에 접근하여 PATH code를 지우고 다시 설치합니다.
+
+```text
+$ cd /usr/local/bin$ sudo rm -rf code
+```
+
+1. command + shift + P ➡️ Shell Command: Install ‘code’ command in PATH’

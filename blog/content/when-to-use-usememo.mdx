@@ -1,0 +1,115 @@
+---
+title: 'useMemo는 언제 사용하는 걸까? 🙋🏻'
+description: 'useMemo는 언제 사용하는 걸까? 🙋🏻'
+date: 2023-05-19
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+오늘은 useMemo와 useCallback에 대해서 배워보았습니다.
+두 Hook의 공통점이라면 렌더링 최적화를 위한 Hook이다 라고 할 수 있겠군요.먼저 useMemo에 대해서 배운 내용을 정리해보려고 합니다.
+
+## useMemo
+
+useMemo는 리렌더링 사이에 연산 결과를 캐시(cache)할 수 있는 React Hook입니다.즉, 특정 값을 재사용하고자 할 때 사용하는 Hook이죠.
+
+```jsx
+const cachedValue = useMemo(calculateValue, dependencies); // exampleconst calculateValue = useMemo(() => calculate(value), [value]);
+```
+
+## useMemo, 어떤 상황에서 사용하면 좋을까요?
+
+기본적으로 React는 컴포넌트를 리렌더링할 때마다 컴포넌트 전체를 실행시키기 때문에 연산이 오래 걸리는 복잡한 함수를 호출한다면 렌더링 속도에도 영향을 미치게 됩니다.
+일반적으로 대부분의 계산은 매우 빠르기 때문에 문제가 되지 않는다고 하는데요, 규모가 큰 배열을 필터링하거나 변환하는 경우 데이터가 변경되지 않았다면 계산을 다시 수행하지 않는 것이 좋습니다. 이 때 useMemo를 사용합니다.
+👉🏻 이러한 유형의 캐싱을 **Memoization**이라고 합니다.
+
+## useMemo를 통해 앱 최적화하는 방법
+
+이름을 입력하는 input창과 두 개의 input 값을 더해서 출력하는 기능을 구현하려고 합니다.
+
+![](/images/content/when-to-use-usememo/1.png)
+
+useMemo를 배우기 전에 코드를 작성했다면, 다음과 같이 작성할 것 같습니다.
+
+```jsx
+import React, { useState } from 'react';
+const add = (num1, num2) => {
+  console.log(`${num1}, ${num2}: 지금 들어온 숫자`);
+  return Number(num1) + Number(num2);
+};
+export default function App() {
+  const [name, setName] = useState('');
+  const [val1, setVal1] = useState(0);
+  const [val2, setVal2] = useState(0);
+  const answer = add(val1, val2);
+  return (
+    <div>
+      {' '}
+      <input
+        className='name-input'
+        placeholder='이름을 입력해주세요'
+        value={name}
+        type='text'
+        onChange={(e) => setName(e.target.value)}
+      /> <input
+        className='value-input'
+        placeholder='숫자를 입력해주세요'
+        value={val1}
+        type='number'
+        onChange={(e) => setVal1(Number(e.target.value))}
+      /> <input
+        className='value-input'
+        placeholder='숫자를 입력해주세요'
+        value={val2}
+        type='number'
+        onChange={(e) => setVal2(Number(e.target.value))}
+      /> <div>{answer}</div>{' '}
+    </div>
+  );
+}
+```
+
+위의 컴포넌트에서 실제로 연산 로직에 영향을 주는 값은 val1과 val2입니다. 즉, 이름을 입력할 때에는 add 함수가 호출될 필요가 없는거죠. 하지만 현재는 이름을 작성할 때마다 add 함수도 함께 호출되고 있는 것을 확인할 수 있습니다.
+![](/images/content/when-to-use-usememo/2.png)
+
+_이름 input만 가지고 놀았는데 add 함수가 40번 호출되는 매직..😱_
+
+### 그럼 이제 useMemo를 활용해서 컴포넌트를 최적화해보자구요!
+
+add 함수가 반환하는 값이 변하지 않았다면 호출할 필요가 없기 때문에 answer의 값을 캐싱해놓으면 될 것 같습니다.
+
+```jsx
+export default function App() {  const [name, setName] = useState('');  const [val1, setVal1] = useState(0);  const [val2, setVal2] = useState(0);  const answer = useMemo(() => add(val1, val2), [val1, val2]);  // ...(생략)}
+```
+
+👉🏻 useMemo를 사용하면 이름을 입력할 땐 val1과 val2의 값이 변하지 않았기 때문에 add함수의 호출이 일어나지 않습니다 :)
+
+### 🐢 컴포넌트 리렌더링 건너뛸 때도 사용할 수 있습니다. (Skipping re-rendering of components)
+
+경우에 따라 하위 컴포넌트 리렌더링 성능을 최적화할 수도 있습니다. TodoList 컴포넌트가 하위 List 컴포넌트에 프로퍼티로 visibleTodos를 전달한다고 가정해 보겠습니다.
+
+```jsx
+export default function TodoList({ todos, tab, theme }) {  // ...  return (    <div className={theme}>      <List items={visibleTodos} />    </div>  );}
+```
+
+리액트는 기본적으로 컴포넌트가 리렌더링되면 재귀적으로 하위 컴포넌트를 리렌더링시킵니다. 그렇기 때문에 TodoList 컴포넌트가 다시 렌더링되면 List 컴포넌트도 다시 렌더링이 됩니다. 이때 리렌더링이 느리다는 것을 확인했다면 List를 memo로 감싸서 props가 이전 렌더링과 동일할 때 리렌더링을 건너뛰도록 할 수 있습니다.
+
+```jsx
+import { memo } from 'react';const List = memo(function List({ items }) {  // ...});
+```
+
+TodoList 컴포넌트에서 filterTodos 배열을 만드는 함수를 호출해서 배열을 가져오고, 만든 배열을 List 컴포넌트에 전달한다고 가정을 했을 때, useMemo와 memo를 사용해 최적화한 코드는 다음과 같습니다.
+
+```jsx
+// App.jsimport { useState } from 'react';import { createTodos } from './utils.js';import TodoList from './TodoList.js';const todos = createTodos();export default function App() {  const [tab, setTab] = useState('all');  const [isDark, setIsDark] = useState(false);  return (    <>      <button onClick={() => setTab('all')}>All</button>      <button onClick={() => setTab('active')}>Active</button>      <button onClick={() => setTab('completed')}>Completed</button>      <br />      <label>        <input          type="checkbox"          checked={isDark}          onChange={(e) => setIsDark(e.target.checked)}        />        Dark mode      </label>      <hr />      <TodoList todos={todos} tab={tab} theme={isDark ? 'dark' : 'light'} />    </>  );}
+```
+
+```jsx
+// TodoList.jsimport { useMemo } from 'react';import List from './List.js';import { filterTodos } from './utils.js';// ✅ TodoList 컴포넌트는 App.js로부터 todos, theme, tab을 props로 받는다.export default function TodoList({ todos, theme, tab }) {  const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab]); // ✅ tab에 해당하는 배열을 만든다.  return (    <div className={theme}>      <p>        <b>          Note: <code>List</code> is artificially slowed down!        </b>      </p>      <List items={visibleTodos} /> // ✅ List 컴포넌트에 배열 전달    </div>  );}
+```
+
+```jsx
+import { memo } from 'react'; // ✅ memo로 함수를 래핑한 후 exportconst List = memo(function List({ items }) {  return (    <ul>      {items.map((item) => (        <li key={item.id}>{item.completed ? <s>{item.text}</s> : item.text}</li>      ))}    </ul>  );});export default List;
+```
+
+컴포넌트에서 여러 개의 useState를 사용해서 작업하는 일이 많았는데, 리렌더링되면서 굳이 호출되지 않아도되는 함수들이 호출되는 경험을 했었습니다. ‘이런 부분은 리액트에서 어쩔 수 없는 부분인가?’ 라고 생각했었는데 이번 기회를 통해 최적화하는 방법을 배울 수 있었던 것 같습니다.😃

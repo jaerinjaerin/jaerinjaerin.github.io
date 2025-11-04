@@ -1,0 +1,145 @@
+---
+title: 'Thinking in React - React State🚀'
+date: 2023-03-27
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+# React State
+
+**Step 3: Find the minimal but complete representation of UI state**
+**Step 4: Identify where your state should live**
+**Step 5: Add inverse data flow**
+리액트에는 state라는 개념이 있고 state가 바뀌면 해당 컴포넌트와 하위 컴포넌트가 다시 렌더링하게 된다.
+
+### React State의 조건은?
+
+- 변경되지 않는건 state로 다룰 가치가 없다.
+- props로 전달받았다면 state가 아니다.
+- 계산 가능하면 state가 아니다.
+
+### 상태는 누가 관리해야할까?
+
+현재 관리해야하는 상태는? 👉🏻 체크박스 on, off
+체크박스는 누가 관리하는 게 좋을까? 상태를 여러 컴포넌트에 넘겨줘야하는 상황이라면 하위 컴포넌트를 가지고 있는 공통 조상 컴포넌트가 관리하는 것이 좋다. 이것을 **Lifting State Up**이라고 한다.
+
+### checkbox를 클릭하면 stocked가 true인 제품의 목록만 나오도록 만들기
+
+```jsx
+import { useRef } from 'react';
+type CheckBoxFieldProps = { label: string };
+export default function CheckBoxField({ label }: CheckBoxFieldProps) {
+  const id = useRef(`checkbox-${label}`.replace(/ /g, '-').toLowerCase());
+  return (
+    <div>
+      {' '}
+      <input type='checkbox' id={id.current} /> <label htmlFor={id.current}>
+        {label}
+      </label>{' '}
+    </div>
+  );
+}
+```
+
+상태를 관리하려면? **useState** 사용
+
+```jsx
+const [inStockOnly, setInStockOnly] = useState(false);
+```
+
+**체크박스를 클릭했을 때 inStockOnly의 값을 변경하는 방법**
+
+```text
+import { useRef, useState } from 'react';type CheckBoxFieldProps = {  label: string;};export default function CheckBoxField({ label }: CheckBoxFieldProps) {  const id = useRef(`checkbox-${label}`.replace(/ /g, '-').toLowerCase());  const [inStockOnly, setInStockOnly] = useState<boolean>(false);  const handleChange = () => {    setInStockOnly(!inStockOnly);  };  return (    <div>      <input        type="checkbox"        id={id.current}        checked={inStockOnly}        onChange={handleChange}      />      <label htmlFor={id.current}>{label}</label>    </div>  );}
+```
+
+`CheckBoxField` 컴포넌트를 누가 사용하지? `ProductInCategory` 컴포넌트
+inStockOnly가 true가 되면 `ProductInCategory` 컴포넌트에서 제품 목록 필터링을 해야한다.
+`CheckBoxField` 와 `ProductInCategory` 컴포넌트를 모두 가지고 있는 조상 컴포넌트를 찾으면?
+👉🏻 `FilterableProductTable` 컴포넌트, 즉 inStockOnly가 있어야 하는 곳이다.
+
+### TextField 컴포넌트 만들기
+
+![스크린샷 2023-03-24 오후 2.27.05.png](/images/content/thinking-in-react-state/1.png)
+
+```text
+type TextFieldProps = {  placeholder: string;};export default function TextField({ placeholder }: TextFieldProps) {  return (    <div>      <input type="text" placeholder={placeholder} />    </div>  );}
+```
+
+### FilterableProductTable 컴포넌트가 가져야 할 state
+
+```text
+import ProductTable from './ProductTable';import SearchBar from './SearchBar';import Product from '../types/Product';type FilterableProductTableProps = {  products: Product[];};export default function FilterableProductTable({  products,}: FilterableProductTableProps) {  // inStockOnly가 있어야 하는 곳  // filterText가 있어야 하는 곳  return (    <div>      <SearchBar />      <ProductTable products={products} />    </div>  );}
+```
+
+검색어라는 상태를 관리하고 싶다면
+
+```text
+export default function TextField({ placeholder }: TextFieldProps) {  const [filterText, setFilterText] = useState<string>('');  return (    <div>      <input type="text" placeholder={placeholder} value={filterText} />    </div>  );}
+```
+
+키를 입력할 때마다 무엇을 입력했는 지 확인하려면 onChange 이벤트를 사용한다.
+
+```text
+export default function TextField({ placeholder }: TextFieldProps) {  const [filterText, setFilterText] = useState<string>('');  const handleChange = (event: React.ChangeEvent) => {    const { value } = event.target;    setFilterText(value);  };  return (    <div>      <input        type="text"        placeholder={placeholder}        value={filterText}        onChange={handleChange}      />    </div>  );}
+```
+
+![스크린샷 2023-03-24 오후 3.25.39.png](/images/content/thinking-in-react-state/2.png)
+
+👉🏻 target을 얻었는데 불분명해서 나오는 에러. 현재 타겟은 input element이므로 로 타입을 지정해준다.
+
+![스크린샷 2023-03-24 오후 3.30.17.png](/images/content/thinking-in-react-state/3.png)
+
+FilterableProductTable 컴포넌트로 작성한 state를 옮겨준다.
+
+<Callout>
+  즉, state가 필요한 컴포넌트에서 먼저 작성하고 공통 조상 컴포넌트로 옮기는
+  방법이 Lifting State Up
+</Callout>
+
+![스크린샷 2023-03-24 오후 3.42.17.png](/images/content/thinking-in-react-state/4.png)
+
+그리고 SearchBar 컴포넌트에 props로 넘겨주기
+SerachBar 컴포넌트에서는?
+
+```text
+import CheckBoxField from './CheckBoxField';import TextField from './TextField';type SearchBarProps = {  filterText: string;};export default function SearchBar({ filterText }: SearchBarProps) {  return (    <div className="seach-bar">      <TextField placeholder="Search..." filterText={filterText} />      <CheckBoxField label="Only Show products in stock" />    </div>  );}
+```
+
+props으로 받아왔기 때문에 SearchBarProps로 타입을 지정해주고, TextField 컴포넌트에 props로 다시 전달해주기
+TextField 컴포넌트에서는?
+
+```text
+import React from 'react';type TextFieldProps = {  filterText: string;  placeholder: string;};export default function TextField({ filterText, placeholder }: TextFieldProps) {  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {    const { value } = event.target;    setFilterText(value);  };  return (    <div>      <input        type="text"        placeholder={placeholder}        value={filterText}        onChange={handleChange}      />    </div>  );}
+```
+
+TextFieldProps에 filterText prop 타입 지정하기
+이제 useState는 더 이상 필요 없기 때문에 지워도 된다.
+
+### 문제는 setFilterText
+
+데이터를 위에서 아래로 보내는 건 문제 없는데, 함수를 아래서 위로 보내야 하는 상황
+이럴 때는 하위 컴포넌트의 props로 함수를 전달한다. (콜백 함수)
+
+![스크린샷 2023-03-24 오후 3.52.11.png](/images/content/thinking-in-react-state/5.png)
+
+![스크린샷 2023-03-24 오후 3.53.42.png](/images/content/thinking-in-react-state/6.png)
+
+![스크린샷 2023-03-24 오후 3.55.23.png](/images/content/thinking-in-react-state/7.png)
+
+### filterText prop을 ProductTable 컴포넌트로 넘겨주기
+
+```text
+<ProductTable products={products} filterText={filterText} />
+```
+
+이렇게 넘겨주는 방법이 있지만, 또 다른 한 가지 방법은
+filterText 값에 해당하는 products만 넘겨주기. (prop을 한개만 넘겨줘도 되는 장점이 있다.)
+
+```text
+export default function FilterableProductTable({  products,}: FilterableProductTableProps) {  // inStockOnly가 있어야 하는 곳  // filterText가 있어야 하는 곳  const [filterText, setFilterText] = useState<string>('');  const query = filterText.trim().toLowerCase();  const filteredProducts = !query.length    ? products    : products.filter((product) => product.name.toLowerCase().includes(query));  return (    <div>      <SearchBar filterText={filterText} setFilterText={setFilterText} />      <ProductTable products={filteredProducts} />    </div>  );}
+```
+
+<Callout>inStockOnly, setInStockOnly도 동일하게 리팩토링하기</Callout>

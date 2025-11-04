@@ -1,0 +1,72 @@
+---
+title: "Type 'unknown' is not assignable to type 'Restaurant[] | undefined'."
+date: 2023-05-30
+tags: ['Error', 'TypeScript']
+thumbnail: /thumbnails/typescript.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+useFetch를 사용해서 데이터를 받아오고 그 데이터를 가지고 렌더링을 하려고 코드를 구현했습니다.
+
+```text
+import { useFetch } from 'usehooks-ts';// '/restaurants' endpoint로 식당 목록 받아오기export default function useFetchRestaurants() {  return useFetch('http://localhost:9999/restaurants');}
+```
+
+그리고 App 컴포넌트에서 `const { data } = useFetchRestaurants()`로 불러서 데이터를 사용하려고 했는데요, data의 타입을 모른다는 에러를 확인했습니다.
+
+이때 든 생각은 ‘data는 undefined일 수도 있고 배열일 수도 있겠구나!🤔’였습니다. 그래서 data에 Union으로 타입을 지정해줘야겠다!라는 생각을 했습니다.
+
+```text
+const { data }: { data: Restaurant[] | undefined } = useFetchRestaurants();
+```
+
+이렇게 작성해도 아래와 같은 오류가 발생했습니다.
+
+<Callout>
+Type 'State' is not assignable to type `{ data: Restaurant[] | undefined; }`. Types of property 'data' are incompatible. Type 'unknown' is not assignable to type 'Restaurant[] | undefined'.
+</Callout>
+
+도대체 이게 무슨 말인가 하고 살펴보니 data라는 변수는 unknown이라서 제가 지정한 타입을 할당할 수 없다는 것이었습니다. 그럼 어떻게 해야하는거지…? 기본 개념만 익힌 저에겐 너무 막막한 문제라고 생각이 들었고 Chat GPT에게 도움을 받아봤습니다.
+unknown 타입의 값을 확정적인 타입으로 변환하기 위해서는 타입 단언(Type Assertion)을 사용할 수 있습니다. 다음과 같이 코드를 수정해보세요
+라는 답변을 받았고,
+
+```text
+const { data }: { data: Restaurant[] | undefined } = useFetchRestaurants() as {  data: Restaurant[] | undefined;};
+```
+
+위와 같이 코드를 작성하면 에러 없이 동작하는 것을 확인했습니다.
+그런데 문득 ‘unknown은 가급적 사용하지 말라고 했는데, 저렇게 타입 단언을 한다는 건 unknown을 사용했다는 거 아닌가?’라는 생각이 들었습니다.
+
+### ✅ 해결방법
+
+usehooks-ts 공식문서에서 Usage를 살펴보니, useFetch를 할 때 타입을 지정해줘야 하는 것을 알게되었습니다.
+
+```text
+import { useFetch } from 'usehooks-ts';const url = `http://jsonplaceholder.typicode.com/posts`;interface Post {  userId: number;  id: number;  title: string;  body: string;}export default function Component() {  const { data, error } = useFetch<Post[]>(url); // ✅ useFetch할 때 제네릭으로 타입을 알려줘야한다.  if (error) return <p>There is an error.</p>;  if (!data) return <p>Loading...</p>;  return <p>{data[0].title}</p>;}
+```
+
+이 방식을 적용해서 코드를 수정해보면
+
+```text
+import { useFetch } from 'usehooks-ts';import Restaurant from '../types/Restaurant';// '/restaurants' endpoint로 식당 목록 받아오기export default function useFetchRestaurants() {  const { data, error } = useFetch<Restaurant[]>(    'http://localhost:9999/restaurants'  );  return { data };}
+```
+
+이렇게 되면
+
+```text
+const { data: restaurants } = useFetchRestaurants();
+```
+
+사용하는 코드 내에서 아무런 반환값을 써주지 않아도 문제 없이 동작합니다 ☺️
+
+타입스크립트는 아직 익숙하지 않아서 에러 메세지를 봐도 이 에러 메세지가 무엇을 의미하는지 이해하지 못하는 경우가 대부분입니다.. 오히려 좋은 점이라면 에러 메세지를 해결하면서 타입스크립트를 공부할 수 있다는 것이죠!
+
+## 🔨 Reference Code
+
+이전에 제가 작성한 코드에서는 `return {data}`를 보냈었는데요, 이렇게 되면 data가 undefined으로 들어오거나 데이터를 담을 배열이 들어옵니다. 하지만 저는 지금 undefined가 필요가 없기 때문에 useFetch를 할 때 data가 undefined이면 빈 배열을 리턴하는 것이 낫다는 생각이 들었습니다.
+왜냐하면 데이터를 받아서 map으로 순회할 것이기 때문에 undefined가 들어오면 에러가 발생합니다. 하지만 빈 배열일 때는 아무 것도 렌더링을 시키지 않을 뿐 에러는 발생시키지 않습니다.
+
+```text
+interface Restaurants {  [restaurants: string]: Restaurant[];}export default function useFetchRestaurants() {  const { data } = useFetch<Restaurants>(url);  if (!data) {    return [];  }  return data.restaurants;}
+```
