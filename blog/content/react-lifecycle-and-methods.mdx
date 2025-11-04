@@ -1,0 +1,254 @@
+---
+title: '리액트의 LifeCycle과 LifeCycle Method'
+description: '리액트의 LifeCycle과 LifeCycle Method'
+date: 2023-04-14
+tags: ['React']
+thumbnail: /thumbnails/react-lifecycle-and-methods.jpg
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+리액트의 생명주기와 생명주기 메서드에 대해서 공부해보겠습니다. 생명주기 메서드에 대해서 제대로 살펴보는건 처음인 것 같습니다. 매번 도망다니기 바빴는데 말이죠.
+
+### 리액트 컴포넌트는 생명주기(Life Cycle)가 있다.
+
+리액트의 각 컴포넌트들은 **라이프사이클 즉, 생명주기**를 가지고 있습니다. 생명주기는 컴포넌트 생성부터 시작해서 업데이트가 되기도 하고 마지막엔 소멸되는 과정을 거치게 됩니다.
+
+### 변화하는 과정을 캐치해서 작업을 하고싶다.
+
+컴포넌트를 처음 렌더링하는 시점에 어떠한 작업을 처리해야하거나, 컴포넌트를 업데이트하기 전 후로 어떤 작업을 처리해야 할 수도 있습니다. 혹은 불필요한 업데이트를 방지해야 할 수도 있죠.
+이 과정에서 특정한 이벤트들이 발생하는데 이것을 **생명주기 메서드(LifeCycle Method)** 라고 합니다.
+모든 컴포넌트는 여러 종류의 “생명주기 메서드”를 가지며, 이 메서드를 오버라이딩하여 특정 시점에 코드가 실행되도록 설정할 수 있습니다.
+
+생명주기는 어떻게 생겼냐구요? 이렇게 생겼습니다.
+
+![스크린샷 1.png](/images/content/react-lifecycle-and-methods/1.png)
+
+상대적으로 자주 사용되지 않는 메서드들까지 합치면 총 9가지입니다.
+
+![스크린샷.png](/images/content/react-lifecycle-and-methods/2.png)
+
+_출처: [https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)_
+
+### 생명주기는 총 3가지 카테고리로 나뉜다.
+
+생명주기는 생성될 때(Mount), 업데이트 할 때(Update), 제거할 때(Unmount) 카테고리로 나눕니다.
+🤔 **그렇다면 마운트 되었다는 것은 무엇을 의미할까요?**
+DOM이 생성되고 나서 웹 브라우저에 나타나는 것을 마운트라고 합니다. 즉, 컴포넌트의 인스턴스가 생성되어 DOM 상에 삽입될 때를 의미합니다.
+**🤔 업데이트 되었다는 것은?**
+
+- props가 바뀔 때
+- state가 바뀔 때
+- 부모 컴포넌트가 리렌더링될 때
+- this.forceUpdate로 강제로 렌더링 트리거할 때
+
+이러한 경우를 의미합니다.
+**🤔 마지막으로 언마운트 되었다는 것은?**
+마운트의 반대 과정으로 컴포넌트가 DOM에서 제거될 때를 언마운트라고 합니다.
+
+자 이제 생명주기 메서드에 대해서 하나씩 살펴봅시다.
+
+![](https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small)
+
+### 생명주기 메서드 종류는 총 9가지다.
+
+constructor, getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate, componentDidMount, componentDidUpdate, componentWillUnmount, componentDidCatch
+메서드 이름만 봐선 뭐하는 놈들인지 이해가 안가므로.. 접두사로 구분을 해보자면,
+
+- Will 접두사가 붙은 메서드는 👉🏻 작동하기 전에 특정 작업을 실행
+- Did 접두사가 붙은 메서드는 👉🏻 작동한 후에 작업을 실행
+
+우선 이렇게만 알아두고 넘어갑시다.
+
+### 마운트될 때 발생하는 생명주기 메서드
+
+- constructor
+- getDerivedStateFromProps
+- render
+- componentDidMount
+
+**constructor**
+: `constructor`는 컴포넌트의 생성자 메서드로, 컴포넌트가 만들어지면 가장 먼저 실행되는 메서드입니다.
+
+```text
+constructor(props) {	super(props);	console.log("constructor");}
+```
+
+state를 초기화하는 작업이 없다면 constructor를 구현하지 않아도 됩니다.
+constructor를 사용하는 이유는 무엇일까요?
+
+1. this.state에 객체를 할당하여 지역 state를 초기화
+2. 인스턴스에 이벤트 처리 메서드 바인딩
+
+보통 이 두가지 목적을 위하여 사용합니다.
+_🚧 중요한 건 constructor 내부에서 setState를 호출하면 안됩니다._
+
+```text
+constructor(props) {  super(props);  // 🚧 여기서 this.setState()를 호출하면 안됨  this.state = { counter: 0 };  this.handleClick = this.handleClick.bind(this);}
+```
+
+constructor는 this.state를 직접 할당할 수 있는 유일한 곳이기 때문이죠.
+**getDerivedStateFromProps**
+: props로 넘어온 것을 state로 만들고 싶을 때 사용합니다.
+
+- 만약 state가 갱신되었다면 변경된 객체를 반환
+- 변경된 state가 없다면 null을 반환
+
+```jsx
+static getDerivedStateFromProps(nextProps, prevState) {  console.log("getDerivedStateFromProps");  if (nextProps.color !== prevState.color) {    return { color: nextProps.color };  }  return null;}
+```
+
+다른 메서드와 달리 `static` 을 필요로 하고, 이 메서드 안에서는 this를 조회할 수 없습니다. (static이니까요!) `getDerivedStateFromProps` 메서드는 마운트될 때와 업데이트될 때 render 메서드 이전에 매번 호출됩니다.
+**render**
+: 컴포넌트를 렌더링하는 메서드로 **반드시 구현되어야 하는 유일한 메서드**입니다.
+**componentDidMount**
+: 컴포넌트 첫 번째 렌더링을 마치고 나면 호출되는 메서드입니다.
+이 메서드가 호출되는 시점에는 우리가 만든 컴포넌트가 화면에 나타난 상태입니다. 이 단계에서는 axios, fetch 등을 사용해 외부에서 데이터를 불러오는 작업을 합니다.
+
+### 업데이트될 때 발생하는 생명주기
+
+- getDerivedStateFromProps
+- shouldComponentUpdate
+- render
+- getSnapshotBeforeUpdate
+- componentDidUpdate
+
+**getDerivedStateFromProps**
+: 마운트 될 때 발생했던 메서드로, 컴포넌트의 props와 state가 변경되었을 때도 이 메서드가 호출됩니다.
+**shouldComponentUpdate**
+: 컴포넌트가 리렌더링 할지 말지를 결정하는 메서드입니다.
+
+```text
+shouldComponentUpdate(nextProps, nextState) {	console.log("shouldComponentUpdate", nextProps, nextState);	// 숫자의 마지막 자리가 4면 리렌더링하지 않는다.	return nextState.number % 10 !== 4 // 🐛 false를 반환하면 작업을 중지(리렌더링 방지)}
+```
+
+주로 최적화할 때 사용하는 메서드입니다. 👉🏻 React.memo의 역할과 비슷합니다.
+**render**
+: 생략!
+**getSnapshotBeforeUpdate**
+: 컴포넌트에 변화가 일어나기 직전의 DOM 상태를 가져와서 특정 값을 반환하면 그 다음에 발생하게 되는 componentDidUpdate 함수에서 받아와서 사용할 수 있습니다.
+
+```text
+getSnapshotBeforeUpdate(prevProps, prevState) {  console.log("getSnapshotBeforeUpdate");  if (prevProps.color !== this.props.color) {    return this.myRef.style.color; // 특정 값 반환  }  return null; // 특정 값 반환}
+```
+
+**componentDidUpdate**
+: 리렌더링을 마치고 화면에 우리가 원하는 변화가 모두 반영되고 난 뒤 호출되는 메서드입니다.
+3번째 파라미터로 getSnapshotBeforeUpdate에서 반환한 값 을 조회할 수 있습니다.
+
+```text
+componentDidUpdate(prevProps, prevState, snapshot) {    console.log("componentDidUpdate", prevProps, prevState);    if (snapshot) {      console.log("업데이트 되기 직전 색상: ", snapshot);    }  }
+```
+
+아니 그래서.. `getSnapshotBeforeUpdate` 을 언제 어떻게 사용한다는 걸까요..?
+[실제 사용사례](https://codesandbox.io/s/getsnapshotbeforeupdate-yeje-vpmle?fontsize=14)를 한 번 보고 넘어갑시다.
+Chrome에서는 이미 자체적으로 구현되어있는 기능인데요, 새로운 내용이 추가되었을 때 사용자의 스크롤 위치를 유지시키는 기능입니다.하지만 Safari 브라우저를 포함한 일부 브라우저는 이 기능이 구현되어 있지 않아서 아래와 같이 작동하게 됩니다.
+
+![https://i.imgur.com/1POUOrQ.gif](https://i.imgur.com/1POUOrQ.gif)
+
+내용이 추가된다 해도 제가 있던 위치 2에서 머물러야 할 때 `getSnapshotBeforeUpdate`를 활용하면 유지를 할 수 있게 됩니다.
+
+```text
+import React, { Component } from 'react';import './ScrollBox.css';class ScrollBox extends Component {  id = 2;  state = {    array: [1],  };  handleInsert = () => {    this.setState({      array: [this.id++, ...this.state.array],    });  };  getSnapshotBeforeUpdate(prevProps, prevState) {    // DOM 업데이트가 일어나기 직전의 시점입니다.    // 새 데이터가 상단에 추가되어도 스크롤바를 유지해보겠습니다.    // scrollHeight 는 전 후를 비교해서 스크롤 위치를 설정하기 위함이고,    // scrollTop 은, 이 기능이 크롬에 이미 구현이 되어있는데,    // 이미 구현이 되어있다면 처리하지 않도록 하기 위함입니다.    if (prevState.array !== this.state.array) {      const { scrollTop, scrollHeight } = this.list;      // 여기서 반환 하는 값은 componentDidMount 에서 snapshot 값으로 받아올 수 있습니다.      return {        scrollTop,        scrollHeight,      };    }  }  componentDidUpdate(prevProps, prevState, snapshot) {    console.log(prevProps, prevState, snapshot);    if (snapshot) {      const { scrollTop } = this.list;      if (scrollTop !== snapshot.scrollTop) return; // 기능이 이미 구현되어있다면 처리하지 않습니다.      const diff = this.list.scrollHeight - snapshot.scrollHeight;      this.list.scrollTop += diff;    }  }  render() {    const rows = this.state.array.map((number) => (      <div className="row" key={number}>        {number}      </div>    ));    return (      <div>        <div          ref={(ref) => {            this.list = ref;          }}          className="list"        >          {rows}        </div>        <button onClick={this.handleInsert}>Click Me</button>      </div>    );  }}export default ScrollBox;
+```
+
+![https://i.imgur.com/gS01iZ9.gif](https://i.imgur.com/gS01iZ9.gif)
+
+`getSnapshotBeforeUpdate` 는 사실 사용되는 일이 그렇게 많지 않습니다. 그냥 이런게 있다.. 정도만 알아두시면 충분합니다.
+_🚧 DOM 에 변화가 반영되기 직전에 DOM의 속성을 확인하고 싶을 때 이 생명주기 메서드를 사용하면 된다는 것을 알아두세요._
+
+### 언마운트될 때 발생하는 메서드
+
+언마운트에 관련된 생명주기 메서드는 `componentWillUnmount` 하나입니다.
+**componentWillUnmount**
+: 컴포넌트가 화면에서 사라지기 직전에 호출됩니다.
+
+```text
+componentWillUnmount() {  console.log("componentWillUnmount");}
+```
+
+여기서는 주로 DOM에 직접 등록했었던 이벤트를 제거하고, 만약에 `setTimeout` 을 걸은것이 있다면 `clearTimeout` 을 통하여 제거를 합니다.
+마지막으로!
+**componentDidCatch**
+: 렌더링 도중에 에러가 발생했을 때 애플리케이션이 먹통되지 않고 오류 UI를 보여줄 수 있도록 만들 수 있습니다.
+
+```text
+componentDidCatch(error, info) {  this.setState({    error: true;  });  // .. 에러시 보여줄 작업}
+```
+
+- `error` 파라미터 : 어떤 에러가 발생했는지에 대한 정보
+- `info` 파라미터 : 어디에 있는 코드에서 오류가 발생했는지에 대한 정보
+
+이 메서드를 사용할 때는 컴포넌트 자신에게 발생하는 에러를 잡아낼 수 없고, 자신의 this.prop.children으로 전달되는 컴포넌트에서 발생하는 에러만 잡아낼 수 있습니다.
+
+### 하나의 예제를 가져와보았읍니다.
+
+![ezgif.com-crop.gif](/images/content/react-lifecycle-and-methods/3.gif)
+
+- `"색상 랜덤으로 변경시켜버리기"` 버튼을 누르면 숫자의 색상이 변경된다.
+- `"토글버튼으로 나타났다 사라졌다"` 버튼을 누르면 컴포넌트가 사라지거나 나타난다.
+- `"숫자 증가"` 버튼을 누르면 숫자가 1씩 더해진다.
+
+먼저 기능 구현해보기
+
+```text
+import { useState } from 'react';import './styles.css';// 랜덤 색상 만드는 함수function getRandomColor() {  return '#' + Math.floor(Math.random() * 16777215).toString(16);}export default function App() {  const [color, setColor] = useState('#000000');  const [toggle, setToggle] = useState(true);  const handleRandomColor = () => {    setColor(getRandomColor());  };  return (    <div className="App">      <h1>코드를 구현해보자ㅏㅏㅏㅏ</h1>      <button type="button" onClick={handleRandomColor}>        색상 랜덤으로 변경시켜버리기      </button>      <button type="button" onClick={() => setToggle((toggle) => !toggle)}>        토글버튼으로 나타났다 사라졌다      </button>      {toggle && <Sample color={color} count={count} setCount={setCount} />}    </div>  );}function Sample({ color }) {  const [count, setCount] = useState(0);  return (    <div>      <h2 style={{ color: color }}>{count}</h2>      <button type="button" onClick={() => setCount((count) => count + 1)}>        숫자 증가!!      </button>    </div>  );}
+```
+
+저는 먼저 setState 훅을 사용해 구현을 해보았습니다.
+
+### 이제 클래스형 컴포넌트로 구현하면…
+
+```text
+import React, { useState } from 'react';import ReactDOM from 'react-dom';import LifeCycleSample from './LifeCycleSample';// 랜덤 색상을 생성합니다function getRandomColor() {  return '#' + Math.floor(Math.random() * 16777215).toString(16);}function App() {  const [color, setColor] = useState('#000000');  const [visible, setVisible] = useState(true);  const onClick = () => {    setColor(getRandomColor());  };  const onToggle = () => {    setVisible(!visible);  };  return (    <>      <button onClick={onClick}>랜덤 색상</button>      <button onClick={onToggle}>토글</button>      {visible && <LifeCycleSample color={color} />}    </>  );}const rootElement = document.getElementById('root');ReactDOM.render(<App />, rootElement);
+```
+
+```text
+import React, { Component } from 'react';class LifeCycleSample extends Component {  state = {    number: 0,    color: null,  };  myRef = null; // ref 를 설정 할 부분  constructor(props) {    super(props);    console.log('constructor');  }  static getDerivedStateFromProps(nextProps, prevState) {    // 상태가 변경되면 변경된 객체를 반환하는 메서드    console.log('getDerivedStateFromProps');    if (nextProps.color !== prevState.color) {      return { color: nextProps.color };    }    return null;  }  componentDidMount() {    // 마운트되고 화면에 표시된 이후에 실행    console.log('componentDidMount');  }  shouldComponentUpdate(nextProps, nextState) {    // 리렌더링 여부를 결정하는 메서드    console.log('shouldComponentUpdate', nextProps, nextState);    // 숫자의 마지막 자리가 4면 리렌더링하지 않습니다    return nextState.number % 10 !== 4;  }  componentWillUnmount() {    console.log('componentWillUnmount');  }  handleClick = () => {    this.setState({      number: this.state.number + 1,    });  };  getSnapshotBeforeUpdate(prevProps, prevState) {    // 변화가 일어나기 직전의 DOM 상태를 가져와서 특정 값 반환    console.log('getSnapshotBeforeUpdate');    if (prevProps.color !== this.props.color) {      return this.myRef.style.color;    }    return null;  }  componentDidUpdate(prevProps, prevState, snapshot) {    console.log('componentDidUpdate', prevProps, prevState);    if (snapshot) {      console.log('업데이트 되기 직전 색상: ', snapshot);    }  }  render() {    console.log('render');    const style = {      color: this.props.color,    };    return (      <div>        <h1 style={style} ref={(ref) => (this.myRef = ref)}>          {this.state.number}        </h1>        <p>color: {this.state.color}</p>        <button onClick={this.handleClick}>더하기</button>      </div>    );  }}export default LifeCycleSample;
+```
+
+[currying-bash-mrkjb - CodeSandbox](https://codesandbox.io/s/currying-bash-mrkjb?fontsize=14&file=/src/LifeCycleSample.js:0-1675)
+
+![.](/images/content/react-lifecycle-and-methods/4.png)
+
+어라…?
+![](https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small)
+
+그럼 클래스형 컴포넌트가 아닌 함수형 컴포넌트에서는 어떻게 생명주기를 파악할 수 있을까요?
+
+### 클래스형 컴포넌트와 함수형 컴포넌트의 비교
+
+분류
+클래스형 컴포넌트
+함수형 컴포넌트
+
+Mounting
+constructor()
+함수형 컴포넌트 내부
+
+Mounting
+render()
+return()
+
+Mounting
+ComponenDidMount()
+useEffect()
+
+Updating
+componentDidUpdate()
+useEffect()
+
+UnMounting
+componentWillUnmount()
+useEffect()
+
+<Callout>
+  결론은 클래스형 컴포넌트 라이프사이클 메서드는 이런 것들이 있구나 정도로만
+  알고 넘어가고, useEffect에 대해서 자세히 알아두면 좋을 것 같다!
+</Callout>
+
+### Reference
+
+- React의 생명 주기(Life Cycle)
+- LifeCycle Method
+- React.Component

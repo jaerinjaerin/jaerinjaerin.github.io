@@ -1,0 +1,45 @@
+---
+title: '문자 반복 출력하기 [프로그래머스 Lv.0]'
+date: 2023-04-22
+tags: ['Algorithm']
+thumbnail: /thumbnails/algorithm-subset-problem.png
+---
+
+## 문제 설명
+
+문자열 my_string과 정수 n이 매개변수로 주어질 때, my_string에 들어있는 각 문자를 n만큼 반복한 문자열을 return 하도록 solution 함수를 완성해야합니다.
+
+### 입출력 예시
+
+![.](/images/content/programmers-repeat-string-lv0.png)
+
+## 나의 풀이
+
+1. 반복된 문자열을 담을 빈 문자열을 선언합니다.
+2. string 길이만큼 반복하며 문자열을 n번만큼 반복해서 빈 문자열에 집어넣습니다.
+
+## 코드로 구현해보자구요! 🐣
+
+```jsx
+function solution(my_string, n) {
+  let answer = '';
+  for (const element of my_string) {
+    for (let i = 1; i <= n; i++) {
+      answer += element;
+    }
+  }
+  return answer;
+}
+```
+
+## 다른 사람의 풀이
+
+```jsx
+function solution(my_string, n) {
+  return [...my_string].map((el) => el.repeat(n)).join('');
+}
+```
+
+뭔가 n만큼 반복할 수 있는 메서드가 있을 것 같았는데 기억이 나지않아서 사용을 못했습니다. ʕ ´•̥ ᴥ•̥`ʔ
+바로 repeat 메서드였군요! 이제 repeat 메서드는 까먹지 않을 것 같습니다 :)
+매번 문자열을 `string.split('')`으로 문자열을 배열로 만들었었는데 spread 문법으로 만들 수 있다니… split보다 멋진 것 같아요!

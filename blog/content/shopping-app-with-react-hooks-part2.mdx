@@ -1,0 +1,391 @@
+---
+title: 'React Hooks를 이용한 쇼핑몰 애플리케이션 만들기2️⃣ [코드스테이츠 - 상태관리] 🛒'
+date: 2023-04-24
+tags: ['Retrospective']
+thumbnail: /thumbnails/default.png
+---
+
+이번엔 장바구니 페이지를 만들어봅시다 :)
+
+## 컴포넌트 구조화하기
+
+장바구니 페이지는 어떤 컴포넌트로 만들어야할지 먼저 생각해봐야 할 것 같습니다.
+
+![.](/images/content/shopping-app-with-react-hooks-part2/1.png)
+
+cartItems에 담겨있는 상품을 렌더링하는 컴포넌트, 주문합계를 보여주는 컴포넌트가 필요합니다.그리고 두 개의 컴포넌트를 가지고 있는 ShoppingCart 컴포넌트가 필요합니다.
+
+- cartItems에 담겨있는 상품을 렌더링하는 컴포넌트 👉🏻 CartItem
+- 주문합계를 보여주는 컴포넌트 👉🏻 OrderSummary
+
+라고 이름을 만들어줬습니다. (사실 코드스테이츠에서 지어줬습니다. 헿🥲)
+
+대략 각각의 컴포넌트를 구현해보면
+
+```jsx
+export default function CartItem() {  // item을 받아서..  // 상품 이미지  // 상품 이름  // 상품 가격  // 수량  // 삭제버튼을 보여주기}
+```
+
+```jsx
+export default function OrderSummary() {  // cartItems를 받아서...  // cartItems 안에 들어있는 상품의 총 수량  // 총 합계 금액을 보여주기}
+```
+
+이렇게 구현을 하면 되겠군요!
+
+## shoppingcart 라우터 추가하기
+
+우선 이전에 만들었던 Nav 컴포넌트를 다시보면 ‘/shoppingcart’일 때 렌더링할 컴포넌트가 없으니 라우터부터 추가를 해줘야 할 것 같습니다.
+
+```jsx
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { initialState } from './assets/state';
+import Nav from './components/Nav';
+import ItemListContainer from './pages/ItemListContainer';
+export default function App() {
+  const [items, setItems] = useState(initialState.items);
+  const [cartItems, setCartItems] = useState(initialState.cartItems);
+  return (
+    <Router>
+      {' '}
+      <Nav cartItems={cartItems} /> <Routes>
+        {' '}
+        <Route
+          path='/'
+          element={
+            <ItemListContainer
+              items={items}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+            />
+          }
+        /> <Route
+          path='/shoppingcart'
+          element={
+            <ShoppingCart
+              items={items}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+            />
+          }
+        />{' '}
+      </Routes> <img
+        id='logo_foot'
+        src={`${process.env.PUBLIC_URL}/codestates-logo.png`}
+        alt='logo_foot'
+      />{' '}
+    </Router>
+  );
+}
+```
+
+ShoppingCart 컴포넌트엔 장바구니에 담은 리스트를 렌더링해야하기 때문에 props로 cartItems와 setCartItems를 넘겨주었습니다.
+
+## ShoppingCart Component
+
+### 우선 ShoppingCart Component가 무슨 일을 해야하는지 생각해봅시다.
+
+- cartItems에 담겨있는 요소에 해당하는 상품들을 하나씩 보여줘야합니다.
+- 전체선택 체크박스를 클릭하면 모든 요소가 선택되거나 해제되어야 합니다.
+- 각 상품의 체크박스를 클릭하면 체크박스가 선택되거나 해제되어야 합니다.
+- 선택된 체크박스에 따라 주문 합계의 총 아이템 개수와 합계가 변경되어야 합니다.
+- 상품의 삭제버튼을 누르면 cartItems에서 삭제되어야 합니다.
+- cartItems의 요소가 없다면 ‘장바구니에 아이템이 없습니다’라고 보여줘야 합니다.
+
+### Pseudo Code로 구현해봅시다! 🚀
+
+```jsx
+export default function ShoppingCart({ items, cartItems, setCartItems }) {
+  return (
+    <div id='item-list-container'>
+      {' '}
+      <div id='item-list-body'>
+        {' '}
+        <div id='item-list-title'>장바구니</div> <span id='shopping-cart-select-all'>
+          {' '}
+          // TODO: 전체 선택 클릭했을 때 모든 요소를 클릭되도록 만들기 <input type='checkbox' />{' '}
+          <label>전체 선택 </label>{' '}
+        </span> <div id='shopping-cart-container'>
+          {' '}
+          // TODO: cartItems 있으면 각각의 상품을 렌더링 / cartItems가 없으면 '장바구니에
+          아이템이 없습니다'를 보여주기{' '}
+        </div> <div id='order-summary-container'>
+          {' '}
+          // 🚧 OrderSummary 컴포넌트로 추출하기 <h4>주문 합계</h4> <div id='order-summary'>
+            {' '}
+            // TODO: 총 아이템 개수 보여주기 <hr></hr>{' '}
+            <div id='order-summary-total'>// TODO: 총 합계 보여주기</div>{' '}
+          </div>{' '}
+        </div>{' '}
+      </div>{' '}
+    </div>
+  );
+}
+```
+
+### 코드로 구현해보자구요! 🐣
+
+cartItems에 담겨있는 요소에 해당하는 상품들을 하나씩 보여주기
+현재 cartItems의 형태는 다음과 같습니다.
+
+```jsx
+[
+  { itemId: 1, quantity: 1 },
+  { itemId: 5, quantity: 2 },
+];
+```
+
+우리가 렌더링해야하는 데이터의 형태는 다음과 같아야합니다.
+
+```jsx
+[
+  { id: 2, name: '2020년 달력', img: '../images/2020.jpg', price: 12000 },
+  { id: 3, name: '개구리 안대', img: '../images/frog.jpg', price: 2900 },
+];
+```
+
+cartItems에 있는 itemId의 상품들만 배열로 만들려면 어떻게 해야할까요?
+
+1. cartItems의 itemId로 이뤄진 배열을 만든다.
+2. items를 돌면서 itemId가 있는 요소들만 뽑아서 새로운 배열을 만든다.
+
+```jsx
+const renderItems = items.filter(
+  (item) => cartItems.map((el) => el.itemId).indexOf(item.id) > -1
+);
+```
+
+renderItems를 확인해보면?
+![](/images/content/shopping-app-with-react-hooks-part2/2.png)
+
+렌더링할 요소를 잘 가져온걸 볼 수 있습니다 :)
+전체 선택 클릭했을 때 모든 요소가 선택되거나 해제되도록 만들기
+
+```jsx
+<input type="checkbox" checked ={} /> // 음... 엇... 뭘로 판단을 하지?
+```
+
+checked 속성에 각 cartItem의 checkbox가 선택되어있다면 전체선택이 된걸로 판단을 하려고하는데 지금 현재로서는 확인할 방법이 없습니다. cartItem이 선택되었는지 되지 않았는지에 대한 상태를 하나 만들어줍시다.
+
+```jsx
+export default function ShoppingCart({ items, cartItems, setCartItems }) {  const [checkedItems, setCheckedItems] = useState(    cartItems.map((el) => el.itemId)  ); // ✅ 처음 초기 값은 checked 상태입니다.  // ... 생략  <input    type="checkbox"    checked={checkedItems.length === cartItems.length ? true : false}    onChange={(e) => handleAllCheck(e.target.checked)} // 🚧 클릭할 때마다 상태를 변경시켜줄 수 있는 핸들러가 필요  />;}
+```
+
+**handleAllCheck 함수는 어떻게 동작을 해야할까요?**
+클릭했을 때 인자로 받은 checked가 true이면 모든 cartItem의 checked를 true로 변경시키고 checked가 false이면 모든 cartItem의 checked를 false로 변경시킵니다.
+
+```jsx
+const handleAllCheck = (checked) => {
+  if (checked) {
+    setCheckedItems(cartItems.map((el) => el.itemId));
+  } else {
+    setCheckedItems([]);
+  }
+};
+```
+
+근데 이거 setCheckedItems 중복인 것 같다는 생각이 들지 않나요? 빠르게 리팩토링을 해봅시다.
+
+```jsx
+const handleAllCheck = (checked) => {
+  setCheckedItems(checked ? cartItems.map((el) => el.itemId) : []);
+};
+```
+
+삼항조건연산자를 통해서 setCheckedItems을 한 번만 쓸 수 있도록 만들었습니다 :)
+
+cartItems 렌더링하기
+두 가지 조건에 따라 다르게 렌더링을 해야합니다.
+
+- cartItems가 있으면 각각의 상품을 렌더링한다.
+- cartItems가 없으면 ‘장바구니에 아이템이 없습니다’를 보여준다.
+
+```jsx
+<div id='shopping-cart-container'>
+  {' '}
+  {cartItems.length ? (
+    <div id='cart-item-list'>
+      {' '}
+      {renderItems.map((item, idx) => (
+        <CartItem />
+      ))}{' '}
+    </div>
+  ) : (
+    <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
+  )}
+</div>
+```
+
+## CartItem Component
+
+CartItem Component의 HTML 구조부터 작성해봅시다.
+
+```jsx
+export default function CartItem({ item }) {
+  <li className='cart-item-body'>
+    {' '}
+    // 체크박스 <input type='checkbox' className='cart-item-checkbox' /> // 상품
+    이미지 <div className='cart-item-thumbnail'>
+      {' '}
+      <img src={item.img} alt={item.name} />{' '}
+    </div> // 상품 정보 <div className='cart-item-info'>
+      {' '}
+      <div className='cart-item-title' data-testid={item.name}>
+        {' '}
+        {item.name}{' '}
+      </div> // 상품 가격 <div className='cart-item-price'>
+        {item.price} 원
+      </div>{' '}
+    </div> // 상품 수량 <input
+      type='number'
+      min={1}
+      className='cart-item-quantity'
+    /> // 삭제버튼 <button className='cart-item-delete'>삭제</button>{' '}
+  </li>;
+}
+```
+
+각 상품의 체크박스를 클릭하면 체크박스가 선택되거나 해제되도록 만들기
+부모 컴포넌트(ShoppingCart)에서 checkedItems를 받아온 다음 checkedItems에 포함되어있다면 ture 포함되어 있지 않다면 false로 만들면 될 것 같습니다.
+그럼 onChange 이벤트가 발생했을 때 checkedItems를 변경시켜야하겠죠?그렇다는 것은 onChange 이벤트 핸들러 handleCheckChange도 부모 컴포넌트가 가지고 있어야하고 props로 내려받아서 사용해야한다는 말과 같습니다.
+
+```jsx
+<input type="checkbox" checked={checkedItems} onChange={(e) => handleCheckChange(e.target.checked, item.id)} checked={cartItems.includes(item.id) ? true : false}>
+```
+
+### handleCheckChange
+
+handleCheckChange 함수는 어떻게 동작해야할까요?
+handleCheckChange는 e.target.checked와 item.id를 받습니다.
+
+- checked가 true라면 checkedItems에서 id를 추가 배열을 반환하고,
+- checked가 false라면 checkedItems에서 해당 id를 제거한 배열을 반환합니다.
+
+```jsx
+const handleCheckChange = (checked, id) => {
+  setCheckedItems(
+    checked ? [...checkedItems, id] : checkedItems.filter((el) => el !== id)
+  );
+};
+```
+
+이벤트 핸들러와 props의 구조는 다음과 같습니다 :)
+
+```jsx
+// ShoppingCart Componentexport default function ShoppingCart({ items, cartItems, setCartItems }) {  const [checkedItems, setCheckedItems] = useState(    cartItems.map((el) => el.itemId)  );  const handleCheckChange = (checked, id) => {    setCheckedItems(      checked ? [...checkedItems, id] : checkedItems.filter((el) => el !== id)    );  };  const handleAllCheck = (checked) => {    setCheckedItems(checked ? cartItems.map((el) => el.itemId) : []);  };  // ... 생략  <div id="shopping-cart-container">    <div id="shopping-cart-container">      {!cartItems.length ? (        <div id="item-list-text">장바구니에 아이템이 없습니다.</div>      ) : (        <div id="cart-item-list">          {renderItems.map((item, idx) => {            return (              <CartItem                key={idx}                item={item}                checkedItems={checkedItems}                handleCheckChange={handleCheckChange}              />            );          })}        </div>      )}    </div>}
+```
+
+수량 변경시키기
+
+수량을 증가시키거나 감소시킬 때 수량이 변경되어야 합니다. onChange 이벤트가 발생했을 때 수량이 변경되고, 그 변경된 수량이 렌더링 되어야할 것 같습니다.
+우선 처음 렌더링될 때 quantity값을 input의 value를 줘야하기 때문에 quantity라는 변수에 각각의 item값의 quantity를 할당한 후 props로 전달합니다.
+
+```jsx
+const quantity = cartItems.filter((el) => el.itemId === item.id)[0].quantity;
+```
+
+**handleQuantityChange는 어떻게 동작해야할까요?**handleQuantityChange 함수는 숫자타입으로 변환한 e.target.value와 item.id를 받습니다. 그러면 items의 quantity를 변경시켜줘야겠죠?
+
+```jsx
+<input
+  type='number'
+  className='cart-item-quantity'
+  min={1}
+  value={quantity}
+  onChange={(e) => {
+    handleQuantityChange(Number(e.target.value), item.id);
+  }}
+/>
+```
+
+```jsx
+const handleQuantityChange = (quantity, itemId) => {
+  setCartItems(
+    cartItems.map((item) => item.itemId === itemId)
+      ? { ...item, quantity: quantity }
+      : item
+  );
+};
+```
+
+삭제버튼을 눌렀을 때 상품 사라지도록 만들기
+클릭 이벤트가 일어났을 때 cartItems와 checkedItems에서 해당 itemId를 지우면 될 것 같습니다.
+
+```jsx
+<button
+  className='cart-item-delete'
+  onClick={() => {
+    handleDelete(item.id);
+  }}
+>
+  {' '}
+  삭제
+</button>
+```
+
+```jsx
+const handleDelete = (itemId) => {
+  setCheckedItems(checkedItems.filter((el) => el !== itemId));
+  setCartItems(cartItems.filter((item) => item.itemId !== itemId));
+};
+```
+
+이러면 CartItem 컴포넌트에서 해야할 일은 모두 마무리 된 것 같습니다!
+
+## OrderSummary Component
+
+이제 총 합계와 총 금액을 보여주는 컴포넌트를 작업해보자구요!
+OrderSummary 컴포넌트는 총 금액과 상품의 총 개수를 props으로 받아서 렌더링만 시켜주면 됩니다.그럼 총 금액을 어떻게 계산해야할까요?
+
+1. cartItems의 id 요소를 가진 cartIdArr라는 새로운 배열을 만든다.
+2. total이라는 객체는 price와 quantity라는 프로퍼티를 갖는다.
+3. cartIdArr 배열을 순회하면서 checkedItems 배열 안에 있는 요소들만 뽑아서 quantity와 price 계산한다.
+4. 마지막으로 total 객체를 반환한다.
+
+```jsx
+const getTotal = () => {
+  let cartIdArr = cartItems.map((el) => el.itemId);
+  let total = { price: 0, quantity: 0 };
+  for (let i = 0; i < cartIdArr.length; i++) {
+    if (checkedItems.indexOf(cartIdArr[i]) > -1) {
+      let quantity = cartItems[i].quantity;
+      let price = items.filter((el) => el.id === cartItems[i].itemId)[0].price;
+      total.price = total.price + quantity * price;
+      total.quantity = total.quantity + quantity;
+    }
+  }
+  return total;
+};
+```
+
+총 아이템 개수와 총 금액 보여주기
+계산한 getTotal 함수의 반환값은 객체이기 때문에 하나의 변수에 담아준 후 OrderSummary의 props로 전달해줍니다.
+
+```jsx
+const total = getTotal();
+<OrderSummary total={total.price} totalQty={total.quantity} />;
+```
+
+```jsx
+export default function OrderSummary({ totalQty, total }) {
+  return (
+    <div id='order-summary-container'>
+      {' '}
+      <h4>주문 합계</h4> <div id='order-summary'>
+        {' '}
+        총 아이템 개수 : <span className='order-summary-text'>
+          {totalQty} 개
+        </span> <hr></hr>{' '}
+        <div id='order-summary-total'>
+          {' '}
+          합계 : <span className='order-summary-text'>{total} 원</span>{' '}
+        </div>{' '}
+      </div>{' '}
+    </div>
+  );
+}
+```
+
+모두 완성했습니다! :) 과제를 할 땐 빈칸에 내용만 채우면 됐었기 때문에 별로 어렵지 않다 생각했습니다.하지만 라우터 구조부터 컴포넌트 분리, 데이터 가공까지 생각하니 생각만큼 쉽지 않았습니다.
+React Hooks로 구현해봤다면 Redux로도 만들어봐야하지 않겠습니까? 다음 포스트는 Redux로 상태를 관리하면서 동일한 쇼핑몰 애플리케이션을 만드는 방법에 대해서 정리해보겠습니다:)
+[전체코드](https://github.com/leejaelll/fe-sprint-cmarket-hooks-reference)

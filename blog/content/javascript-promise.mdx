@@ -1,0 +1,111 @@
+---
+title: 프로미스(Promise) 쉽게 이해하기
+description: 제로초님과 함께 배우는 Promise의 핵심 개념과 활용법
+date: 2023-03-21
+tags: ['JavaScript']
+thumbnail: /thumbnails/javascript.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+<Callout type='info'>
+  프로미스의 장점은 실행됐는데 결과값을 나중에 쓸 수 있는 것
+</Callout>
+
+## Callback
+
+```jsx
+setTimeout(() => {
+  console.log('a');
+}, 1000); // 비동기 콜백
+
+// 콜백은 비동기가 아니다. 비동기 콜백이 비동기일뿐
+```
+
+```jsx
+function calculator(callback, a, b) {
+  return callback(a, b);
+}
+
+calculator(
+  function (x, y) {
+    return x, y;
+  },
+  3,
+  5
+); // 동기 콜백
+```
+
+콜백의 한 가지 아쉬운 점 → 조건이 달성되면 바로 실행해버림
+
+## Promise
+
+```jsx
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve();
+  }, 1000);
+});
+```
+
+이 코드는 setTimeout으로만 작성된 코드와 차이점이 무엇일까?
+
+setTimeout은 1초 뒤에 태스크 큐로 넘어가고 콜스택이 비면 바로 실행된다.
+
+프로미스를 사용하면 나중에 결과값을 사용하고 싶을 때 promise.then을 사용해서 사용할 수 있다.
+
+```jsx
+const promise = new Promise...;
+
+// 신나게 딴 짓
+
+promise.then((결괏값) => {})
+```
+
+```jsx
+const p1 = axios.get('서버주소1');
+const p2 = axios.get('서버주소2');
+const p3 = axios.get('서버주소3');
+
+Promise.all([p1, p2, p3]).then((result) => {});
+```
+
+콜백의 단점: 데이터를 바로 받아야한다.
+
+콜백헬이 왜 안좋은가? 가독성 측면에서 보기 안좋은 것도 있지만,
+
+### 근본적인 원인은 결과값을 바로 받아야한다는 것이다.
+
+## Promise.all
+
+프로미스의 단점: 하나라도 실패하면 catch로 넘어간다.
+
+```jsx
+Promise.all([p1, p2, p3])
+  .then((results) => {})
+  .catch((error) => {});
+```
+
+p1, p2가 제대로 들어와도 p3에서 데이터가 제대로 들어오지 않으면 바로 catch 구문으로 넘어간다.
+
+## Promise.allSettled
+
+이를 해결하기 위해서 allSettled가 나옴
+
+```jsx
+Promise.allSettled([p1, p2, p3]).then((results) => {});
+```
+
+Promise.allSettled는 모든 처리결과를 반환한다. results는 배열로 반환하기 때문에 filter를 사용해서 실패한 것만 필터링해서 다시 시도할 수 있는 장점이 있다.
+
+---
+
+## Review
+
+비동기 함수가 어떻게 동작하는지 원리는 알고 있었지만 쉽게 사용하지 못했었는데 제로초 프로미스 영상을 보고 프로미스가 왜 탄생하게 된건지, 프로미스를 사용하면 어떤 장점이 있는지에 대해서 알게되었다. _(제로초님 폼 미쳤다!)_
+
+<Callout type='info'>
+  영상 링크: [프로미스의 최고 장점을
+  아십니까](https://www.youtube.com/watch?v=0f-jNhnN0Qc)
+</Callout>

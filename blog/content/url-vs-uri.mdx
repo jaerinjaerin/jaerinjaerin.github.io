@@ -1,0 +1,46 @@
+---
+title: 'URL vs URI'
+date: 2023-03-30
+tags: ['Develop']
+thumbnail: /thumbnails/default.png
+---
+
+![스크린샷 4.png](/images/content/url-vs-uri/1.png)
+
+## URL
+
+: **Uniform Resource Locator**
+
+- 네트워크 상에서 웹 페이지, 이미지, 동영상 파일이 위치한 식별하는 문자열
+- sceme, hosts, url-path로 구분
+
+### scheme
+
+통신 방식을 결정한다. 일반적인 웹에서는 https를 사용
+
+### hosts
+
+웹 서버의 이름이나 도메인, IP를 사용하며 주소를 나타낸다.
+
+### url-path
+
+웹 서버에서 지정한 루트 디렉토리에서부터 시작해서 웹 페이지, 이미지, 동영상이 위치한 경로와 파일명을 나타낸다.
+
+## URI - 브라우저의 검색창을 클릭하면 나타나는 주소
+
+: **Uniform Resource Identifier**
+
+- URL의 기본 요소인 scheme, hosts, url-path에 더해 query, fragment를 포함
+
+### query
+
+: 웹 서버에 보내는 추가적인 질문
+`http://www.google.com:80/search?q=JavaScript`를 브라우저의 검색창에 입력하면?
+구글에서 JavaScript를 검색한 결과가 나타난다.
+
+### fragment
+
+- 일종의 북마크 기능을 수행
+- URL에 fragment(`#`)와 특정 HTML 요소의 id를 전달하면 해당 요소가 있는 곳으로 스크롤을 이동한다.
+
+![스크린샷 5.png](/images/content/url-vs-uri/2.png)

@@ -1,0 +1,110 @@
+---
+title: '로그인 상태 유지하는 애플리케이션 구현하기(with Cookie🍪)'
+date: 2023-05-02
+tags: ['Develop']
+thumbnail: /thumbnails/default.png
+---
+
+쿠키에 대해서 배웠으니, 쿠키를 이용해서 로그인 기능을 구현해보려고 합니다.
+애플리케이션에서 기능의 흐름은 다음과 같습니다.
+
+![](https://s3.ap-northeast-2.amazonaws.com/urclass-images/WJscOHO_c1XES9684w2hJ-1662907205991.png)
+
+1. 클라이언트 👉🏻 로그인 버튼을 클릭하면 서버로 요청보내기
+2. 서버 👉🏻 클라이언트로부터 전달받은 아이디와 비밀번호를 가지고 회원가입이 되어있는 정보인지 확인하고 회원이라면 응답에 쿠키와 회원 정보를 담아 전달
+3. 클라이언트 👉🏻 응답을 받아 화면 리렌더링
+4. 클라이언트 👉🏻 ‘로그인 유지’옵션을 선택했다면 해당 페이지에서 재접속할 때 다시 로그인할 필요없이 회원정보 렌더링
+5. 클라이언트 👉🏻 로그아웃 버튼을 누르면 서버에 로그아웃 요청 보내기
+6. 서버 👉🏻 로그아웃 요청 처리하기(쿠키 삭제)
+7. 클라이언트 👉🏻 React 상태 초기화 및 화면 리렌더링
+
+처음부터 생각해보면, 두 개의 폴더가 필요합니다. client와 server 폴더가 각각 존재해야하죠.
+![](/images/content/login-session-with-cookies.png)
+
+클라이언트엔 React가, 서버엔 Express가 있어야합니다. 우선 서버부터 만들어보자구요!
+
+## 🎮 Server 구현하기
+
+server/package.json
+
+```jsx
+{  "name": "auth-cookie",  "version": "1.0.0",  "description": "",  "main": "index.js",  "scripts": {    "start": "nodemon index.js"  },  "keywords": [],  "author": "",  "license": "ISC",  "dependencies": {    "cookie-parser": "^1.4.6",    "cors": "^2.8.5",    "express": "^4.18.2"  },  "devDependencies": {    "morgan": "^1.10.0",    "nodemon": "^2.0.22"  }}
+```
+
+👉🏻 express와 서버에서 사용할 미들웨어, nodemon을 설치해줬습니다.
+
+server/index.js
+
+```jsx
+const express = require('express');
+const cors = require('cors');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const fs = require('fs');
+const app = express();
+const PORT = 9800;
+/* ------------------------------- middleware ------------------------------- */ app.use(
+  logger('dev')
+); // dev 옵션을 전달하면 로그의 형식이 개발환경에 적합한 형태로 출력app.use(express.json()); // 클라이언트에서 JSON으로 보내면 JavaScript 객체로 변환하여 사용app.use(express.urlencoded({ extended: false })); // HTTP POST 요청의 application/x-www-form-urlencoded 형식으로 전송된 데이터를 파싱app.use(cookieParser());// corsOption에 클라이언트 localhost 주소로 요청이 오는 것들은 허용할 수 있도록 설정const corsOptions = {  origin: 'http://localhost:3000',  credentials: true,  methods: ['GET', 'POST', 'OPTION'],};app.use(cors(corsOptions));app.get('/', (req, res) => {  res.send('Hello world!');});app.listen(PORT, () =>  console.log(`🚀 HTTP Server is starting on http://localhost:${PORT} `));
+```
+
+👉🏻 우선 기본적인 세팅은 완료했습니다!
+
+## 🎮 Client 구현하기
+
+client 폴더에 설치한 라이브러리는 다음과 같습니다.
+
+- react
+- react-router-dom
+- react-router
+- react-scripts
+- axios
+
+src/index.js
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    {' '}
+    <App />{' '}
+  </React.StrictMode>
+);
+```
+
+어떤 컴포넌트가 필요한지 고민을 해야합니다. 우리가 필요한건 로그인 컴포넌트 하나, 로그인이 성공했을 때 유저의 정보를 알려주는 마이페이지 컴포넌트 하나가 필요합니다.
+원래라면 로그인 페이지 하나, 마이페이지 하나 두개의 라우터가 필요하지만 지금은 paht가 “/“일 때 조건부 렌더링으로 로그인 상태라면 마이페이지 컴포넌트를 렌더링하고 로그인 상태가 아니라면 로그인 컴포넌트를 렌더링하도록 만들겠습니다.
+
+```jsx
+export default function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  return (
+    <BrowserRouter>
+      {' '}
+      <div className='main'>
+        {' '}
+        <Routes>
+          {' '}
+          <Route path='/' element={isLogin ? <Mypage /> : <Login />} />{' '}
+        </Routes>{' '}
+      </div>{' '}
+    </BrowserRouter>
+  );
+}
+```
+
+### 아이디와 비밀번호 유효성 검사하기
+
+유효한 아이디, 비밀번호인지 검사하는건 클라이언트에서 처리하면 될 것 같습니다.텍스트를 쓰고 input에서 벗어났을 때 검사를 해주면 될 것 같은데 어떤 이벤트를 써야할까요?
+저는 blur 이벤트를 사용했습니다. blur 이벤트는 focus를 잃을 때 이벤트가 발생합니다.
+
+```jsx
+return (  <>    <h1 className="title">로그인 🔑</h1>    <form onSubmit={(e) => e.preventDefault()}>      <div className="login-input__wrap">        <input          className="login-input__input"          type="text"          id="id"          placeholder="아이디"          onBlur={(e) => handleVaildID(e.target.value)} // ✅ focus를 잃을 때 input.value가 유효한 값인지 확인        />        <span          className={warningId ? 'warning-message' : 'warning-message hidden'} // ✅ warningId가 true이면 유효하지 않은 값        >          🚧 영문으로 이루어진 아이디를 입력해주세요        </span>        <input          className="login-input__input"          type="password"          id="password"          placeholder="비밀번호"        />        <button className="login-input__button" type="submit">          로그인        </button>      </div>      <div className="login-member__util">        <input type="checkbox" className="checkbox-label" id="login-checkbox" />        <label className="checkbox-container" htmlFor="login-checkbox">          로그인 상태 유지하기        </label>      </div>    </form>  </>);
+```
+
+### 로그인 버튼을 눌렀을 때 서버에 요청하기
+
+아이디와 비밀번호를 입력하고 서버에 요청을 이 데이터가 유효한 데이터인지 확인 요청을 해야합니다.

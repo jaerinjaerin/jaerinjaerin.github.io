@@ -1,0 +1,72 @@
+---
+title: '최빈값 구하기 [프로그래머스 - Lv.0]'
+date: 2023-04-20
+tags: ['Algorithm']
+thumbnail: /thumbnails/algorithm-subset-problem.png
+---
+
+## 문제 설명
+
+정수 배열 array가 매개변수로 주어질 때, 최빈값을 return 하도록 solution 함수 구현해야 합니다. 최빈값이 여러 개면 -1을 return 합니다.
+
+### 입출력 예시
+
+![](/images/content/programmers-mode-value-lv0/1.png)
+
+## 나의 풀이
+
+처음 문제를 보았을 때 요소가 몇 번 나왔는지를 알아야 하기 때문에 ‘키-값’으로 저장을 해두어야 겠다 라는 아이디어를 떠올렸습니다.
+생각을 차례대로 정리를해보자면,
+
+1. 빈 객체를 하나 생성합니다.
+2. 배열을 순회하면서 생성한 객체에 요소가 키로 존재한다면 값을 +1시켜주고
+3. 없다면 객체에 키를 만들고 0 값을 할당합니다.
+4. 빈도수 최대값을 구하기 위해 Object.values를 사용하여 배열로 만들고 최대값을 구합니다.
+5. 만약 배열에 최대값인 요소가 1개 이상이라면 -1을 반환합니다.
+6. 그 외의 경우는 객체를 열거하면서 각각의 프로퍼티 값이 구해놓았었던 최대값과 동일하다면 해당 프로퍼티의 키를 반환합니다.
+
+## 코드로 구현해보자구요! 🐣
+
+```jsx
+function solution(array) {  let obj = {};  for (let element of array) {    obj[element] = (obj[element] || 0) + 1;  }  // 객체의 value값을 배열로 변환  const arrayOfValues = Object.values(obj);  // 최대빈도수 값  const index = Math.max(...arrayOfValues);  // return -1을 반환하는 방법  if (arrayOfValues.filter((item) => item === index).length !== 1) return -1;  // 최대 빈도수를 가진 키를 찾기 위해 for in문을 사용  for (let key in obj) {    if (obj[key] === index) return obj[key];  }}
+```
+
+짜잔! 코드를 완성했습니다!기쁜 마음으로 결과를 돌려보았습니다.
+![.](/images/content/programmers-mode-value-lv0/2.png)
+
+### 무엇이 잘못되었을까 🫥
+
+코드를 다시 살펴보니 저는 현재 obj[key]를 반환하고 있었습니다..최대빈도수를 가진 요소를 반환해야하는데 최대빈도수를 반환하고 있던거죠.
+
+```jsx
+function solution(array) {  let obj = {};  for (let element of array) {    obj[element] = (obj[element] || 0) + 1;  }  // 객체의 value값을 배열로 변환  const arrayOfValues = Object.values(obj);  // 최대빈도수 값  const index = Math.max(...arrayOfValues);  // return -1을 반환하는 방법  if (arrayOfValues.filter((item) => item === index).length !== 1) return -1;  // 최대 빈도수를 가진 키를 찾기 위해 for in문을 사용  for (let key in obj) {    if (obj[key] === index) return key;  }}
+```
+
+다시 테스트를 실행해보면?
+![.](/images/content/programmers-mode-value-lv0/3.png)
+
+이번엔 반환하는 값의 타입이 달라서 실패했군요..한 번에 통과하는 건 저에겐 아직 어려운가 봅니다. (⁰᎔⁰ก̀)
+
+## 테스트 통과 코드
+
+```jsx
+function solution(array) {  let obj = {};  for (let element of array) {    obj[element] = (obj[element] || 0) + 1;  }  // 객체의 value값을 배열로 변환  const arrayOfValues = Object.values(obj);  // 최대빈도수 값  const index = Math.max(...arrayOfValues);  // return -1을 반환하는 방법  if (arrayOfValues.filter((item) => item === index).length !== 1) return -1;  // 최대 빈도수를 가진 키를 찾기 위해 for in문을 사용  for (let key in obj) {    if (obj[key] === index) return Number(key);  }}
+```
+
+드디어 통과했습니다!👍🏻 통과는 했지만 다른 사람의 풀이도 참고해보자구요!
+
+## 다른 사람의 풀이
+
+```jsx
+function solution(array) {
+  let m = new Map();
+  for (let n of array) m.set(n, (m.get(n) || 0) + 1);
+  m = [...m].sort((a, b) => b[1] - a[1]);
+  return m.length === 1 || m[0][1] > m[1][1] ? m[0][0] : -1;
+}
+```
+
+어라라…?
+![](https://pbs.twimg.com/media/DgNb9OZUEAAmONL?format=jpg&name=small)
+
+Map을 사용해서 해결하는 방법도 있었군요..? Map.set(), Map.get() 활용방법에 대해서 조금 잘 알아놓으면 쉽게 풀 수있는 문제였던 것 같습니다.

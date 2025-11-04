@@ -1,0 +1,122 @@
+---
+title: '농구기록지 애플리케이션 Move_Record 프로젝트 회고 🚀'
+date: 2023-05-05
+tags: ['Retrospective']
+thumbnail: /thumbnails/retrospective.png
+---
+
+혼자서 프로젝트를 진행해보면서 하지 못했던 이야기들을 신세한탄 겸 회고를 적어보려고 합니다.
+
+- 프로젝트 기간: 2023.04.27 - 05.02
+
+### 🛵 회고 전에 프로젝트 결과물을 보고싶다면? 👉🏻 Basketball_Record_Application
+
+## 기획 📝
+
+시작은 농구 동호회 자체전에서부터 시작되었다.
+프로그램을 기획하게 된 계기는 제가 있는 농구 동호회가 자체 리그전을 시작하면서부터였습니다. 각 팀의 팀원들 개인 기록을 적어놔야하는 업무를 맡았는데, 기록원은 1명밖에 되지 않았습니다.
+기록원은 득점 기록도 해야하지만, 대회를 뛰는 모든 선수들의 득점, 리버운드, 어시스트, 스틸, 개인파울, 팀파울까지 기록을 해야했기 때문에 종이 기록지로 기록하는 것은 너무 할 일이 많다고 느껴져서 선수들의 게임 기록을 기록할 수 있는 애플리케이션을 만들어야겠다! 라는 생각을 하게되었습니다.
+
+솔로 프로젝트 내가 할 수 있을까..?🥶
+프로젝트 경험이 아예 없는 건 아니지만, 팀으로 프로젝트를 했었기 때문에 혼자서 프로젝트를 해보는 건 처음이었습니다. 팀으로 할 때는 내가 겪는 어려움들을 팀원들과 같이 해결할 수 있다라는 든든함이 있다는 장점이 있었습니다.
+하지만 혼자서 프로젝트를 하게 되었을 때 겪는 어려움들을 해결하지 못하면 정해진 기간 안에 완성하지 못할 수도 있겠다라는 생각이 들면서 조금 두려웠습니다. 참고로 저에게 주어진 시간은 5일 정도였는데요, 되돌아보면 마감기한이라는 것이 있어서 더 집중해서 만들 수 있었던 것 같습니다.
+
+리덕스, 배운거 써먹어야지!👍🏻
+개발에 들어가기 전에, 기술 스택을 정할 때 전역 상태관리를 무엇으로 해야할까?에 대해서 고민을 했습니다. 제각 고민했던 상태관리 라이브러리는 두 개 였는데요, `Recoil 정말 편한데... vs Redux 아직 다 이해 못한 것 같은데...` 두 가지의 생각이 충돌했었습니다. 결론은 ‘이왕 수업 때 배웠던 거 복습할 겸 사용해보자!’로 Redux가 선택되었지만요.
+
+## 개발 🐾
+
+구현하고 싶었던 기능은 다음과 같습니다.
+
+- 페이지 라우팅
+- 각 팀 선수 선택 페이지
+  선수 선택 시, 등록된 선수는 중복으로 선택할 수 없다.
+  선택 후, X 버튼을 클릭하면 선택 인원에서 제거된다.
+- 선수 기록 페이지
+  선택된 모든 선수는 득점, 어시스트, 리바운드, 스틸, 파울을 가지고 있어야한다. +버튼을 누르면 증가하고, -버튼을 누르면 감소한다.
+  선수의 득점이 증가하면 팀 득점도 함께 증가한다.
+- 경기 종료 결과페이지
+  최종 점수와 모든 선수의 기록을 보여준다.
+
+![](/images/content/basketball-record-app-project-retrospective/1.png)
+
+_(나름 열심히 만든 wireframe…🫥)_
+
+## 고난과 역경 ⛈
+
+우당탕탕 작업환경 세팅
+React + TypeScript + Vite + Tailwind CSS 환경에서 작업하기로 결정을 하고 작업환경을 세팅하는데 Tailwind CSS를 적용하는 방법에서 헤맸던 것 같습니다.
+공식문서대로 따라했지만, 결과물이 달랐고.. 그래도 다행이었던 것은 React와 Tailwind를 함께 사용한 사람들의 블로그가 있어서 많은 부분 참고할 수 있었습니다. :)
+[React, Typescript, Vite, TailwindCSS 프로젝트 세팅](https://velog.io/@boorook/React-Typescript-Vite-TailwindCSS-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%B8%ED%8C%85)
+
+제가 작업한 프로젝트의 package.json은 다음과 같습니다.
+
+```text
+{  "name": "box-score-application",  "private": true,  "version": "0.0.0",  "type": "module",  "scripts": {    "dev": "vite",    "build": "tsc && vite build",    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",    "preview": "vite preview"  },  "dependencies": {    "react": "^18.2.0",    "react-dom": "^18.2.0",    "react-router-dom": "^6.10.0"  },  "devDependencies": {    "@types/react": "^18.0.28",    "@types/react-dom": "^18.0.11",    "@typescript-eslint/eslint-plugin": "^5.57.1",    "@typescript-eslint/parser": "^5.57.1",    "@vitejs/plugin-react": "^4.0.0",    "autoprefixer": "^10.4.14",    "eslint": "^8.38.0",    "eslint-config-prettier": "^8.8.0",    "eslint-plugin-prettier": "^4.2.1",    "eslint-plugin-react-hooks": "^4.6.0",    "eslint-plugin-react-refresh": "^0.3.4",    "postcss": "^8.4.23",    "prettier": "^2.8.8",    "tailwindcss": "^3.3.2",    "typescript": "^5.0.2",    "vite": "^4.3.2"  }}
+```
+
+작업을 하면서 매일매일 부딪혔던 어려움을 노션에 사건 일지처럼 적어놓았었던 과거의 나…
+![](/images/content/basketball-record-app-project-retrospective/2.png)
+
+전역 상태의 initialState 형태에 대한 고민
+처음 프로젝트를 기획할 때의 전역 상태의 초기 값은 아래와 같았습니다.
+
+```jsx
+export const initialState = {
+  players: [
+    { id: 1, name: '이재린', score: 0, rebound: 0, assist: 0, steal: 0 },
+    { id: 2, name: '김요한', score: 0, rebound: 0, assist: 0, steal: 0 },
+  ],
+  todayPlayers: [],
+};
+```
+
+처음 초기 값부터 선수 정보에 `score: 0, rebound: 0, assist: 0, steal: 0`를 초기화시켜줬었습니다. 하지만 players를 정의하는 배열에 꼭 저렇게 넣어주는게 의미가 없다고 생각을 했습니다. 왜냐하면 score와 같은 값은 players에선 사용하지 않고, todayPlayers 배열에 추가되었을 때 사용되기 때문이죠. 결론적으로는 players에는 선수의 id와 name만 저장해놓고, 클릭 후 todayPlayers에 추가되었을 때 만들어 주기로 결정했습니다.
+처음 ‘초기 데이터의 구조를 어떻게 가지고 가야하는가’에 대해서 고민을 해볼 수 있었던 시간이어서 좋았습니다. 5일 간의 프로젝트에서 거의 하루정도 소요했는데요, 이렇게 고민을 해서 이후 작업들이 수월하게 진행되었던 것 같습니다.
+
+todayPlayers는 하나의 배열인데, 팀은 두 개다. 🏀
+‘/boxscore’ url로 접근했을 때 다음과 같이 각 팀별로 선수를 렌더링하고 싶었습니다.
+![](/images/content/basketball-record-app-project-retrospective/3.png)
+
+여기서 todayPlayers 배열에는 선택한 모든 선수들이 있는데, 이걸 각 팀별로 어떻게 나눠야하지?라는 고민을 하게되었습니다.
+
+```jsx
+{ id: 2, name: '김요한', score: 0, rebound: 0, assist: 0, steal: 0, teamName: '타요' }
+```
+
+teamName을 기준으로 배열을 나눠서 렌더링을 해야겠다라는 생각을 하게되었고, 로직의 흐름은 다음과 같습니다.
+
+1. teamName만 element로 가진 배열을 만든다.
+2. 전체 todayPlayers 배열에서 teamName이 element[0]과 같은 선수를 배열로 하나 만들고,
+3. 동일하게 teamName이 element[1]과 같은 선수를 또 하나의 배열로 만든다.
+
+```jsx
+const teamArray = [...new Set(todayPlayers.map((element) => element.teamName))];
+const homeTeam = todayPlayers.filter(
+  (player) => player.teamName === teamArray[0]
+);
+const awayTeam = todayPlayers.filter(
+  (player) => player.teamName === teamArray[1]
+);
+```
+
+teamArray엔 두 개의 팀만 들어올 것이기 때문에 0번째와 1번째로 나눠서 홈 팀과 원정 팀을 구분해서 배열을 따로 만들어주고 컴포넌트에 props로 전달해주었습니다.
+
+경기 결과, 어디에 저장해놓지?
+현재 애플리케이션은 서버가 없기 때문에 새로고침을 하게되면 모든 정보가 initialState로 초기화됩니다. 이전 기록들을 어딘가에는 저장해두고 싶었는데요, 혹시라도 이전 경기에서 자신의 기록을 보고싶은 사람이 있을 수도 있을 거라고 생각했기 때문입니다.
+그래서 생각한 것이 로컬 스토리지였습니다. 경기가 종료되고 game over 버튼을 클릭하면 그 때 로컬스토리지에 저장하는 방식을 선택했습니다.
+
+## 리팩토링 해야지! 👏🏻
+
+기능 구현은 했습니다만, 정말 기능 구현만 했기 때문에 코드를 조금만 살펴봐도 고쳐야할게 많다고 느껴지실 겁니다. 일단, 코드에 중복이 어마무시하거든요.
+
+![](/images/content/basketball-record-app-project-retrospective/4.jpg)
+
+타입스크립트로 바꾸기
+지금은 TypeScript 환경으로 세팅을 해놨지만 타입스크립트를 하나도 사용하지 않은 상태입니다. 이번 리팩토링을 통해 타입스크립트로 변환하는 작업을 하려고 합니다.
+Action Creator 중복 제거하기
+Reducer 함수에 전달하는 Action 객체를 생성하는 Action Creator 함수들은 리턴하는 객체에 type만 다르고 모든 것은 동일합니다. 이 부분 또한 고쳐나가고 싶습니다.
+컴포넌트 구조화하기
+작업할 때는 컴포넌트를 분리했다라고 생각했는데, 전체적으로 보니 컴포넌트를 하나도 분리하지 못한 것 같습니다. 리팩토링하면서 컴포넌트를 어떻게 분리하면 좋을지 다시 한 번 생각하면서 구조화를 해보려고 합니다.
+
+여기까지 제 신세한탄같은 회고 읽어주셔서 감사합니다! 👏🏻👏🏻저는 리팩토링 회고로 다시 찾아오겠습니다 :)

@@ -1,0 +1,135 @@
+---
+title: 'State와 Props를 이용해서 메뉴 검색기능 구현하기'
+description: 'State와 Props를 이용해서 메뉴 검색기능 구현하기'
+date: 2023-05-24
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+메뉴판을 만들고, 식당 이름을 검색했을 때 검색 결과에 해당하는 식당 정보만 보여주는 기능을 구현하려고 했습니다.
+
+## 요구사항
+
+요구사항은 다음과 같습니다.
+
+- 사용자는 식당 이름, 종류, 메뉴가 보이는 식당 목록을 볼 수 있다.
+- 사용자는 식당 이름을 입력하여 이름이 (부분)일치하는 식당 목록을 골라 볼 수 있다.
+- 사용자는 식당 종류 버튼을 눌러서 종류가 일치하는 식당 목록만 골라 볼 수 있다.
+- 사용자는 입력한 식당 이름과 선택한 종류가 모두 일치하는 식당 목록만 골라 볼 수 있다.
+
+구현해야할 것들을 생각해보면,
+
+- 식당목록, 식당 카테고리
+- 사용자가 검색창에 식당이름을 검색했을 때 → 이름이 일치하는 식당 목록만 보여주기
+- 식당 카테고리를 클릭하면 일치하는 식당 목록만 보여주기
+- 입력한 식당 이름과 선택한 카테고리가 모두 일치하는 식당 목록만 보여주기
+
+이 정도가 될 것 같습니다. [👉🏻 결과물 미리보기](https://seed2whale.github.io/frontend-survival-week03-sample/)
+
+### Restaurant.json 확인하기
+
+```text
+{  "restaurants": [    {      "id": "1",      "category": "중식",      "name": "메가반점",      "menu": [        {"id": "1", "name": "짜장면", "price": 8000},        {"id": "2", "name": "짬뽕", "price": 8000},        {"id": "3", "name": "차돌짬뽕", "price": 9000},        {"id": "4", "name": "탕수육", "price": 14000}      ]    },    {      "id": "2",      "category": "한식",      "name": "메리김밥",      "menu": [        {"id": "5", "name": "김밥", "price": 3500},        {"id": "6", "name": "참치김밥", "price": 4500},        {"id": "7", "name": "제육김밥", "price": 5000},        {"id": "8", "name": "훈제오리김밥", "price": 5500},        {"id": "9", "name": "컵라면", "price": 2000}      ]    },    ...  ]}
+```
+
+restaurants는 각 식당 객체를 요소로 가지고 있는 배열입니다.
+즉, 하나의 식당 객체를 `Restaurant`라고 하면 restaurants는 `Restaurant[]`이 되는거죠!
+Restaurant 타입 지정하기
+
+```text
+{  "id": "1",  "category": "중식",  "name": "메가반점",  "menu": [    {"id": "1", "name": "짜장면", "price": 8000}, // 👉🏻 여기도 하나의 타입을 지정해서 import 하기    {"id": "2", "name": "짬뽕", "price": 8000},    {"id": "3", "name": "차돌짬뽕", "price": 9000},    {"id": "4", "name": "탕수육", "price": 14000}  ]},
+```
+
+```text
+// Restaurant Typeimport Food from './Food';interface Restaurant {  id: string,  category: string,  name: string,  menu: Food[]}export default Restaurant;=====================================================// Food Typeinterface Food {  id: string;  name: string;  price: number;}export default Food;
+```
+
+### main.tsx
+
+main.tsx에서는 index.html에 있는 `id=”root”` 에 만든 컴포넌트를 렌더링해야 합니다.
+
+```text
+import ReactDOM from 'react-dom/client';import App from './App';function main() {  const element = document.getElementById('root');  if (element) {    const root = ReactDOM.createRoot(element);    root.render(<App />);  }}main();
+```
+
+### 컴포넌트 구조 생각해보기
+
+![스크린샷.png](/images/content/menu-search-with-state-and-props/1.png)
+
+### App.tsx
+
+우선 데이터가 필요하니 restauants 데이터를 받아와서 전체적인 구조를 App.tsx에 만들어보도록 하겠습니다.
+
+```text
+import { restaurants } from '../restaurants.json';// 카테고리만 배열로 생성const categories = [  '전체',  ...new Set(restaurants.map((restaurant) => restaurant.category)),];export default function App() {  return (    <div>      <h1>오늘의 메뉴</h1>      <label htmlFor="search">검색</label>      <input id="search" placeholder="식당이름" />      <div>        {categories.map((category) => (          <button key={category} type="button">            {category}          </button>        ))}      </div>      <table>        <thead>          <tr>            <th>식당이름</th>            <th>종류</th>            <th>메뉴</th>          </tr>        </thead>        <tbody>          {restaurants.map((restaurant) => {            const { id, name, category, menu } = restaurant;            return (              <tr key={id}>                <td>{name}</td>                <td>{category}</td>                <td>                  <ul>                    {menu.map((item) => (                      <li key={item.id}>                        {item.name}({item.price}                        원)                      </li>                    ))}                  </ul>                </td>              </tr>            );          })}        </tbody>      </table>    </div>  );}
+```
+
+## Divide Component
+
+컴포넌트 분리하면서 기능 구현하기! 🚀
+
+### ✅ SearchBar Component & RestaurantTable Component
+
+크게 두 개의 컴포넌트로 나눌 수 있을 것 같은데요, 검색하는 기능이 있는 SearchBar, 식당 정보를 보여주는 RestaurantTable 컴포넌트 두 개로 나눠보겠습니다.
+
+```jsx
+export default function App() {
+  return (
+    <div>
+      {' '}
+      <h1>오늘의 메뉴</h1> <SearchBar /> <RestaurantTable />{' '}
+    </div>
+  );
+}
+```
+
+input창에 텍스트를 입력했을 때 그리고 카테고리 버튼을 눌렀을 때 정보에 맞게 식당이 바뀌어야하므로 텍스트에 대한 상태와 카테고리에 대한 상태는 App 컴포넌트가 가지고 있어야 할 것 같습니다.
+
+```text
+import { useState } from 'react';const [filterText, setFilterText] = useState<string>('');const [filterCategory, setFilterCategory] = useState<string>('전체');
+```
+
+카테고리만 배열로 만드는 로직은 utils 폴더로 이동시키도록 하겠습니다.
+
+```text
+// utils/selectCategories.tsimport Restaurant from '../types/Restaurant';export default function selectCategories(restaurants: Restaurant[]): string[] {  return [...new Set(restaurants.map((restaurant) => restaurant.category))];}
+```
+
+**SeachBar 컴포넌트에 넘겨줘야할 것들이 뭐가 있을까요? 🤔**
+
+- 카테고리 배열 `categories`
+- input에 입력한 텍스트와 텍스트 상태를 변경하는 함수 `filterText`, `setFilterText`
+- 카테고리 버튼을 누를 때 카테고리를 변경해야하므로 `setFilterCategory`
+
+```text
+<SearchBar  categories={categories}  filterText={filterText}  setFilterText={setFilterText}  setFilterCategory={setFilterCategory}/>
+```
+
+**SearchBar Component**
+
+```text
+import React from 'react';type SearchBarProps = {  categories: string[];  filterText: string;  setFilterText: (text: string) => void;  setFilterCategory: (text: string) => void;};export default function SearchBar({  categories,  filterText,  setFilterText,  setFilterCategory,}: SearchBarProps) {  // 🚧 event를 받아서 event.target.value를 사용하려면 이벤트 유형을 정의해야 한다.  // TypeScript에 이벤트 객체가 ChangeEvent유형이고 대상 요소가 <Input>요소임을 알려줌  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {    setFilterText(event.target.value);  };  const id = 'input-search';  return (    <>      <label htmlFor={id}>검색</label>      <input        id={id}        placeholder="식당이름"        type="text"        value={filterText}        onChange={handleChange}      />      <div>        <ul>          {['전체', ...categories].map((category: string) => (            <li key={category}>              <button type="button" onClick={() => setFilterCategory(category)}>                {category}              </button>            </li>          ))}        </ul>      </div>    </>  );}
+```
+
+**RestaurantTable Component**
+RestaurantTable 컴포넌트는 reataurants를 props로 받아서 렌더링합니다.
+
+```text
+<RestaurantTable restaurants={restaurants} />
+```
+
+그런데 여기서 restaurants를 그대로 받는게 아니라 input값과 일치하는 필터링된 배열을 props로 받아야하는데요. 어떻게 기능을 구현해야할까요?
+
+- filterText를 받아서 filterText과 식당이름이 일치하는 배열을 반환한다.
+- 배열은 filterCategory에 해당하는 배열로 비교해야한다.
+
+```text
+// utils/filterRestaurants.ts/* eslint-disable implicit-arrow-linebreak *//* eslint-disable indent *//* eslint-disable operator-linebreak */import Restaurant from '../types/Restaurant';type filterRestaurantsProps = {  filterText: string;  filterCategory: string;};export default function filterRestaurants(  restaurants: Restaurant[],  { filterText, filterCategory }: filterRestaurantsProps): Restaurant[] {  // 🚧 category에 맞는 restaurants 배열  const filteredRestaurants =    filterCategory === '전체'      ? restaurants      : restaurants.filter(          (restaurant) => restaurant.category === filterCategory        );  const normalize = (text: string) => text.trim().toLowerCase();  const query = normalize(filterText);  if (!query) {    return filteredRestaurants;  }  const contains = (restaurant: Restaurant) =>    normalize(restaurant.name).includes(query);  return filteredRestaurants.filter(contains);}
+```
+
+이제 E2E 테스트를 실행시켜보면?
+
+![스크린샷.png](/images/content/menu-search-with-state-and-props/2.png)
+
+모두 통과한것을 볼 수 있습니다.😎
+3주차를 복습하면서 헷갈렸던 state와 props에 대해서 다시 공부할 수 있었고 utils 함수를 만드는 시기와 방법에 대해서도 이해할 수 있었습니다. 가장 헷갈렸던 카테고리가 달라진 배열에 input 값을 어떻게 필터링할까? 에 대한 문제를 이해할 수 있는 시간이었습니다. (역시 복습 매우 중요하다!)

@@ -1,0 +1,60 @@
+---
+title: 'useEffect 아는대로 설명하기 🛵'
+description: 'useEffect 아는대로 설명하기 🛵'
+date: 2023-05-03
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+## ✅ useEffect란?
+
+useEffect는 외부 환경과 컴포넌트를 동기화시키는 역할을 합니다.
+
+## ✅ useEffect는 언제 사용하는가?
+
+- 외부 시스템과 연결할때
+- 불필요한 종속성을 제거할 때
+- 이전 상태를 기반으로 업데이트할 때
+
+## ✅ useEffect를 사용하는 방법
+
+브라우저 이벤트를 리스닝해야할 때 사용합니다.
+여기서 외부시스템은 브라우저 DOM 자체입니다. 일반적으로 JSX로 이벤트 리스너를 지정하지만 이 방식으로는 전역 window를 리스닝할 수 없습니다. 이때 effect를 사용하면 window 객체에 연결하여 이벤트를 수신할 수 있습니다.
+
+```jsx
+import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('pointermove', handleMove);
+
+    // 🚧 컴포넌트가 마운트 될 때마다 이벤트 리스너가 중복으로 등록될 가능성이 있기 때문에 cleanup 함수를 사용해서 지워주기
+    return () => {
+      window.removeEventListener('pointermove', handleMove);
+    };
+  }, []);
+
+  return (
+    // ✅ 마우스 포인터가 움직일 때마다 원이 같이 움직이도록 만들기 위해 원을 하나 만듦
+    <div
+      style={{
+        position: 'absolute',
+        backgroundColor: 'pink',
+        borderRadius: '50%',
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }}
+    />
+  );
+}
+```

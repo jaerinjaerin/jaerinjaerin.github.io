@@ -1,0 +1,212 @@
+---
+title: '간단한 실습과 함께 React Query(Tanstack Query) 공부하기 ✍🏻'
+date: 2023-04-26
+tags: ['React']
+thumbnail: /thumbnails/react.png
+---
+
+# React Query(Tanstack Query)
+
+- Tanstack Query 공식문서
+
+🕶 서버 상태를 관리하는 라이브러리
+서버 상태란,
+
+- 앱이 소유하거나 제어하지 않는다.
+- 데이터를 가져오려면 비동기 API가 필요하다.
+- 앱에서 사용하는 데이터는 유효기간이 지난 상태가 될 수 있다.
+
+쇼핑몰 애플리케이션에선 어떤 것들이 서버상태일까요?예를 들면, 쇼핑물의 상품 목록, 게시판 댓글, 주문 진행 상황과 같은 것들이 있습니다.
+
+이러한 특성을 가진 서버 상태는 다음과 같은 작업들이 필요합니다.
+
+- 캐싱
+- 데이터 중복 호출을 제거
+- 데이터의 만료 시점을 파악
+- 만료되었다면 데이터를 업데이트
+
+_👉🏻 즉, React Query는 서버 상태를 보다 쉽게 관리할 수 있도록 도와주며, 클라이언트 상태와 서버 상태를 명확히 구분하기 위해 만들어진 라이브러리입니다._
+
+결론적으로 말하면 React Query를 사용하게 되면,
+![useState](/images/content/learning-react-query-with-practice/1.png)
+
+이 만큼의 코드를
+
+![useState](/images/content/learning-react-query-with-practice/2.png)
+
+이렇게 간결하게 사용할 수 있다는 장점이 있습니다 :)
+
+## React Query 사용방법
+
+간단한 예제를 통해 React Query를 사용하는 방법에 대해서 배워보겠습니다.
+데이터가 다 받아와지기 전까지는 Loading… 표시를 해줬다가 데이터가 들어오면 코인 리스트를 보여주려고 합니다.
+여기 코인 데이터를 받아올 수 있는 API가 있습니다.
+
+```text
+'https://api.coinpaprika.com/v1/coins'
+```
+
+### React Query를 사용하지 않고 구현하는 방법
+
+처음 애플리케이션이 시작될 때 한 번만 받아오고 싶으니 useEffect를 안에 fetch 함수를 사용해서 데이터를 받아오도록 하겠습니다.
+비동기 데이터의 순서를 보장하려면 async, await를 사용해야하는데 말이죠..방법은 두 가지 입니다.
+
+- useEffect 함수 내에서 새로운 함수를 정의하고 실행시킨다.
+- 즉시실행함수를 사용한다.
+
+저는 즉시실행함수를 사용하도록 하겠습니다.
+
+```jsx
+useEffect(() => {
+  (async () => {
+    const resposnse = await fetch('https://api.coinpaprika.com/v1/coins');
+    const json = await resposnse.json();
+  })();
+}, []);
+```
+
+그리고 코인 데이터를 애플리케이션에서 사용하려면 상태로 관리해야하므로 useState를 사용합니다.
+추가로 또 하나의 상태가 필요합니다. 로딩 중인지 아닌지에 대한 상태입니다. 이것 또한 useState를 사용해서 관리하도록 하겠습니다.
+
+```jsx
+import { useState } from 'react';
+export default function Coins() {
+  const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      const resposnse = await fetch('https://api.coinpaprika.com/v1/coins');
+      const json = await resposnse.json();
+      setCoins(json);
+      setLoading(false);
+    })();
+  }, []);
+  return (
+    <>
+      {' '}
+      <h1>Coins</h1> {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <ul>
+          {' '}
+          {coins.map((coin) => (
+            <li key={coin.id}>
+              {' '}
+              <Link to={`/${coin.id}`}>{coin.name}</Link>{' '}
+            </li>
+          ))}{' '}
+        </ul>
+      )}{' '}
+    </>
+  );
+}
+```
+
+### React Query를 사용해서 구현하는 방법
+
+1. react query 패키지를 다운받아야합니다.
+
+```text
+npm i -D @tanstack/react-query-devtools
+```
+
+1. QueryClient를 생성합니다.
+
+```jsx
+const queryClient = new QueryClient();
+```
+
+1. Provider로 react-query를 사용할 컴포넌트를 감싸주고, client 속성에 queryClient를 전달합니다.
+
+```jsx
+<QueryClientProvider client={queryClient}>
+  {' '}
+  <App />
+</QueryClientProvider>
+```
+
+1. react-query를 사용할 Coins 컴포넌트에서 useQuery를 사용합니다.
+
+useQuery는 두 개의 arguments를 받습니다.
+
+- queryKey(고유 식별자)
+- fetcher function
+
+저는 queryKey는 “allCoins”라고 정해주고 fetcher function은 useEffect 안에 있던 코드를 외부 파일로 추출하여 사용하도록 하겠습니다.
+
+```jsx
+// api.jsexport async function fetchCoins() {  const response = await fetch('https://api.coinpaprika.com/v1/coins');  const json = await response.json();  return json;}
+```
+
+```jsx
+import { useQuery } from 'react-query';
+import { fetchCoins } from '../api';
+export default function Coins() {
+  useQuery('allCoins', fetchCoins);
+}
+```
+
+useQuery(‘allCoins’, fetchCoins)가 무엇을 반환하는걸까요?🤔
+![useQuery](/images/content/learning-react-query-with-practice/3.png)
+
+처음 애플리케이션이 실행되면 status가 loading인 객체를 반환하고, 데이터를 불러온 후에는 status가 success인 객체를 반환합니다.
+
+![](/images/content/learning-react-query-with-practice/4.png)
+
+객체를 보면 isLoading에 대한 정보도 있고, data에 대한 정보도 있으니 구조분해할당을 통해 가져오면 될 것 같습니다.
+
+```jsx
+import { useQuery } from 'react-query';
+import { fetchCoins } from '../api';
+export default function Coins() {
+  const { isLoading, data } = useQuery('allCoins', fetchCoins);
+  return (
+    <>
+      {' '}
+      <h1>Coins</h1> {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <ul>
+          {' '}
+          {data.slice(0, 100).map((coin) => (
+            <li key={coin.id}>
+              {' '}
+              <Link to={`/${coin.id}`}>{coin.name}</Link>{' '}
+            </li>
+          ))}{' '}
+        </ul>
+      )}{' '}
+    </>
+  );
+}
+```
+
+react-query를 사용하면 불러왔던 데이터는 캐시에 저장해놓기 때문에 다시 “/“로 돌아왔을 때 새로고침을 하지 않는다는 장점이 있습니다.
+
+## ReactQueryDevtools
+
+: 서버에서 불러온 데이터들을 쉽게 확인할 수 있는 방법
+ReactQueryDevtools로 캐시에 있는 query를 확인할 수 있습니다. 우선 ReactQueryDevTools를 import 합니다. 그 후 initialIsOpen 속성 값에 true를 전달합니다.
+
+```jsx
+import Router from './Router';
+import { ReactQueryDevtools } from 'react-query/devtools';
+export default function App() {
+  return (
+    <>
+      {' '}
+      <Router /> <ReactQueryDevtools initialIsOpen={true} />{' '}
+    </>
+  );
+}
+```
+
+![](/images/content/learning-react-query-with-practice/5.png)
+
+브라우저를 확인해보면 캐시에 어떤 query들이 저장되어있는지를 확인할 수 있습니다 :)
+
+## Reference
+
+- https://velog.io/@jkl1545/React-Query
+- Tanstack Query
+- kyounghwan01.github.io/blog/React

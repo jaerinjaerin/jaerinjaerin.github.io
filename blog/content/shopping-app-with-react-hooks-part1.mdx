@@ -1,0 +1,127 @@
+---
+title: 'React Hooks를 이용한 쇼핑몰 애플리케이션 만들기1️⃣'
+description: '[코드스테이츠 - 상태관리] 🛒'
+date: 2023-04-22
+tags: ['Retrospective']
+thumbnail: /thumbnails/default.png
+---
+
+이번 주 코드스테이츠에서는 React Hooks로 상태를 관리하고 React Router를 사용하여 라우팅 처리를 해서 쇼핑몰 애플리케이션을 만들어보았습니다.
+과제는 어떤 props를 내려줘야 하는지, 이벤트 핸들러에선 어떤 과정을 처리해야하는지에 대해서만 코드를 작성을 했는데 컴포넌트 구조부터 차례대로 공부를 해보려고 합니다.
+최종적으로 구현할 쇼핑몰 애플리케이션은 다음과 같습니다.
+
+![230422-cmarket.gif](/images/content/shopping-app-with-react-hooks-part1/1.gif)
+
+- 상품 리스트 버튼을 누르면 ‘/’로 이동하고 상품 리스트 컴포넌트를 렌더링합니다.
+- 장바구니 버튼을 누르면 ‘/shoppingcart’로 이동하고 장바구니 리스트 컴포넌트를 렌더링합니다.
+- ‘장바구니 담기’ 버튼을 누르면 장바구니 아이템에 추가됩니다.
+- 새로운 상품을 추가했다면 수량이 변경됩니
+- 장바구니 페이지에선 ‘장바구니 담기’ 버튼을 누른 상품들을 보여줍니다.
+- 수량을 변경하면 주문 합계에서 수량과 합계를 변경시킵니다.
+- ‘삭제’ 버튼을 누르면 상품이 삭제됩니다.
+
+## 컴포넌트 구조화하기
+
+먼저 어떤 구조로 컴포넌트를 만들지 생각을 해봤습니다.
+
+- 크게는 Nav 컴포넌트와 상품 리스트 컴포넌트가 있어야 할 것 같습니다.
+- Nav 컴포넌트에는 두 개의 버튼 컴포넌트가 있어야할 것 같고,
+- 상품 리스트 컴포넌트에는 상품 갯수만큼 카드 컴포넌트를 그려줘야 할 것 같습니다.
+
+![스크린샷.png](/images/content/shopping-app-with-react-hooks-part1/2.png)
+
+## 라우터 구조는 어떻게 하는게 좋을까 🫥
+
+URL이 이동하는 부분은 ‘상품리스트’와 ‘장바구니’ 두 개의 링크가 존재합니다.
+상품리스트를 클릭하면 ‘/’로 이동하고, 장바구니를 클릭하면 ‘/shoppingcart’로 이동합니다.
+코드로 구현을 해보면,
+
+```text
+import React from 'react';import { Link } from 'react-router-dom';export default function Nav() {  return (    <Link to="/">상품리스트</Link>    <Link to="/shoppingcart">장바구니</Link>  )}
+```
+
+이런 느낌이겠군요?🤔
+
+`상품리스트` 버튼을 클릭하면 상품리스트 컴포넌트는 Nav컴포넌트 아래서 렌더링이 되어야 합니다. Router를 사용해서 구현을 해보면,
+
+```text
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';import ItemListContainer from './pages/ItemListContainer';import ShoppingCart from './pages/ShoppingCart';function App() {  return (    <Router>      <Nav />      <Route path="/" element={<ItemListContainer />} />      <Route path="/shoppingcart" element={<ShoppingCart />} />    </Router>  );}
+```
+
+이런 구조가 될 것 같습니다.🙂
+
+## 상품 데이터 받아오기
+
+이제 컴포넌트를 만들겠습니다. 그러려면 상품 각각의 데이터를 받아와야 합니다.
+상품 데이터는 다음과 같습니다.
+
+```text
+export const initialState = {  items: [    {      id: 1,      name: '노른자 분리기',      img: '../images/egg.png',      price: 9900,    },    {      id: 2,      name: '2020년 달력',      img: '../images/2020.jpg',      price: 12000,    },    {      id: 3,      name: '개구리 안대',      img: '../images/frog.jpg',      price: 2900,    },    // ...  ],  cartItems: [    {      itemId: 1,      quantity: 1,    },    // ...  ],};
+```
+
+해당 데이터를 App 컴포넌트에서 상태로 관리합니다. `useState`를 사용해서요!
+
+```text
+import { initialState } from './assets/state';const [items, setItems] = useState(initialState.items);
+```
+
+데이터를 App 컴포넌트에서 초기화 완료!
+
+우선 `ItemListContainer` 컴포넌트 먼저 만들겠습니다. `ItemListContainer` 컴포넌트안에서 여러 개의 상품 카드를 렌더링해야하니 props로 items를 넘겨줘야 할 것 같습니다.
+
+```text
+import { useState } from 'react';import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';import { initialState } from './assets/state';import Nav from './components/Nav';import ItemListContainer from './pages/ItemListContainer';export default function App() {  const [items, setItems] = useState(initialState.items);  return (    <Router>      <Nav />      <Routes path="/" element={<ItemListContainer items={items} />} />    </Router>  );}
+```
+
+## ItemListContainer Component
+
+```text
+export default function ItemListContainer({ items }) {  return (    <div id="item-list-container">      <div id="item-list-body">        <div id="item-list-title">쓸모없는 선물 모음</div>        {items.map((item, idx) => (          <Item item={item} key={idx} />        ))}        </div>      </div>    </div>  )}
+```
+
+## Item Component
+
+Item 컴포넌트는 상품 사진, 이름, 가격, 장바구니 담기 버튼으로 구성되어 있습니다.
+
+![스크린샷.png](/images/content/shopping-app-with-react-hooks-part1/3.png)
+
+```text
+export default function Item({ item }) {  return (    <div key={item.id} className="item">      <img className="item-img" src={item.img} alt={item.name}></img>      <span className="item-name">{item.name}</span>      <span className="item-price">{item.price}</span>      <button className="item-button">장바구니 담기</button>    </div>  );}
+```
+
+## 장바구니 담기 버튼을 누르면 장바구니에 담겨야 인지상정!
+
+장바구니 담기 버튼을 누르면 무언가 일이 일어나야 합니다.
+근데 무슨 일어나야하냐면..? 장바구니리스트에 추가되어야 합니다.
+하지만 우린 지금 장바구니가 없으니 장바구니 상태부터 만들어야할 것 같습니다.
+그리고 장바구니 버튼을 누르면 cartItems이 변경되어야 하기 때문에 cartItems, setCartItems 모두 ItemListContainer 컴포넌트의 props로 넘겨줍니다.
+
+```text
+import { useState } from 'react';import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';import { initialState } from './assets/state';import Nav from './components/Nav';import ItemListContainer from './pages/ItemListContainer';export default function App() {  const [items, setItems] = useState(initialState.items);  **const [cartItems, setCartItems] = useState(initialState.cartItems);** //✅ 장바구니 상태를 만들었습니다!  return (    <Router>      <Nav />      //✅ ItemListContainer 컴포넌트의 props로 cartItems와 setCartItems 넘겨주기      <Routes path="/" element={<ItemListContainer items={items} **cartItems={cartItems} setCartItems={setCartItems}** />} />    </Router>  )}
+```
+
+handleClick 함수 안에서는 cartItem을 변경시켜야 합니다. 그런데 조건이 필요합니다.
+
+- 만약 장바구니에 담겨있는 상품이라면 수량만 증가시킵니다.
+- 장바구니에 담겨있지 않는 상품이라면 cartItem에 상품을 추가합니다.
+
+```text
+const handleClick = (_, id) => {  // cartItem의 구조는? {"itemId": 2, "quantity": 3}  // itemId가 존재하면 quantity + 1을 한다.  // itemId가 존재하지 않으면 {"itemId": itemId, "quantity": 1}을 cartItem에 추가한다.  setCartItmes(    cartItems.find((item) => item.itemId)      ? cartItems.map((item) =>          item.itemId === id            ? { ...item, quantity: (item.quantity += 1) }            : item        )      : [...cartItems, { itemId: id, quantity: 1 }]  );};
+```
+
+Item 컴포넌트는 handleClick을 받아서 onClick 핸들러로 사용합니다.
+
+```text
+// ItemListContainser.jsexport default function ItemListContainer({ items, cartItems, setCartItems }) {  const handleClick = (_, id) => {    setCartItmes(cartItems.find(item => item.itemId) ?      cartItems.map((item) =>        item.itemId === id          ? { ...item, quantity: (item.quantity += 1) }          : item      )      : [...cartItems, { itemId: id, quantity: 1 }]    )  }  return (    <div id="item-list-container">      <div id="item-list-body">        <div id="item-list-title">쓸모없는 선물 모음</div>        {items.map((item, idx) => (          <Item item={item} key={idx} handleClick={handleClick} />        ))}        </div>      </div>    </div>  )}// Item.jsexport default function Item({ item, handleClick }) {  return (    <div key={item.id} className="item">      <img className="item-img" src={item.img} alt={item.name}></img>      <span className="item-name">{item.name}</span>      <span className="item-price">{item.price}</span>      <button className="item-button" onClick={(e) => handleClick(e, item.id)}>장바구니 담기</button> //✅ 클릭했을 때 item.id를 넘겨줍니다.    </div>  )}
+```
+
+## 클릭했을 때 장바구니 숫자 증가시키기
+
+새로운 상품이 추가되었을 때는 장바구니 숫자를 증가시켜야합니다. 우린 cartItems를 계속해서 관리하고 있기 때문에 cartItems의 length를 전달하면 될 것 같습니다 :)
+
+```text
+import React from 'react';import { Link } from 'react-router-dom';export default function Nav({ cartItems }) {  //✅ cartItems를 props로 전달받고  return (    <div id="nav-body">      <span id="title">        <img id="logo" src="../logo.png" alt="logo" />        <span id="name">CMarket</span>      </span>      <div id="menu">        <Link to="/">상품리스트</Link>        <Link to="/shoppingcart">          장바구니<span id="nav-item-counter">{cartItems.length}</span> //✅          cartItems.length를 보여주자구요!        </Link>      </div>    </div>  );}
+```
+
+어후.. 정리하다보니 너무 길어졌네요…?
+장바구니 페이지 컴포넌트는 다음 포스트에 정리하도록 하겠습니다🙂
