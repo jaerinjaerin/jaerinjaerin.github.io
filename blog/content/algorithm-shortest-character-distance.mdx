@@ -1,0 +1,226 @@
+---
+title: '가장 짧은 문자거리'
+description: '문자열에서 특정 문자까지의 최소 거리를 구하는 알고리즘'
+date: 2025-10-15
+tags: ['Algorithm']
+thumbnail: /thumbnails/js-algorithm.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 문제
+
+한 개의 문자열 s와 문자 t가 주어지면 문자열 s의 각 문자가 문자 t와 떨어진 최소거리를 출력하는 프로그램을 작성하세요.
+
+### 입력설명
+
+첫 번째 줄에 문자열 s와 문자 t가 주어진다. 문자열과 문자는 소문자로만 주어집니다. 문자열의 길이는 100을 넘지 않는다.
+
+### 출력설명
+
+첫 번째 줄에 각 문자열 s의 각 문자가 문자 t와 떨어진 거리를 순서대로 출력한다.
+
+### 입력예제
+
+```tsx
+let str = 'teachermode';
+solution(str, 'e');
+```
+
+### 출력예제
+
+1 0 1 2 1 0 1 2 2 1 0
+
+---
+
+## 나의 풀이
+
+<Steps>
+
+<Step>
+### 첫 번째 시도: 한 방향 탐색
+
+두 개의 포인터 i와 j를 사용하여 오른쪽 방향으로만 탐색을 시도했습니다.
+
+```tsx
+let answer = '';
+let distance = 0;
+
+for (let i = 0; i < arr.length; i++) {
+  let j = i + 1;
+
+  if (arr[i] === targetStr) {
+    answer += '0';
+    break;
+  }
+
+  distance++;
+
+  if (arr[j] === targetStr) {
+    answer += String(distance);
+    distance = 0;
+    break;
+  }
+}
+```
+
+<Callout type="error">
+**이 풀이의 문제점**
+
+1. **양방향 탐색 누락**: 최소 거리를 구하려면 왼쪽과 오른쪽 모두 확인해야 합니다
+   - "t**ea**chermode"에서 'a' 기준으로 오른쪽만 탐색하면 왼쪽 방향 최소거리 1을 판단할 수 없습니다
+2. `break`가 아닌 `continue`를 써야 합니다
+
+</Callout>
+
+</Step>
+
+<Step>
+### 개선된 접근: 양방향 탐색
+
+이중 반복문을 사용하지 않고 왼쪽과 오른쪽 탐색을 분리했습니다.
+
+**왼쪽에서 오른쪽으로 순회하며 왼쪽 'e'까지의 거리를 배열에 할당**
+
+```tsx
+let leftDistance = new Array(n).fill(Infinity);
+let lastE = -Infinity;
+
+for (let i = 0; i < n; i++) {
+  if (str[i] === targetStr) {
+    lastE = i;
+  }
+
+  leftDistance[i] = i - lastE;
+}
+```
+
+**오른쪽에서 왼쪽으로 순회하며 오른쪽 'e'까지의 거리를 배열에 할당**
+
+```tsx
+let rightDistance = new Array(n).fill(Infinity);
+lastE = Infinity;
+
+for (let i = str.length - 1; i >= 0; i--) {
+  if (str[i] === targetStr) {
+    lastE = i;
+  }
+
+  rightDistance[i] = lastE - i;
+}
+```
+
+**두 배열의 같은 인덱스 값을 비교하여 최소값 선택**
+
+```tsx
+for (let i = 0; i < n; i++) {
+  answer.push(Math.min(leftDistance[i], rightDistance[i]));
+}
+
+return answer.join(' ');
+```
+
+</Step>
+
+</Steps>
+
+---
+
+## Solution: 최적화된 투포인터
+
+<Callout type="info">
+**핵심 아이디어**
+
+한 번의 왼→오 순회와 한 번의 오→왼 순회로 모든 최소 거리를 구할 수 있습니다.
+
+</Callout>
+
+<Steps>
+
+<Step>
+### 왼쪽에서 오른쪽으로 순회
+
+```tsx
+let p = 1000; // 큰 값으로 초기화 (아직 target을 못 만난 상태)
+
+for (let x of s) {
+  if (x === t) {
+    p = 0; // target 발견! 거리 0
+    answer.push(p);
+  } else {
+    p++; // target으로부터 멀어짐
+    answer.push(p);
+  }
+}
+```
+
+**"teachermode" 실행 과정:**
+
+```tsx
+t e a c h e r m o d e
+↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+p=1000 → p++하고 push → 1001
+        p=0 → 0 push
+            p++ → 1 push
+                p++ → 2 push
+                    p++ → 3 push
+                        p=0 → 0 push
+                            ...
+
+결과: [1001, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0]
+```
+
+</Step>
+
+<Step>
+### 오른쪽에서 왼쪽으로 순회하며 최소값 갱신
+
+```tsx
+p = 1000; // 다시 큰 값으로 초기화
+
+for (let i = s.length - 1; i >= 0; i--) {
+  if (s[i] === t) p = 0; // target 발견
+  else {
+    p++; // target으로부터 멀어짐
+    answer[i] = Math.min(answer[i], p); // 기존 값과 비교
+  }
+}
+```
+
+**"teachermode" 역순 실행 과정:**
+
+```tsx
+← ← ← ← ← ← ← ← ← ← ←
+e d o m r e h c a e t
+p=0, p++, p++, p++, p++, p=0, p++, p++, p++, p=0, p++
+
+answer[10] = min(0, 0) = 0
+answer[9] = min(4, 1) = 1
+answer[8] = min(3, 2) = 2
+...
+answer[0] = min(1001, 1) = 1
+
+최종: [1, 0, 1, 2, 1, 0, 1, 2, 2, 1, 0]
+```
+
+</Step>
+
+</Steps>
+
+---
+
+## 마무리
+
+<Callout type="warn">
+이번 문제는 '투포인터 알고리즘'으로 구현해야겠다고 생각했지만, **한쪽 방향만 고려**했다는 점이 아쉬웠습니다.
+
+최소 거리 문제에서는 **양방향 탐색**이 필수적입니다!
+
+</Callout>
+
+### 배운 점
+
+1. **양방향 탐색의 중요성**: 최소값을 구할 때는 모든 방향을 고려해야 합니다
+2. **투포인터 기법**: 두 번의 순회로 O(n) 시간 복잡도로 해결 가능
+3. **공간 최적화**: 두 번째 순회에서 기존 배열을 재활용하여 공간 절약

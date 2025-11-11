@@ -1,0 +1,137 @@
+---
+title: '숫자만 추출하기'
+description: '문자와 숫자가 섞인 문자열에서 숫자만 추출하여 자연수 만들기'
+date: 2025-11-05
+tags: ['Algorithm']
+thumbnail: /thumbnails/js-algorithm.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 문제
+
+문자와 숫자가 섞여있는 문자열이 주어지면 그 중 숫자만 추출하여 그 순서대로 자연수를 만듭니다.
+
+만약 "tge0a1h205er"에서 숫자만 추출하면 0, 1, 2, 0, 5이고 이것을 자연수를 만들면 1205이 됩니다.
+
+<Callout type='warn'>
+  추출하여 만들어지는 자연수는 100,000,000을 넘지 않습니다.
+</Callout>
+
+### 입력설명
+
+첫 줄에 숫자가 섞인 문자열이 주어집니다. 문자열의 길이는 50을 넘지 않습니다.
+
+### 출력설명
+
+첫 줄에 자연수를 출력합니다.
+
+### 입력예제
+
+```tsx
+const str = 'g0en2T0s8eSoft';
+```
+
+### 출력예제
+
+208
+
+---
+
+## 나의 풀이
+
+<Steps>
+
+<Step>
+### isNaN으로 숫자 판별하기
+
+반복문을 돌며 해당 문자열이 Number로 변환했을 때 isNaN인지 확인합니다.
+
+```tsx
+for (let i = 0; i < str.length; i++) {
+  if (!isNaN(Number(str[i]))) {
+  }
+}
+```
+
+<Callout type='info'>
+  isNaN이 false일 때가 숫자입니다. 즉, `!isNaN()`을 사용하여 숫자인지 판별할 수
+  있습니다.
+</Callout>
+
+</Step>
+
+<Step>
+### 숫자를 문자열에 추가하기
+
+isNaN이 false일 경우 str[i]의 값을 answer 변수에 추가합니다.
+
+```tsx
+if (!isNaN(Number(str[i]))) {
+  answer += str[i];
+}
+```
+
+</Step>
+
+<Step>
+### 숫자 타입으로 변환하기
+
+최종적으로 문자열을 숫자 타입으로 리턴합니다.
+
+```tsx
+return parseInt(answer);
+```
+
+</Step>
+
+</Steps>
+
+---
+
+## 개선된 Solution
+
+<Callout type="warn">
+기존 풀이의 문제점: 주어진 문자열에 공백이 들어가있는 경우 문제가 발생합니다.
+
+예를 들어 `parseInt("  12 3")`는 12라는 값을 리턴합니다.
+
+</Callout>
+
+더 정확하게 숫자를 체크하기 위해 **정규표현식**을 사용합니다.
+
+<Steps>
+
+<Step>
+### 정규표현식으로 숫자가 아닌 것 제거
+
+`\D` 패턴은 숫자가 아닌 모든 문자를 의미합니다.
+
+```tsx
+const answer = str.replace(/\D/g, ''); // 숫자가 아닌 것 제거
+return parseInt(answer) || 0;
+```
+
+<Callout type="info">
+**정규표현식 설명**
+
+- `/\D/g`: 숫자가 아닌 모든 문자를 찾습니다
+- `g` 플래그: 전역 검색으로 문자열 전체에서 모든 패턴을 찾습니다
+- `|| 0`: 빈 문자열인 경우 0을 반환합니다
+
+</Callout>
+
+</Step>
+
+</Steps>
+
+---
+
+## 마무리
+
+이 문제를 통해 배운 점:
+
+1. `isNaN()` 함수의 동작 원리와 한계
+2. 정규표현식을 사용한 문자열 처리의 우수성
+3. 엣지 케이스(공백 등)를 고려한 코드 작성의 중요성

@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jaerin's Blog
+
+개발 학습 내용과 알고리즘 문제 풀이를 기록하는 기술 블로그입니다.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 + React 19
+- **Content**: Fumadocs + MDX
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
+### 개발 서버 실행
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build
+```
 
-## Learn More
+### 프로덕션 서버 실행
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Blog Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+블로그 포스트는 `/blog/content` 디렉토리에 MDX 형식으로 작성됩니다.
 
-## Deploy on Vercel
+### 포스트 작성 예시
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```mdx
+---
+title: '포스트 제목'
+description: '포스트 설명'
+date: 2025-01-05
+tags: ['React', 'Next.js']
+thumbnail: /thumbnails/image.png
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 내용 작성
+```
+
+### 사용 가능한 컴포넌트
+
+- `<Callout>`: 강조 박스 (type: "info" | "warn" | "error")
+- `<Steps>` / `<Step>`: 단계별 가이드
+
+## License
+
+MIT

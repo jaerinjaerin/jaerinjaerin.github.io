@@ -31,7 +31,7 @@ def get_thumbnail(tags):
     elif 'retrospective' in tags_lower:
         return '/thumbnails/retrospective.png'
     else:
-        return '/thumbnails/default.png'
+        return '/thumbnails/default.jpg'
 
 def slugify(text):
     """Convert title to filename slug"""

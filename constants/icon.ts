@@ -11,4 +11,5 @@ export const CATEGORY_ICON_MAP: Record<string, string> = {
   Life: 'tool.png',
   React: 'figma.png',
   Error: 'caution-sign.png',
+  Study: 'zoom.png',
 };
