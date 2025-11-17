@@ -90,7 +90,7 @@ export const description = {
         </SyntaxHighlighter>
       </div>
 
-      <motion.button
+      <motion.a
         whileTap={{
           scale: 0.94, // 살짝 눌림
           y: 3, // 아래로 살짝 이동
@@ -98,14 +98,16 @@ export const description = {
         }}
         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
         className='bg-card max-w-[320px] w-full mx-auto shadow-blue-glow rounded-[20px] py-4 text-white font-extrabold text-[28px] md:text-[36px] relative active:scale-95 mt-4'
-        onClick={() => confirm('🤔저에 대해서 많이 궁금하시군요! 조금만 기다려주시면 소개글을 가져올게요.')}
+        href='https://jaerinjaerin.vercel.app/'
+        target='_blank'
+        rel='noreferrer noopener'
       >
         Hello!
         <motion.div className='absolute top-1/2 left-[-20px] z-20' whileTap={{ rotate: -10, y: 2 }}>
           <Image src={'/images/icons/handy-touch.png'} alt='handy-touch icon' width={100} height={70} />
         </motion.div>
         <motion.div className='size-6 bg-primary opacity-90 blur-[10.5px] rounded-full absolute z-10 top-1/2 left-[64px]' />
-      </motion.button>
+      </motion.a>
     </div>
   );
 }

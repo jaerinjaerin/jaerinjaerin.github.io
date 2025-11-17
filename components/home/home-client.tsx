@@ -24,8 +24,6 @@ export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
     return acc;
   }, {} as Record<string, number>);
 
-  console.log('➡️➡️➡️ categoryCounts', categoryCounts, selectedCategory);
-
   const categoryProps: CategoryData = {
     selectedCategory,
     categories: allTags,
@@ -42,9 +40,7 @@ export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && displayCount < filteredPosts.length) {
-          setDisplayCount((prev) =>
-            Math.min(prev + POSTS_PER_PAGE, filteredPosts.length)
-          );
+          setDisplayCount((prev) => Math.min(prev + POSTS_PER_PAGE, filteredPosts.length));
         }
       },
       { threshold: 0.1, rootMargin: '100px' } // 100px 전에 미리 로드
@@ -73,8 +69,7 @@ export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
         <InlineCategory {...categoryProps} />
 
         <div className='text-xl font-bold my-4'>
-          📂 {selectedCategory === 'All' ? 'All Posts' : selectedCategory} (
-          {categoryCounts[selectedCategory]})
+          📂 {selectedCategory === 'All' ? 'All Posts' : selectedCategory} ({categoryCounts[selectedCategory]})
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
           {visiblePosts.map((blog) => {
@@ -84,10 +79,7 @@ export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
 
         {/* Infinite Scroll Trigger */}
         {hasMore && (
-          <div
-            ref={observerTarget}
-            className='h-20 flex items-center justify-center'
-          >
+          <div ref={observerTarget} className='h-20 flex items-center justify-center'>
             <div className='text-sm text-gray-500'>Loading more posts...</div>
           </div>
         )}

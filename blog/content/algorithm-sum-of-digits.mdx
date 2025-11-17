@@ -1,0 +1,196 @@
+---
+title: '자릿수의 합'
+description: '블루투포스 방식으로 접근하는 알고리즘 풀이'
+date: '2025-11-17'
+tags: ['Algorithm']
+featured: false
+thumbnail: /thumbnails/js-algorithm.png
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## 문제
+
+<Callout type='info'>
+  N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고, 그 합이 최대인 자연수를 출력하는 프로그램을 작성하세요. 자릿수의 합이 같은 경우 원래
+  숫자가 큰 숫자를 답으로 합니다. 만약 235 와 1234가 동시에 답이 될 수 있다면 1234를 답으로 출력해야 합니다.
+</Callout>
+
+### 입력설명
+
+첫 줄에 자연수의 개수 `N(3<=N<=100)`이 주어지고, 그 다음 줄에 N개의 자연수가 주어진다.
+
+각 자연수의 크기는 10,000,000를 넘지 않는다.
+
+### 출력설명
+
+자릿수의 합이 최대인 자연수를 출력한다.
+
+### 입력예제
+
+```tsx
+const n = 7;
+const arr = [128, 460, 603, 40, 521, 137, 123];
+```
+
+### 출력예제
+
+137
+
+## 나의 풀이
+
+중요한 건 원래 숫자가 뭐였는지, 그 숫자의 자릿수의 합이 무엇인지 알고 있어야한다.
+
+<Steps>
+<Step>
+
+### 변수 생성
+
+자릿수의 합을 저장할 변수와 origin 값을 저장할 변수를 생성한다.
+
+```tsx
+let maxSumValue = 0;
+let originValue = 0;
+```
+
+</Step>
+
+<Step>
+
+### 배열 순회 및 자릿수 합 계산
+
+arr을 순회하면서 기존 요소의 값과 자릿수를 합한 값을 저장한다.
+
+```tsx
+arr.forEach(item => {
+  let sum = 0;
+  let current = item;
+
+  while (current > 0) {
+    const sumValue = current % 10;
+    const nextValue = Math.floor(current / 10);
+
+    sum += sumValue;
+    current = nextValue;
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+### Map 객체를 이용한 비교
+
+기존에 저장되어있는 map 객체에 동일한 자릿수의 합이 있다면 숫자를 비교한다.
+
+```tsx
+if (map.has(sum)) {
+  const currentOriginValue = map.get(sum);
+
+  if (currentOriginValue < item) {
+    map.set(sum, item);
+    return;
+  }
+} else {
+  map.set(sum, item);
+}
+```
+
+</Step>
+
+<Step>
+
+### 결과 반환
+
+가장 큰 자릿수의 합을 가진 요소를 리턴한다.
+
+```tsx
+return [...map].sort((a, b) => b[0] - a[0])[0][1];
+```
+
+</Step>
+</Steps>
+
+## Solution
+
+<Steps>
+<Step>
+
+### 변수 초기화
+
+리턴하는 값(배열의 요소)과 자릿수의 최대합을 담을 변수를 생성한다.
+
+```tsx
+let answer = 0;
+let max = 0; // or Number.MIN_INTEGER_SAGE
+```
+
+</Step>
+
+<Step>
+
+### 배열 순회 및 자릿수 합 계산
+
+배열을 순회하며 자릿수의 합을 구한다.
+
+```tsx
+for (let item of string) {
+  let current = item;
+  let sum = 0;
+
+  while (current > 0) {
+    sum += current % 10;
+    current = Math.floor(current / 10);
+  }
+
+  // 최대값 찾기
+  if (sum > max) {
+    // 더한 값이 기존 max 값보다 크다면 max 변경, answer 값 변경
+    max = sum;
+    answer = item;
+  } else if (sum === max) {
+    // 더한 값과 기존 max 값이 같다면 answer와 item 비교 후 answer에 큰 값 할당
+    answer = answer > x ? answer : x;
+  }
+}
+```
+
+</Step>
+</Steps>
+
+### 전체 코드
+
+```tsx
+function solution(n, arr) {
+	let max = 0;
+	let answer = 0;
+
+	for(let item of arr){
+		let current = item;
+		let sum = 0;
+
+		while(current > 0){
+			sum += current % 10;
+			current = Math.floor(current / 10);
+		}
+
+		if(sum > max){
+			answer = item;
+			max = sum;
+		} elss if(sum === max) {
+			answer = answer > x ? answer : x;
+		}
+	}
+
+	return answer;
+}
+```
+
+---
+
+<Callout type='warn'>
+  가공된 값과 origin 값을 가지기 위해선 Map 객체를 사용하는게 좋을 것 같다라는 생각을 먼저 하고 문제를 접근했는데 문제를 너무 어렵게 접근했던 것
+  같기도 합니다.
+</Callout>
