@@ -101,7 +101,7 @@ export const description = {
         className='bg-card max-w-[320px] w-full mx-auto shadow-blue-glow rounded-[20px] py-4 text-white font-extrabold text-[28px] md:text-[36px] relative active:scale-95 mt-4'
         href='https://jaerinjaerin.vercel.app/'
         target='_blank'
-        rel='noopener noreferrer'
+        rel='noreferrer noopener'
       >
         Hello!
         <motion.div
