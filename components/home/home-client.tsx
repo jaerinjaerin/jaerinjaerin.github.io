@@ -24,8 +24,6 @@ export function HomePageClient({ allPosts, allTags }: HomePageClientProps) {
     return acc;
   }, {} as Record<string, number>);
 
-  console.log('➡️➡️➡️ categoryCounts', categoryCounts, selectedCategory);
-
   const categoryProps: CategoryData = {
     selectedCategory,
     categories: allTags,
