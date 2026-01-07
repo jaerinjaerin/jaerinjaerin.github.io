@@ -124,13 +124,12 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className='col-span-6 relative'>
             {pageData.thumbnail && (
               <div className='rounded-2xl border-2 border-gray-900 overflow-hidden'>
-                <div className='-m-px'>
+                <div className='relative w-full h-[400px]'>
                   <Image
                     src={pageData.thumbnail}
                     alt={pageData.title}
-                    width={517}
-                    height={290}
-                    className='w-full'
+                    fill
+                    className='object-cover object-center'
                     priority
                   />
                 </div>
@@ -143,7 +142,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className='absolute max-w-7xl mx-auto left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] lg:w-full h-full border-x border-border p-0 pointer-events-none' />
           <main className='w-full p-0 overflow-hidden'>
             <div className='p-6 lg:p-10'>
-              <div className='prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-lg'>
+              <div className='prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-lg prose-img:max-w-full prose-img:h-auto prose-img:w-auto prose-img:mx-auto'>
                 <DocsBody>
                   <MDXContent />
                 </DocsBody>
