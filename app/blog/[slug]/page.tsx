@@ -75,55 +75,73 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <SsgoiTransition id='/blog/*'>
       <div className='min-h-screen bg-background relative'>
-        <div className='space-y-4 border-b border-border relative z-10'>
-          <div className='max-w-7xl mx-auto flex flex-col gap-6 p-6'>
-            <div className='flex flex-wrap items-center gap-3 gap-y-5 text-sm text-sidebar-ring'>
-              <Button variant='outline' asChild className='h-6 w-6'>
-                <Link href='/'>
-                  <ArrowLeft className='w-4 h-4' />
-                  <span className='sr-only'>Back to all articles</span>
-                </Link>
-              </Button>
+        <header className='container grid grid-cols-1 lg:grid-cols-12 gap-6 mt-12 lg:mb-20 items-center'>
+          <div className='col-span-6 flex flex-col md:pr-12 gap-6'>
+            {/* 카테고리 + 날짜 + 읽기 시간 */}
+            <div className='flex flex-col sm:flex-row sm:items-center gap-4 text-gray-500 text-base'>
               {pageData.tags && pageData.tags.length > 0 && (
-                <div className='flex flex-wrap gap-3 text-sidebar-ring items-center'>
-                  {pageData.tags.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className='h-6 w-fit px-3 text-sm font-medium bg-muted-foreground text-muted rounded-md border flex items-center justify-center'
-                    >
-                      {tag}
+                <span className='flex tracking-tight items-center gap-1.5 relative h-6 font-bold text-sm text-gray-900'>
+                  <Link
+                    href='/'
+                    className='flex items-center gap-1.5 focus:outline-none focus:ring-2 ring-offset-2 rounded-sm max-w-full'
+                  >
+                    <span className='w-5 h-5 rounded bg-primary/20 flex items-center justify-center'>
+                      <span className='w-2 h-2 rounded bg-primary' />
                     </span>
-                  ))}
-                  <time className='font-medium text-primary/50 dark:text-primary'>
-                    {formattedDate}
-                  </time>
+                    <span className='whitespace-nowrap overflow-ellipsis overflow-hidden'>
+                      {pageData.tags[0]}
+                    </span>
+                  </Link>
+                </span>
+              )}
+              <div className='flex gap-2'>
+                <time className='text-gray-500'>{formattedDate}</time>
+                {pageData.readTime && (
+                  <>
+                    <span>·</span>
+                    <span>{pageData.readTime}</span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* 제목 */}
+            <h1 className='text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl font-bold max-w-lg lg:max-w-none break-words'>
+              {pageData.title}
+            </h1>
+
+            {/* 작성자 + 조회수 */}
+            <div className='flex items-center text-gray-500 text-base gap-4'>
+              {pageData.author && (
+                <div className='flex items-center gap-2 text-sm overflow-hidden'>
+                  <span className='truncate py-1'>By {pageData.author}</span>
                 </div>
               )}
             </div>
-            <h1 className='text-4xl md:text-5xl lg:text-6xl tracking-tighter font-waguri font-extrabold'>
-              {pageData.title}
-            </h1>
-            {pageData.description && (
-              <p className='text-muted max-w-4xl md:text-lg'>
-                {pageData.description}
-              </p>
+          </div>
+
+          {/* 썸네일 이미지 */}
+          <div className='col-span-6 relative'>
+            {pageData.thumbnail && (
+              <div className='rounded-2xl border-2 border-gray-900 overflow-hidden'>
+                <div className='-m-px'>
+                  <Image
+                    src={pageData.thumbnail}
+                    alt={pageData.title}
+                    width={517}
+                    height={290}
+                    className='w-full'
+                    priority
+                  />
+                </div>
+              </div>
             )}
           </div>
-        </div>
+        </header>
+
         <div className='flex divide-x divide-border relative max-w-7xl mx-auto px-4 md:px-0 z-10'>
           <div className='absolute max-w-7xl mx-auto left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] lg:w-full h-full border-x border-border p-0 pointer-events-none' />
           <main className='w-full p-0 overflow-hidden'>
-            {pageData.thumbnail && (
-              <div className='relative w-full h-[500px] overflow-hidden border border-transparent'>
-                <Image
-                  src={pageData.thumbnail}
-                  alt={pageData.title}
-                  fill
-                  className='object-contain'
-                  priority
-                />
-              </div>
-            )}
             <div className='p-6 lg:p-10'>
               <div className='prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-lg'>
                 <DocsBody>
