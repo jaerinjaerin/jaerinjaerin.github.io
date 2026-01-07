@@ -22,12 +22,14 @@ export interface Post {
   readTime?: string;
   author?: string;
   thumbnail?: string;
+  viewCount?: number;
 }
 
 export interface CategoryData {
   categories: string[];
   selectedCategory: string;
   categoryCounts: Record<string, number>;
+  onCategoryChange?: (category: string) => void;
 }
 
 export interface HomePageClientProps {
