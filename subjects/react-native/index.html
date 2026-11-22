@@ -20,6 +20,37 @@ main{max-width:1260px;grid-template-columns:285px minmax(0,1fr);gap:20px;padding
 #code .syntax-function{color:#ffcb7e}
 #code .syntax-punctuation{color:#89a5ca}
 #code::selection,#code span::selection{background:#426397;color:#fff}
+
+/* Tablet and phone typography refinement: keep touch targets comfortably sized. */
+@media (max-width:1200px){
+  .course-hero h1{font-size:clamp(25px,2.8vw,33px)}
+  .course-hero .hero-copy .small{font-size:12px}
+  .course-hero p{font-size:13px}
+  .hero-progress #progress-percent{font-size:18px}
+  .site-brand{font-size:16px}
+  main>nav details>summary{font-size:14px}
+  main nav #lesson-nav button{font-size:13px;line-height:1.35;padding:9px 12px}
+  main>article{font-size:14px;line-height:1.75}
+  article h2{font-size:clamp(24px,2.5vw,29px)}
+  article h3{font-size:17px;margin-top:25px}
+  article .lesson-intro{font-size:14px;line-height:1.7}
+  #why,#how{font-size:14px;line-height:1.75}
+  article pre#code{font-size:12.5px}
+  .panel{font-size:14px}
+  .quiz-option{font-size:14px}
+}
+@media (max-width:700px){
+  .course-hero h1{font-size:clamp(23px,6vw,27px)}
+  .course-hero .hero-copy .small{font-size:12px}
+  main>article{font-size:14px;line-height:1.72}
+  article h2{font-size:25px}
+  article h3{font-size:17px}
+  article .lesson-intro,#why,#how{font-size:14px}
+  main nav #lesson-nav button{font-size:13px}
+  .hero-progress #progress-percent{font-size:17px}
+  /* Prevent Safari input zoom; don't reduce interactive control text. */
+  input,select{font-size:16px}
+}
 </style></head><body>
 <div class="site-top"><a href="../../index.html" class="site-brand"><span class="site-logo">⌘</span>CS Learning Lab</a><a href="../../index.html" class="site-home">전체 과목 →</a></div><header class="course-hero"><div class="hero-wrap"><a class="home-link" href="../../index.html">← 전체 과목으로</a><div class="hero-content"><span class="react-logo" aria-hidden="true">⚛</span><div class="hero-copy"><div class="small">직접 조작하는 컴퓨터공학 교재</div><h1>React Native 1~17강</h1><p>개념 이해 · 코드 분석 · 인터랙티브 실습</p></div><div class="hero-progress"><div id="progress">학습 진도 0 / 17강</div><div id="progress-percent">0% 완료</div><div class="progress-track"><div id="progress-fill"></div></div></div></div></div></header>
 <main><nav aria-label="강의 목차"><details id="lesson-drawer" open><summary>📚 강의 목차 <span class="list-count">전체 17강</span></summary><div class="nav-content"><label class="search-label" for="lesson-search">강의 찾기</label><input id="lesson-search" type="search" placeholder="강의 검색" aria-label="강의 검색"><div id="lesson-nav"></div><button id="reset-progress" class="btn secondary" style="width:100%;margin-top:12px">진도 초기화</button></div></details></nav>
