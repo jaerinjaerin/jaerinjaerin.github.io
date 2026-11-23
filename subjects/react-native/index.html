@@ -310,7 +310,7 @@ function renderDeepLab(kind,c,s,e){
   const cancel=mk('button','취소','btn secondary'),confirm=mk('button','삭제 확인','btn danger');
   buttons.append(cancel,confirm);dialog.append(h,p,buttons);overlay.append(dialog);s.append(list,overlay,summary);
   const close=()=>{state.visible=false;paint()};
-  cancel.addEventListener('click',close);confirm.addEventListener('click',()=>{if(state.selected!==null)state.items.splice(state.selected,1);state.selected=null;state.visible=false;paint()});
+  cancel.addEventListener('click',close);confirm.addEventListener('click',()=>{if(state.selected!==null)state.items=state.items.filter((_,i)=>i!==state.selected);state.selected=null;state.visible=false;paint()});
   action('Android 뒤로 가기 요청',close,true);
   function paint(){list.replaceChildren();state.items.forEach((item,i)=>{const row=mk('div',undefined,'lab-modal-row');const name=mk('span',item);const b=mk('button','삭제…','btn secondary');b.addEventListener('click',()=>{state.selected=i;state.visible=true;paint()});row.append(name,b);list.append(row)});
    if(!state.items.length)list.append(mk('p','모든 항목을 삭제했습니다.'));
