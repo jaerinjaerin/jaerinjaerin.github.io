@@ -102,6 +102,48 @@ main{max-width:1260px;grid-template-columns:285px minmax(0,1fr);gap:20px;padding
 .flex-follow{flex:none;background:#315fce;color:white;font-size:12px;padding:8px 10px;border-radius:8px}
 .flex-step-result{margin-top:13px;background:white;color:#375174;border:1px solid #d5e0f1;border-radius:10px;padding:13px;line-height:1.75;font-size:13px}
 @media(max-width:700px){.flex-advanced-frame{height:220px}.flex-advanced-width{gap:8px}.flex-profile{padding:10px}}
+
+/* React Native lectures 19–26: interactive DOM simulations */
+.lab-field{display:flex;flex-direction:column;flex:1 1 150px;min-width:0;gap:5px}
+.lab-field label{font-size:13px;color:#3c5379}
+.lab-field select,.lab-field input{width:100%;min-width:0;max-width:100%;font-size:16px}
+.lab-slider-value{font-size:12px;color:#3458ac;font-weight:800}
+.lab-summary{font-size:13px;font-weight:750;color:#284b88;padding:9px 0}
+.lab-viewport{border:1px solid #cbdaf3;background:#fff;border-radius:10px;max-height:235px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px}
+.lab-list-row{background:#e8f0ff;border:1px solid #cddffa;color:#1b3c70;border-radius:9px;min-height:38px;padding:8px 11px;font-size:13px}
+.lab-list-row.lab-buffer{background:#f7f8fa;color:#8b98ad;border-style:dashed}
+.lab-event{font-size:13px;line-height:1.75;background:#fff;border:1px solid #d9e4f7;padding:12px;margin-top:12px;border-radius:10px;color:#375071;overflow-wrap:anywhere}
+.lab-event p{margin:5px 0 0}
+.lab-image-frame{position:relative;background:#e9edf6;border:2px solid #6789c5;border-radius:12px;margin:12px auto;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.lab-image-art{position:absolute;display:grid;place-items:center;background:linear-gradient(125deg,#76bde4,#a9d9a1 45%,#f5c78c);color:#183f6b;font-size:15px;font-weight:800;white-space:nowrap}
+.lab-image-frame[data-message]:after{content:attr(data-message);font-weight:800;font-size:14px;color:#486088}
+.lab-touch-pad{width:100%;min-height:115px;padding:20px;border:2px solid #6793df;border-radius:15px;background:#edf4ff;color:#1e4b9a;font-weight:800;touch-action:manipulation;user-select:none}
+.lab-touch-pad.is-pressed{background:#6b91eb;color:#fff;transform:scale(.98)}
+.lab-event-log{margin-top:12px;max-height:220px;overflow:auto;background:#fff;border:1px solid #d6e3f5;border-radius:10px}
+.lab-log-entry{padding:8px 11px;border-bottom:1px solid #ecf0f7;font-size:13px;color:#315078}
+.lab-keyboard-phone{max-width:360px;margin:auto;position:relative;border:2px solid #506b9b;background:#fff;border-radius:16px;overflow:hidden}
+.lab-keyboard-header{height:55px;background:#dce8ff;text-align:center;padding:15px;font-size:13px}
+.lab-keyboard-input{position:absolute;left:16px;right:16px;border:1px solid #8ba8da;border-radius:9px;padding:12px;background:#eaf0fa;font-size:13px;transition:bottom .14s}
+.lab-keyboard-board{position:absolute;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,#c7d0e2 0,#c7d0e2 24px,#e5eaf2 25px,#e5eaf2 41px);display:grid;place-items:center;font-size:13px;color:#304b79}
+.lab-form{display:grid;gap:11px}
+.lab-form input[type=email],.lab-form input[type=password],.lab-project-items+input{width:100%}
+.lab-check{display:flex;align-items:center;gap:10px;font-size:14px}
+.lab-check input{width:20px;height:20px;min-height:20px}
+.lab-form-errors{color:#9e3a49;font-size:13px;line-height:1.8}
+.lab-form button:disabled{opacity:.5}
+.lab-modal-list,.lab-project-items{display:flex;flex-direction:column;gap:7px}
+.lab-modal-row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:1px solid #d8e2f2;border-radius:9px;padding:9px 11px;font-size:13px}
+.lab-modal-row .btn{font-size:12px;padding:9px 12px;flex:none}
+.lab-modal-overlay{margin:13px 0;padding:14px;background:#243751aa;border-radius:12px}
+.lab-modal-overlay[hidden]{display:none}
+.lab-modal-dialog{background:white;border-radius:13px;padding:16px}
+.lab-modal-dialog h4{margin:0 0 9px;color:#19375e}
+.lab-modal-dialog p{font-size:14px;color:#3a516f}
+.lab-project-confirm{margin:12px 0;border-radius:10px;background:#fff3eb;border:1px solid #f1d4b9;padding:12px}
+.lab-project-confirm:empty{display:none}
+.lab-project-confirm strong{display:block;font-size:14px;margin-bottom:10px}
+#stage:has(.lab-project-items) input[type=search]{width:100%;margin-bottom:12px}
+@media(max-width:700px){.lab-field{flex-basis:100%}.lab-modal-row{padding:8px}.lab-viewport{max-height:210px}}
 </style></head><body>
 <div class="site-top"><a href="../../index.html" class="site-brand"><span class="site-logo">⌘</span>CS Learning Lab</a><a href="../../index.html" class="site-home">전체 과목 →</a></div><header class="course-hero"><div class="hero-wrap"><a class="home-link" href="../../index.html">← 전체 과목으로</a><div class="hero-content"><span class="react-logo" aria-hidden="true">⚛</span><div class="hero-copy"><div class="small">직접 조작하는 컴퓨터공학 교재</div><h1>React Native 1~18강</h1><p>개념 이해 · 코드 분석 · 인터랙티브 실습</p></div><div class="hero-progress"><div id="progress">학습 진도 0 / 18강</div><div id="progress-percent">0% 완료</div><div class="progress-track"><div id="progress-fill"></div></div></div></div></div></header>
 <main><nav aria-label="강의 목차"><details id="lesson-drawer" open><summary>📚 강의 목차 <span class="list-count">전체 18강</span></summary><div class="nav-content"><label class="search-label" for="lesson-search">강의 찾기</label><input id="lesson-search" type="search" placeholder="강의 검색" aria-label="강의 검색"><div id="lesson-nav"></div><button id="reset-progress" class="btn secondary" style="width:100%;margin-top:12px">진도 초기화</button></div></details></nav>
@@ -148,7 +190,164 @@ const $=id=>document.getElementById(id),nav=$('lesson-nav');let current=0,state=
 const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined)x.textContent=txt;if(cls)x.className=cls;return x};
 function control(label,type,initial,onInput,opts){let wrap=el('div');let lab=el('label',label);wrap.append(lab);let input=el(type==='select'?'select':'input');if(type==='select'){opts.forEach(([val,title])=>{let o=el('option',title);o.value=val;input.append(o)});input.value=initial}else{input.type=type;input.value=initial}input.addEventListener(type==='range'||type==='text'?'input':'change',()=>onInput(input.value));wrap.append(input);return wrap}
 function button(text,fn,cls='btn'){let b=el('button',text,cls);b.type='button';b.addEventListener('click',fn);return b}
+
+function renderDeepLab(kind,c,s,e){
+ const mk=(tag,txt,cls)=>{const node=document.createElement(tag);if(txt!==undefined)node.textContent=txt;if(cls)node.className=cls;return node};
+ const append=(parent,...children)=>{children.forEach(child=>parent.append(child));return parent};
+ const choose=(name,values,initial,change)=>{const wrap=mk('div',undefined,'lab-field');const label=mk('label',name);const input=mk('select');for(const [value,title] of values){const option=mk('option',title);option.value=value;input.append(option)}input.value=String(initial);input.addEventListener('change',()=>change(input.value));wrap.append(label,input);c.append(wrap);return input};
+ const slide=(name,min,max,step,initial,change)=>{const wrap=mk('div',undefined,'lab-field');const label=mk('label',name);const value=mk('output',String(initial),'lab-slider-value');const input=mk('input');input.type='range';input.min=String(min);input.max=String(max);input.step=String(step);input.value=String(initial);label.append(document.createTextNode(' '),value);input.addEventListener('input',()=>{value.textContent=input.value;change(Number(input.value))});wrap.append(label,input);c.append(wrap);return input};
+ const action=(label,fn,secondary=false)=>{const b=mk('button',label,'btn'+(secondary?' secondary':''));b.type='button';b.addEventListener('click',fn);c.append(b);return b};
+ const note=(title,detail)=>{const box=mk('div',undefined,'lab-event');append(box,mk('strong',title),mk('p',detail));s.append(box);return box};
+ const write=(title,details)=>{e.textContent=title+' · '+details};
+ const format=n=>Number(n).toLocaleString('ko-KR');
+ if(kind==='scrollDepth'){
+  state.count??=12;state.viewport??=4;state.offset??=0;
+  slide('전체 항목',4,120,4,state.count,n=>{state.count=n;state.offset=Math.min(state.offset,state.count-state.viewport);show()});
+  slide('뷰포트에 보이는 행',2,8,1,state.viewport,n=>{state.viewport=n;state.offset=Math.min(state.offset,Math.max(0,state.count-n));show()});
+  const offset=slide('스크롤 시작 행',0,Math.max(0,state.count-state.viewport),1,state.offset,n=>{state.offset=n;show()});
+  const summary=mk('div',undefined,'lab-summary');const frame=mk('div',undefined,'lab-viewport');
+  const tail=mk('div',undefined,'lab-event');s.append(summary,frame,tail);
+  function show(){offset.max=String(Math.max(0,state.count-state.viewport));offset.value=String(state.offset);
+   summary.textContent='전체 생성된 자식: '+format(state.count)+'개 / 현재 보이는 행: '+Math.min(state.count-state.offset,state.viewport)+'개';
+   frame.replaceChildren();const shown=Math.min(state.viewport,state.count-state.offset);
+   for(let i=0;i<shown;i++)frame.append(mk('div',(state.offset+i+1)+'번째 카드 · 설정 화면','lab-list-row'));
+   tail.textContent='내부 상태: 전체 높이 ≈ '+(state.count*48)+'px, 뷰포트 ≈ '+(state.viewport*48)+'px, 스크롤 시작 ≈ '+(state.offset*48)+'px. 화면 밖 행도 ScrollView의 자식으로 생성될 수 있습니다.';
+   write('표시된 행만 잘라 보여주는 교육용 화면','실제 ScrollView는 모든 자식을 렌더링하고 플랫폼이 스크롤 뷰포트 부분을 표시합니다.');
+  }show();
+ }
+ if(kind==='flatDepth'){
+  state.total??=200;state.window??=6;state.buffer??=2;state.start??=0;
+  slide('전체 데이터 수',40,1000,40,state.total,n=>{state.total=n;state.start=Math.min(state.start,n-state.window);show()});
+  slide('한 화면의 행 수',3,12,1,state.window,n=>{state.window=n;state.start=Math.min(state.start,state.total-n);show()});
+  slide('앞뒤 버퍼 행 수',0,8,1,state.buffer,n=>{state.buffer=n;show()});
+  const seek=slide('화면 시작 인덱스',0,state.total-state.window,1,state.start,n=>{state.start=n;show()});
+  const summary=mk('div',undefined,'lab-summary'),frame=mk('div',undefined,'lab-viewport');
+  const info=mk('div',undefined,'lab-event');s.append(summary,frame,info);
+  function show(){seek.max=String(state.total-state.window);seek.value=String(state.start);const lo=Math.max(0,state.start-state.buffer),hi=Math.min(state.total,state.start+state.window+state.buffer);
+   summary.textContent='data 전체 '+format(state.total)+'개 → 가상화 범위 '+format(hi-lo)+'개 (예시) · 화면 '+state.window+'개';
+   frame.replaceChildren();for(let i=lo;i<hi;i++){const row=mk('div','id-'+(i+1000)+' / '+(i+1)+'번 행','lab-list-row');if(i<state.start||i>=state.start+state.window)row.classList.add('lab-buffer');frame.append(row)}
+   info.textContent='렌더링 창: ['+lo+', '+hi+') · 화면 밖의 연한 행은 주변 버퍼입니다. keyExtractor의 key는 index보다 안정적인 데이터 ID가 권장됩니다.';
+   write('FlatList의 가상화 원리를 단순화한 교육 모델','실제 윈도우 크기와 렌더링 시점은 기기·속성·스크롤 속도에 따라 달라집니다.');
+  }show();
+ }
+ if(kind==='imageDepth'){
+  state.sourceRatio??='1.5';state.targetRatio??='1';state.mode??='cover';state.status??='loaded';
+  choose('원본 이미지 비율',[['2','가로 2:1'],['1.5','가로 3:2'],['1','정사각형 1:1'],['0.67','세로 2:3']],state.sourceRatio,v=>{state.sourceRatio=v;show()});
+  choose('표시 영역 비율',[['1','정사각형 1:1'],['1.5','가로 3:2'],['0.67','세로 2:3']],state.targetRatio,v=>{state.targetRatio=v;show()});
+  choose('resizeMode',[['cover','cover · 채우고 자르기'],['contain','contain · 전체 보이기'],['stretch','stretch · 비율 변형']],state.mode,v=>{state.mode=v;show()});
+  choose('로딩 상태',[['loaded','로드 성공'],['loading','로딩 중'],['error','로드 실패']],state.status,v=>{state.status=v;show()});
+  const summary=mk('div',undefined,'lab-summary');const frame=mk('div',undefined,'lab-image-frame');const art=mk('div','🌄 원본 이미지','lab-image-art');frame.append(art);s.append(summary,frame);
+  function show(){const r=Number(state.sourceRatio),t=Number(state.targetRatio);const w=260,h=Math.round(w/t);
+   frame.style.width=w+'px';frame.style.height=h+'px';frame.style.maxWidth='100%';
+   art.style.display=state.status==='loaded'?'grid':'none';frame.classList.toggle('lab-image-loading',state.status==='loading');
+   frame.classList.toggle('lab-image-error',state.status==='error');
+   if(state.mode==='stretch'){art.style.width='100%';art.style.height='100%';art.style.position='static';art.style.transform='none'}
+   else {const iw=state.mode==='cover'?(r>t?r/t*w:w):(r>t?w:r/t*w),ih=iw/r;
+    art.style.width=iw+'px';art.style.height=ih+'px';art.style.position='absolute';art.style.left='50%';art.style.top='50%';art.style.transform='translate(-50%,-50%)'}
+   const crop=state.mode==='cover'?(r>t?'좌우 잘림':'상하 잘림'):(state.mode==='contain'?(r>t?'상하 여백':'좌우 여백'):'비율 변형');
+   summary.textContent='원본 비율 '+r.toFixed(2)+' / 컨테이너 비율 '+t.toFixed(2)+' → '+(r===t?'크기 맞음':crop);
+   if(state.status!=='loaded')frame.setAttribute('data-message',state.status==='loading'?'⏳ 로딩 중':'⚠️ 이미지 로드 실패');else frame.removeAttribute('data-message');
+   write('비율과 크기 계산','실제 네트워크 이미지는 불러오지 않는 시각화입니다. 이미지가 실패하면 대체 이미지를 제공해야 합니다.');
+  }show();
+ }
+ if(kind==='pressDepth'){
+  state.events??=[];state.pressed??=false;
+  const pad=mk('button','여기를 눌러 보세요','lab-touch-pad');pad.type='button';
+  const log=mk('div',undefined,'lab-event-log');s.append(pad,log);
+  let holdTimer=0,longFired=false;
+  const record=t=>{state.events.unshift(t);state.events=state.events.slice(0,9);paint()};
+  const paint=()=>{pad.classList.toggle('is-pressed',state.pressed);log.replaceChildren();state.events.forEach((t,i)=>log.append(mk('div',(i+1)+'. '+t,'lab-log-entry')));write('이벤트 로그','onPressIn → onPressOut → onPress, 긴 누르기는 별도 이벤트입니다. 브라우저에서 React Native 이벤트를 재현한 교육용 모델입니다.')};
+  pad.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;state.pressed=true;longFired=false;record('onPressIn / pressed=true');holdTimer=setTimeout(()=>{if(state.pressed){longFired=true;record('onLongPress / 500ms 경과')}},500)});
+  pad.addEventListener('pointerup',()=>{if(!state.pressed)return;clearTimeout(holdTimer);state.pressed=false;record('onPressOut / pressed=false');if(!longFired)record('onPress / 짧은 탭')});
+  pad.addEventListener('pointercancel',()=>{clearTimeout(holdTimer);if(state.pressed){state.pressed=false;record('제스처 취소 / onPress 실행 안 함')}});
+  pad.addEventListener('pointerleave',()=>{if(!state.pressed)return;clearTimeout(holdTimer);state.pressed=false;record('영역 이탈 / 교육용 취소 처리')});
+  action('짧은 터치 시뮬레이션',()=>{record('onPressIn');record('onPressOut');record('onPress')},true);
+  action('길게 누르기 시뮬레이션',()=>{record('onPressIn');record('onLongPress');record('onPressOut')},true);
+  action('취소 시뮬레이션',()=>{record('onPressIn');record('pointercancel → onPress 없음')},true);
+  action('로그 비우기',()=>{state.events=[];paint()},true);paint();
+ }
+ if(kind==='keyboardDepth'){
+  state.kb??=220;state.behavior??='padding';state.header??=0;state.focus??=false;
+  slide('가상 키보드 높이(px)',100,280,20,state.kb,n=>{state.kb=n;paint()});
+  slide('상단 헤더 오프셋(px)',0,100,10,state.header,n=>{state.header=n;paint()});
+  choose('behavior',[['none','회피 적용 안 함'],['padding','padding'],['height','height'],['position','position']],state.behavior,v=>{state.behavior=v;paint()});
+  action('입력 포커스 토글',()=>{state.focus=!state.focus;paint()});
+  const visual=mk('div',undefined,'lab-keyboard-phone'),header=mk('div','앱 상단 헤더','lab-keyboard-header'),input=mk('div','메시지를 입력하세요','lab-keyboard-input'),kb=mk('div','가상 소프트 키보드','lab-keyboard-board');
+  visual.append(header,input,kb);s.append(visual);
+  const info=mk('div',undefined,'lab-event');s.append(info);
+  function paint(){const shift=state.focus&&state.behavior!=='none'?Math.max(0,state.kb-state.header):0;
+   const base=308;input.style.bottom=(20+shift)+'px';kb.style.height=(state.focus?state.kb:0)+'px';
+   visual.style.height='350px';kb.style.display=state.focus?'grid':'none';
+   const obscured=state.focus&&shift<state.kb-20;
+   info.textContent='포커스 '+(state.focus?'ON':'OFF')+' · 키보드 '+(state.focus?state.kb:0)+'px · 입력창 상승 '+shift+'px · '+(obscured?'가림 가능성 있음':'예시 상 가림 없음');
+   write('키보드 회피의 단순화된 좌표 모델','실제 iOS/Android의 behavior는 애니메이션·안전 영역·내비게이션 설정에 따라 다릅니다. 숫자는 실제 측정값이 아닙니다.');
+  }paint();
+ }
+ if(kind==='formDepth'){
+  state.email??='';state.pw??='';state.agree??=false;state.submitted??=false;
+  const wrap=mk('div',undefined,'lab-form'),email=mk('input'),pw=mk('input'),agree=mk('input'),status=mk('div',undefined,'lab-event'),submit=mk('button','제출하기','btn');
+  email.type='email';email.placeholder='이메일';email.value=state.email;email.autocomplete='off';
+  pw.type='password';pw.placeholder='비밀번호 8자 이상';pw.value=state.pw;
+  agree.type='checkbox';agree.checked=state.agree;
+  const agreeLabel=mk('label','필수 약관 동의');agreeLabel.className='lab-check';agreeLabel.prepend(agree);
+  const feedback=mk('div',undefined,'lab-form-errors');append(wrap,email,pw,agreeLabel,feedback,submit,status);s.append(wrap);
+  const emailValid=x=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);
+  function paint(){const errors=[];if(!emailValid(state.email))errors.push('이메일 형식을 확인하세요');if(state.pw.length<8)errors.push('비밀번호는 8자 이상이어야 합니다');if(!state.agree)errors.push('필수 약관에 동의해야 합니다');
+   const valid=errors.length===0;submit.disabled=!valid;feedback.replaceChildren();errors.forEach(msg=>feedback.append(mk('div','• '+msg)));
+   status.textContent='State: email='+JSON.stringify(state.email)+', password 길이='+state.pw.length+', 동의='+state.agree+' / 제출 가능='+valid;
+   write('입력 상태 → 검증 함수 → 제출 가능 여부','이 실습의 정규식은 기본 형식만 검사합니다. 실제 계정 생성에는 서버 검증·인증·보안 저장이 필요합니다.');
+  }
+  email.addEventListener('input',()=>{state.email=email.value;state.submitted=false;paint()});
+  pw.addEventListener('input',()=>{state.pw=pw.value;state.submitted=false;paint()});
+  agree.addEventListener('change',()=>{state.agree=agree.checked;paint()});
+  submit.addEventListener('click',()=>{status.textContent='✅ 모든 클라이언트 조건을 만족하여 제출 요청을 보낼 수 있습니다. 실제 서버에는 전송하지 않습니다.'});
+  paint();
+ }
+ if(kind==='modalDepth'){
+  state.visible??=false;state.items??=['프로젝트 메모','학습 기록','임시 파일'];state.selected??=1;
+  const list=mk('div',undefined,'lab-modal-list'),overlay=mk('div',undefined,'lab-modal-overlay'),dialog=mk('div',undefined,'lab-modal-dialog'),summary=mk('div',undefined,'lab-event');
+  const h=mk('h4','삭제 확인');const p=mk('p','정말 삭제할까요?');const buttons=mk('div',undefined,'row');
+  const cancel=mk('button','취소','btn secondary'),confirm=mk('button','삭제 확인','btn danger');
+  buttons.append(cancel,confirm);dialog.append(h,p,buttons);overlay.append(dialog);s.append(list,overlay,summary);
+  const close=()=>{state.visible=false;paint()};
+  cancel.addEventListener('click',close);confirm.addEventListener('click',()=>{if(state.selected!==null)state.items.splice(state.selected,1);state.selected=null;state.visible=false;paint()});
+  action('Android 뒤로 가기 요청',close,true);
+  function paint(){list.replaceChildren();state.items.forEach((item,i)=>{const row=mk('div',undefined,'lab-modal-row');const name=mk('span',item);const b=mk('button','삭제…','btn secondary');b.addEventListener('click',()=>{state.selected=i;state.visible=true;paint()});row.append(name,b);list.append(row)});
+   if(!state.items.length)list.append(mk('p','모든 항목을 삭제했습니다.'));
+   overlay.hidden=!state.visible;p.textContent=state.selected===null?'항목을 선택하세요.':'“'+(state.items[state.selected]||'선택한 항목')+'”을 삭제할까요?';
+   summary.textContent='Modal visible='+state.visible+' · 선택된 인덱스='+state.selected+' · 데이터 '+JSON.stringify(state.items);
+   write('상태 전이: closed → open → cancel/confirm → closed','취소는 배열을 변경하지 않고, 확인 시에만 데이터에서 삭제합니다.');
+  }paint();
+ }
+ if(kind==='projectDepth'){
+  state.items??=[{id:'p1',name:'사과',price:1200},{id:'p2',name:'배',price:2100},{id:'p3',name:'포도',price:3300},{id:'p4',name:'바나나',price:1700},{id:'p5',name:'딸기',price:4500}];
+  state.query??='';state.selectedId??=null;state.nextId??=6;
+  const search=mk('input');search.type='search';search.placeholder='상품 이름 검색';search.value=state.query;
+  const list=mk('div',undefined,'lab-project-items'),modal=mk('div',undefined,'lab-project-confirm'),info=mk('div',undefined,'lab-event');
+  s.append(search,list,modal,info);
+  search.addEventListener('input',()=>{state.query=search.value;render()});
+  action('검색어 비우기',()=>{state.query='';search.value='';render()},true);
+  action('새 상품 추가',()=>{state.items=[...state.items,{id:'p'+state.nextId++,name:'신상품 '+state.nextId,price:2500}];render()});
+  function render(){const filtered=state.items.filter(item=>item.name.toLowerCase().includes(state.query.trim().toLowerCase()));
+   list.replaceChildren();if(!filtered.length)list.append(mk('p','검색 결과가 없습니다.'));
+   filtered.forEach(item=>{const row=mk('div',undefined,'lab-modal-row');row.append(mk('span',item.name+' · '+format(item.price)+'원'));
+    const b=mk('button','선택','btn secondary');b.addEventListener('click',()=>{state.selectedId=item.id;render()});row.append(b);list.append(row)});
+   modal.replaceChildren();
+   if(state.selectedId!==null){const found=state.items.find(x=>x.id===state.selectedId);
+    if(found){modal.append(mk('strong','“'+found.name+'”을 삭제할까요?'));const controls=mk('div',undefined,'row');
+     const no=mk('button','취소','btn secondary'),yes=mk('button','삭제 확인','btn danger');
+     no.addEventListener('click',()=>{state.selectedId=null;render()});
+     yes.addEventListener('click',()=>{state.items=state.items.filter(item=>item.id!==state.selectedId);state.selectedId=null;render()});
+     controls.append(no,yes);modal.append(controls)}
+   }
+   info.textContent='원본 items='+state.items.length+'개 · query='+JSON.stringify(state.query)+' · 파생 필터 목록='+filtered.length+'개 · selectedId='+state.selectedId;
+   write('items State → filter(query) → 행 선택 → 확인 → 불변 삭제','이 목록은 FlatList의 데이터 흐름을 웹으로 재현한 교육용 실습이며 실제 네이티브 목록이나 서버 저장소가 아닙니다.');
+  }render();
+ }
+}
+
 function renderLab(){const l=lessons[current],c=$('controls'),s=$('stage'),e=$('explain');c.replaceChildren();s.replaceChildren();e.textContent='';const put=txt=>{s.replaceChildren(el('div',txt))};const caption=txt=>{e.textContent=txt};
+if(l.lab.endsWith('Depth')){renderDeepLab(l.lab,c,s,e);return;}
 if(l.lab==='platform'){state.platform??='iOS';c.append(control('플랫폼','select',state.platform,v=>{state.platform=v;renderLab()},[['iOS','🍎 iOS'],['Android','🤖 Android']]));put('📱 '+state.platform+' 화면: 안녕하세요!');caption('React Native 공통 컴포넌트 정의 → '+state.platform+' 네이티브 UI로 표시됩니다. 플랫폼마다 표현은 조금 다를 수 있습니다.')}
 if(l.lab==='greeting'){state.name??='민수';c.append(control('부모가 전달하는 name','text',state.name,v=>{state.name=v;show()},[]));function show(){put('부모 Props: name = '+JSON.stringify(state.name)+'\n자식 화면: 안녕하세요, '+state.name+'님!');caption('데이터 흐름: 부모의 입력 → Props 전달 → 자식 컴포넌트 렌더링')}show()}
 if(l.lab==='counter'){state.count??=0;c.append(button('+1',()=>{state.count++;show()}),button('-1',()=>{state.count--;show()},'btn secondary'));function show(){put('❤️ 좋아요 '+state.count+'개');caption('부모 State count = '+state.count+' → 자식 Props likes = '+state.count+' → Text에 반영')}show()}
