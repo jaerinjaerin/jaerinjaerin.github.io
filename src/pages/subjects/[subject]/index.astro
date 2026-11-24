@@ -1,0 +1,76 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCatalog } from '../../../lib/catalog';
+
+export async function getStaticPaths() {
+  const catalog = await getCatalog();
+  return catalog.map((s) => ({ params: { subject: s.id }, props: { s } }));
+}
+const { s } = Astro.props;
+const orders = s.lessons.map((l) => l.order);
+---
+<Base title={s.data.title} description={s.data.description}>
+  <div class="shell">
+    <!-- 옛 주소 호환: /subjects/<과목>/?lesson=N → /subjects/<과목>/NN/ -->
+    <script is:inline define:vars={{ orders }}>
+      (function () {
+        var n = Number(new URLSearchParams(location.search).get('lesson'));
+        if (n && orders.indexOf(n) !== -1) location.replace('./' + String(n).padStart(2, '0') + '/');
+      })();
+    </script>
+    <nav class="crumbs" aria-label="위치" style="padding-top:18px"><a href="/">홈</a><span>›</span><span>{s.data.field}</span><span>›</span><span>{s.data.title}</span></nav>
+    <section class="course-head">
+      <div style="font-size:40px" aria-hidden="true">{s.data.icon}</div>
+      <h1>{s.data.title}</h1>
+      <p class="lesson-summary">{s.data.description}</p>
+      <div class="progress" style="max-width:420px"><i id="fill"></i></div>
+      <p class="muted small" id="progress-text">{s.lessons.length}개 강의</p>
+      <div class="row"><a class="btn" id="resume" href={s.lessons[0]?.url}>1강부터 시작하기 →</a></div>
+    </section>
+
+    {s.data.units.map((u) => {
+      const ls = s.lessons.filter((l) => l.unit === u.id);
+      if (!ls.length) return null;
+      return (
+        <section class="unit" aria-label={u.title}>
+          <h2>{u.title}</h2>
+          <ol class="lesson-list">
+            {ls.map((l) => (
+              <li>
+                <a class="card lesson-row" href={l.url} data-order={l.order}>
+                  <span class="lesson-num">{l.order}</span>
+                  <span><span class="t">{l.title}</span><br /><span class="s">{l.summary}</span></span>
+                  {l.kind === 'deep' ? <span class="badge deep">심화</span> : <span />}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+      );
+    })}
+  </div>
+  <script type="application/json" id="subject-data" set:html={JSON.stringify({ id: s.id, key: s.progressKey, orders, urls: s.lessons.map((l) => [l.order, l.url, l.title]) })} />
+  <script>
+    import { getDone, getLast } from '../../../scripts/progress';
+    const d = JSON.parse(document.getElementById('subject-data')!.textContent || '{}');
+    const done = getDone(d.key);
+    let n = 0;
+    document.querySelectorAll<HTMLElement>('.lesson-row').forEach((row) => {
+      const ok = Boolean(done[String(Number(row.dataset.order) - 1)]);
+      row.dataset.done = String(ok);
+      if (ok) n++;
+    });
+    const pct = d.orders.length ? Math.round((n / d.orders.length) * 100) : 0;
+    (document.getElementById('fill') as HTMLElement).style.width = pct + '%';
+    document.getElementById('progress-text')!.textContent = `${n} / ${d.orders.length}강 완료 (${pct}%)`;
+    const last = getLast();
+    if (last.subject === d.id && last.order) {
+      const hit = d.urls.find((u: [number, string, string]) => u[0] === last.order);
+      if (hit) {
+        const a = document.getElementById('resume') as HTMLAnchorElement;
+        a.href = hit[1];
+        a.textContent = `${hit[0]}강 이어서 학습하기 →`;
+      }
+    }
+  </script>
+</Base>

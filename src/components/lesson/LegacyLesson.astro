@@ -1,0 +1,67 @@
+---
+import { Code } from 'astro:components';
+import '../../styles/legacy-labs.css';
+import Quiz from './Quiz.astro';
+interface Props { data: any; }
+const { data: l } = Astro.props;
+const x = l.ext;
+---
+<div class="notice">이 강의는 사이트 개편 전 형식 그대로 보존된 강의입니다. 새 기준(①~⑧ 심화 설명·단계 실행 실습)으로 순차 재작성될 예정입니다.</div>
+<div class="prose legacy-lesson">
+  <p class="lesson-summary">{l.i}</p>
+  <div class="card goals"><h2>🎯 이번 강의의 학습 목표</h2><p style="margin:0">{x.goal}</p></div>
+
+  <h2>① 왜 배우나요?</h2>
+  <p>{l.w}</p>
+  <h2>② 정확한 원리</h2>
+  <p>{l.h}</p>
+  <h3>핵심 개념 깊이 이해하기</h3>
+  <p>{x.concept}</p>
+  <h3>내부에서는 어떤 순서로 실행될까요?</h3>
+  <ol>{x.steps.map((s: string) => <li>{s}</li>)}</ol>
+
+  <h2>③ 실제 코드 살펴보기</h2>
+  <Code code={l.c} lang="jsx" themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} />
+  <h3>코드를 줄 단위로 이해하기</h3>
+  <ol>{x.notes.map((s: string) => <li>{s}</li>)}</ol>
+
+  <h2>④ 직접 조작하는 실습 <span class="badge sim">시뮬레이션</span></h2>
+  <p>{l.task}</p>
+  <div class="card legacy-lab" data-legacy-lab={l.lab}>
+    <div class="row legacy-controls" data-legacy="controls"></div>
+    <div class="legacy-stage" data-legacy="stage" aria-live="polite"></div>
+    <p class="small muted" data-legacy="explain"></p>
+    <button class="btn secondary" type="button" data-legacy-reset>↺ 실습 초기화</button>
+  </div>
+
+  <h2>⚠️ 흔한 오류와 주의할 점</h2>
+  <p>{x.pitfall}</p>
+  <h2>🌍 실제 앱에서는 어디에 사용할까요?</h2>
+  <p>{x.use}</p>
+
+  <h2>⑤ 이해도 확인하기</h2>
+  <Quiz question={l.q} options={l.a} answer={l.ok} explanation={l.reason} />
+  <div class="card assess">
+    <div class="assess-head"><span class="kind">생각해 보기</span></div>
+    <p class="q">{x.challenge}</p>
+    <details><summary>💡 힌트 보기</summary><p>{x.hint}</p></details>
+    <details><summary>✅ 예시 답안 보기</summary><p>{x.answer}</p></details>
+  </div>
+</div>
+<style is:global>
+  .legacy-lab { padding: 16px; display: grid; gap: 12px; margin: 12px 0; }
+  .legacy-controls { gap: 10px; }
+  .legacy-controls > div { display: grid; gap: 4px; }
+  .legacy-controls label, .legacy-lab .lab-field label { font-size: 14px; font-weight: 700; }
+  .legacy-lab input:not([type=range]):not([type=checkbox]), .legacy-lab select { min-height: 44px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
+  .legacy-lab input[type=range] { width: min(100%, 280px); min-height: 32px; }
+  .legacy-stage { min-height: 120px; padding: 14px; border-radius: 12px; background: var(--surface-2); white-space: pre-wrap; font-size: 15px; overflow-x: auto; }
+  /* 원본 실습 스타일은 라이트 색상 기준이라, 다크 모드에서도 읽히도록 무대만 밝은 색 유지 */
+  html[data-theme="dark"] .legacy-stage { background: #eef1f8; color: #172033; color-scheme: light; }
+  .legacy-lesson details { margin-top: 8px; padding: 6px 12px; border-radius: 10px; background: var(--surface-2); }
+  .legacy-lesson summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+</style>
+<script>
+  import { mountLegacyLab } from '../../labs/legacy/react-native.js';
+  document.querySelectorAll<HTMLElement>('[data-legacy-lab]').forEach((root) => mountLegacyLab(root, root.dataset.legacyLab));
+</script>

@@ -1,0 +1,30 @@
+---
+import { render } from 'astro:content';
+import LessonLayout from '../../../../layouts/LessonLayout.astro';
+import LegacyLesson from '../../../../components/lesson/LegacyLesson.astro';
+import { getCatalog } from '../../../../lib/catalog';
+
+export async function getStaticPaths() {
+  const catalog = await getCatalog();
+  return catalog.flatMap((subject) =>
+    subject.lessons.map((lesson) => ({ params: { subject: subject.id, lesson: lesson.slug }, props: { subject, lesson } })),
+  );
+}
+const { subject, lesson } = Astro.props;
+const Content = lesson.mdx ? (await render(lesson.mdx)).Content : null;
+---
+<LessonLayout subject={subject} lesson={lesson} view={lesson.kind}>
+  {Content ? (
+    <>
+      <p class="lesson-summary">{lesson.summary}</p>
+      <div class="card goals">
+        <h2>🎯 이번 강의를 마치면</h2>
+        <ul>{lesson.mdx!.data.goals.map((g) => <li>{g}</li>)}</ul>
+        {lesson.mdx!.data.prerequisites.length > 0 && <p class="small muted" style="margin:8px 0 0">선수 지식: {lesson.mdx!.data.prerequisites.join(', ')}</p>}
+      </div>
+      <div class="prose"><Content /></div>
+    </>
+  ) : (
+    <LegacyLesson data={lesson.legacy!.data} />
+  )}
+</LessonLayout>

@@ -1,0 +1,10 @@
+---
+/** 줄 단위 해설. items: [줄 번호(또는 범위), 코드 조각, 설명] */
+interface Props { items: [string, string, string][]; }
+const { items } = Astro.props;
+---
+<ol class="walk">
+  {items.map(([ln, code, text]) => (
+    <li><span class="ln">{ln}</span><span><code>{code}</code><br />{text}</span></li>
+  ))}
+</ol>

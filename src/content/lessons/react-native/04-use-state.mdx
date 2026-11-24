@@ -1,0 +1,389 @@
+---
+subject: react-native
+order: 4
+unit: basics
+title: State와 useState — 컴포넌트의 기억과 렌더 스냅샷
+summary: State는 렌더와 렌더 사이에 값을 기억하는 장치입니다. setState는 값을 "즉시 바꾸는" 함수가 아니라 "다음 렌더를 요청"하는 함수라는 점을, 업데이트 큐와 스냅샷으로 정확히 이해합니다.
+goals:
+  - 일반 변수로는 화면이 바뀌지 않는 이유를 렌더링 과정으로 설명할 수 있다.
+  - setCount(count + 1)를 세 번 호출해도 1만 증가하는 이유를 업데이트 큐와 스냅샷으로 설명할 수 있다.
+  - 값 업데이트와 함수형 업데이트(c => c + 1)를 상황에 맞게 고를 수 있다.
+  - Hook을 조건문 안에서 호출하면 안 되는 이유를 Hook 목록의 "순서"로 설명할 수 있다.
+  - 배열·객체 State를 직접 수정하면 화면이 바뀌지 않는 이유를 Object.is 비교로 설명할 수 있다.
+prerequisites:
+  - 2강 컴포넌트와 JSX
+  - 3강 View · Text · Button과 onPress
+  - JavaScript 함수와 화살표 함수
+minutes: 60
+updated: 2026-11-23
+---
+import Layer from '../../../components/lesson/Layer.astro';
+import Callout from '../../../components/lesson/Callout.astro';
+import CodeWalk from '../../../components/lesson/CodeWalk.astro';
+import UseStateQueueLab from '../../../components/labs/UseStateQueueLab.astro';
+import HookOrderLab from '../../../components/labs/HookOrderLab.astro';
+import Predict from '../../../components/lesson/Predict.astro';
+import BugHunt from '../../../components/lesson/BugHunt.astro';
+import Explain from '../../../components/lesson/Explain.astro';
+import Quiz from '../../../components/lesson/Quiz.astro';
+
+## 문제부터 시작해 봅시다
+
+좋아요 버튼을 만들었습니다. 버튼을 누를 때마다 숫자를 1씩 올리고 싶어서 이렇게 썼어요.
+
+```jsx
+export default function Like() {
+  let likes = 0;
+  return <Button title={`좋아요 ${likes}`} onPress={() => { likes = likes + 1; }} />;
+}
+```
+
+버튼을 아무리 눌러도 화면은 계속 `좋아요 0`입니다. `likes`는 분명 1, 2, 3으로 늘어났을 텐데 왜 화면은 그대로일까요? 이 강의는 이 질문에 정확히 답하는 것에서 시작합니다.
+
+<Layer n={1} />
+## 비유: 사진관과 주문서
+
+React 컴포넌트를 **사진관**이라고 생각해 봅시다.
+
+- 컴포넌트 함수를 한 번 실행하는 것(**렌더링**)은 사진을 **한 장 찍는 것**입니다. 화면은 그 사진입니다.
+- 사진 속 숫자는 찍는 순간 고정됩니다. 사진을 들고 펜으로 숫자를 고쳐 써도(일반 변수 수정) 벽에 걸린 사진은 바뀌지 않습니다.
+- **State**는 사진관 금고에 보관된 장부입니다. 사진을 찍을 때마다 사진사는 금고의 장부를 보고 숫자를 넣습니다.
+- **setState**는 장부를 직접 고치는 펜이 아니라 **"다음 사진은 이 숫자로 찍어 주세요"라는 주문서**입니다. 주문서를 여러 장 내면 사진사는 모아 두었다가, 순서대로 처리하고 **새 사진을 한 장** 찍습니다.
+
+<Callout kind="limit" title="이 비유가 맞지 않는 지점">
+실제 React는 "사진 전체"를 새로 거는 것이 아니라, 이전 결과와 비교해 <strong>바뀐 부분만</strong> 화면(네이티브 뷰)에 반영합니다. 또 주문서는 그냥 "숫자"일 수도 있고, "지금 숫자에 1을 더해 주세요" 같은 <strong>계산 방법(함수)</strong>일 수도 있습니다. 이 차이가 이 강의의 핵심입니다.
+</Callout>
+
+<Layer n={2} />
+## 정확한 정의
+
+- **렌더링(rendering)**: React가 컴포넌트 함수를 호출해, 화면이 어떻게 보여야 하는지(React 요소 트리)를 계산하는 일입니다. 함수가 반환한 JSX가 결과입니다.
+- **State(상태)**: 컴포넌트가 **렌더와 렌더 사이에 기억해야 하는 값**입니다. 컴포넌트 함수 안의 지역 변수가 아니라, React가 컴포넌트 바깥(컴포넌트 인스턴스에 연결된 저장소)에 보관합니다.
+- **useState**: State를 하나 선언하는 **Hook**입니다. `const [state, setState] = useState(initialValue)` 형태로 쓰고, **[현재 렌더의 값, 업데이트 함수]** 두 개짜리 배열을 반환합니다.
+- **setState(nextState)**: State 변경을 **예약**하고 **다시 렌더링을 요청**하는 함수입니다. 인자로 값(`setCount(5)`)을 주면 그 값으로 교체하고, 함수(`setCount(c => c + 1)`)를 주면 직전 값을 받아 다음 값을 계산합니다.
+- **스냅샷(snapshot)**: 한 번의 렌더에서 State 값은 **상수처럼 고정**됩니다. 그 렌더에서 만들어진 이벤트 핸들러도 그 값을 기억합니다(클로저).
+
+<Layer n={3} />
+## 왜 State가 필요한가: 일반 변수가 실패하는 두 가지 이유
+
+처음 코드가 실패한 이유는 정확히 두 가지입니다.
+
+1. **바꿔도 아무도 다시 그리지 않는다.** `likes = likes + 1`은 JavaScript 변수 하나를 바꿀 뿐, React에게 "화면을 다시 계산하라"고 알리지 않습니다. React는 언제 다시 렌더링해야 하는지 모릅니다.
+2. **다시 그려도 값이 사라진다.** 설령 다른 이유로 다시 렌더링되더라도, 컴포넌트 함수가 처음부터 다시 실행되면서 `let likes = 0`이 또 실행됩니다. 지역 변수는 함수가 끝나면 사라지기 때문입니다.
+
+useState는 이 두 문제를 동시에 해결합니다. 값을 **React가 함수 바깥에 보관**하고(문제 2 해결), 값을 바꾸는 유일한 통로인 **setState가 다시 렌더링을 요청**합니다(문제 1 해결).
+
+<Callout kind="note" title="역사 한 줄">
+2019년 React 16.8 이전에는 State를 쓰려면 클래스 컴포넌트에서 <code>this.state</code>와 <code>this.setState</code>를 써야 했습니다. Hook은 함수 컴포넌트에서도 State 같은 React 기능을 쓸 수 있게 하려고 만들어졌습니다.
+</Callout>
+
+## 예제 1 — 기본: 실제로 동작하는 카운터
+
+Expo Snack이나 React Native 프로젝트의 `App.js`에 그대로 붙여 넣으면 실행됩니다.
+
+<div class="code-title"><span>App.js — 기본 예제</span><span class="badge real">그대로 실행 가능</span></div>
+
+```jsx
+import { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  console.log('렌더링! 이번 count =', count);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.count}>{count}</Text>
+      <Button title="+1" onPress={() => setCount(count + 1)} />
+      <Button title="초기화" onPress={() => setCount(0)} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12 },
+  count: { fontSize: 48, fontWeight: 'bold' },
+});
+```
+
+<CodeWalk items={[
+  ['1', "import { useState } from 'react';", "useState는 react-native가 아니라 react 패키지에서 가져옵니다. State는 화면 플랫폼과 무관한 React의 핵심 기능이기 때문입니다. 중괄호는 react가 내보낸 여러 이름 중 useState만 꺼내는 이름 있는 가져오기(named import)입니다."],
+  ['2', "import { View, Text, Button, StyleSheet } from 'react-native';", "화면을 그리는 부품은 react-native에서 가져옵니다."],
+  ['4', 'export default function App() {', "App은 컴포넌트 함수입니다. React는 렌더링할 때마다 이 함수 전체를 처음부터 다시 실행합니다. 이 사실이 이 강의 모든 내용의 출발점입니다."],
+  ['5', 'const [count, setCount] = useState(0);', "배열 구조 분해 할당입니다. useState가 반환한 배열의 0번째를 count, 1번째를 setCount라는 이름에 담습니다. 이름은 자유지만 [값, set값] 짝으로 짓는 것이 관례입니다. const인 이유: 이 렌더 안에서 count는 절대 바뀌지 않는 스냅샷이기 때문입니다. 0은 첫 렌더에서만 쓰이는 초기값입니다."],
+  ['7', "console.log('렌더링! 이번 count =', count);", "렌더링될 때마다 실행됩니다. 버튼을 누를 때마다 이 줄이 다시 찍히는 것을 보면 '컴포넌트 함수가 다시 실행된다'는 것을 눈으로 확인할 수 있습니다."],
+  ['11', '<Text style={styles.count}>{count}</Text>', "JSX 안의 중괄호는 JavaScript 값을 넣는 자리입니다. 이 렌더의 count 스냅샷이 들어갑니다."],
+  ['12', '<Button title="+1" onPress={() => setCount(count + 1)} />', "onPress에는 '나중에 누르면 실행할 함수'를 넘깁니다. 화살표 함수로 감싸지 않고 onPress={setCount(count + 1)}라고 쓰면 렌더 도중에 즉시 실행되어 무한 렌더링 오류가 납니다(⑤에서 다룹니다)."],
+  ['13', '<Button title="초기화" onPress={() => setCount(0)} />', "값을 직접 넘기는 업데이트입니다. 이전 값과 상관없이 0으로 교체합니다."],
+  ['18–21', 'StyleSheet.create({ ... })', "스타일 객체를 컴포넌트 밖에 한 번만 만들어 둡니다. 렌더링마다 새 객체를 만들지 않습니다."],
+]} />
+
+<Layer n={4} />
+## 내부 동작: 버튼을 누른 순간부터 화면이 바뀌기까지
+
+`+1`을 누르면 내부에서 다음 일이 **순서대로** 일어납니다.
+
+1. **이벤트 처리** — 네이티브 쪽 터치 이벤트가 JavaScript로 전달되고, onPress에 등록된 화살표 함수가 실행됩니다. 이 함수는 **직전 렌더에서 만들어졌기 때문에** 그 렌더의 `count`(예: 0)를 기억합니다.
+2. **업데이트 예약** — `setCount(count + 1)`이 실행됩니다. 괄호 안의 `count + 1`이 **먼저 계산**되어 1이 되고, React는 이 컴포넌트의 State 큐에 "다음엔 1"이라는 **업데이트**를 넣습니다. 이 시점에 `count` 변수는 여전히 0이고, 화면도 그대로입니다.
+3. **배칭(batching)** — 이벤트 핸들러가 끝날 때까지 React는 기다립니다. 핸들러 안에서 setState를 여러 번 불러도 모아 두었다가 **렌더링을 한 번만** 예약합니다. React 18부터는 setTimeout이나 Promise 안의 업데이트도 자동으로 묶습니다(React Native는 새 아키텍처 기준).
+4. **렌더 단계** — React가 `App()`을 다시 호출합니다. `useState(0)`에 도달하면 초기값 0은 무시하고, 보관 중인 값에서 출발해 **큐에 쌓인 업데이트를 순서대로 적용**합니다. 값 업데이트는 결과를 **교체**하고, 함수 업데이트는 **직전 결과를 넣어 계산**합니다. 최종값이 이번 렌더의 새 스냅샷 `count`가 됩니다.
+5. **비교와 커밋** — 새로 계산한 JSX를 이전 결과와 비교해, 바뀐 부분(여기서는 Text의 글자)만 네이티브 뷰에 반영합니다. 이제야 화면에 1이 보입니다.
+
+React 소스 코드(`ReactFiberHooks.js`)에서 4번의 "순서대로 적용"은 사실상 아래 한 줄짜리 함수로 이루어집니다.
+
+```js
+function basicStateReducer(state, action) {
+  return typeof action === 'function' ? action(state) : action;
+}
+```
+
+`action`이 함수면 직전 `state`를 넣어 실행하고, 아니면 그 값으로 교체합니다. 즉 **useState는 이 리듀서를 쓰는 useReducer**와 같습니다.
+
+### State는 어디에 저장될까: Hook 목록
+
+React는 화면의 컴포넌트 하나하나마다 내부 객체(**Fiber**)를 두고, 그 안에 Hook들을 **호출된 순서대로 연결 리스트**로 저장합니다. 각 칸(hook)에는 현재 값(`memoizedState`)과 업데이트 큐(`queue`)가 있습니다.
+
+중요한 점은, 칸에 **변수 이름이 저장되지 않는다**는 것입니다. React는 "이 컴포넌트에서 **첫 번째**로 호출된 useState", "**두 번째**로 호출된 useState"처럼 **순서로만** 칸을 찾습니다. 그래서 렌더마다 Hook 호출 순서가 같아야 합니다. 아래 두 번째 실습에서 이 순서가 깨지는 순간을 직접 보게 됩니다.
+
+<Layer n={9} />
+## 실습 1 — 업데이트 큐 시뮬레이터
+
+아래 실습은 위 1~5단계를 한 단계씩 보여줍니다. 각 변형을 실행하기 전에 **반드시 결과를 먼저 예측**하세요. 틀린 예측이 가장 많이 배우게 합니다.
+
+- 🐞 **count + 1 × 3**: 가장 흔한 실수입니다. 큐에 무엇이 쌓이는지 보세요.
+- **c => c + 1 × 3**: 같은 의도를 올바르게 표현한 코드입니다.
+- **값 + 함수 섞기**: 큐가 "교체"와 "계산"을 어떤 순서로 처리하는지 봅니다.
+- 🐞 **바로 console.log**: setCount 직후 count를 읽으면 무엇이 나올까요?
+- 🧩 **직접 조립**: 줄을 골라 핸들러를 만들고 미션 3개를 풀어 보세요.
+
+<UseStateQueueLab />
+
+<Callout kind="tip" title="실험 결과를 정리하면">
+<code>setCount(count + 1)</code>의 <code>count</code>는 <strong>버튼을 누르기 전 렌더의 스냅샷</strong>이라, 세 번 불러도 "값 1"이 세 번 들어갈 뿐입니다. <code>setCount(c =&gt; c + 1)</code>은 함수 자체가 큐에 들어가 렌더 단계에서 <strong>직전 결과를 받아</strong> 계산되므로 3이 됩니다.
+</Callout>
+
+## 예제 2 — 함정: "3 올리기" 버튼의 버그와 수정
+
+<div class="code-title"><span>LikeButton.js — 함정 예제</span><span class="badge real">그대로 실행 가능</span></div>
+
+```jsx
+import { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+
+export default function LikeButton() {
+  const [likes, setLikes] = useState(0);
+
+  function addThree() {
+    setLikes(likes + 1);
+    setLikes(likes + 1);
+    setLikes(likes + 1);
+    console.log('방금 누른 뒤 likes =', likes);
+  }
+
+  function addThreeLater() {
+    setTimeout(() => {
+      setLikes(likes + 3);
+    }, 2000);
+  }
+
+  return (
+    <View style={{ padding: 24, gap: 12 }}>
+      <Text style={{ fontSize: 32 }}>❤️ {likes}</Text>
+      <Button title="+3 (버그)" onPress={addThree} />
+      <Button title="2초 뒤 +3 (버그)" onPress={addThreeLater} />
+    </View>
+  );
+}
+```
+
+<CodeWalk items={[
+  ['8–10', 'setLikes(likes + 1); ×3', "likes가 0인 렌더에서 실행되면 세 줄 모두 0 + 1 = 1을 계산합니다. 큐에는 [값 1, 값 1, 값 1]이 쌓이고, 결과는 1입니다. 의도는 +3이었습니다."],
+  ['11', "console.log('방금 누른 뒤 likes =', likes);", "0이 출력됩니다. setLikes는 이 렌더의 likes 상수를 바꾸지 않습니다. 새 값은 '다음 렌더의 likes'에 들어 있습니다."],
+  ['14–18', 'setTimeout(() => setLikes(likes + 3), 2000)', "오래된 클로저(stale closure) 문제입니다. 2초 안에 버튼을 세 번 빠르게 누르면, 세 타이머가 모두 '누른 시점의 likes = 0'을 기억하므로 2초 뒤 결과는 9가 아니라 3입니다."],
+  ['23–24', 'onPress={addThree}', "함수를 '참조'로 넘깁니다. 괄호를 붙인 onPress={addThree()}는 렌더 중 즉시 실행되어 무한 렌더링을 일으킵니다."],
+]} />
+
+고친 코드는 다음과 같습니다. **이전 값을 기준으로 다음 값을 계산할 때는 항상 함수형 업데이트**를 씁니다.
+
+```jsx
+function addThree() {
+  setLikes(prev => prev + 1);
+  setLikes(prev => prev + 1);
+  setLikes(prev => prev + 1);
+  // 여기서 likes는 여전히 이전 값입니다. 새 값이 필요하면 직접 계산해서 쓰세요.
+}
+
+function addThreeLater() {
+  setTimeout(() => {
+    setLikes(prev => prev + 3); // 타이머가 실행되는 시점의 최신 값을 받습니다
+  }, 2000);
+}
+```
+
+<Layer n={5} />
+## 경계와 실패: 실제로 만나는 오류들
+
+### 1) 렌더 도중 setState 호출 → 무한 렌더링
+
+```jsx
+<Button title="+1" onPress={setCount(count + 1)} />
+```
+
+<Callout kind="error" title="실제 오류 메시지">
+<code>Too many re-renders. React limits the number of renders to prevent an infinite loop.</code>
+</Callout>
+
+`onPress={setCount(count + 1)}`는 "누르면 실행할 함수"를 넘기는 것이 아니라, **렌더하는 도중에 setCount를 바로 호출**한 뒤 그 반환값(undefined)을 넘깁니다. setCount가 다시 렌더를 요청하고, 다시 렌더하면 또 호출하고… 끝없이 반복됩니다. 해결: `onPress={() => setCount(count + 1)}`.
+
+### 2) 조건문·반복문 안에서 Hook 호출
+
+<Callout kind="error" title="실제 오류 메시지 (개발 모드)">
+<code>Rendered fewer hooks than expected. This may be caused by an accidental early return statement.</code><br />
+<code>Rendered more hooks than during the previous render.</code><br />
+ESLint(eslint-plugin-react-hooks): <code>React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.</code>
+</Callout>
+
+Hook은 순서로 저장되기 때문에, 어떤 렌더에서 호출을 하나 건너뛰면 뒤의 Hook들이 **한 칸씩 밀려 남의 값을 받습니다.** 아래 실습에서 직접 확인하세요.
+
+<HookOrderLab />
+
+### 3) 배열·객체를 직접 수정 → 화면이 안 바뀜
+
+```jsx
+const [todos, setTodos] = useState([]);
+
+function add(text) {
+  todos.push({ id: Date.now(), text }); // ❌ 기존 배열을 직접 수정
+  setTodos(todos);                       // 같은 배열을 다시 넘김
+}
+```
+
+React는 새 State가 이전과 같은지 `Object.is(이전, 다음)`으로 비교합니다. 배열 안을 바꿔도 **배열 자체(참조)는 같으므로** "바뀐 것이 없다"고 판단하고 다시 렌더링하지 않을 수 있습니다. 반드시 새 배열을 만들어 넘깁니다: `setTodos(prev => [...prev, { id: Date.now(), text }])`. 객체도 마찬가지로 `setUser(prev => ({ ...prev, name: '지연' }))`처럼 새 객체를 만듭니다. (9강 전개 구문에서 자세히 다룹니다.)
+
+### 4) 비싼 초기값을 매 렌더마다 계산
+
+`useState(loadBigList())`는 초기값이 첫 렌더에서만 쓰이는데도, **함수 호출 자체는 매 렌더마다** 일어납니다. `useState(() => loadBigList())`처럼 **함수를 넘기면(지연 초기화)** 첫 렌더에서만 실행됩니다.
+
+### 5) 같은 값으로 setState
+
+`setCount(count)`처럼 이전과 같은 값(Object.is 기준)을 넣으면 React는 다시 렌더링을 건너뛸 수 있습니다. 오류는 아니지만, "왜 렌더가 안 일어나지?"라는 혼란의 원인이 됩니다.
+
+<Layer n={6} />
+## 비교와 트레이드오프: 무엇을 언제 쓰나
+
+| 방법 | 렌더 사이에 값 유지 | 바꾸면 다시 렌더링 | 언제 쓰나 |
+|---|---|---|---|
+| 일반 변수 `let x` | ✗ (매 렌더 초기화) | ✗ | 렌더 안에서 잠깐 계산하는 값 |
+| `useState` | ✓ | ✓ | 화면에 보이거나 화면을 바꾸는 값 |
+| `useRef` | ✓ | ✗ | 화면과 무관하게 기억할 값 (타이머 id, 이전 값, 입력창 참조) |
+| `useReducer` | ✓ | ✓ | 업데이트 규칙이 복잡하거나 여러 State가 함께 바뀔 때 |
+| 계산으로 파생 | — | — | 다른 State로 계산할 수 있는 값은 State로 만들지 않음 |
+
+**값 업데이트 vs 함수형 업데이트**
+
+| | `setCount(count + 1)` | `setCount(c => c + 1)` |
+|---|---|---|
+| 기준값 | 이 렌더의 스냅샷 | 큐에서 직전까지 계산된 값 |
+| 연속 호출 | 마지막 값으로 덮어씀 | 누적됨 |
+| 타이머·비동기 안 | 오래된 값 위험 | 실행 시점의 최신 값 |
+| 적합한 경우 | 이전 값과 무관한 새 값 (`setOpen(false)`, `setText(입력값)`) | 이전 값에 의존 (`+1`, 토글 `v => !v`, 배열 추가) |
+
+**비용 관점**: 핸들러에서 setState를 k번 호출하면 큐 처리는 O(k)이지만, 배칭 덕분에 **렌더링은 1번**입니다. 렌더링(컴포넌트 함수 실행 + 비교 + 네이티브 반영)이 큐 처리보다 훨씬 비싸므로, 배칭은 성능에 큰 이점입니다.
+
+<Layer n={7} />
+## 실무에서는
+
+- **업데이트 함수의 인자 이름**은 관례적으로 `prev`나 State 이름의 첫 글자(`c`, `l`)를 씁니다. 리뷰어가 함수형 업데이트임을 바로 알 수 있습니다.
+- **State는 최소한으로.** `items`와 `itemCount`를 둘 다 State로 두면 서로 어긋나는 버그가 생깁니다. `itemCount`는 `items.length`로 계산합니다.
+- **가까운 곳에 둔다.** 한 컴포넌트에서만 쓰는 State는 그 컴포넌트에 둡니다. 여러 자식이 같은 값을 써야 할 때만 부모로 올립니다(6강 State + Props).
+- **eslint-plugin-react-hooks**를 켭니다. 조건부 Hook 같은 실수를 실행 전에 잡아 줍니다.
+- **React DevTools**(React Native는 Expo/React Native DevTools)에서 컴포넌트를 선택하면 Hook 목록과 현재 State 값을 볼 수 있습니다. 실습에서 본 "Hook 목록"이 실제로 보입니다.
+- 폼처럼 State가 많고 서로 얽히면 `useReducer`나 폼 라이브러리를 검토합니다.
+
+<Layer n={8} />
+## 더 깊이 알아보기
+
+- **React 소스**: `packages/react-reconciler/src/ReactFiberHooks.js`의 `mountState`(첫 렌더에 칸 생성), `updateReducer`(큐 처리), `dispatchSetState`(setState의 실체). 실습의 의사 코드는 이 흐름을 단순화한 것입니다. 실제 큐는 순환 연결 리스트이고, 업데이트마다 우선순위(lane)가 붙어 급한 업데이트를 먼저 처리할 수 있습니다.
+- **이른 탈출(eager bailout)**: 큐가 비어 있을 때 setState가 호출되면, React는 다음 값을 미리 계산해 이전 값과 같으면 렌더 예약 자체를 생략하기도 합니다.
+- **공식 문서(react.dev)**: "State: A Component's Memory", "State as a Snapshot", "Queueing a Series of State Updates", "Rules of Hooks".
+- **flushSync**: 아주 드물게 setState 직후 화면이 즉시 반영되어야 할 때 쓰는 탈출구입니다. 남용하면 배칭의 이점이 사라집니다.
+- **다음에 배울 것**: 5강 Props(부모가 주는 값), 6강 State 끌어올리기. 이후 useEffect를 배우면 "렌더가 끝난 뒤 실행되는 코드"와 스냅샷의 관계를 다시 만나게 됩니다.
+
+<Layer n={10} />
+## 이해도 평가
+
+<Predict
+  question="count가 0일 때 이 버튼을 한 번 누르면, 화면에 보이는 값은?"
+  code={"function handlePress() {\n  setCount(count + 5);\n  setCount(c => c + 1);\n  setCount(42);\n}"}
+  options={['6', '42', '48', '1']}
+  answer={1}
+  why={[
+    'count + 5와 c => c + 1까지만 처리하면 6이 맞습니다. 하지만 큐에는 하나가 더 있습니다.',
+    '큐 [값 5, 함수 c+1, 값 42]를 순서대로: 0 → 5 → 6 → 42. 마지막 값 업데이트가 앞의 결과를 교체합니다.',
+    '42에 6을 더한 값입니다. 값 업데이트는 "더하기"가 아니라 "교체"입니다.',
+    '업데이트가 하나만 반영된다고 생각했다면, 큐가 모든 업데이트를 순서대로 처리한다는 점을 떠올리세요.',
+  ]}
+  explanation="큐는 들어온 순서대로 처리됩니다. 값 업데이트는 결과를 교체하고, 함수 업데이트는 직전 결과로 계산합니다. 0 → (값 5) 5 → (c+1) 6 → (값 42) 42."
+  hints={['큐에 무엇이 몇 개, 어떤 순서로 쌓이는지 먼저 적어 보세요.', '값 업데이트는 직전 결과를 "무시"합니다.']}
+/>
+
+<Predict
+  label="결과 예측 (변형)"
+  question="이번에는 순서만 바꿨습니다. count가 0일 때 한 번 누르면 화면의 값은?"
+  code={"function handlePress() {\n  setCount(c => c + 1);\n  setCount(count + 5);\n}"}
+  options={['6', '5', '1', '0']}
+  answer={1}
+  why={[
+    '앞 문제와 같은 줄이라 6이라고 생각했다면, 순서가 바뀐 것을 확인하세요. 값 업데이트가 마지막입니다.',
+    '0 → (c+1) 1 → (값 0+5) 5. count + 5는 스냅샷 count = 0으로 계산되어 "값 5"가 큐에 들어갑니다.',
+    '함수 업데이트 결과 1에서 끝난다고 보면 안 됩니다. 뒤의 값 업데이트가 교체합니다.',
+    'setCount를 호출했으므로 다시 렌더링되고 값은 바뀝니다.',
+  ]}
+  explanation="같은 업데이트라도 순서가 바뀌면 결과가 달라집니다. count + 5는 핸들러 실행 시점에 0 + 5 = 5로 미리 계산되어 큐에 들어가므로, 직전 결과(1)와 무관하게 5로 교체합니다."
+/>
+
+<BugHunt
+  question="이 컴포넌트는 버튼을 눌러도 목록이 화면에 늘어나지 않을 때가 있습니다. 원인이 되는 줄을 찾으세요."
+  code={"function TodoList() {\n  const [todos, setTodos] = useState([]);\n\n  function add() {\n    todos.push({ id: Date.now(), title: '새 할 일' });\n    setTodos(todos);\n  }\n\n  return <Button title=\"추가\" onPress={add} />;\n}"}
+  bug={[5, 6]}
+  why={{
+    '2': 'useState([])로 빈 배열을 초기값으로 주는 것은 올바릅니다.',
+    '4': '이벤트 핸들러를 함수로 정의하는 것 자체는 문제가 없습니다.',
+    '5': '기존 State 배열을 직접 수정(push)하고 있습니다. React가 관리하는 State는 직접 바꾸지 말고 새 값을 만들어야 합니다.',
+    '6': '수정된 "같은 배열"을 다시 넘기므로 Object.is(이전, 다음)가 true가 되어 React가 변화를 감지하지 못합니다.',
+    '9': 'onPress={add}는 함수 참조를 넘기므로 올바릅니다.',
+  }}
+  explanation="5번 줄에서 기존 배열을 직접 바꾸고, 6번 줄에서 같은 참조를 넘깁니다. React는 참조가 같으면 바뀌지 않았다고 판단할 수 있습니다. 새 배열을 만들어 함수형 업데이트로 넘기면 해결됩니다."
+  fix={"function add() {\n  setTodos(prev => [...prev, { id: Date.now(), title: '새 할 일' }]);\n}"}
+  hints={['React는 새 State와 이전 State를 어떻게 비교할까요?', '배열의 "내용"이 아니라 배열 "자체"가 같은지 비교합니다.']}
+/>
+
+<Explain
+  id="snapshot"
+  prompt="친구가 'setCount(count + 1)을 세 번 썼는데 왜 1만 올라가? React 버그 아니야?'라고 묻습니다. 스냅샷과 업데이트 큐라는 말을 써서 3~5문장으로 설명해 보세요."
+  model="버그가 아니라 의도된 동작입니다. 한 번의 렌더에서 count는 상수처럼 고정된 스냅샷이라, 핸들러 안의 count + 1은 세 번 모두 같은 값(0 + 1 = 1)으로 계산됩니다. setCount는 값을 즉시 바꾸지 않고 '다음 렌더에서 1로 바꿔 달라'는 업데이트를 큐에 넣을 뿐이어서, 큐에는 '값 1'이 세 번 들어갑니다. 다음 렌더에서 큐를 처리하면 1로 세 번 교체되어 결과는 1입니다. 이전 값을 기준으로 누적하려면 setCount(c => c + 1)처럼 함수를 넘겨, React가 직전 결과를 넣어 계산하게 해야 합니다."
+  checklist={[
+    '한 렌더 안에서 count는 바뀌지 않는다(스냅샷)는 점을 말했다',
+    'setCount가 즉시 바꾸지 않고 업데이트를 예약(큐에 추가)한다고 말했다',
+    '큐에 같은 값(1)이 세 번 들어간다는 것을 설명했다',
+    '해결책으로 함수형 업데이트와 그 이유(직전 결과를 받음)를 말했다',
+  ]}
+/>
+
+<Quiz
+  question="다음 중 State로 만들지 않고 계산해서 쓰는 것이 더 좋은 값은?"
+  options={['사용자가 입력 중인 검색어', '할 일 목록 배열', '할 일 목록 중 완료된 항목의 개수', '모달이 열려 있는지 여부']}
+  answer={2}
+  why={[
+    '검색어는 사용자 입력으로만 바뀌는 원본 데이터라 State가 맞습니다.',
+    '목록 자체는 원본 데이터라 State가 맞습니다.',
+    '',
+    '열림 여부는 사용자 행동으로 바뀌는 원본 데이터라 State가 맞습니다.',
+  ]}
+  explanation="완료 개수는 todos.filter(t => t.done).length로 언제든 계산할 수 있습니다. 따로 State로 두면 목록과 개수가 어긋나는 버그가 생길 수 있습니다."
+/>
+
+<Callout kind="tip" title="스스로 확인하기">
+위 문제를 모두 맞혔다면, 실습 1의 🧩 직접 조립에서 미션 3을 풀어 보세요. 미션 3은 "값 업데이트 두 번 + 함수 업데이트"의 조합을 직접 설계해야 해서, 큐 처리 규칙을 정확히 이해했는지 확인할 수 있습니다.
+</Callout>

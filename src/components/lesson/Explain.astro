@@ -1,0 +1,21 @@
+---
+/** 내 말로 설명하기: 직접 쓰고, 모범 답안과 체크리스트로 스스로 채점한다. (입력은 이 기기에만 저장) */
+interface Props { id: string; prompt: string; model: string; checklist: string[]; }
+const { id, prompt, model, checklist } = Astro.props;
+---
+<div class="card assess" data-assess="explain" data-id={id}>
+  <div class="assess-head"><span class="kind">🗣️ 내 말로 설명하기</span></div>
+  <p class="q">{prompt}</p>
+  <textarea class="answer" aria-label="내 설명" placeholder="교과서 문장을 외우지 말고, 친구에게 설명하듯 써 보세요."></textarea>
+  <div class="row" style="margin-top:8px"><button type="button" class="btn secondary reveal">모범 답안과 비교하기</button></div>
+  <div class="feedback" hidden>
+    <strong>모범 답안</strong>
+    <p style="margin:6px 0">{model}</p>
+    <strong>내 설명에 이 내용이 들어 있나요?</strong>
+    <ul class="checklist">{checklist.map((c) => <li><label><input type="checkbox" />{c}</label></li>)}</ul>
+  </div>
+</div>
+
+<script>
+  import "../../scripts/assess";
+</script>

@@ -1,0 +1,20 @@
+---
+// 새 기준으로 재작성된 강의의 이전 버전 보존 페이지: /subjects/<과목>/<번호>/legacy/
+import LessonLayout from '../../../../layouts/LessonLayout.astro';
+import LegacyLesson from '../../../../components/lesson/LegacyLesson.astro';
+import { getCatalog } from '../../../../lib/catalog';
+
+export async function getStaticPaths() {
+  const catalog = await getCatalog();
+  return catalog.flatMap((subject) =>
+    subject.lessons
+      .filter((l) => l.kind === 'deep' && l.hasLegacy)
+      .map((lesson) => ({ params: { subject: subject.id, lesson: lesson.slug }, props: { subject, lesson } })),
+  );
+}
+const { subject, lesson } = Astro.props;
+---
+<LessonLayout subject={subject} lesson={lesson} view="legacy">
+  <div class="notice warn">이 페이지는 비교용으로 남겨 둔 <strong>이전 버전</strong>입니다. 진도와 완료 표시는 새 기준 버전과 공유됩니다.</div>
+  <LegacyLesson data={lesson.legacy!.data} />
+</LessonLayout>

@@ -1,0 +1,25 @@
+---
+/** 버그 찾기: 문제가 있는 줄을 직접 누른다. */
+interface Props { question: string; code: string; bug: number[]; why: Record<string, string>; explanation: string; fix?: string; hints?: string[]; }
+const { question, code, bug, why, explanation, fix, hints = [] } = Astro.props;
+import { Code } from 'astro:components';
+const lines = code.split('\n');
+---
+<div class="card assess" data-assess="bug" data-bug={JSON.stringify(bug)} data-why={JSON.stringify(why)} data-hints={JSON.stringify(hints)}>
+  <div class="assess-head"><span class="kind">🐞 버그 찾기</span><span class="muted small">문제가 있는 줄을 누르세요</span></div>
+  <p class="q">{question}</p>
+  <div class="code-lines" role="group" aria-label="코드 줄 선택">
+    {lines.map((l, i) => <button type="button" class="code-line" data-line={i + 1} aria-label={`${i + 1}번 줄: ${l.trim() || '빈 줄'}`}><span class="no">{i + 1}</span><span>{l || ' '}</span></button>)}
+  </div>
+  {hints.length > 0 && <div class="row" style="margin-top:8px"><button type="button" class="btn ghost hint-btn">💡 힌트 보기 (1/{hints.length})</button></div>}
+  <div class="hints"></div>
+  <div class="feedback" hidden aria-live="polite"></div>
+  <template>
+    <p style="margin:6px 0 0">{explanation}</p>
+    {fix && <><p style="margin:8px 0 0;font-weight:700">고친 코드</p><Code code={fix} lang="jsx" themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} /></>}
+  </template>
+</div>
+
+<script>
+  import "../../scripts/assess";
+</script>

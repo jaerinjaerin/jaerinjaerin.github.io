@@ -1,0 +1,33 @@
+---
+/** 객관식(보조용). 선택 즉시 정답 여부와 해설을 보여준다. */
+interface Props { question: string; options: string[]; answer: number; explanation: string; why?: string[]; }
+const { question, options, answer, explanation, why = [] } = Astro.props;
+---
+<div class="card assess" data-assess="quiz" data-answer={answer} data-why={JSON.stringify(why)}>
+  <div class="assess-head"><span class="kind">객관식</span></div>
+  <p class="q">{question}</p>
+  <div class="options">{options.map((o, i) => <button type="button" class="option" data-i={i}>{i + 1}. {o}</button>)}</div>
+  <div class="feedback" hidden aria-live="polite"></div>
+  <template><p style="margin:6px 0 0">{explanation}</p></template>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-assess="quiz"]').forEach((box) => {
+    const ans = Number(box.dataset.answer);
+    const why: string[] = JSON.parse(box.dataset.why || '[]');
+    const fb = box.querySelector<HTMLElement>('.feedback')!;
+    const tpl = box.querySelector('template')!;
+    box.querySelectorAll<HTMLButtonElement>('.option').forEach((b) => b.addEventListener('click', () => {
+      const i = Number(b.dataset.i);
+      box.querySelectorAll<HTMLElement>('.option').forEach((o) => o.removeAttribute('data-state'));
+      b.dataset.state = i === ans ? 'correct' : 'wrong';
+      fb.hidden = false;
+      fb.className = 'feedback ' + (i === ans ? 'ok' : 'no');
+      fb.replaceChildren();
+      const head = document.createElement('strong');
+      head.textContent = i === ans ? '✅ 정답입니다.' : '❗ 다시 생각해 보세요.';
+      fb.append(head);
+      if (i !== ans && why[i]) { const p = document.createElement('p'); p.style.margin = '6px 0 0'; p.textContent = '이 선택지가 틀린 이유: ' + why[i]; fb.append(p); }
+      if (i === ans || !why[i]) fb.append(tpl.content.cloneNode(true));
+    }));
+  });
+</script>
