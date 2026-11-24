@@ -80,6 +80,15 @@ const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
       paint();
     });
     paint();
+    // 표: 각 칸에 열 제목을 붙여, 휴대폰에서 "행 = 카드"로 보여 준다 (CSS: table.rtable)
+    document.querySelectorAll<HTMLTableElement>('.prose table').forEach((table) => {
+      const labels = [...table.querySelectorAll('thead th')].map((th) => th.textContent?.trim() ?? '');
+      if (!labels.length) return;
+      table.querySelectorAll('tbody tr').forEach((tr) => {
+        [...tr.children].forEach((td, i) => { if (labels[i]) td.setAttribute('data-label', labels[i]); });
+      });
+      table.classList.add('rtable');
+    });
     // 휴대폰에서는 목차를 접은 상태로 시작
     const toc = document.getElementById('toc') as HTMLDetailsElement;
     if (matchMedia('(max-width: 1023px)').matches) toc.open = false;

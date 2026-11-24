@@ -1,7 +1,7 @@
 # CS Learning Lab — 사이트 구조 명세 (site-architecture.md)
 
 > 프로젝트 지침 7번 [사이트 반영]이 따르는 규칙입니다. 구조를 바꿀 때는 이 문서를 먼저 고치고 승인받습니다.
-> 최종 수정: 2026-11-23 (Astro 전환)
+> 최종 수정: 2026-11-24 (Anatomy 그림, 19·20강 재작성, 모바일 표 카드)
 
 ## 1. 기술 스택
 
@@ -34,6 +34,11 @@ src/
     legacy/                    개편 전 실습 코드 (원본 보존)
   layouts/Base.astro, LessonLayout.astro
   lib/catalog.ts               과목·강의 목록 계산 (홈·목차·진도는 모두 여기서 파생)
+  figures/
+    kit/iso-kit.mjs            Anatomy kit 사본 (MIT, LICENSE-anatomy)
+    <그림 이름>/geometry.mjs    빌드 시 SVG를 만드는 기하 모듈
+    <그림 이름>/live.ts         움직임 (클라이언트)
+  components/figures/          그림 래퍼(.astro)
   pages/
     index.astro                         홈
     subjects/[subject]/index.astro      과목 페이지 (+ 옛 주소 ?lesson=N 리다이렉트)
@@ -42,6 +47,7 @@ src/
   scripts/progress.ts, assess.ts
   styles/base.css, legacy-labs.css
 docs/site-architecture.md     이 문서
+.claude/skills/anatomy/       Anatomy 스킬 (Claude가 그림을 만들 때 쓰는 지침·도구, MIT)
 ```
 
 ## 3. URL 규칙
@@ -106,9 +112,26 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 | `predict` | 실행 전 예측 (예측 전에는 실행 잠금, 마지막 단계에서 자동 채점) |
 | `onFinish` | 미션 채점, "한 번 더" 같은 후속 동작 |
 
-엔진이 제공: 처음/이전/다음/자동 재생(속도 3단계)/타임라인/키보드 ←→, 화면 밖이면 재생 정지, 모바일에서 하단 고정 조작 바.
+엔진이 제공: 처음/이전/다음/자동 재생(속도 3단계)/타임라인/키보드 ←→, 화면 밖이면 재생 정지. 조작 바는 단계 설명 바로 아래에 두고(화면에 따라다니지 않음), 예측 전에는 숨긴다.
 
 새 실습 = `src/labs/<과목>/<이름>.ts` (로직) + `src/components/labs/<이름>Lab.astro` (래퍼).
+
+## 6-1. 원리 그림 (Anatomy)
+
+`.claude/skills/anatomy`의 스킬로 "개념을 실제 기계로 만든" 아이소메트릭 그림을 만듭니다. 실습 엔진과 역할이 다릅니다.
+
+| | 원리 그림 (Anatomy) | 단계 실습 (Step Lab) |
+|---|---|---|
+| 목적 | 전체 흐름을 한눈에 직관으로 (①·④층) | 예측하고 한 단계씩 따라가며 검증 |
+| 위치 | ④ 내부 동작 첫머리 | ⑨ 실습 |
+
+규칙:
+- 그림의 숫자·움직임은 실습과 **같은 모델**에서 나온다 (예: Fig 4-1은 `simulate()` 사용).
+- 스킬 크기 기준: Figure(부품 40~80, 1시간 이내)를 기본으로 한다. Hero 이상은 미리 시간을 알리고 승인받는다.
+- SVG는 Astro 컴포넌트 frontmatter에서 `geometry.mjs`로 빌드 시 생성하고, `live.ts`는 transform·글자만 바꾼다 (프레임마다 다시 그리지 않음).
+- 그림 판은 `class="iso"`, 사이트 테마를 따라 `data-theme`를 바꾼다. 강조(lit)는 한 번에 한 부품만.
+- 검증: 390px·데스크톱, 라이트·다크, 여러 단계에서 캡처하고 4배 확대로 이음새·그리는 순서를 확인한다.
+- 이름 붙이기: `Fig <강의>-<번호>`.
 
 ## 7. 라이브러리 도입 규칙
 
@@ -122,6 +145,7 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 | astro | 7.x | 사이트 생성 | 빌드 전용 | MIT | 전체 |
 | @astrojs/mdx | 8.x | MDX 강의 | 빌드 전용 | MIT | 전체 |
 | @astrojs/sitemap | 3.x | 사이트맵 | 빌드 전용 | MIT | 전체 |
+| Anatomy kit (`src/figures/kit`) | 1482e84 | 아이소메트릭 원리 그림 | SVG는 빌드 시 생성, 런타임 JS는 그림당 수 KB | MIT | 4강 Fig 4-1 |
 
 ## 8. 학습 데이터 (localStorage) — 형식 변경은 사전 승인 필요
 
@@ -139,7 +163,8 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 
 - 디자인 토큰은 `src/styles/base.css`의 CSS 변수만 사용 (라이트/다크 자동 대응).
 - 360~430px 우선 → 768px → 1024px(목차 사이드바 고정). 터치 대상 44px 이상, 입력 16px 이상.
-- 가로 스크롤 금지(코드 블록·표 내부 스크롤은 허용). `prefers-reduced-motion` 존중.
+- 가로 스크롤 금지(코드 블록 내부 스크롤은 허용). `prefers-reduced-motion` 존중.
+- 767px 이하: 본문 15.5px, 코드 12.5px, 실습 14px. 강의 본문 표는 LessonLayout 스크립트가 열 제목(data-label)을 붙여 "행 = 카드"로 보여 준다(`table.rtable`).
 
 ## 10. 작업 순서 (지침 7번)
 
@@ -149,4 +174,4 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 
 - React Native 1~26강은 원본 내용·실습 코드를 그대로 강의별 페이지로 옮겼습니다 (`LegacyLesson.astro`, `labs/legacy/react-native.js`).
 - 새 기준으로 재작성하면 같은 번호의 MDX를 추가합니다. MDX가 대표 강의가 되고, 원본은 `/legacy/`에서 계속 볼 수 있습니다.
-- 재작성 완료: 4강 useState
+- 재작성 완료: 4강 useState (Fig 4-1 티켓 레일 계수기 포함), 19강 ScrollView, 20강 FlatList

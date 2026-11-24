@@ -41,13 +41,13 @@
 html[data-theme="dark"] .tk-k { color: #ff7b72; } html[data-theme="dark"] .tk-s { color: #a5d6ff; } html[data-theme="dark"] .tk-n { color: #79c0ff; } html[data-theme="dark"] .tk-c { color: #8b949e; } html[data-theme="dark"] .tk-f { color: #d2a8ff; } html[data-theme="dark"] .tk-t { color: #7ee787; }
 .sl-ln[data-cur="true"] .tk-k, .sl-ln[data-cur="true"] .tk-s, .sl-ln[data-cur="true"] .tk-n, .sl-ln[data-cur="true"] .tk-f, .sl-ln[data-cur="true"] .tk-t { color: inherit; font-weight: 700; }
 .sl-state { min-width: 0; display: grid; gap: 10px; align-content: start; }
-.sl-transport { position: sticky; bottom: calc(8px + var(--safe-b)); z-index: 5; display: grid; gap: 6px; padding: 10px; border-radius: 14px; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.sl-transport { display: grid; gap: 6px; padding: 10px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border); }
+.sl-transport[hidden] { display: none; }
 .sl-buttons { display: grid; grid-template-columns: 44px 1fr 1.4fr 44px minmax(68px, auto); gap: 6px; }
 .sl-buttons .btn { padding: 6px 8px; white-space: nowrap; }
 .sl-speed { padding: 4px 6px; font-size: 14px; }
 .sl-time { display: flex; align-items: center; gap: 10px; }
 .sl-timeline { flex: 1; min-height: 32px; accent-color: var(--accent); }
-.sl-locked .sl-transport { opacity: .55; }
 .sl-verdict { padding: 12px 14px; border-radius: 12px; }
 .sl-verdict p { margin: 4px 0 0; }
 .sl-verdict.ok { background: var(--ok-bg); }
@@ -81,6 +81,39 @@ html[data-theme="dark"] .tk-k { color: #ff7b72; } html[data-theme="dark"] .tk-s 
 @media (min-width: 768px) {
   .sl { padding: 18px; }
   .sl-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; }
-  .sl-transport { position: static; box-shadow: none; }
   .sl-time { gap: 14px; }
 }
+
+@media (max-width: 767px) {
+  .sl { padding: 12px; font-size: 14px; gap: 10px; }
+  .sl-title { font-size: 15.5px; }
+  .sl-step-title { font-size: 15px; }
+  .sl-narration { padding: 10px 12px; min-height: 0; }
+  .sl-code { font-size: 12px; }
+  .sl-variant { font-size: 13px; padding: 6px 12px; }
+  .sv-big { font-size: 22px; }
+  .sv-phone .sv-big { font-size: 32px; }
+  .sv-chip, .sv-slot, .sv-log { font-size: 12.5px; }
+}
+
+/* ScrollView 실습: 축소 화면 + 측정표 */
+.sv-sv-wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 10px; align-items: start; }
+.sv-sv-phone { width: 100%; max-width: 190px; margin: 0 auto; border: 5px solid var(--text); border-radius: 20px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.sv-sv-header { flex: none; display: grid; place-items: center; background: #e9edf7; color: #3b4760; font-size: 11px; font-weight: 700; }
+.sv-sv-port { position: relative; overflow: hidden; flex: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.sv-sv-port.bad { box-shadow: inset 0 0 0 2px var(--err); }
+.sv-sv-content { display: flex; flex-direction: column; transition: transform .35s ease; }
+.sv-sv-item { flex: none; display: grid; place-items: center; border-radius: 4px; background: #dfe6fb; color: #23317a; font: 700 10px/1 var(--mono); }
+.sv-sv-row { display: flex; justify-content: space-between; gap: 8px; padding: 6px 4px; border-bottom: 1px dashed var(--border); font-size: 13.5px; }
+.sv-sv-row:last-child { border-bottom: 0; }
+.sv-sv-row[data-flash="true"] { background: var(--accent-2); border-radius: 6px; }
+/* FlatList 실습: 행 격자 */
+.sv-vw-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; }
+.sv-vw-cell { display: inline-block; aspect-ratio: 1; min-width: 8px; border-radius: 2px; background: var(--surface-3); }
+.sv-vw-cell.on { background: color-mix(in srgb, var(--accent) 45%, var(--surface)); }
+.sv-vw-cell.vis { background: var(--accent); }
+.sv-vw-cell.blank { background: var(--err); outline: 1px solid var(--err); }
+.sv-vw-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; }
+.sv-vw-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.sv-vw-legend i { width: 10px; height: 10px; }
+@media (max-width: 767px) { .sv-sv-wrap { grid-template-columns: 1fr; } .sv-sv-phone { max-width: 170px; } }

@@ -15,13 +15,14 @@ prerequisites:
   - 3강 View · Text · Button과 onPress
   - JavaScript 함수와 화살표 함수
 minutes: 60
-updated: 2026-11-23
+updated: 2026-11-24
 ---
 import Layer from '../../../components/lesson/Layer.astro';
 import Callout from '../../../components/lesson/Callout.astro';
 import CodeWalk from '../../../components/lesson/CodeWalk.astro';
 import UseStateQueueLab from '../../../components/labs/UseStateQueueLab.astro';
 import HookOrderLab from '../../../components/labs/HookOrderLab.astro';
+import UseStateMachineFigure from '../../../components/figures/UseStateMachineFigure.astro';
 import Predict from '../../../components/lesson/Predict.astro';
 import BugHunt from '../../../components/lesson/BugHunt.astro';
 import Explain from '../../../components/lesson/Explain.astro';
@@ -122,7 +123,9 @@ const styles = StyleSheet.create({
 <Layer n={4} />
 ## 내부 동작: 버튼을 누른 순간부터 화면이 바뀌기까지
 
-`+1`을 누르면 내부에서 다음 일이 **순서대로** 일어납니다.
+`+1`을 누르면 내부에서 다음 일이 **순서대로** 일어납니다. 먼저 그림으로 전체 흐름을 본 뒤, 단계별로 정확히 짚어 보겠습니다.
+
+<UseStateMachineFigure />
 
 1. **이벤트 처리** — 네이티브 쪽 터치 이벤트가 JavaScript로 전달되고, onPress에 등록된 화살표 함수가 실행됩니다. 이 함수는 **직전 렌더에서 만들어졌기 때문에** 그 렌더의 `count`(예: 0)를 기억합니다.
 2. **업데이트 예약** — `setCount(count + 1)`이 실행됩니다. 괄호 안의 `count + 1`이 **먼저 계산**되어 1이 되고, React는 이 컴포넌트의 State 큐에 "다음엔 1"이라는 **업데이트**를 넣습니다. 이 시점에 `count` 변수는 여전히 0이고, 화면도 그대로입니다.

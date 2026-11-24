@@ -1,0 +1,8 @@
+---
+import '../../labs/engine/step-lab.css';
+---
+<div data-lab="scroll-viewport"><noscript>이 실습은 JavaScript가 필요합니다.</noscript></div>
+<script>
+  import { mountScrollViewportLab } from '../../labs/react-native/scroll-viewport';
+  document.querySelectorAll<HTMLElement>('[data-lab="scroll-viewport"]').forEach((el) => mountScrollViewportLab(el));
+</script>

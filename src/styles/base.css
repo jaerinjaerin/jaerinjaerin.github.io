@@ -299,3 +299,45 @@ textarea.answer { width: 100%; min-height: 110px; padding: 12px; border-radius: 
 .prose .layer-tag { display: block; margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--border); }
 .prose .layer-tag + h2 { margin-top: 0; padding-top: 0; border-top: 0; }
 .lesson-meta { margin-bottom: 14px; }
+
+/* ==========================================================================
+   휴대폰(767px 이하) 가독성 보정
+   - 글씨를 한 단계 줄이고, 표는 "행 = 카드"로 바꾼다.
+   - 입력창은 iOS 확대 방지를 위해 16px 유지(위 공통 규칙).
+   ========================================================================== */
+@media (max-width: 767px) {
+  body { font-size: 15px; line-height: 1.7; }
+  .shell { padding-left: calc(14px + var(--safe-l)); padding-right: calc(14px + var(--safe-r)); }
+  .prose { font-size: 15.5px; }
+  .prose h2 { font-size: 20px; margin: 34px 0 10px; }
+  .prose h3 { font-size: 17px; margin: 22px 0 6px; }
+  .prose .layer-tag { margin-top: 34px; padding-top: 12px; font-size: 12px; }
+  .lesson-title { font-size: 24px; margin: 8px 0 6px; }
+  .lesson-summary { font-size: 15.5px; }
+  .goals { padding: 12px 14px; }
+  .goals li, .goals p { font-size: 14.5px; }
+  .callout, .notice { font-size: 14.5px; padding: 12px 13px; }
+  .walk li { padding: 8px 10px; font-size: 14.5px; gap: 8px; }
+  .walk .ln { font-size: 12px; }
+  pre.astro-code, .prose pre { font-size: 12.5px; padding: 12px; }
+  .prose code:not(pre code) { font-size: .86em; }
+  .assess { padding: 13px; }
+  .assess p.q, .option, .feedback, .hint { font-size: 14.5px; }
+  .code-line { font-size: 12.5px; }
+  .hero h1 { font-size: 30px; }
+  .hero p { font-size: 15.5px; }
+  .course h3 { font-size: 17px; }
+  .course p, .lesson-row .s { font-size: 14px; }
+  .lesson-row .t { font-size: 15px; }
+  .pager a { font-size: 14px; }
+
+  /* 표 → 카드 */
+  .prose table.rtable { display: block; overflow: visible; border: 0; font-size: 14.5px; }
+  .prose table.rtable thead { display: none; }
+  .prose table.rtable tbody { display: grid; gap: 10px; }
+  .prose table.rtable tr { display: grid; gap: 6px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  .prose table.rtable td { display: grid; grid-template-columns: minmax(84px, 34%) 1fr; gap: 10px; min-width: 0; padding: 0; border: 0; }
+  .prose table.rtable td::before { content: attr(data-label); color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.6; }
+  .prose table.rtable td:first-child { display: block; padding-bottom: 6px; margin-bottom: 2px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 15px; }
+  .prose table.rtable td:first-child::before { content: none; }
+}

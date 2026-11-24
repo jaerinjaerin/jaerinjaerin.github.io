@@ -142,8 +142,9 @@ export function mountStepLab<S>(root: HTMLElement, cfg: StepLabConfig<S>): LabAp
   root.append(
     head, variantBar, variantNote, controlsHost, predictHost,
     narration,
+    transport,
     h('div', { class: 'sl-grid' }, codeHost, stateHost),
-    transport, resultHost, finishHost,
+    resultHost, finishHost,
   );
 
   const api: LabApi = { rebuild, variant: () => variant, goTo, root };
@@ -242,6 +243,7 @@ export function mountStepLab<S>(root: HTMLElement, cfg: StepLabConfig<S>): LabAp
 
     const isLocked = locked();
     root.classList.toggle('sl-locked', isLocked);
+    transport.hidden = isLocked; // 예측 전에는 조작 바를 숨긴다
     btnFirst.disabled = isLocked || index === 0;
     btnPrev.disabled = isLocked || index === 0;
     btnNext.disabled = isLocked || index === steps.length - 1;

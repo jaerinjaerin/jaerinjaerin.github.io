@@ -1,0 +1,305 @@
+---
+subject: react-native
+order: 19
+unit: components
+title: ScrollView — 뷰포트, 콘텐츠 크기, 경계 높이
+summary: ScrollView가 "언제, 얼마나" 스크롤되는지는 뷰포트와 콘텐츠 높이의 차이로 정해집니다. 경계 높이가 없으면 왜 오류 없이 스크롤이 멈추는지, 자식을 한꺼번에 만드는 구조가 언제 문제가 되는지 정확히 이해합니다.
+goals:
+  - 스크롤 가능 거리 = 콘텐츠 높이 − 뷰포트 높이 를 실제 레이아웃 값으로 계산할 수 있다.
+  - 경계 높이(bounded height)가 없을 때 스크롤이 안 되는 이유를 레이아웃 순서로 설명할 수 있다.
+  - style과 contentContainerStyle이 각각 어느 상자에 적용되는지 구분하고, alignItems·flexGrow 함정을 피할 수 있다.
+  - onScroll 이벤트의 contentOffset·layoutMeasurement·contentSize로 맨 아래 도달을 계산할 수 있다.
+  - ScrollView와 FlatList 중 무엇을 쓸지 렌더링 비용으로 판단할 수 있다.
+prerequisites:
+  - '15~18강 StyleSheet와 Flexbox (flex: 1)'
+  - 4강 State와 렌더링
+minutes: 50
+updated: 2026-11-24
+---
+import Layer from '../../../components/lesson/Layer.astro';
+import Callout from '../../../components/lesson/Callout.astro';
+import CodeWalk from '../../../components/lesson/CodeWalk.astro';
+import ScrollViewportLab from '../../../components/labs/ScrollViewportLab.astro';
+import Predict from '../../../components/lesson/Predict.astro';
+import BugHunt from '../../../components/lesson/BugHunt.astro';
+import Explain from '../../../components/lesson/Explain.astro';
+import Quiz from '../../../components/lesson/Quiz.astro';
+
+## 문제부터 시작해 봅시다
+
+설정 화면에 항목을 20개 넣고 `ScrollView`로 감쌌습니다. 그런데 화면 아래쪽 항목이 잘린 채 손가락으로 아무리 끌어도 움직이지 않습니다. 빨간 오류 화면도, 경고도 없습니다.
+
+반대로 다른 화면에서는 상품 2,000개를 `ScrollView` 안에 `map`으로 넣었더니, 스크롤은 잘 되는데 화면이 뜨기까지 몇 초가 걸립니다.
+
+두 문제는 원인이 다르지만, 둘 다 **ScrollView가 크기를 계산하고 자식을 만드는 방식**을 알면 바로 설명됩니다.
+
+<Layer n={1} />
+## 비유: 창문과 두루마리
+
+벽에 난 **창문**으로 아주 긴 **두루마리 그림**을 본다고 해 봅시다.
+
+- **창문**이 뷰포트(viewport)입니다. 한 번에 보이는 범위죠. 창문의 크기는 **벽(부모)**이 정해 줍니다.
+- **두루마리** 전체 길이가 콘텐츠 크기(content size)입니다.
+- 두루마리를 위로 당긴 거리가 스크롤 위치(content offset)입니다. 당길 수 있는 최대 거리는 **두루마리 길이 − 창문 높이**입니다.
+- 벽이 창문 크기를 정해 주지 않으면 창문이 두루마리만큼 커집니다. 그러면 당길 거리가 0이 되고, 건물 밖으로 삐져나온 부분은 아예 볼 수 없습니다.
+
+<Callout kind="limit" title="이 비유가 맞지 않는 지점">
+진짜 두루마리는 그림이 이미 다 그려져 있으니 공짜처럼 느껴집니다. 하지만 ScrollView의 "그림"은 자식 컴포넌트 하나하나를 <strong>실제로 만들고 측정해야</strong> 생깁니다. 두루마리가 길수록 그리는 비용이 커지고, 이 비용이 20강 FlatList가 존재하는 이유입니다.
+</Callout>
+
+<Layer n={2} />
+## 정확한 정의
+
+- **ScrollView**: 플랫폼의 스크롤 뷰(iOS `UIScrollView`, Android `ScrollView`/`HorizontalScrollView`)를 감싼 컴포넌트입니다. 터치 응답(responder) 시스템과 연결되어 있습니다.
+- **뷰포트(layoutMeasurement)**: ScrollView 자신의 크기입니다. `style`이 이 바깥 상자에 적용됩니다.
+- **콘텐츠 크기(contentSize)**: 모든 자식을 감싸는 안쪽 상자(content container)의 크기입니다. `contentContainerStyle`이 이 안쪽 상자에 적용됩니다.
+- **스크롤 위치(contentOffset)**: 콘텐츠가 뷰포트 기준으로 얼마나 이동했는지(px)입니다.
+- **경계 높이(bounded height)**: ScrollView는 높이 제한이 없는 자식들을 스크롤로 경계가 있는 컨테이너 안에 담기 때문에, 동작하려면 경계 높이가 반드시 있어야 합니다.
+
+<Layer n={3} />
+## 왜 존재하는가
+
+React Native의 `View`는 웹의 `div`와 달리 `overflow: scroll`이 없습니다. 넘치는 내용은 잘리거나 밖으로 그려질 뿐이고, 손가락으로 움직일 수 없습니다. 모바일 화면은 작아서 설정, 약관, 상세 정보처럼 한 화면을 넘는 내용이 흔한데, 이를 움직여 보여 주는 장치가 필요합니다.
+
+ScrollView는 그 역할을 가장 단순하게 해결합니다. 자식을 전부 한 상자에 넣고, 그 상자를 창문 안에서 움직이게 하는 방식이에요. 단순한 만큼 대가가 있습니다. ScrollView는 React 자식 컴포넌트를 한꺼번에 모두 렌더링하므로 이해하고 쓰기는 편하지만, 성능상 단점이 있습니다.
+
+## 예제 1 — 기본: 실제로 동작하는 설정 화면
+
+<div class="code-title"><span>Settings.js — 기본 예제</span><span class="badge real">그대로 실행 가능</span></div>
+
+```jsx
+import { View, Text, ScrollView, Switch, StyleSheet } from 'react-native';
+import { useState } from 'react';
+
+const SECTIONS = ['알림', '개인정보', '화면', '소리', '저장공간', '계정', '보안', '언어', '접근성', '도움말', '약관', '앱 정보'];
+
+export default function Settings() {
+  const [on, setOn] = useState({});
+
+  return (
+    <View style={styles.screen}>
+      <Text style={styles.header}>설정</Text>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+      >
+        {SECTIONS.map((name) => (
+          <View key={name} style={styles.row}>
+            <Text style={styles.label}>{name}</Text>
+            <Switch value={!!on[name]} onValueChange={(v) => setOn((prev) => ({ ...prev, [name]: v }))} />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: '#f6f7fb' },
+  header: { fontSize: 22, fontWeight: '700', padding: 16 },
+  scroll: { flex: 1 },
+  content: { padding: 16, gap: 8 },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16, borderRadius: 12, backgroundColor: '#fff' },
+  label: { fontSize: 16 },
+});
+```
+
+<CodeWalk items={[
+  ['10', '<View style={styles.screen}>', "screen에 flex: 1이 있어 화면 전체 높이를 차지합니다. 이것이 경계 높이의 출발점입니다. 루트부터 ScrollView까지 모든 조상이 높이를 가져야 합니다."],
+  ['11', '<Text style={styles.header}>설정</Text>', "스크롤되지 않는 헤더입니다. ScrollView 바깥에 있으므로 항상 위에 고정됩니다."],
+  ['12–13', '<ScrollView style={styles.scroll}', "style은 바깥 상자, 즉 뷰포트에 적용됩니다. flex: 1이라서 헤더를 뺀 나머지 높이를 모두 차지하고, 이 값이 뷰포트 높이가 됩니다."],
+  ['14', 'contentContainerStyle={styles.content}', "안쪽 콘텐츠 상자에 적용됩니다. padding과 gap이 여기에 들어가야 스크롤되는 내용과 함께 움직입니다. style에 padding을 주면 뷰포트 테두리 안쪽 여백이 되어, 스크롤해도 움직이지 않습니다."],
+  ['15', 'keyboardShouldPersistTaps="handled"', "키보드가 열린 상태에서 버튼을 누를 때, 첫 탭이 '키보드 닫기'로만 쓰이고 버튼이 눌리지 않는 문제를 막습니다. 입력창이 있는 스크롤 화면에서 자주 씁니다."],
+  ['17', '{SECTIONS.map((name) => (', "12개 항목을 모두 지금 만듭니다. 화면에 보이지 않는 항목도 만들어집니다. 개수가 고정되고 적을 때는 문제가 없습니다."],
+  ['20', 'setOn((prev) => ({ ...prev, [name]: v }))', "4강의 함수형 업데이트와 객체 불변 업데이트입니다. 새 객체를 만들어야 React가 변화를 감지합니다."],
+]} />
+
+<Layer n={4} />
+## 내부 동작: 레이아웃에서 스크롤까지
+
+1. **부모 레이아웃** — React Native의 레이아웃 엔진(Yoga)이 루트부터 크기를 정합니다. 부모에게 높이가 있으면 ScrollView의 높이, 즉 뷰포트가 정해집니다.
+2. **자식 전부 생성** — ScrollView는 children을 모두 렌더링해 네이티브 뷰로 만듭니다. 보이는지와 상관없습니다. 상당수는 화면에 보이지도 않을 JS 컴포넌트와 네이티브 뷰를 한꺼번에 만들면 렌더링이 느려지고 메모리 사용이 늘어납니다.
+3. **콘텐츠 측정** — 안쪽 상자의 높이(contentSize)가 정해집니다. padding + 자식 높이 + 간격의 합입니다.
+4. **스크롤 범위 결정** — 스크롤 가능 거리 = max(0, contentSize − 뷰포트). 이 값이 0이면 끌어도 움직이지 않습니다.
+5. **제스처는 네이티브에서** — 손가락을 따라 콘텐츠를 움직이는 일은 네이티브 UI 스레드가 처리합니다. 그래서 JS가 잠깐 바빠도 스크롤 자체는 부드럽습니다.
+6. **JS로 이벤트 전달** — 위치는 `onScroll` 이벤트로 JS에 비동기로 전달됩니다. `scrollEventThrottle`(ms)로 얼마나 자주 보낼지 정합니다. 이벤트 객체의 `nativeEvent`에는 `contentOffset`, `layoutMeasurement`, `contentSize`가 들어 있습니다.
+
+경계 높이가 없으면 1번에서 뷰포트를 정할 수 없습니다. 그러면 ScrollView는 콘텐츠만큼 늘어나고(뷰포트 = 콘텐츠), 4번의 스크롤 가능 거리가 0이 됩니다. 넘치는 부분은 화면 밖에서 잘려 버리고, 이건 "오류"가 아니라 계산 결과이기 때문에 경고도 나오지 않습니다.
+
+<Layer n={9} />
+## 실습 — 뷰포트·콘텐츠·스크롤 거리
+
+먼저 **부모에 flex: 1**에서 예측하고 실행한 뒤, 🐞 **부모 높이 없음**으로 바꿔 같은 숫자를 비교해 보세요. 항목 수를 2개로 줄이면 "스크롤이 필요 없는" 경우도 볼 수 있습니다.
+
+<ScrollViewportLab />
+
+## 예제 2 — 함정: 가운데 정렬하려다 생기는 두 가지 문제
+
+<div class="code-title"><span>Empty.js — 함정 예제</span><span class="badge real">그대로 실행 가능 (오류 재현)</span></div>
+
+```jsx
+import { ScrollView, Text } from 'react-native';
+
+export default function Empty() {
+  return (
+    <ScrollView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>아직 항목이 없어요</Text>
+    </ScrollView>
+  );
+}
+```
+
+실행하면 바로 빨간 화면이 뜹니다.
+
+<Callout kind="error" title="실제 오류 메시지">
+<code>ScrollView child layout (["alignItems","justifyContent"]) must be applied through the contentContainerStyle prop.</code>
+</Callout>
+
+`alignItems`와 `justifyContent`는 **자식을 어떻게 배치할지**를 정하는 속성입니다. 그런데 ScrollView의 자식이 들어 있는 곳은 바깥 상자가 아니라 안쪽 콘텐츠 상자입니다. 그래서 React Native가 잘못된 위치라고 막아 줍니다.
+
+고치려고 이렇게 쓰면, 오류는 사라지지만 **새 버그**가 생깁니다.
+
+```jsx
+<ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+```
+
+`flex: 1`은 콘텐츠 상자를 **뷰포트 높이에 맞춰 고정**합니다. 내용이 적을 때는 가운데 정렬이 잘 되지만, 나중에 내용이 늘어나도 콘텐츠 높이가 뷰포트와 같으니 스크롤 거리가 0이 됩니다. 정답은 `flexGrow: 1`입니다. "최소한 뷰포트만큼은 늘어나되, 내용이 더 길면 더 길어져도 된다"는 뜻이에요.
+
+```jsx
+<ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+```
+
+<CodeWalk items={[
+  ['style', 'style={{ flex: 1 }}', "바깥 상자(뷰포트)의 크기와 바깥 여백·배경을 정합니다."],
+  ['contentContainerStyle', 'contentContainerStyle={{ flexGrow: 1, ... }}', "안쪽 상자의 크기와 자식 배치를 정합니다. flexGrow: 1은 최소 높이를 뷰포트로 맞추고, 그 이상으로는 자유롭게 늘어나게 합니다."],
+  ['flex: 1 (안쪽)', 'contentContainerStyle={{ flex: 1 }}', "flex: 1은 flexGrow 1 + flexShrink 1 + flexBasis 0이라서, 안쪽 상자가 뷰포트 높이로 묶여 버립니다. 그래서 스크롤이 막힙니다."],
+]} />
+
+<Layer n={5} />
+## 경계와 실패: 실제로 만나는 문제들
+
+**1) 스크롤이 안 되는데 오류가 없다** — 조상 중 하나에 높이(flex: 1)가 없는 경우입니다. ScrollView의 높이를 제한하려면 높이를 직접 지정하거나(권장하지 않음) 모든 부모 뷰가 경계 높이를 갖게 해야 하며, {"{flex: 1}"}을 뷰 계층 아래로 전달하는 것을 잊으면 이런 문제가 생깁니다. 개발 메뉴의 요소 검사기(Element Inspector)로 각 View의 높이를 확인하면 빨리 찾을 수 있습니다.
+
+**2) 같은 방향 목록을 ScrollView 안에 중첩**
+
+<Callout kind="error" title="실제 경고 메시지">
+<code>VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.</code>
+</Callout>
+
+세로 ScrollView 안에 세로 FlatList를 넣으면 바깥 ScrollView가 FlatList를 끝까지 늘려 버립니다. 그러면 FlatList는 "전부 보인다"고 판단해 가상화(20강)를 할 수 없게 됩니다. 헤더나 푸터가 필요하면 FlatList의 `ListHeaderComponent`·`ListFooterComponent`를 씁니다.
+
+**3) 키보드가 입력창을 가림** — 스크롤 화면 아래쪽 입력창에 포커스가 가면 키보드가 덮습니다. `KeyboardAvoidingView`로 감싸거나 스크롤 위치를 조정합니다(23강).
+
+**4) 대량 데이터** — 수백~수천 개를 `map`으로 넣으면 첫 렌더가 느려지고 메모리가 늘어납니다. 실습의 "만들어진 자식" 숫자가 항목 수와 똑같이 늘어나는 것을 확인했죠. 이때는 FlatList로 바꿉니다.
+
+<Layer n={6} />
+## 비교와 트레이드오프
+
+| 방식 | 자식 생성 | 첫 렌더 비용 | 메모리 | 잘 맞는 곳 |
+|---|---|---|---|---|
+| `ScrollView` | 전부 즉시 | O(n) | O(n) | 개수가 적고 고정된 화면 (설정, 약관, 상세) |
+| `FlatList` | 보이는 곳 주변만 | O(창 크기) | O(창 크기) | 많거나 늘어나는 목록 (피드, 검색 결과) |
+| `SectionList` | FlatList와 같음 + 구역 헤더 | O(창 크기) | O(창 크기) | 날짜별·분류별 목록 |
+| 일반 `View` | 전부 | O(n) | O(n) | 한 화면 안에 들어가는 내용 |
+
+ScrollView의 장점은 **단순함과 예측 가능성**입니다. 모든 자식이 항상 존재하므로 자식 안의 State가 사라지지 않고, 높이를 측정할 필요도 없으며, 스크롤 중에 빈칸이 생기지 않습니다. 개수가 적다면 FlatList보다 오히려 나은 선택입니다.
+
+<Layer n={7} />
+## 실무에서는
+
+- **"맨 아래 도달" 감지** — 무한 스크롤이 아닌 화면, 예를 들어 약관을 끝까지 읽어야 "동의" 버튼이 켜지는 경우에 씁니다.
+
+```jsx
+<ScrollView
+  scrollEventThrottle={16}
+  onScroll={({ nativeEvent: { contentOffset, layoutMeasurement, contentSize } }) => {
+    const atBottom = contentOffset.y + layoutMeasurement.height >= contentSize.height - 24;
+    if (atBottom) setReadAll(true);
+  }}
+>
+```
+
+  `contentOffset.y + 뷰포트 높이`가 콘텐츠 높이에 거의 닿으면 맨 아래입니다. 24px의 여유를 두는 이유는 손가락으로 정확히 끝에 맞추기 어렵기 때문입니다. `scrollEventThrottle={16}`은 약 1프레임(16ms)마다 이벤트를 받겠다는 뜻이고, 값이 클수록 JS 부담이 줄어듭니다.
+- **당겨서 새로고침**은 `refreshControl={<RefreshControl refreshing={loading} onRefresh={load} />}`로 만듭니다.
+- **가로 카드 넘기기**는 `horizontal` + `pagingEnabled`(화면 폭 단위로 멈춤) 또는 `snapToInterval`로 만듭니다.
+- **특정 위치로 이동**하려면 ref를 잡고 `scrollRef.current?.scrollTo({ y: 0, animated: true })`를 호출합니다. "맨 위로" 버튼에 씁니다.
+- **고정 헤더**는 `stickyHeaderIndices={[0]}`로 첫 자식을 스크롤 중에도 위에 붙여 둡니다.
+
+<Layer n={8} />
+## 더 깊이 알아보기
+
+- **Yoga**: React Native가 쓰는 Flexbox 레이아웃 엔진(C++)입니다. 웹과 달리 `flexDirection` 기본값이 `column`이고, `flex: 1`의 의미가 조금 다릅니다(17~18강).
+- **새 아키텍처(Fabric)**: 레이아웃 계산과 네이티브 뷰 생성이 C++ 공용 계층에서 이루어집니다. ScrollView 자체는 여전히 플랫폼 스크롤 뷰를 사용합니다.
+- **공식 문서**: React Native "ScrollView", "Optimizing FlatList Configuration", Apple `UIScrollView`의 `contentSize`/`contentOffset` 개념.
+- **다음에 배울 것**: 20강 FlatList. 자식을 전부 만들지 않는 "가상화"가 어떻게 동작하고, 그 대가로 어떤 버그가 생기는지 배웁니다.
+
+<Layer n={10} />
+## 이해도 평가
+
+<Predict
+  question="화면 높이 800, 헤더 100, 경계 높이가 올바르게 설정된 ScrollView 안에 높이 90인 항목 10개(간격 0, padding 0)가 있습니다. 최대 스크롤 거리는?"
+  options={['900px', '200px', '0px', '100px']}
+  answer={1}
+  why={[
+    '콘텐츠 높이 자체(10 × 90)입니다. 스크롤 거리는 콘텐츠에서 뷰포트를 뺀 값입니다.',
+    '뷰포트 = 800 − 100 = 700, 콘텐츠 = 900. 900 − 700 = 200px입니다.',
+    '경계 높이가 없을 때의 결과입니다. 이 문제에서는 경계 높이가 올바르게 설정되어 있습니다.',
+    '헤더 높이를 스크롤 거리로 착각했습니다. 헤더는 ScrollView 밖에 있습니다.',
+  ]}
+  explanation="스크롤 가능 거리 = 콘텐츠 높이 − 뷰포트 높이 = 900 − 700 = 200px."
+  hints={['먼저 ScrollView 자신의 높이(뷰포트)를 구하세요.', '콘텐츠 높이는 항목 높이의 합입니다.']}
+/>
+
+<Predict
+  label="결과 예측 (변형)"
+  question="같은 화면에서 ScrollView를 감싼 중간 View의 flex: 1을 지웠습니다(경계 높이 없음). 이제 최대 스크롤 거리와 화면에서 볼 수 없는 높이는?"
+  options={['스크롤 200px, 안 보이는 높이 0', '스크롤 0px, 안 보이는 높이 200px', '스크롤 900px, 안 보이는 높이 0', '빨간 오류 화면이 뜬다']}
+  answer={1}
+  why={[
+    '경계가 있을 때의 결과입니다.',
+    '뷰포트가 콘텐츠만큼(900) 늘어나 스크롤 거리는 0. 화면에 보이는 높이는 700이라 아래 200px이 잘립니다.',
+    '스크롤 거리는 뷰포트보다 콘텐츠가 길 때만 생깁니다.',
+    '경계 높이 누락은 오류가 아니라 계산 결과라 경고 없이 조용히 잘립니다.',
+  ]}
+  explanation="경계 높이가 없으면 ScrollView가 콘텐츠에 맞춰 늘어나 뷰포트 = 콘텐츠 = 900, 스크롤 거리 0. 화면(700) 밖의 200px은 볼 수 없습니다."
+/>
+
+<BugHunt
+  question="빈 목록일 때 안내 문구를 가운데에 두었는데, 나중에 항목이 많아지자 스크롤이 되지 않습니다. 원인이 되는 줄을 찾으세요."
+  code={"export default function List({ items }) {\n  return (\n    <ScrollView\n      style={{ flex: 1 }}\n      contentContainerStyle={{ flex: 1, justifyContent: 'center' }}\n    >\n      {items.length === 0 ? <Text>비어 있어요</Text> : items.map((t) => <Row key={t.id} item={t} />)}\n    </ScrollView>\n  );\n}"}
+  bug={[5]}
+  why={{
+    '4': 'style의 flex: 1은 뷰포트 크기를 정하는 올바른 설정입니다.',
+    '5': '안쪽 상자에 flex: 1을 주면 콘텐츠 높이가 뷰포트에 묶여 스크롤 거리가 0이 됩니다.',
+    '7': '빈 상태와 목록을 나누는 조건부 렌더링 자체는 문제가 없습니다(개수가 많다면 FlatList 고려).',
+  }}
+  explanation="contentContainerStyle의 flex: 1은 콘텐츠 상자를 뷰포트 높이로 고정합니다. flexGrow: 1로 바꾸면 최소 높이만 뷰포트로 맞추고, 내용이 많으면 더 길어집니다."
+  fix={"contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}"}
+  hints={['스크롤 거리는 무엇과 무엇의 차이였나요?', '콘텐츠 상자의 높이를 무엇이 정하고 있나요?']}
+/>
+
+<Explain
+  id="bounded"
+  prompt="동료가 '부모 View에 flex: 1 하나 빠졌을 뿐인데 왜 스크롤이 안 되고, 왜 오류도 안 나?'라고 묻습니다. 뷰포트·콘텐츠 높이라는 말을 써서 3~5문장으로 설명해 보세요."
+  model="ScrollView의 스크롤 거리는 콘텐츠 높이에서 뷰포트(ScrollView 자신의 높이)를 뺀 값입니다. 뷰포트 높이는 부모가 정해 줘야 하는데, 부모에 flex: 1이 없으면 부모 자체가 높이를 갖지 못해 ScrollView가 콘텐츠만큼 늘어납니다. 그러면 뷰포트와 콘텐츠가 같아져 스크롤 거리가 0이 되고, 화면 밖으로 넘친 부분은 잘려서 보이지 않습니다. 이것은 잘못된 코드라기보다 레이아웃 계산의 정상적인 결과라서 React Native가 오류로 알려 주지 않습니다. 루트부터 ScrollView까지 모든 조상에 flex: 1(경계 높이)을 주면 해결됩니다."
+  checklist={[
+    '스크롤 거리 = 콘텐츠 − 뷰포트 관계를 말했다',
+    '뷰포트 높이를 부모가 정해 준다는 점을 말했다',
+    '경계가 없으면 ScrollView가 콘텐츠만큼 늘어난다고 설명했다',
+    '오류가 아니라 계산 결과라서 경고가 없다는 점을 말했다',
+  ]}
+/>
+
+<Quiz
+  question="다음 중 ScrollView보다 FlatList가 더 적합한 화면은?"
+  options={['항목 8개짜리 설정 화면', '이용약관 전문', '계속 늘어나는 채팅 메시지 목록', '사진 3장과 설명이 있는 상품 상세']}
+  answer={2}
+  why={[
+    '개수가 적고 고정되어 있어 ScrollView가 단순하고 충분합니다.',
+    '긴 텍스트 하나는 자식 수가 적어 ScrollView로 충분합니다.',
+    '',
+    '자식 수가 적고 고정되어 있습니다.',
+  ]}
+  explanation="계속 늘어나는 목록은 ScrollView로 만들면 자식을 전부 만들어 첫 렌더와 메모리 비용이 O(n)으로 커집니다. 보이는 곳 주변만 만드는 FlatList가 맞습니다."
+/>
