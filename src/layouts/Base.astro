@@ -1,8 +1,12 @@
 ---
+import '@fontsource/ibm-plex-sans-kr/400.css';
+import '@fontsource/ibm-plex-sans-kr/700.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/600.css';
 import '../styles/base.css';
 interface Props { title: string; description?: string; }
-const { title, description = '컴퓨터공학을 쉽게 들어가 깊게 배우는 인터랙티브 학습 플랫폼' } = Astro.props;
-const fullTitle = title === 'CS Learning Lab' ? title : `${title} · CS Learning Lab`;
+const { title, description = '원리를 직접 조작하며 깊게 배우는 컴퓨터공학 학습 노트' } = Astro.props;
+const fullTitle = title === 'CS Learning Lab' ? title : `${title} | CS Learning Lab`;
 ---
 <!doctype html>
 <html lang="ko">
@@ -10,12 +14,12 @@ const fullTitle = title === 'CS Learning Lab' ? title : `${title} · CS Learning
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f1420" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%233157d5'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white'>⌘</text></svg>" />
+    <meta name="theme-color" content="#f2f4f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1b2a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1.5' y='1.5' width='29' height='29' fill='%23f2f4f1' stroke='%23172235' stroke-width='3'/><text x='16' y='21.5' font-family='sans-serif' font-weight='700' font-size='13' text-anchor='middle' fill='%23172235'>CS</text></svg>" />
     <title>{fullTitle}</title>
     <script is:inline>
-      // 깜빡임 방지: 그리기 전에 테마 적용 (기존 키 cs-theme 유지)
+      // 깜빡임 방지: 그리기 전에 테마 적용 (키 cs-theme)
       (function () {
         var t = '';
         try { t = localStorage.getItem('cs-theme') || ''; } catch (e) {}
@@ -28,26 +32,26 @@ const fullTitle = title === 'CS Learning Lab' ? title : `${title} · CS Learning
     <a class="sr-only" href="#main">본문으로 건너뛰기</a>
     <header class="topbar">
       <div class="shell topbar-in">
-        <a class="brand" href="/" aria-label="CS Learning Lab 홈"><span class="brand-mark" aria-hidden="true">⌘</span><span>CS Learning Lab</span></a>
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">CS</span><span>Learning Lab</span></a>
         <div class="top-actions">
           <slot name="actions" />
-          <button class="icon-btn" type="button" id="theme-toggle" aria-label="다크 모드 전환">🌙</button>
+          <button class="icon-btn" type="button" id="theme-toggle">어둡게</button>
         </div>
       </div>
     </header>
     <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="shell">
-        © CS Learning Lab · 쉽게 들어가 깊게 나오는 컴퓨터공학<br />
-        학습 진도는 이 브라우저에 저장됩니다. 기기 간 자동 동기화는 되지 않습니다.
+        <span>CS Learning Lab. 쉽게 들어가 깊게 나오는 컴퓨터공학 노트</span>
+        <span>진도는 이 브라우저에만 저장됩니다.</span>
       </div>
     </footer>
     <script>
       const btn = document.getElementById('theme-toggle')!;
       const paint = () => {
         const dark = document.documentElement.dataset.theme === 'dark';
-        btn.textContent = dark ? '☀️' : '🌙';
-        btn.setAttribute('aria-label', dark ? '라이트 모드로 전환' : '다크 모드로 전환');
+        btn.textContent = dark ? '밝게' : '어둡게';
+        btn.setAttribute('aria-label', dark ? '밝은 화면으로 바꾸기' : '어두운 화면으로 바꾸기');
       };
       btn.addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';

@@ -5,7 +5,9 @@ import { getCatalog } from '../lib/catalog';
 const catalog = await getCatalog();
 const fields = ['전체', ...new Set(catalog.map((s) => s.data.field))];
 const totalLessons = catalog.reduce((n, s) => n + s.lessons.length, 0);
-const deepLessons = catalog.reduce((n, s) => n + s.lessons.filter((l) => l.kind === 'deep').length, 0);
+
+const updated = catalog.flatMap((s) => s.lessons.map((l) => l.mdx.data.updated)).sort((a, b) => +b - +a)[0];
+const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
 // 클라이언트 검색·진도 계산용 최소 데이터 (하드코딩 없이 콘텐츠에서 생성)
 const index = catalog.map((s) => ({
@@ -16,61 +18,79 @@ const index = catalog.map((s) => ({
 ---
 <Base title="CS Learning Lab">
   <div class="shell">
-    <section class="hero">
-      <div class="eyebrow">LEARN · EXPERIMENT · UNDERSTAND</div>
-      <h1>보이지 않는 원리를<br />직접 조작하며 배우기</h1>
-      <p>쉬운 비유로 들어가서, 내부에서 실제로 일어나는 일까지 내려갑니다. 값을 바꾸고, 한 단계씩 실행하고, 일부러 고장 내 보면서 이해하는 컴퓨터공학 학습 공간입니다.</p>
-    </section>
-
-    <section class="stats" aria-label="학습 현황">
-      <div class="stat card"><strong>{catalog.length}</strong><span>과목</span></div>
-      <div class="stat card"><strong>{totalLessons}</strong><span>강의</span></div>
-      <div class="stat card"><strong id="stat-done">0</strong><span>완료한 강의</span></div>
-    </section>
-
-    <section aria-labelledby="continue-h">
-      <div class="section-head"><h2 id="continue-h">이어서 학습하기</h2></div>
-      <div class="card continue">
-        <div>
-          <div class="muted small" id="continue-tag">{catalog[0]?.data.icon} {catalog[0]?.data.area}</div>
-          <h3 id="continue-title">{catalog[0]?.data.title} · 1강</h3>
-          <div class="muted small" id="continue-caption">처음부터 시작해 보세요.</div>
-          <div class="progress" style="margin-top:10px" role="progressbar" aria-label="이 과목의 학습 진도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="continue-bar"><i id="continue-fill"></i></div>
-          <div class="muted small" id="continue-progress" style="margin-top:4px"></div>
-        </div>
-        <a class="btn" id="continue-link" href={catalog[0]?.lessons[0]?.url ?? '/'}>학습 계속하기 →</a>
+    <section class="sheet" aria-labelledby="hero-h">
+      <div class="sheet-body grid-paper">
+        <h1 id="hero-h">보이지 않는 원리를 손으로 움직여 보는 곳</h1>
+        <p class="sheet-lead">비유로 들어가 내부 동작까지 내려갑니다. 값을 바꾸고, 한 단계씩 실행하고, 일부러 고장 내 보면서 컴퓨터가 실제로 하는 일을 확인합니다.</p>
       </div>
+      <dl class="titleblock" aria-label="학습 현황">
+        <div><dt>과목</dt><dd>{catalog.length}</dd></div>
+        <div><dt>강의</dt><dd>{totalLessons}</dd></div>
+        <div><dt>완료한 강의</dt><dd id="stat-done">0</dd></div>
+        {updated && <div class="tb-wide"><span>마지막 갱신</span><span class="num">{fmt(updated)}</span></div>}
+      </dl>
     </section>
+
+    {totalLessons > 0 && (
+      <section aria-labelledby="continue-h">
+        <div class="section-head"><h2 id="continue-h">이어서 학습하기</h2></div>
+        <div class="continue">
+          <div>
+            <div class="where" id="continue-tag">{catalog[0]?.data.title}</div>
+            <h3 id="continue-title">1강</h3>
+            <div class="progress" style="max-width:360px;margin-top:10px" role="progressbar" aria-label="이 과목의 학습 진도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="continue-bar"><i id="continue-fill"></i></div>
+            <div class="where num" id="continue-progress" style="margin-top:6px"></div>
+          </div>
+          <a class="btn" id="continue-link" href={catalog[0]?.lessons[0]?.url ?? '/'}>이 강의 열기</a>
+        </div>
+      </section>
+    )}
 
     <section id="subjects" aria-labelledby="subjects-h">
-      <div class="section-head"><h2 id="subjects-h">모든 과목</h2><span class="muted small" id="count">{catalog.length}개 과목</span></div>
-      <label class="search-box">
-        <span aria-hidden="true">⌕</span>
-        <span class="sr-only">과목·강의 검색</span>
-        <input id="search" type="search" placeholder="과목이나 강의 검색 (예: useState, FlatList)" autocomplete="off" enterkeyhint="search" />
-      </label>
-      <div class="chips" role="group" aria-label="분야">
-        {fields.map((f, i) => <button class="chip" type="button" data-field={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>)}
-      </div>
-      <div class="grid" id="grid">
-        {catalog.map((s) => (
-          <article class="card course" data-field={s.data.field} data-text={`${s.data.title} ${s.data.area} ${s.data.field} ${s.data.description}`.toLowerCase()} data-id={s.id}>
-            <div class="course-icon" aria-hidden="true">{s.data.icon}</div>
-            <div class="muted small">{s.data.field} · {s.data.area}</div>
-            <h3>{s.data.title}</h3>
-            <p>{s.data.description}</p>
-            <div class="progress" style="margin-top:6px" aria-hidden="true"><i data-fill={s.id}></i></div>
-            <div class="meta"><span data-meta={s.id}>{s.lessons.length}개 강의</span><a class="stretched" href={s.url} aria-label={`${s.data.title} 학습하기`}>학습하기 →</a></div>
-          </article>
-        ))}
-      </div>
-      <div id="lesson-results" hidden>
-        <div class="section-head" style="margin-top:22px"><h2 style="font-size:18px">강의 검색 결과</h2></div>
-        <div class="lesson-hits" id="lesson-hits"></div>
-      </div>
-      <div class="empty" id="empty" hidden>검색 결과가 없습니다. 다른 검색어나 분야를 선택해 보세요.</div>
+      <div class="section-head"><h2 id="subjects-h">과목 목록</h2><span class="count" id="count">{catalog.length}개</span></div>
+      {catalog.length > 0 ? (
+        <>
+          <div class="finder">
+            <label class="search-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span class="sr-only">과목과 강의 검색</span>
+              <input id="search" type="search" placeholder="과목이나 강의 이름으로 찾기" autocomplete="off" enterkeyhint="search" />
+            </label>
+            {fields.length > 2 && (
+              <div class="chips" role="group" aria-label="분야로 거르기">
+                {fields.map((f, i) => <button class="chip" type="button" data-field={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>)}
+              </div>
+            )}
+          </div>
+          <ol class="index" id="grid">
+            {catalog.map((s, i) => (
+              <li class="index-row course" data-field={s.data.field} data-text={`${s.data.title} ${s.data.area} ${s.data.field} ${s.data.description}`.toLowerCase()} data-id={s.id}>
+                <span class="no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3><a href={s.url}>{s.data.title}</a></h3>
+                  <div class="field">{s.data.field}, {s.data.area}</div>
+                  <p>{s.data.description}</p>
+                </div>
+                <div class="meta">
+                  <span data-meta={s.id}>강의 {s.lessons.length}개</span>
+                  <div class="progress" aria-hidden="true"><i data-fill={s.id}></i></div>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div id="lesson-results" hidden>
+            <div class="section-head" style="margin-top:28px"><h2 style="font-size:17px">일치하는 강의</h2></div>
+            <div class="lesson-hits" id="lesson-hits"></div>
+          </div>
+          <div class="empty" id="empty" hidden><strong>찾는 과목이나 강의가 없습니다.</strong>검색어를 줄이거나 분야를 전체로 바꿔 보세요.</div>
+        </>
+      ) : (
+        <div class="empty" id="no-subjects">
+          <strong>아직 과목이 없습니다.</strong>
+          배우고 싶은 주제를 요청하면 강의와 실습이 이 목록에 추가됩니다.
+        </div>
+      )}
     </section>
-    <p class="muted small" style="margin-top:24px">새 기준 강의 {deepLessons}개 · 각 강의에는 직접 조작하는 실습이 있으며, <span class="badge sim">시뮬레이션</span>과 <span class="badge real">실제 실행</span>을 구분해 표시합니다.</p>
   </div>
 
   <script type="application/json" id="catalog-data" set:html={JSON.stringify(index)} />
@@ -89,20 +109,19 @@ const index = catalog.map((s) => ({
       const fill = document.querySelector<HTMLElement>(`[data-fill="${s.id}"]`);
       if (fill) fill.style.width = pct + '%';
       const meta = document.querySelector(`[data-meta="${s.id}"]`);
-      if (meta) meta.textContent = `${s.orders.length}개 강의 · ${done}개 완료`;
+      if (meta) meta.textContent = `강의 ${s.orders.length}개 중 ${done}개 완료`;
     }
     $('stat-done').textContent = String(doneTotal);
 
     // 이어서 학습하기
     const last = getLast();
     const cur = data.find((s) => s.id === last.subject) ?? data[0];
-    if (cur) {
+    if (cur && cur.lessons.length && document.getElementById('continue-title')) {
       const lesson = cur.lessons.find((l) => l.o === last.order) ?? cur.lessons[0];
       const done = countDone(cur.key, cur.orders);
       const pct = cur.orders.length ? Math.round((done / cur.orders.length) * 100) : 0;
-      $('continue-tag').textContent = cur.icon + ' ' + cur.title;
-      $('continue-title').textContent = `${lesson.o}강 · ${lesson.t}`;
-      $('continue-caption').textContent = last.subject ? '마지막으로 보던 강의입니다.' : '처음부터 시작해 보세요.';
+      $('continue-tag').textContent = cur.title + (last.subject ? ', 마지막으로 보던 강의' : ', 처음부터');
+      $('continue-title').textContent = `${lesson.o}강. ${lesson.t}`;
       ($('continue-link') as HTMLAnchorElement).href = lesson.u;
       ($('continue-fill') as HTMLElement).style.width = pct + '%';
       $('continue-bar').setAttribute('aria-valuenow', String(pct));
@@ -113,6 +132,7 @@ const index = catalog.map((s) => ({
     let field = '전체';
     let query = '';
     const cards = [...document.querySelectorAll<HTMLElement>('#grid .course')];
+    const search = document.getElementById('search') as HTMLInputElement | null;
     const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip')];
     function render() {
       let shown = 0;
@@ -121,7 +141,7 @@ const index = catalog.map((s) => ({
         c.hidden = !ok;
         if (ok) shown++;
       }
-      $('count').textContent = shown + '개 과목';
+      $('count').textContent = shown + '개';
       const hits = $('lesson-hits');
       hits.replaceChildren();
       let lessonCount = 0;
@@ -130,11 +150,11 @@ const index = catalog.map((s) => ({
           for (const l of s.lessons) {
             if (!(`${l.o}강 ${l.t}`).toLowerCase().includes(query)) continue;
             const a = document.createElement('a');
-            a.className = 'card lesson-hit';
+            a.className = 'lesson-hit';
             a.href = l.u;
-            const ico = document.createElement('span'); ico.textContent = s.icon; ico.setAttribute('aria-hidden', 'true');
-            const t = document.createElement('span'); t.textContent = `${s.title} ${l.o}강 · ${l.t}`;
-            a.append(ico, t);
+            const no = document.createElement('span'); no.className = 'no'; no.textContent = `${s.title} ${l.o}강`;
+            const t = document.createElement('span'); t.textContent = l.t;
+            a.append(no, t);
             hits.append(a);
             lessonCount++;
           }
@@ -148,8 +168,8 @@ const index = catalog.map((s) => ({
       chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
       render();
     });
-    ($('search') as HTMLInputElement).addEventListener('input', (e) => {
-      query = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    search?.addEventListener('input', () => {
+      query = search.value.trim().toLowerCase();
       render();
     });
   </script>

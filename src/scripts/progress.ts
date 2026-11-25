@@ -1,6 +1,6 @@
 /**
  * 학습 진도 저장소 (localStorage)
- * - 과목별 키: subject.progressKey (React Native는 기존 키 'rn-lesson-progress' 유지)
+ * - 과목별 키: subject.progressKey (기본값 'cs-progress:<과목id>')
  * - 값 형식(기존과 동일): { "<강의번호-1>": true }
  * - 마지막 학습 위치: 'cs-last-course' = 과목 id, 'cs-last-lesson' = 강의 번호(1부터)
  */

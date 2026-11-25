@@ -2,6 +2,5 @@
 /** 강조 상자: analogy(비유) · limit(비유의 한계) · error(실제 오류) · tip(실무 팁) · note */
 interface Props { kind?: 'analogy' | 'limit' | 'error' | 'tip' | 'note'; title?: string; }
 const { kind = 'note', title } = Astro.props;
-const icon = { analogy: '🧩', limit: '⚠️', error: '💥', tip: '🛠️', note: '📝' }[kind];
 ---
-<aside class={`callout ${kind}`}>{title && <strong>{icon} {title}</strong>}<slot /></aside>
+<aside class={`callout ${kind}`}>{title && <strong>{title}</strong>}<slot /></aside>

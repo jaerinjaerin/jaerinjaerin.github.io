@@ -4,20 +4,21 @@ import type { SubjectItem, LessonItem } from '../lib/catalog';
 interface Props {
   subject: SubjectItem;
   lesson: LessonItem;
-  view: 'deep' | 'legacy';      // 지금 보여주는 버전
 }
-const { subject, lesson, view } = Astro.props;
+const { subject, lesson } = Astro.props;
 const idx = subject.lessons.findIndex((l) => l.order === lesson.order);
 const prev = subject.lessons[idx - 1];
 const next = subject.lessons[idx + 1];
 const unit = subject.data.units.find((u) => u.id === lesson.unit);
-const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
+const title = lesson.title;
+const total = subject.lessons.length;
+const minutes = lesson.mdx.data.minutes;
 ---
-<Base title={`${lesson.order}강 ${title} · ${subject.data.title}`} description={lesson.summary}>
+<Base title={`${lesson.order}강 ${title}, ${subject.data.title}`} description={lesson.summary}>
   <div class="shell lesson-wrap">
     <nav class="toc" aria-label="강의 목차">
       <details id="toc" open>
-        <summary>📚 {subject.data.title} 목차 <span class="muted small" style="margin-left:auto;margin-right:8px">{subject.lessons.length}강</span></summary>
+        <summary><span>{subject.data.title} 강의 목록</span><span class="muted small num" style="margin-left:auto">{total}강</span></summary>
         <div class="toc-body">
           {subject.data.units.map((u) => {
             const ls = subject.lessons.filter((l) => l.unit === u.id);
@@ -27,9 +28,8 @@ const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
                 <div class="toc-unit">{u.title}</div>
                 {ls.map((l) => (
                   <a href={l.url} data-order={l.order} aria-current={l.order === lesson.order ? 'page' : undefined}>
-                    <span class="n"><span>{l.order}</span></span>
+                    <span class="n">{String(l.order).padStart(2, '0')}</span>
                     <span>{l.title}</span>
-                    {l.kind === 'deep' && <span class="deep-dot" title="새 기준 심화 강의" />}
                   </a>
                 ))}
               </>
@@ -40,22 +40,25 @@ const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
     </nav>
 
     <article class="lesson">
-      <nav class="crumbs" aria-label="위치"><a href="/">홈</a><span>›</span><a href={subject.url}>{subject.data.title}</a><span>›</span><span>{unit?.title}</span></nav>
-      <h1 class="lesson-title">{lesson.order}강. {title}</h1>
-      <div class="lesson-meta">
-        {view === 'deep' ? <span class="badge deep">새 기준 심화 강의</span> : <span class="badge legacy">이전 형식 강의</span>}
-        {view === 'deep' && lesson.mdx?.data.minutes && <span class="muted small">약 {lesson.mdx.data.minutes}분</span>}
-        {view === 'deep' && lesson.hasLegacy && <a class="small" href={`${lesson.url}legacy/`}>이전 버전 보기</a>}
-        {view === 'legacy' && lesson.kind === 'deep' && <a class="small" href={lesson.url}>← 새 기준 버전으로</a>}
-      </div>
+      <header class="lesson-head">
+        <div class="head-main grid-paper">
+          <nav class="crumbs" aria-label="위치"><a href={subject.url}>{subject.data.title}</a><span class="sep">/</span><span>{unit?.title}</span></nav>
+          <h1 class="lesson-title">{title}</h1>
+        </div>
+        <dl class="titleblock">
+          <div><dt>강의 번호</dt><dd class="num">{String(lesson.order).padStart(2, '0')}</dd></div>
+          <div><dt>단원</dt><dd>{unit?.title}</dd></div>
+          <div><dt>예상 시간</dt><dd class="num">{minutes ? `${minutes}분` : '-'}</dd></div>
+        </dl>
+      </header>
 
       <slot />
 
       <div class="lesson-foot">
-        <button class="btn complete-btn" type="button" id="complete" aria-pressed="false">이 강의 완료 표시 ✓</button>
+        <button class="btn complete-btn" type="button" id="complete" aria-pressed="false">이 강의를 완료로 표시</button>
         <div class="pager">
-          {prev ? <a class="card" href={prev.url}><span>← 이전 강의</span>{prev.order}강. {prev.title}</a> : <span />}
-          {next ? <a class="card next" href={next.url}><span>다음 강의 →</span>{next.order}강. {next.title}</a> : <span />}
+          {prev ? <a href={prev.url} rel="prev"><span>이전 강의</span>{prev.order}강. {prev.title}</a> : <span />}
+          {next ? <a class="next" href={next.url} rel="next"><span>다음 강의</span>{next.order}강. {next.title}</a> : <span />}
         </div>
       </div>
     </article>
@@ -73,7 +76,7 @@ const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
       });
       const me = Boolean(done[String(d.order - 1)]);
       btn.setAttribute('aria-pressed', String(me));
-      btn.textContent = me ? '완료됨 ✓ (다시 누르면 취소)' : '이 강의 완료 표시 ✓';
+      btn.textContent = me ? '완료함 (누르면 취소)' : '이 강의를 완료로 표시';
     }
     btn.addEventListener('click', () => {
       setDone(d.key, d.order, btn.getAttribute('aria-pressed') !== 'true');
@@ -92,6 +95,7 @@ const title = view === 'legacy' ? lesson.legacy!.data.t : lesson.title;
     // 휴대폰에서는 목차를 접은 상태로 시작
     const toc = document.getElementById('toc') as HTMLDetailsElement;
     if (matchMedia('(max-width: 1023px)').matches) toc.open = false;
+    else toc.addEventListener('toggle', () => { if (!toc.open) toc.open = true; }); // PC에서는 늘 펼친 상태
     const cur = toc.querySelector<HTMLElement>('[aria-current="page"]');
     const body = toc.querySelector<HTMLElement>('.toc-body');
     if (cur && body) body.scrollTop = Math.max(0, cur.offsetTop - body.offsetTop - 80);

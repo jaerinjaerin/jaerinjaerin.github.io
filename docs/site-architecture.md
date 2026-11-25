@@ -1,7 +1,7 @@
 # CS Learning Lab — 사이트 구조 명세 (site-architecture.md)
 
 > 프로젝트 지침 7번 [사이트 반영]이 따르는 규칙입니다. 구조를 바꿀 때는 이 문서를 먼저 고치고 승인받습니다.
-> 최종 수정: 2026-11-24 (Anatomy 그림, 19·20강 재작성, 모바일 표 카드)
+> 최종 수정: 2026-11-25 (React Native 과목 제거 — 과목 없음 상태)
 
 ## 1. 기술 스택
 
@@ -20,18 +20,16 @@ GitHub 저장소 Settings → Pages → Source는 **GitHub Actions**여야 합�
 
 ```
 src/
-  content.config.ts            컬렉션 정의 (subjects, lessons, legacy)
+  content.config.ts            컬렉션 정의 (subjects, lessons)
   content/
     subjects/<과목id>.json      과목 정보 + 단원(units) 목록
     lessons/<과목id>/<NN>-<slug>.mdx   새 기준 강의 (한 파일 = 한 강의)
-    legacy/react-native.json   개편 전 React Native 26강 원본 데이터 (보존용, 추가 금지)
   components/
-    lesson/                    강의 본문용: Layer, Callout, CodeWalk, Predict, BugHunt, Explain, Quiz, LegacyLesson
+    lesson/                    강의 본문용: Layer, Callout, CodeWalk, Predict, BugHunt, Explain, Quiz
     labs/                      실습 래퍼(.astro): <과목 실습>Lab.astro
   labs/
     engine/step-lab.ts, .css   공통 실습 엔진
-    <과목>/                    과목별 실습 로직 (예: labs/react/use-state-queue.ts)
-    legacy/                    개편 전 실습 코드 (원본 보존)
+    <과목>/                    과목별 실습 로직 (예: labs/os/page-table.ts)
   layouts/Base.astro, LessonLayout.astro
   lib/catalog.ts               과목·강의 목록 계산 (홈·목차·진도는 모두 여기서 파생)
   figures/
@@ -41,11 +39,11 @@ src/
   components/figures/          그림 래퍼(.astro)
   pages/
     index.astro                         홈
-    subjects/[subject]/index.astro      과목 페이지 (+ 옛 주소 ?lesson=N 리다이렉트)
+    subjects/[subject]/index.astro      과목 페이지
     subjects/[subject]/[lesson]/index.astro   강의 페이지
-    subjects/[subject]/[lesson]/legacy.astro  재작성된 강의의 이전 버전
+    404.astro                           없는 주소 안내
   scripts/progress.ts, assess.ts
-  styles/base.css, legacy-labs.css
+  styles/base.css
 docs/site-architecture.md     이 문서
 .claude/skills/anatomy/       Anatomy 스킬 (Claude가 그림을 만들 때 쓰는 지침·도구, MIT)
 ```
@@ -54,8 +52,7 @@ docs/site-architecture.md     이 문서
 
 - 과목: `/subjects/<과목id>/`
 - 강의: `/subjects/<과목id>/<NN>/` (NN = 두 자리 강의 번호). 강의 번호는 바뀌지 않는 영구 주소입니다.
-- 이전 버전: `/subjects/<과목id>/<NN>/legacy/` (새 기준으로 재작성된 강의만)
-- 옛 주소 `/subjects/react-native/?lesson=N`은 자동으로 새 주소로 이동합니다.
+- 없는 주소는 404 페이지(홈으로 안내)로 갑니다.
 
 ## 4. 과목 추가하기
 
@@ -76,9 +73,9 @@ docs/site-architecture.md     이 문서
 프론트매터 (모두 필수, prerequisites·minutes만 선택):
 
 ```yaml
-subject: react-native
-order: 4                # 강의 번호 = URL
-unit: basics            # 과목 units의 id
+subject: operating-systems
+order: 1                # 강의 번호 = URL
+unit: process           # 과목 units의 id
 title: …
 summary: …
 goals: [ … ]            # "~할 수 있다" 형태, 3~6개
@@ -126,7 +123,7 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 | 위치 | ④ 내부 동작 첫머리 | ⑨ 실습 |
 
 규칙:
-- 그림의 숫자·움직임은 실습과 **같은 모델**에서 나온다 (예: Fig 4-1은 `simulate()` 사용).
+- 그림의 숫자·움직임은 실습과 **같은 모델**(실습의 `build`가 쓰는 순수 함수)에서 나온다.
 - 스킬 크기 기준: Figure(부품 40~80, 1시간 이내)를 기본으로 한다. Hero 이상은 미리 시간을 알리고 승인받는다.
 - SVG는 Astro 컴포넌트 frontmatter에서 `geometry.mjs`로 빌드 시 생성하고, `live.ts`는 transform·글자만 바꾼다 (프레임마다 다시 그리지 않음).
 - 그림 판은 `class="iso"`, 사이트 테마를 따라 `data-theme`를 바꾼다. 강조(lit)는 한 번에 한 부품만.
@@ -145,14 +142,13 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 | astro | 7.x | 사이트 생성 | 빌드 전용 | MIT | 전체 |
 | @astrojs/mdx | 8.x | MDX 강의 | 빌드 전용 | MIT | 전체 |
 | @astrojs/sitemap | 3.x | 사이트맵 | 빌드 전용 | MIT | 전체 |
-| Anatomy kit (`src/figures/kit`) | 1482e84 | 아이소메트릭 원리 그림 | SVG는 빌드 시 생성, 런타임 JS는 그림당 수 KB | MIT | 4강 Fig 4-1 |
+| Anatomy kit (`src/figures/kit`) | 1482e84 | 아이소메트릭 원리 그림 | SVG는 빌드 시 생성, 런타임 JS는 그림당 수 KB | MIT | (현재 사용 강의 없음) |
 
 ## 8. 학습 데이터 (localStorage) — 형식 변경은 사전 승인 필요
 
 | 키 | 값 | 비고 |
 |---|---|---|
-| `rn-lesson-progress` | `{"<번호-1>": true}` | React Native 진도 (개편 전 키 그대로 유지) |
-| `cs-progress:<과목id>` | 같은 형식 | 새 과목 진도 |
+| `cs-progress:<과목id>` | `{"<번호-1>": true}` | 과목별 진도 |
 | `cs-last-course` / `cs-last-lesson` | 과목id / 강의 번호 | 이어서 학습하기 |
 | `cs-theme` | `light` / `dark` | 테마 |
 | `cs-explain:<경로>:<id>` | 문자열 | "내 말로 설명하기" 답안 |
@@ -170,8 +166,8 @@ MDX 주의: 본문 텍스트에 `{`, `<`를 그대로 쓰면 JSX로 해석됩니
 
 변경 계획 → `npm run build` + 로컬 미리보기(모바일·데스크톱, 콘솔 오류 0, 실습 조작 확인) → 승인 → 커밋·푸시 → Actions 성공 확인 → 배포 URL에서 실제 동작 확인 → 보고.
 
-## 11. 개편 전 강의(legacy) 처리
+## 11. 변경 기록
 
-- React Native 1~26강은 원본 내용·실습 코드를 그대로 강의별 페이지로 옮겼습니다 (`LegacyLesson.astro`, `labs/legacy/react-native.js`).
-- 새 기준으로 재작성하면 같은 번호의 MDX를 추가합니다. MDX가 대표 강의가 되고, 원본은 `/legacy/`에서 계속 볼 수 있습니다.
-- 재작성 완료: 4강 useState (Fig 4-1 티켓 레일 계수기 포함), 19강 ScrollView, 20강 FlatList
+- 2026-11-23 단일 HTML → Astro 전환, React Native 26강 이전
+- 2026-11-24 4·19·20강 새 기준 재작성, Anatomy 그림(Fig 4-1) 추가
+- 2026-11-25 사용자 요청으로 React Native 과목 전체 제거(강의·실습·그림·이전 강의 데이터). 필요하면 git 커밋 `97e9bc5`에서 되살릴 수 있음. 공통 실습 엔진·평가 컴포넌트·Anatomy 키트는 유지.

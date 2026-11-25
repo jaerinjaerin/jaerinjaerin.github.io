@@ -8,10 +8,7 @@ export type LessonItem = {
   title: string;
   summary: string;
   unit: string;
-  kind: 'deep' | 'legacy';
-  hasLegacy: boolean;    // 새 기준으로 재작성되어 이전 버전이 따로 있는가
-  mdx?: CollectionEntry<'lessons'>;
-  legacy?: CollectionEntry<'legacy'>;
+  mdx: CollectionEntry<'lessons'>;
 };
 
 export type SubjectItem = {
@@ -27,32 +24,22 @@ export const lessonUrl = (subject: string, order: number) => `/subjects/${subjec
 export const progressKeyOf = (id: string, explicit?: string) => explicit ?? `cs-progress:${id}`;
 
 export async function getCatalog(): Promise<SubjectItem[]> {
-  const [subjects, mdx, legacy] = await Promise.all([
-    getCollection('subjects'),
-    getCollection('lessons'),
-    getCollection('legacy'),
-  ]);
+  const [subjects, mdx] = await Promise.all([getCollection('subjects'), getCollection('lessons')]);
 
   return subjects
     .sort((a, b) => a.data.order - b.data.order)
     .map((s) => {
-      const byOrder = new Map<number, LessonItem>();
-      for (const l of legacy.filter((x) => x.data.subject === s.id)) {
-        byOrder.set(l.data.order, {
-          subject: s.id, order: l.data.order, slug: pad(l.data.order), url: lessonUrl(s.id, l.data.order),
-          title: l.data.t, summary: l.data.i, unit: l.data.unit, kind: 'legacy', hasLegacy: false, legacy: l,
-        });
-      }
-      for (const m of mdx.filter((x) => x.data.subject === s.id)) {
-        const prev = byOrder.get(m.data.order);
-        byOrder.set(m.data.order, {
+      const lessons = mdx
+        .filter((m) => m.data.subject === s.id)
+        .map((m) => ({
           subject: s.id, order: m.data.order, slug: pad(m.data.order), url: lessonUrl(s.id, m.data.order),
-          title: m.data.title, summary: m.data.summary, unit: m.data.unit, kind: 'deep',
-          hasLegacy: Boolean(prev?.legacy), mdx: m, legacy: prev?.legacy,
-        });
-      }
-      const lessons = [...byOrder.values()].sort((a, b) => a.order - b.order);
+          title: m.data.title, summary: m.data.summary, unit: m.data.unit, mdx: m,
+        }))
+        .sort((a, b) => a.order - b.order);
+      const seen = new Set<number>();
       for (const l of lessons) {
+        if (seen.has(l.order)) throw new Error(`${s.id} 과목에 ${l.order}번 강의가 두 개 있습니다.`);
+        seen.add(l.order);
         if (!s.data.units.some((u) => u.id === l.unit)) {
           throw new Error(`${s.id} ${l.order}강의 unit "${l.unit}"이 과목 units에 없습니다.`);
         }
