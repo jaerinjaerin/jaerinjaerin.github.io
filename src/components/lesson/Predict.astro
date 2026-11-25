@@ -1,13 +1,13 @@
 ---
 /** 결과 예측 문제: 코드를 보고 출력을 고른다. 오답마다 어떤 오해인지 설명한다. */
-interface Props { question: string; code?: string; options: string[]; answer: number; why: string[]; explanation: string; hints?: string[]; label?: string; }
-const { question, code, options, answer, why, explanation, hints = [], label = '결과 예측' } = Astro.props;
+interface Props { question: string; code?: string; options: string[]; answer: number; why: string[]; explanation: string; hints?: string[]; label?: string; lang?: string; }
+const { question, code, options, answer, why, explanation, hints = [], label = '결과 예측', lang = 'jsx' } = Astro.props;
 import { Code } from 'astro:components';
 ---
 <div class="card assess" data-assess="choice" data-answer={answer} data-why={JSON.stringify(why)} data-hints={JSON.stringify(hints)}>
   <div class="assess-head"><span class="kind">{label}</span></div>
   <p class="q">{question}</p>
-  {code && <Code code={code} lang="jsx" themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} />}
+  {code && <Code code={code} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} />}
   <div class="options">{options.map((o, i) => <button type="button" class="option" data-i={i}>{String.fromCharCode(65 + i)}. {o}</button>)}</div>
   {hints.length > 0 && <div class="row" style="margin-top:8px"><button type="button" class="btn ghost hint-btn">💡 힌트 보기 (1/{hints.length})</button></div>}
   <div class="hints"></div>

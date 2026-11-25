@@ -67,7 +67,7 @@ export function h<K extends keyof HTMLElementTagNameMap>(
   return el;
 }
 
-const KEYWORDS = /^(function|const|let|var|return|if|else|for|of|in|while|typeof|import|from|export|default|new|true|false|null|undefined)$/;
+const KEYWORDS = /^(function|const|let|var|return|if|else|for|of|in|while|typeof|import|from|export|default|new|true|false|null|undefined|def|self|None|True|False|pass|raise|elif|lambda)$/;
 
 /** 아주 작은 문법 강조기 (의존성 없음, 텍스트 노드로 안전하게 생성) */
 export function highlight(line: string): DocumentFragment {

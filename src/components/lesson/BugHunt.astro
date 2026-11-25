@@ -1,7 +1,7 @@
 ---
 /** 버그 찾기: 문제가 있는 줄을 직접 누른다. */
-interface Props { question: string; code: string; bug: number[]; why: Record<string, string>; explanation: string; fix?: string; hints?: string[]; }
-const { question, code, bug, why, explanation, fix, hints = [] } = Astro.props;
+interface Props { question: string; code: string; bug: number[]; why: Record<string, string>; explanation: string; fix?: string; hints?: string[]; lang?: string; }
+const { question, code, bug, why, explanation, fix, hints = [], lang = 'jsx' } = Astro.props;
 import { Code } from 'astro:components';
 const lines = code.split('\n');
 ---
@@ -16,7 +16,7 @@ const lines = code.split('\n');
   <div class="feedback" hidden aria-live="polite"></div>
   <template>
     <p style="margin:6px 0 0">{explanation}</p>
-    {fix && <><p style="margin:8px 0 0;font-weight:700">고친 코드</p><Code code={fix} lang="jsx" themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} /></>}
+    {fix && <><p style="margin:8px 0 0;font-weight:700">고친 코드</p><Code code={fix} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark' }} defaultColor={false} /></>}
   </template>
 </div>
 

@@ -1,0 +1,27 @@
+---
+import '../../labs/engine/step-lab.css';
+---
+<div class="ch-lab" data-lab="cart-heap"><noscript>이 실습은 JavaScript가 필요합니다.</noscript></div>
+<style is:global>
+  .ch-mem { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .ch-col { display: grid; gap: 8px; }
+  .ch-h { font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .ch-kv { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 3px 0; font-family: var(--mono); font-size: 13.5px; }
+  .ch-k { overflow-wrap: anywhere; }
+  .ch-ref { color: var(--accent); cursor: pointer; min-height: 32px; }
+  .ch-list { font-family: var(--mono); font-size: 13.5px; overflow-wrap: anywhere; }
+  .ch-look { background: var(--accent-2); }
+  .ch-lab .sv-log { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .ch-path { margin: 0; padding-left: 20px; display: grid; gap: 2px; font-family: var(--mono); font-size: 13.5px; }
+  .ch-path li { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .ch-path li[data-hit="false"] strong { color: var(--muted); font-weight: 400; }
+  .ch-path li[data-hit="true"] strong { color: var(--accent); }
+  .sv-box[data-flash="true"] { transition: box-shadow .2s; }
+  @media (min-width: 560px) { .ch-mem { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); } }
+  @media (max-width: 767px) { .ch-kv, .ch-list, .ch-path { font-size: 12.5px; } }
+  @media (prefers-reduced-motion: reduce) { .sv-box[data-flash="true"] { transition: none; } }
+</style>
+<script>
+  import { mountCartHeapLab } from '../../labs/oop/cart-heap';
+  document.querySelectorAll<HTMLElement>('[data-lab="cart-heap"]').forEach((el) => mountCartHeapLab(el));
+</script>

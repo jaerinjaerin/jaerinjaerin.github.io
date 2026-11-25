@@ -1,0 +1,445 @@
+---
+subject: oop
+order: 1
+unit: objects
+title: "객체와 클래스 — 객체는 메모리에서 무엇인가"
+summary: 클래스는 설계도, 객체는 그 설계도로 만든 실체입니다. 이 강의에서는 비유에서 멈추지 않고, Python이 객체를 만들고 self를 넘기고 속성을 찾는 과정을 힙 메모리 수준에서 따라가며 "장바구니가 섞이는 버그"의 원인을 정확히 설명합니다.
+goals:
+  - 객체를 상태·행동·정체성 세 요소로 정의하고, 클래스와 인스턴스의 관계를 설명할 수 있다.
+  - Cart("민수") 한 줄에서 __new__와 __init__이 차례로 하는 일을 메모리 상태 변화로 설명할 수 있다.
+  - a.add(x)가 Cart.add(a, x)로 바뀌는 과정을 통해 self의 정체를 설명할 수 있다.
+  - 속성 읽기(인스턴스 → 클래스)와 대입(항상 인스턴스)의 차이로 클래스 변수 공유 버그를 진단하고 고칠 수 있다.
+  - self 누락, 인자 누락, 오타로 생기는 실제 오류 메시지를 읽고 원인을 찾을 수 있다.
+prerequisites:
+  - Python 변수, 함수, 리스트
+  - 함수 호출과 인자 전달
+minutes: 70
+updated: 2026-11-25
+---
+import Layer from '../../../components/lesson/Layer.astro';
+import Callout from '../../../components/lesson/Callout.astro';
+import CodeWalk from '../../../components/lesson/CodeWalk.astro';
+import CartHeapLab from '../../../components/labs/CartHeapLab.astro';
+import Predict from '../../../components/lesson/Predict.astro';
+import BugHunt from '../../../components/lesson/BugHunt.astro';
+import Explain from '../../../components/lesson/Explain.astro';
+import Quiz from '../../../components/lesson/Quiz.astro';
+
+## 문제부터 시작해 봅시다
+
+쇼핑몰의 장바구니를 클래스로 만들었습니다. 민수와 지영이 각자 물건을 하나씩 담습니다.
+
+```python
+class Cart:
+    items = []
+    def __init__(self, owner):
+        self.owner = owner
+    def add(self, x):
+        self.items.append(x)
+
+a = Cart("민수")
+b = Cart("지영")
+a.add("사과")
+b.add("우유")
+print(a.items)
+```
+
+실행하면 에러 없이 `['사과', '우유']`가 나옵니다. 민수의 장바구니에 지영의 우유가 들어 있습니다. 이 강의를 마치면 이 결과가 왜 나오는지 메모리 그림으로 설명하고, 고칠 수 있게 됩니다.
+
+<Layer n={1} />
+## 비유: 붕어빵 틀, 그리고 비유가 틀리는 곳
+
+클래스(Class)는 붕어빵 틀이고, 객체(Object)는 그 틀로 찍어낸 붕어빵이라는 비유를 많이 씁니다. 틀 하나로 팥 붕어빵도 슈크림 붕어빵도 만들 수 있으니, 출발점으로는 괜찮습니다.
+
+<Callout kind="limit" title="이 비유가 맞지 않는 지점">
+붕어빵은 다 구워지면 틀과 상관이 없어집니다. Python 객체는 다릅니다. 만들어진 뒤에도 자기 클래스를 계속 가리키고, 메서드나 속성이 필요할 때마다 클래스에 가서 찾아옵니다. 그래서 틀(클래스)에 무언가를 넣어 두면 모든 붕어빵이 그것을 함께 쓰게 됩니다. 이 강의의 버그는 전부 이 차이에서 생깁니다.
+</Callout>
+
+<Layer n={2} />
+## 정확한 정의
+
+- **객체(Object)**: 다음 세 요소로 이루어진 단위입니다.
+  - **상태(State)**: 속성(attribute)에 담긴 데이터
+  - **행동(Behavior)**: 메서드(method)
+  - **정체성(Identity)**: 값이 같아도 서로 다른 객체임을 구분하는 고유성. Python에서는 `id()`로 확인하고 `is`로 비교합니다.
+- **클래스(Class)**: 객체의 타입을 정의하는 템플릿입니다. 그 타입의 객체가 어떤 속성과 메서드를 가질지 정합니다. Python에서는 클래스 자신도 객체입니다.
+- **인스턴스(Instance)**: 특정 클래스로 만든 객체입니다. "a는 Cart의 인스턴스다"라고 말합니다. `isinstance(a, Cart)`가 `True`입니다.
+- **인스턴스 변수(instance variable)**: 인스턴스 각자의 `__dict__`에 저장된 속성입니다. `self.owner = ...`로 만듭니다.
+- **클래스 변수(class variable)**: 클래스의 `__dict__`에 저장된 속성입니다. 클래스 몸체에 직접 쓴 `items = []`가 이것이고, 모든 인스턴스가 공유합니다.
+- **객체지향 프로그래밍(OOP)**: 데이터와 그 데이터를 다루는 함수를 객체로 묶고, 객체끼리 메서드 호출(메시지)을 주고받게 해서 프로그램을 구성하는 패러다임입니다.
+
+<Layer n={3} />
+## 왜 객체지향이 생겼나
+
+절차지향(Procedural) 프로그래밍에서는 데이터와 함수가 따로 있습니다.
+
+```python
+balance = 0
+
+def deposit(amount):
+    global balance
+    balance += amount
+```
+
+작은 프로그램에서는 문제가 없지만 규모가 커지면 세 가지 문제가 드러납니다.
+
+1. **누구나 데이터를 바꿀 수 있다.** 프로그램 어디에서든 `balance = -999`라고 쓸 수 있고, 막을 방법이 없습니다.
+2. **같은 종류의 데이터가 여러 개가 되면 관리가 어렵다.** 계좌가 100개가 되면 잔액을 어디에 두고, 어떤 함수가 어느 계좌를 다루는지 직접 맞춰야 합니다.
+3. **변경이 멀리 퍼진다.** 잔액의 형식을 바꾸면 그 데이터를 만지는 모든 함수를 찾아 고쳐야 합니다.
+
+<Callout kind="note" title="역사 한 줄">
+1967년 노르웨이의 Simula 67이 시뮬레이션 속 "사물"을 표현하려고 클래스와 객체를 처음 도입했습니다. 1970년대 Alan Kay의 Smalltalk는 "객체끼리 메시지를 주고받는다"는 모델로 이를 발전시켰고, 이후 C++, Java, Python이 이 생각을 이어받았습니다.
+</Callout>
+
+객체지향의 해법은 **데이터와 그 데이터를 지키는 규칙을 한곳에 두는 것**입니다. 계좌 객체가 자기 잔액을 갖고, 잔액을 바꾸는 유일한 통로인 `deposit` 메서드가 규칙(음수 입금 금지)을 검사합니다.
+
+## 예제 1 — 기본: 은행 계좌
+
+<div class="code-title"><span>account.py, 기본 예제</span><span class="badge real">그대로 실행 가능</span></div>
+
+```python
+class Account:
+    bank_name = "OOP은행"
+
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("입금액은 양수여야 합니다")
+        self.balance += amount
+        return self.balance
+
+a = Account("민수")
+b = Account("지영", 1000)
+a.deposit(500)
+print(a.balance, b.balance)
+print(a.bank_name, b.bank_name)
+print(a.__dict__)
+print(a is b, isinstance(a, Account))
+```
+
+출력:
+
+```text
+500 1000
+OOP은행 OOP은행
+{'owner': '민수', 'balance': 500}
+False True
+```
+
+<CodeWalk items={[
+  ['1', 'class Account:', "class 문은 '클래스를 선언'만 하는 게 아니라 실행되는 문장입니다. 실행되면 Account라는 클래스 객체가 메모리에 만들어지고, 이름 Account가 그것을 가리킵니다."],
+  ['2', 'bank_name = "OOP은행"', "클래스 몸체에 쓴 대입은 클래스의 __dict__에 저장됩니다(클래스 변수). 모든 계좌가 공유하는 값입니다. 문자열은 불변(immutable)이라 공유해도 안전합니다."],
+  ['4', 'def __init__(self, owner, balance=0):', "__init__은 인스턴스가 만들어진 직후 Python이 자동으로 호출하는 초기화 메서드입니다. 생성자라고 부르기도 하지만, 정확히는 객체를 '만드는' 일은 __new__가 하고 __init__은 '채우는' 일을 합니다. balance=0은 기본값이고, 0은 불변이라 기본값으로 써도 안전합니다."],
+  ['5–6', 'self.owner = owner', "self는 방금 만든 바로 그 인스턴스입니다. self.이름 = 값 형태의 대입은 인스턴스의 __dict__에 저장됩니다(인스턴스 변수). 그래서 a와 b가 서로 다른 balance를 가집니다."],
+  ['8', 'def deposit(self, amount):', "메서드도 결국 클래스 안에 정의된 함수입니다. 첫 매개변수 self는 호출한 인스턴스를 받는 자리입니다. 이름이 self인 것은 관례일 뿐 문법이 아니지만, 다른 이름을 쓰면 읽는 사람이 혼란스럽습니다."],
+  ['9–10', 'raise ValueError(...)', "잘못된 상태 변화를 막는 규칙입니다. 잔액을 바꾸는 길이 이 메서드로 모이기 때문에 규칙도 한곳에만 두면 됩니다. 객체지향의 첫 번째 이점입니다. (다만 Python은 a.balance = -999를 문법적으로 막지 않습니다. 이 문제는 2강 캡슐화에서 다룹니다.)"],
+  ['11', 'self.balance += amount', "self.balance = self.balance + amount와 같습니다. 오른쪽에서 인스턴스의 값을 읽고, 왼쪽에서 인스턴스에 다시 대입합니다. 이 '읽기'와 '대입'의 구분이 오늘 실습의 핵심입니다."],
+  ['14–15', 'a = Account("민수")', "클래스를 함수처럼 호출하면 인스턴스가 만들어집니다. balance를 생략한 a는 0, b는 1000으로 시작합니다."],
+  ['16', 'a.deposit(500)', "Python은 이 호출을 Account.deposit(a, 500)으로 바꿔 실행합니다. 그래서 self 자리에 a가 들어갑니다."],
+  ['18', 'print(a.bank_name, b.bank_name)', "a.__dict__에는 bank_name이 없습니다. 그런데도 값이 나오는 이유는 속성을 읽을 때 인스턴스에서 못 찾으면 클래스까지 찾아가기 때문입니다."],
+  ['19', 'print(a.__dict__)', "인스턴스가 실제로 가진 속성만 보여 줍니다. owner와 balance뿐이고 bank_name이나 deposit은 없습니다. 이것들은 클래스에 있습니다."],
+  ['20', 'print(a is b, isinstance(a, Account))', "is는 정체성(같은 객체인가)을 비교합니다. a와 b는 같은 클래스의 인스턴스지만 서로 다른 객체입니다."],
+]} />
+
+<Layer n={4} />
+## 내부 동작: 객체가 만들어지고 메서드가 불리기까지
+
+예제 1을 짧게 줄인 코드로, 실제로 메모리에서 일어나는 일을 단계별로 따라가 봅시다.
+
+```python
+class Counter:
+    def __init__(self, start):
+        self.count = start
+    def increment(self):
+        self.count += 1
+
+c = Counter(5)
+c.increment()
+```
+
+**1단계. class 문 실행.** 힙(heap, 객체들이 사는 메모리 영역)에 클래스 객체 `Counter`가 생깁니다. 그 객체의 `__dict__`에는 `'__init__'`과 `'increment'`라는 이름으로 함수 두 개가 저장됩니다. 전역 이름 `Counter`가 이 클래스 객체를 가리킵니다.
+
+**2단계. Counter(5) 호출.**
+
+1. `Counter.__new__(Counter)`가 힙에 빈 인스턴스를 만듭니다. 이 인스턴스는 자기 클래스가 `Counter`라는 것을 기억합니다(`type(c)`). `__dict__`는 아직 `{}`입니다.
+2. `Counter.__init__(그_인스턴스, 5)`가 호출됩니다. 이 호출의 프레임(frame, 함수 실행 중 지역 변수가 사는 곳)에서 `self`는 방금 만든 인스턴스를, `start`는 5를 가리킵니다.
+3. `self.count = start`가 실행되어 인스턴스의 `__dict__`가 `{'count': 5}`가 됩니다.
+4. `__init__`이 끝나면 프레임이 사라지고, 완성된 인스턴스가 반환되어 전역 이름 `c`가 그것을 가리킵니다. `c`는 객체 자체가 아니라 객체를 가리키는 참조(reference)입니다.
+
+**3단계. c.increment() 호출, 속성 탐색(attribute lookup).**
+
+1. `c.__dict__`에서 `'increment'`를 찾습니다. 없습니다.
+2. `type(c).__dict__`, 즉 `Counter.__dict__`에서 찾습니다. 함수가 있습니다.
+3. 함수를 그냥 돌려주지 않고, 함수와 `c`를 묶은 바운드 메서드(bound method)를 만듭니다. 실제로 `print(c.increment)`를 하면 `<bound method Counter.increment of <__main__.Counter object at 0x...>>`가 나옵니다.
+4. 바운드 메서드를 호출하면 결국 `Counter.increment(c)`가 실행됩니다. 이것이 self의 정체입니다.
+
+<Callout kind="tip" title="이 강의의 핵심 규칙 두 가지">
+<strong>읽기</strong>(<code>self.x</code>, <code>a.x</code>): 인스턴스의 <code>__dict__</code>를 먼저 보고, 없으면 클래스의 <code>__dict__</code>를 봅니다.<br />
+<strong>대입</strong>(<code>self.x = ...</code>): 클래스를 보지 않고 언제나 인스턴스의 <code>__dict__</code>에 씁니다.<br />
+<code>self.items.append(x)</code>는 대입이 아니라 <strong>읽기 + 변경(mutation)</strong>이라는 점에 주의하세요.
+</Callout>
+
+## 예제 2 — 함정: 장바구니가 섞이는 버그
+
+처음 문제의 코드에 위 규칙을 적용해 봅시다.
+
+<div class="code-title"><span>cart_bug.py, 함정 예제</span><span class="badge real">그대로 실행 가능</span></div>
+
+```python
+class Cart:
+    items = []
+    def __init__(self, owner):
+        self.owner = owner
+    def add(self, x):
+        self.items.append(x)
+
+a = Cart("민수")
+b = Cart("지영")
+a.add("사과")
+b.add("우유")
+print(a.items)
+print(b.items)
+print(a.items is b.items)
+print(a.__dict__)
+```
+
+출력:
+
+```text
+['사과', '우유']
+['사과', '우유']
+True
+{'owner': '민수'}
+```
+
+<CodeWalk items={[
+  ['2', 'items = []', "클래스 몸체에 있으므로 class 문이 실행될 때 딱 한 번 실행됩니다. 리스트는 하나만 만들어지고 Cart.__dict__에 저장됩니다."],
+  ['4', 'self.owner = owner', "대입이므로 각 인스턴스의 __dict__에 저장됩니다. owner는 섞이지 않습니다."],
+  ['6', 'self.items.append(x)', "먼저 self.items를 읽습니다. 인스턴스에 items가 없으니 클래스에서 공유 리스트를 찾아옵니다. 그다음 append로 그 리스트를 제자리에서 바꿉니다. 대입이 아니므로 인스턴스에는 아무것도 생기지 않습니다."],
+  ['14', 'print(a.items is b.items)', "True입니다. 두 이름이 같은 리스트 객체 하나를 보고 있다는 증거입니다."],
+  ['15', 'print(a.__dict__)', "items가 없습니다. a.items는 매번 클래스까지 찾아가서 얻은 값입니다."],
+]} />
+
+고친 코드는 가변 객체를 `__init__` 안에서 인스턴스마다 새로 만드는 것입니다.
+
+```python
+class Cart:
+    def __init__(self, owner):
+        self.owner = owner
+        self.items = []
+    def add(self, x):
+        self.items.append(x)
+```
+
+<Layer n={9} />
+## 실습: 힙에서 장바구니 따라가기
+
+아래 실습은 CPython이 인스턴스를 만들고 속성을 찾는 순서를 재현합니다. 각 모드에서 먼저 결과를 예측하고 한 단계씩 실행해 보세요.
+
+- **고장 모드부터** 실행해 `add` 단계마다 속성 탐색 경로가 어디로 가는지 보세요.
+- **인스턴스 수**를 4개까지 늘려 힙의 리스트 개수가 어떻게 되는지 세어 보세요.
+- **변형 모드**는 결과가 맞게 나옵니다. 그런데도 클래스의 L0가 남아 있는 이유를 찾아보세요.
+- 이름표의 화살표(→ C0)를 누르면 그 객체가 강조됩니다.
+
+<CartHeapLab />
+
+<Predict
+  label="미션 1"
+  question="실습을 고장 모드, 인스턴스 4개로 끝까지 실행하세요. 힙에 있는 리스트 객체는 몇 개인가요?"
+  options={["1개", "4개", "5개", "0개"]}
+  answer={0}
+  why={[
+    "",
+    "인스턴스마다 리스트가 있는 것은 정상 모드입니다. 고장 모드에서 add가 새 리스트를 만드는지 다시 확인해 보세요.",
+    "클래스 리스트 1개에 인스턴스마다 1개씩 더한 수는 변형 모드에 가깝습니다. 고장 모드의 append는 새 리스트를 만들지 않습니다.",
+    "items = [] 는 class 문이 실행될 때 리스트를 하나 만듭니다.",
+  ]}
+  hints={["add 단계에서 힙에 새 리스트 카드가 나타나나요?", "append는 기존 리스트를 바꾸는 메서드입니다."]}
+  explanation="클래스의 L0 하나뿐입니다. append는 기존 리스트를 제자리에서 바꿀 뿐 새 리스트를 만들지 않으므로, 인스턴스가 몇 개든 리스트는 1개입니다."
+/>
+
+<Predict
+  label="미션 2"
+  question="실습을 변형 모드, 인스턴스 3개로 끝까지 실행하세요. 리스트 객체 수와 마지막 Cart.items의 값은?"
+  options={["1개, ['사과', '우유', '빵']", "3개, []", "4개, []", "4개, ['사과', '우유', '빵']"]}
+  answer={2}
+  why={[
+    "이것은 고장 모드의 결과입니다. 변형 모드의 + 연산자가 기존 리스트를 바꾸는지 확인해 보세요.",
+    "클래스 몸체의 items = [] 가 만든 리스트도 힙에 남아 있습니다.",
+    "",
+    "L0가 바뀌었다면 이 답이 맞겠지만, + 는 새 리스트를 만들고 L0는 읽기만 했습니다.",
+  ]}
+  hints={["self.items + [x] 는 새 리스트를 만들까요, 기존 리스트를 바꿀까요?", "대입(=)은 어디에 저장되나요?"]}
+  explanation="클래스의 L0 1개와 재할당으로 생긴 새 리스트 3개, 모두 4개입니다. L0는 읽히기만 하고 한 번도 바뀌지 않아서 Cart.items는 []입니다. 결과는 맞지만 쓸모없는 클래스 변수가 남는 코드이므로, 실무에서는 정상 모드처럼 __init__에서 만드는 것이 맞습니다."
+/>
+
+<Layer n={5} />
+## 경계와 실패: 실제 오류 메시지 읽기
+
+<Callout kind="error" title="self를 빼먹었을 때">
+<code>TypeError: Counter.increment() takes 0 positional arguments but 1 was given</code><br />
+<code>def increment():</code>처럼 self를 빼고 정의한 뒤 <code>c.increment()</code>를 호출한 경우입니다. 나는 인자를 하나도 안 넘겼는데 "1개가 넘어왔다"고 합니다. 3단계에서 Python이 인스턴스를 첫 인자로 자동으로 넘기는데, 받을 자리가 없기 때문입니다.
+</Callout>
+
+<Callout kind="error" title="__init__에 필요한 인자를 빠뜨렸을 때">
+<code>TypeError: Counter.__init__() missing 1 required positional argument: 'start'</code><br />
+<code>Counter()</code>처럼 호출한 경우입니다. 클래스를 호출할 때 넘긴 인자는 그대로 <code>__init__</code>에 전달됩니다. self는 자동으로 채워지므로 빠진 것은 start입니다.
+</Callout>
+
+<Callout kind="error" title="속성 이름을 잘못 썼을 때">
+<code>AttributeError: 'Counter' object has no attribute 'cout'. Did you mean: 'count'?</code><br />
+<code>c.cout</code>처럼 오타를 낸 경우입니다. 인스턴스의 <code>__dict__</code>와 클래스의 <code>__dict__</code> 모두에서 찾지 못했습니다. "Did you mean" 제안은 Python 3.10부터 트레이스백에 표시되며, 철자가 충분히 비슷할 때만 나옵니다(<code>c.cnt</code>에는 나오지 않습니다).
+</Callout>
+
+<Callout kind="error" title="클래스에서 인스턴스 변수를 찾을 때">
+<code>AttributeError: type object 'Cart' has no attribute 'items'</code><br />
+정상 모드의 Cart에서 <code>Cart.items</code>를 읽은 경우입니다. 인스턴스 변수는 인스턴스에만 있습니다. 탐색은 인스턴스에서 클래스로 올라갈 뿐, 클래스에서 인스턴스로 내려가지 않습니다.
+</Callout>
+
+가장 위험한 경우는 **오류가 나지 않는 경우**입니다. 예제 2처럼 가변 클래스 변수를 공유하면 프로그램은 멀쩡히 돌면서 틀린 결과를 냅니다. 같은 원리의 함정이 하나 더 있습니다.
+
+```python
+def __init__(self, owner, items=[]):
+    self.owner = owner
+    self.items = items
+```
+
+기본 인자 `[]`는 함수를 **정의할 때 한 번** 만들어져 함수 객체에 저장됩니다. 그래서 `items`를 넘기지 않은 모든 인스턴스가 같은 리스트를 공유합니다. 관례적인 해결책은 `items=None`으로 받고 함수 안에서 `self.items = [] if items is None else list(items)`처럼 새로 만드는 것입니다.
+
+<Layer n={6} />
+## 비교와 트레이드오프
+
+| 기준 | 절차지향 | 객체지향 | 함수형 |
+|---|---|---|---|
+| 데이터와 함수 | 분리 | 객체로 묶음 | 분리, 데이터는 보통 불변 |
+| 상태 변경 | 전역 데이터를 직접 변경 | 객체가 자기 상태를 변경 | 새 값을 만들어 반환 |
+| 잘 맞는 곳 | 짧은 스크립트, 단순한 처리 흐름 | 상태를 가진 사물이 많은 도메인 | 데이터 변환, 동시성, 테스트 |
+| 흔한 문제 | 규모가 커지면 변경이 멀리 퍼짐 | 숨은 공유 상태, 과한 클래스 설계 | 상태가 많은 UI·입출력에서 어색함 |
+
+클래스 변수와 인스턴스 변수도 비교해 봅시다.
+
+| 기준 | 클래스 변수 | 인스턴스 변수 |
+|---|---|---|
+| 저장 위치 | 클래스의 `__dict__` 1곳 | 인스턴스마다의 `__dict__` |
+| 만들어지는 때 | class 문 실행 시 1번 | `__init__` 실행마다 |
+| 메모리 | 인스턴스 수와 무관 | 인스턴스 수에 비례 |
+| 알맞은 값 | 상수, 의도적으로 공유하는 설정 | 객체마다 다른 상태 |
+
+**비용 측면**
+- **공간**: 인스턴스마다 `__dict__`라는 딕셔너리를 가집니다. CPython은 같은 클래스의 인스턴스들이 키를 공유하는 최적화(PEP 412 키 공유 딕셔너리)를 쓰지만, 그래도 객체를 수백만 개 만들면 부담이 됩니다. 이때 `__slots__`를 선언하면 `__dict__` 대신 고정된 칸만 두어 메모리를 줄일 수 있습니다. 대신 정해 둔 이름 외의 속성은 추가할 수 없습니다.
+- **시간**: 속성 탐색은 딕셔너리 조회라 평균 O(1)이지만, 인스턴스, 클래스, (상속하면) 부모 클래스로 여러 단계를 거칠 수 있습니다. 그래서 아주 뜨거운 반복문에서는 메서드를 지역 변수에 담아 두는 최적화를 하기도 합니다.
+
+<Layer n={7} />
+## 실무에서는
+
+- **가변 객체(list, dict, set)는 `__init__` 안에서 만듭니다.** 리뷰에서 가장 자주 지적되는 실수 중 하나입니다. 린터(pylint의 dangerous-default-value 경고 등)도 가변 기본 인자를 잡아 줍니다.
+- **클래스 변수는 상수나 의도적인 공유에만 씁니다.** 예: 은행 이름, 기본 설정값, 만들어진 인스턴스 수를 세는 카운터.
+- **데이터를 담는 클래스는 `@dataclass`를 자주 씁니다.** `__init__`을 자동으로 만들어 주고, `items: list = []`처럼 가변 기본값을 쓰면 `ValueError: mutable default <class 'list'> for field items is not allowed: use default_factory`로 막아 줍니다. 대신 `field(default_factory=list)`를 씁니다.
+- **객체지향은 도구입니다.** Django의 모델, 게임의 캐릭터처럼 상태를 가진 사물을 표현할 때 강력하지만, 단순한 계산은 함수 하나가 더 낫습니다. 클래스를 만들기 전에 "이 데이터에 지켜야 할 규칙이 있는가"를 먼저 물어보세요.
+
+<Layer n={8} />
+## 더 깊이
+
+- **Python 공식 문서의 Data model 장**: `__new__`, `__init__`, `__dict__`, 속성 접근 규칙의 공식 정의가 있습니다.
+- **디스크립터 프로토콜(Descriptor protocol)**: `c.increment`에서 함수가 바운드 메서드로 바뀌는 진짜 원리입니다. 함수 객체의 `__get__` 메서드가 그 일을 합니다. 공식 문서의 Descriptor HowTo Guide가 좋은 출발점입니다.
+- **메타클래스(Metaclass)**: 클래스도 객체라면 클래스를 만드는 것은 무엇일까요? 답은 `type`입니다. `Counter(5)`가 동작하는 것도 `type.__call__`이 `__new__`와 `__init__`을 차례로 부르기 때문입니다.
+- **다음 강의**: 2강 캡슐화에서는 `a.balance = -999`를 어떻게 막는지, 그리고 Python이 왜 Java처럼 private을 강제하지 않는지 다룹니다.
+
+<Layer n={10} />
+## 이해도 평가
+
+<Predict
+  question="다음 코드의 출력은?"
+  lang="python"
+  code={"class P:\n    tags = []\n\np1, p2 = P(), P()\np1.tags = [\"x\"]\np2.tags.append(\"y\")\nprint(p1.tags, p2.tags, P.tags)"}
+  options={["['x'] ['y'] ['y']", "['x'] ['y'] []", "['x', 'y'] ['x', 'y'] ['x', 'y']", "['x'] ['x', 'y'] ['y']"]}
+  answer={0}
+  why={[
+    "",
+    "p2.tags.append는 대입이 아닙니다. p2에 tags가 없으니 클래스의 리스트를 찾아가 바꿉니다.",
+    "p1.tags = [\"x\"]는 대입이라 p1.__dict__에 새 리스트가 생기고 클래스 리스트를 가립니다. p1은 더 이상 공유 리스트를 보지 않습니다.",
+    "p2.tags는 클래스의 리스트이고, 그 리스트에는 \"y\"만 들어갔습니다. \"x\"는 p1만의 새 리스트에 있습니다.",
+  ]}
+  hints={["5번 줄은 대입, 6번 줄은 변경입니다.", "각 줄이 끝난 뒤 p1.__dict__, p2.__dict__, P.__dict__에 무엇이 있는지 적어 보세요."]}
+  explanation="p1.tags = ['x']는 p1.__dict__에 새 리스트를 만듭니다. p2.tags.append('y')는 p2에 tags가 없어서 클래스의 리스트를 바꿉니다. 그래서 p1은 자기 리스트 ['x'], p2와 P는 공유 리스트 ['y']를 봅니다."
+/>
+
+<Predict
+  label="변형 문제"
+  question="위 문제에서 순서를 바꿨습니다. 출력은?"
+  lang="python"
+  code={"class P:\n    tags = []\n\np1, p2 = P(), P()\np2.tags.append(\"y\")\np1.tags = p1.tags + [\"x\"]\nprint(p1.tags, p2.tags, P.tags)"}
+  options={["['x'] ['y'] ['y']", "['y', 'x'] ['y'] ['y']", "['y', 'x'] ['y', 'x'] ['y', 'x']", "['x'] ['y'] []"]}
+  answer={1}
+  why={[
+    "6번 줄 오른쪽의 p1.tags는 대입보다 먼저 읽힙니다. 그때 p1에는 tags가 없어서 클래스 리스트 ['y']를 읽습니다.",
+    "",
+    "+ 는 기존 리스트를 바꾸지 않고 새 리스트를 만듭니다. 그래서 클래스 리스트는 ['y'] 그대로입니다.",
+    "5번 줄의 append가 클래스 리스트를 바꿨습니다.",
+  ]}
+  hints={["대입문은 오른쪽을 먼저 계산합니다.", "+ 와 append 중 무엇이 새 객체를 만드나요?"]}
+  explanation="5번 줄에서 클래스 리스트가 ['y']가 됩니다. 6번 줄은 오른쪽에서 클래스 리스트 ['y']를 읽고 + 로 새 리스트 ['y', 'x']를 만든 뒤 p1.__dict__에 대입합니다. 실습의 변형 모드와 같은 원리입니다."
+/>
+
+<BugHunt
+  question="이 코드는 실행하면 TypeError가 납니다. 원인이 되는 줄을 찾으세요."
+  lang="python"
+  code={"class Dog:\n    def __init__(self, name):\n        self.name = name\n    def bark():\n        print(\"멍\")\n\nDog(\"초코\").bark()"}
+  bug={[4]}
+  why={{
+    '1': 'class 선언 자체는 문제가 없습니다.',
+    '2': '__init__은 self와 name을 받으므로 올바릅니다.',
+    '3': '인스턴스 변수 대입으로 올바릅니다.',
+    '4': 'bark에 self 매개변수가 없습니다. Python이 인스턴스를 첫 인자로 자동으로 넘기는데 받을 자리가 없습니다.',
+    '5': 'print 호출 자체는 문제가 없습니다. 오류는 이 줄이 실행되기도 전에 납니다.',
+    '7': '호출하는 쪽은 올바릅니다. Dog("초코").bark()는 Dog.bark(그_인스턴스)로 바뀌어 실행됩니다.',
+  }}
+  hints={["오류 메시지는 takes 0 positional arguments but 1 was given입니다. 넘어간 1개는 무엇일까요?", "메서드 호출이 Dog.bark(인스턴스)로 바뀐다는 것을 떠올려 보세요."]}
+  explanation="4번 줄의 def bark(): 에 self가 없습니다. Dog('초코').bark()는 Dog.bark(인스턴스)로 실행되므로, 인자를 받지 않는 함수에 인자 1개가 넘어가 TypeError: Dog.bark() takes 0 positional arguments but 1 was given이 납니다."
+  fix={"    def bark(self):\n        print(f\"{self.name}: 멍\")"}
+/>
+
+<BugHunt
+  question="코드 수정 과제: 시작 물건을 선택적으로 받도록 Cart를 바꿨습니다. 그런데 Cart('민수')와 Cart('지영')의 장바구니가 또 섞입니다. 원인이 되는 줄을 찾으세요."
+  lang="python"
+  code={"class Cart:\n    def __init__(self, owner, items=[]):\n        self.owner = owner\n        self.items = items\n    def add(self, x):\n        self.items.append(x)"}
+  bug={[2]}
+  why={{
+    '1': 'class 선언 자체는 문제가 없습니다.',
+    '3': '인스턴스 변수 대입으로 올바릅니다.',
+    '4': '대입 자체는 인스턴스에 저장되므로 맞습니다. 문제는 여기로 들어오는 값이 모두 같은 리스트라는 것입니다. 그 리스트가 어디서 만들어지는지 보세요.',
+    '5': '메서드 정의는 올바릅니다.',
+    '6': 'append 자체는 문제가 없습니다. self.items가 인스턴스마다 다른 리스트라면 안전합니다.',
+  }}
+  hints={["기본 인자 [] 는 언제 만들어질까요? 함수를 호출할 때마다일까요, 정의할 때 한 번일까요?"]}
+  explanation="2번 줄의 기본 인자 items=[] 는 함수를 정의할 때 한 번만 만들어집니다. items를 넘기지 않은 모든 Cart가 그 리스트 하나를 self.items로 받아 공유합니다. None을 기본값으로 쓰고 호출할 때마다 새 리스트를 만들어야 합니다. list(items)로 복사하면 바깥에서 넘긴 리스트와도 분리됩니다."
+  fix={"    def __init__(self, owner, items=None):\n        self.owner = owner\n        self.items = [] if items is None else list(items)"}
+/>
+
+<Explain
+  id="oop-01-read-vs-assign"
+  prompt="클래스 변수 items = [] 가 있을 때, self.items.append(x)와 self.items = self.items + [x]가 다르게 동작하는 이유를 '읽기'와 '대입'이라는 단어를 써서 설명해 보세요."
+  model="self.items.append(x)는 self.items를 읽은 뒤 그 리스트를 제자리에서 바꿉니다. 읽기는 인스턴스에서 못 찾으면 클래스로 올라가므로, 모든 인스턴스가 클래스의 같은 리스트를 바꾸게 됩니다. 반면 self.items = self.items + [x]는 오른쪽에서 클래스 리스트를 읽어 새 리스트를 만들고, 왼쪽의 대입은 항상 인스턴스의 __dict__에 저장합니다. 그래서 인스턴스마다 자기 리스트가 생겨 클래스 리스트를 가리고, 클래스 리스트는 바뀌지 않습니다."
+  checklist={[
+    "읽기는 인스턴스 → 클래스 순서로 찾는다고 썼다",
+    "대입은 항상 인스턴스의 __dict__에 저장된다고 썼다",
+    "append는 기존 객체를 바꾸고(변경), + 는 새 객체를 만든다고 구분했다",
+    "변형 방식에서 클래스 리스트가 가려질 뿐 그대로 남는다는 점을 짚었다",
+  ]}
+/>
+
+<Quiz
+  question="다음 중 클래스 변수로 두기에 가장 알맞은 것은?"
+  options={["사용자마다 다른 장바구니 목록", "모든 계좌에 공통인 은행 이름 문자열", "게임 캐릭터마다 다른 체력 값", "요청마다 바뀌는 로그인 토큰"]}
+  answer={1}
+  why={[
+    "사용자마다 달라야 하는 데다 가변 객체라 공유하면 예제 2의 버그가 됩니다.",
+    "",
+    "캐릭터마다 다른 상태이므로 인스턴스 변수여야 합니다.",
+    "객체마다, 시점마다 달라지는 값은 인스턴스 변수입니다.",
+  ]}
+  explanation="모든 인스턴스가 같은 값을 쓰고 바뀌지 않는 값(불변 상수)이 클래스 변수에 알맞습니다."
+/>

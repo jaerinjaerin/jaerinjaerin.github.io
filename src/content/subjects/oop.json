@@ -1,0 +1,13 @@
+{
+  "title": "객체지향 프로그래밍",
+  "icon": "OOP",
+  "field": "프로그래밍",
+  "area": "소프트웨어 설계",
+  "order": 1,
+  "description": "객체가 메모리에서 실제로 무엇인지에서 출발해 캡슐화, 상속, 다형성, 추상화, SOLID 원칙과 디자인 패턴까지 Python 코드로 배웁니다.",
+  "units": [
+    { "id": "objects", "title": "객체와 클래스" },
+    { "id": "pillars", "title": "객체지향의 네 기둥" },
+    { "id": "design", "title": "설계 원칙과 패턴" }
+  ]
+}
