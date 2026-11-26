@@ -1,0 +1,25 @@
+---
+/**
+ * 객체지향 강의 본문용 정적 그림. 실습과 같은 모델(순수 함수)의 특정 단계를 빌드 시 SVG로 그린다.
+ * 사용: <OopFigure model="cart" variant="fresh" n={2} at="end" fig="1-1" caption="…" />
+ *  - at: 'end' | 단계 번호(1부터) | 단계 제목의 일부 문자열
+ */
+import '../../labs/oop/object-diagram.css';
+import { renderDiagram, legend } from '../../labs/oop/object-diagram';
+import { simulateCart, cartDiagram, type CartVariant } from '../../labs/oop/cart-model';
+import { simulateThis, thisDiagram, type ThisVariant } from '../../labs/oop/this-model';
+
+interface Props { model: 'cart' | 'this'; variant: string; n?: number; at?: 'end' | number | string; fig: string; caption: string; }
+const { model, variant, n = 2, at = 'end', fig, caption } = Astro.props;
+const steps: any[] = model === 'cart' ? simulateCart(variant as CartVariant, n) : simulateThis(variant as ThisVariant);
+const step = at === 'end' ? steps.at(-1)
+  : typeof at === 'number' ? steps[at - 1]
+  : steps.find((s) => s.title.includes(at));
+if (!step) throw new Error(`OopFigure: 단계를 찾을 수 없음 (${model}/${variant}/${at})`);
+const diagram = model === 'cart' ? cartDiagram(step.state) : thisDiagram(step.state);
+const svg = renderDiagram(diagram, `Fig ${fig}. ${caption}`) + legend;
+---
+<figure class="oop-fig">
+  <Fragment set:html={svg} />
+  <figcaption><b>Fig {fig}.</b> {caption}</figcaption>
+</figure>

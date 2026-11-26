@@ -1,0 +1,9 @@
+---
+import '../../labs/engine/step-lab.css';
+import '../../labs/oop/object-diagram.css';
+---
+<div data-lab="this-binding"><noscript>이 실습은 JavaScript가 필요합니다.</noscript></div>
+<script>
+  import { mountThisBindingLab } from '../../labs/oop/this-binding';
+  document.querySelectorAll<HTMLElement>('[data-lab="this-binding"]').forEach((el) => mountThisBindingLab(el));
+</script>
